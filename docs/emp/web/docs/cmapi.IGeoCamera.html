@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>EMP3 Interface: IGeoCamera</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.cosmo.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">EMP3</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="namespaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="cmapi.html">cmapi</a></li><li><a href="cmapi.enums.html">cmapi.enums</a></li><li><a href="emp3.html">emp3</a></li><li><a href="emp3.api.html">emp3.api</a></li><li><a href="emp3.api.enums.html">emp3.api.enums</a></li><li><a href="emp3.api.events.html">emp3.api.events</a></li><li><a href="emp3.api.global.html">emp3.api.global</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="emp3.api.AirControlMeasure.html">emp3.api.AirControlMeasure</a></li><li><a href="emp3.api.Camera.html">emp3.api.Camera</a></li><li><a href="emp3.api.Circle.html">emp3.api.Circle</a></li><li><a href="emp3.api.Ellipse.html">emp3.api.Ellipse</a></li><li><a href="emp3.api.events.CameraEvent.html">emp3.api.events.CameraEvent</a></li><li><a href="emp3.api.events.ContainerEvent.html">emp3.api.events.ContainerEvent</a></li><li><a href="emp3.api.events.FeatureDrawEvent.html">emp3.api.events.FeatureDrawEvent</a></li><li><a href="emp3.api.events.FeatureEditEvent.html">emp3.api.events.FeatureEditEvent</a></li><li><a href="emp3.api.events.FeatureEvent.html">emp3.api.events.FeatureEvent</a></li><li><a href="emp3.api.events.FeatureUserInteractionEvent.html">emp3.api.events.FeatureUserInteractionEvent</a></li><li><a href="emp3.api.events.MapCursorMoveEvent.html">emp3.api.events.MapCursorMoveEvent</a></li><li><a href="emp3.api.events.MapFeatureAddedEvent.html">emp3.api.events.MapFeatureAddedEvent</a></li><li><a href="emp3.api.events.MapFeatureRemovedEvent.html">emp3.api.events.MapFeatureRemovedEvent</a></li><li><a href="emp3.api.events.MapFeatureUpdatedEvent.html">emp3.api.events.MapFeatureUpdatedEvent</a></li><li><a href="emp3.api.events.MapFreehandEvent.html">emp3.api.events.MapFreehandEvent</a></li><li><a href="emp3.api.events.MapStateChangeEvent.html">emp3.api.events.MapStateChangeEvent</a></li><li><a href="emp3.api.events.MapUserInteractionEvent.html">emp3.api.events.MapUserInteractionEvent</a></li><li><a href="emp3.api.events.MapViewChangeEvent.html">emp3.api.events.MapViewChangeEvent</a></li><li><a href="emp3.api.events.OverlayUpdatedEvent.html">emp3.api.events.OverlayUpdatedEvent</a></li><li><a href="emp3.api.events.UserInteractionEvent.html">emp3.api.events.UserInteractionEvent</a></li><li><a href="emp3.api.events.VisibilityEvent.html">emp3.api.events.VisibilityEvent</a></li><li><a href="emp3.api.GeoJSON.html">emp3.api.GeoJSON</a></li><li><a href="emp3.api.GeoPosition.html">emp3.api.GeoPosition</a></li><li><a href="emp3.api.KML.html">emp3.api.KML</a></li><li><a href="emp3.api.KMLLayer.html">emp3.api.KMLLayer</a></li><li><a href="emp3.api.LookAt.html">emp3.api.LookAt</a></li><li><a href="emp3.api.Map.html">emp3.api.Map</a></li><li><a href="emp3.api.MilStdSymbol.html">emp3.api.MilStdSymbol</a></li><li><a href="emp3.api.Overlay.html">emp3.api.Overlay</a></li><li><a href="emp3.api.Path.html">emp3.api.Path</a></li><li><a href="emp3.api.Point.html">emp3.api.Point</a></li><li><a href="emp3.api.Polygon.html">emp3.api.Polygon</a></li><li><a href="emp3.api.Rectangle.html">emp3.api.Rectangle</a></li><li><a href="emp3.api.Square.html">emp3.api.Square</a></li><li><a href="emp3.api.Text.html">emp3.api.Text</a></li><li><a href="emp3.api.WMS.html">emp3.api.WMS</a></li><li><a href="emp3.api.WMTS.html">emp3.api.WMTS</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="mixins.list.html" class="dropdown-toggle" data-toggle="dropdown">Mixins<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="Feature.html">Feature</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="interfaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Interfaces<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="cmapi.IGeoAirControlMeasure.html">cmapi.IGeoAirControlMeasure</a></li><li><a href="cmapi.IGeoAltitudeMode.html">cmapi.IGeoAltitudeMode</a></li><li><a href="cmapi.IGeoBase.html">cmapi.IGeoBase</a></li><li><a href="cmapi.IGeoBounds.html">cmapi.IGeoBounds</a></li><li><a href="cmapi.IGeoCamera.html">cmapi.IGeoCamera</a></li><li><a href="cmapi.IGeoCircle.html">cmapi.IGeoCircle</a></li><li><a href="cmapi.IGeoColor.html">cmapi.IGeoColor</a></li><li><a href="cmapi.IGeoContainer.html">cmapi.IGeoContainer</a></li><li><a href="cmapi.IGeoDocument.html">cmapi.IGeoDocument</a></li><li><a href="cmapi.IGeoEllipse.html">cmapi.IGeoEllipse</a></li><li><a href="cmapi.IGeoFillStyle.html">cmapi.IGeoFillStyle</a></li><li><a href="cmapi.IGeoIconStyle.html">cmapi.IGeoIconStyle</a></li><li><a href="cmapi.IGeoImageOverlay.html">cmapi.IGeoImageOverlay</a></li><li><a href="cmapi.IGeoLabelStyle.html">cmapi.IGeoLabelStyle</a></li><li><a href="cmapi.IGeoLookAt.html">cmapi.IGeoLookAt</a></li><li><a href="cmapi.IGeoMilSymbol.html">cmapi.IGeoMilSymbol</a></li><li><a href="cmapi.IGeoPath.html">cmapi.IGeoPath</a></li><li><a href="cmapi.IGeoPoint.html">cmapi.IGeoPoint</a></li><li><a href="cmapi.IGeoPolygon.html">cmapi.IGeoPolygon</a></li><li><a href="cmapi.IGeoPosition.html">cmapi.IGeoPosition</a></li><li><a href="cmapi.IGeoPositionGroup.html">cmapi.IGeoPositionGroup</a></li><li><a href="cmapi.IGeoPositionHistory.html">cmapi.IGeoPositionHistory</a></li><li><a href="cmapi.IGeoRectangle.html">cmapi.IGeoRectangle</a></li><li><a href="cmapi.IGeoRenderable.html">cmapi.IGeoRenderable</a></li><li><a href="cmapi.IGeoSquare.html">cmapi.IGeoSquare</a></li><li><a href="cmapi.IGeoStrokeStyle.html">cmapi.IGeoStrokeStyle</a></li><li><a href="cmapi.IGeoText.html">cmapi.IGeoText</a></li><li><a href="cmapi.IGeoTimeSpan.html">cmapi.IGeoTimeSpan</a></li><li><a href="cmapi.IGeoView.html">cmapi.IGeoView</a></li><li><a href="emp3.api.Container.html">emp3.api.Container</a></li><li><a href="emp3.api.Feature.html">emp3.api.Feature</a></li><li><a href="emp3.api.MapService.html">emp3.api.MapService</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="global.html">Global</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+        
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-8">
+	
+		<div id="main">
+			
+
+	<h1 class="page-title">Interface: IGeoCamera</h1>
+<section>
+
+<header>
+    
+        <h2>
+            <span class="ancestors"><a href="cmapi.html">cmapi</a>.</span>
+        
+        IGeoCamera
+        </h2>
+        
+    
+</header>
+
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Defines the virtual camera that views the scene. This element defines the position of the camera relative to the Earth's surface as well as the viewing direction of the camera. The camera position is defined by <longitude>, <latitude>, <altitude>, and either <altitudeMode>. The viewing direction of the camera is defined by <azimuth>, <tilt>, and <roll>. An IGeoCamera provides full six-degrees-of-freedom control over the view, so you can position the Camera in space and then rotate it around the X, Y, and Z axes. Most importantly, you can tilt the camera view so that you're looking above the horizon into the sky. The order of rotation is important. By default, the camera is looking straight down the −Z axis toward the Earth. Before rotations are performed, the camera is translated along the Z axis to <altitude>. The order of transformations is as follows: <altitude> - translate along the Z axis to <altitude><azimuth> - rotate around the Z axis.<tilt> - rotate around the X axis.<roll> - rotate around the Z axis (again). Note that each time a rotation is applied, two of the camera axes change their orientation.</p></div>
+        
+
+        
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+        
+    
+    </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li><a href="cmapi.IGeoBase.html">cmapi.IGeoBase</a></li>
+    </ul>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        <dl>
+            
+<hr>
+<dt class="name" id="altitude">
+    <h4 id="altitude"><span class="type-signature"></span>altitude<span class="type-signature"> :number</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>A value in meters representing the altitude of the associated position.  This will be interpreted base on the altitudeMode provided in the IGeoAltitudeMode enumeration</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">number</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="altitudeMode">
+    <h4 id="altitudeMode"><span class="type-signature"></span>altitudeMode<span class="type-signature"> :<a href="cmapi.enums.html#.altitudeMode">cmapi.enums.altitudeMode</a></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Enumeration of altitude modes to define how the altitude value in an IGeoPosition alt (altitude) property will be interpreted</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type"><a href="cmapi.enums.html#.altitudeMode">cmapi.enums.altitudeMode</a></span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="dataProviderId">
+    <h4 id="dataProviderId"><span class="type-signature"></span>dataProviderId<span class="type-signature"> :string</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>This is a free form string that can represent an ID specific to this piece of data as it is tracked uniquely by the system providing this data.  This is different from GeoId as the GeoId is of type UUID.  Some systems may use IDs formatted in a way that it cannot be stored in a UUID.  In this case, this property can be used by the system to track this psece of data by the ID they use internally.  The GeoID proerty will be used by CMAPI as the unique ID and this ID is for the benefit of the system providing the data.</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">string</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="cmapi.IGeoBase.html#dataProviderId">cmapi.IGeoBase#dataProviderId</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="description">
+    <h4 id="description"><span class="type-signature"></span>description<span class="type-signature"> :string</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>A simple string, or HTML formatted string that can be displayed to describe the IGeoBase.  In the case of a feature the description property can be used to store the content that should display in a pop up window after clicking on a feature.</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">string</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="cmapi.IGeoBase.html#description">cmapi.IGeoBase#description</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="geoId">
+    <h4 id="geoId"><span class="type-signature"></span>geoId<span class="type-signature"> :string</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>The id value should be a UUID @see <a href="https://www.ietf.org/rfc/rfc4122.txt">https://www.ietf.org/rfc/rfc4122.txt</a> to avoid conflict of data from multiple sources.  All id values SHALL be unique regardless of type and conflicting id values will be treated as the same element.  Once this ID is set, it should not be changed to avoid refernces by ID to break.  The setter is provided so that an item can be deserialized from an object with an exisitng ID or provided an exisiting ID immediately after instantiation.</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">string</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="cmapi.IGeoBase.html#geoId">cmapi.IGeoBase#geoId</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="heading">
+    <h4 id="heading"><span class="type-signature"></span>heading<span class="type-signature"> :number</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Direction (that is, North, South, East, West), in degrees. Default=0 (North). Values range from 0 to 360 degrees</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">number</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="latitude">
+    <h4 id="latitude"><span class="type-signature"></span>latitude<span class="type-signature"> :number</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Latitude value in degrees decimal (i.e. 23.4567) derived from WGS-84</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">number</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="longitude">
+    <h4 id="longitude"><span class="type-signature"></span>longitude<span class="type-signature"> :number</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Longitude value in degrees decimal (i.e. 23.4567) derived from WGS-84</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">number</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="name">
+    <h4 id="name"><span class="type-signature"></span>name<span class="type-signature"> :string</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Name is used to display text labels alongside to a feature and can be used in user interfaces that manage the data on the map</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">string</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="cmapi.IGeoBase.html#name">cmapi.IGeoBase#name</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="properties">
+    <h4 id="properties"><span class="type-signature"></span>properties<span class="type-signature"> :object</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>A key value pair where both the key and value where the key is a unique string and the value is an object that can be stored as and read from a string.  In cases where an IGeoBase will be serialized all of the values will be serialized using the objects toString() method.  It is the resposibility of the applications accessing values stored in the properties hash map to determine if the value is in a string format and convert back to whatever object type the string was derived from.  The object should not contain any references to other objects where that relationship is expected to exist beyond copying a current value of a simple type as the relationship will not be properly restored when deserialization occurs.  CMAPI will not use the properties hash for any internal purpose, it will simply allow 3rd party data to pass additional attributes that will stay associated with the CMAPI object as it moves between applications and systems.</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
+	<dd class="inherited-from">
+		<ul class="dummy">
+			<li>
+				<a href="cmapi.IGeoBase.html#properties">cmapi.IGeoBase#properties</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="roll">
+    <h4 id="roll"><span class="type-signature"></span>roll<span class="type-signature"> :number</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Rotation, in degrees, of the camera around the Z axis. Values range from −180 to +180 degrees</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">number</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="tilt">
+    <h4 id="tilt"><span class="type-signature"></span>tilt<span class="type-signature"> :number</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Rotation, in degrees, of the camera around the X axis. A value of 0 indicates that the view is aimed straight down toward the earth (the most common case). A value for 90 for <tilt> indicates that the view is aimed toward the horizon. Values greater than 90 indicate that the view is pointed up into the sky. Values for <tilt> are clamped at +180 degrees</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">number</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+		<div class="col-md-3">
+			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
+		</div>
+	
+
+</div>
+</div>
+
+
+    <div class="modal fade" id="searchResults">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Search results</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
+
+<footer>
+
+
+	<span class="copyright">
+	US Army SEC
+	</span>
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
+	
+		on Thu Feb 23rd 2017
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+
+    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : false,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			return $( heading ).attr( "id" ) || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            SearcherDisplay.init();
+        });
+    </script>
+
+
+</body>
+</html>
