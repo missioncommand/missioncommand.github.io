@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>package org.cmapi.primitives;<a name="line.1"></a>
+<span class="sourceLineNo">002</span><a name="line.2"></a>
+<span class="sourceLineNo">003</span><a name="line.3"></a>
+<span class="sourceLineNo">004</span>  /**<a name="line.4"></a>
+<span class="sourceLineNo">005</span>   *  An ordered list of positions representing a 1 or more positions with an<a name="line.5"></a>
+<span class="sourceLineNo">006</span>   *  associated IGeoAltitudeMode to interpret the altitude values.  In the<a name="line.6"></a>
+<span class="sourceLineNo">007</span>   *  case of a point, a single position will create a single icon, wheras mulitple<a name="line.7"></a>
+<span class="sourceLineNo">008</span>   *  positions will create the same icon at multiple positions to be interpreted as<a name="line.8"></a>
+<span class="sourceLineNo">009</span>   *  a composite feature. For consistency, and IGeoRenderables use an IGeoPositionGroup<a name="line.9"></a>
+<span class="sourceLineNo">010</span>   *  even when only containing a single position<a name="line.10"></a>
+<span class="sourceLineNo">011</span>   */<a name="line.11"></a>
+<span class="sourceLineNo">012</span>  public class GeoPositionGroup extends GeoAltitudeMode implements IGeoPositionGroup  {<a name="line.12"></a>
+<span class="sourceLineNo">013</span><a name="line.13"></a>
+<span class="sourceLineNo">014</span>    private java.util.List&lt;IGeoPosition&gt; positions = new java.util.ArrayList&lt;IGeoPosition&gt;();<a name="line.14"></a>
+<span class="sourceLineNo">015</span>    private java.util.Date timeStamp;<a name="line.15"></a>
+<span class="sourceLineNo">016</span>    private java.util.List&lt;IGeoTimeSpan&gt; timeSpans = new java.util.ArrayList&lt;IGeoTimeSpan&gt;();<a name="line.16"></a>
+<span class="sourceLineNo">017</span><a name="line.17"></a>
+<span class="sourceLineNo">018</span>  /**<a name="line.18"></a>
+<span class="sourceLineNo">019</span>   * @param positions        An ordered list of IGeoPosition objects representing a 1 or more positions with an associated IGeoAltitudeMode to interpret the altitude values.  In the case of a point, a single position will create a single icon, wheras mulitple positions will create the same icon at multiple positions to be interpreted as a composite feature. For consistency, and IGeoRenderables use an IGeoPositionGroup even when only containing a single positions<a name="line.19"></a>
+<span class="sourceLineNo">020</span>   */<a name="line.20"></a>
+<span class="sourceLineNo">021</span>    public void setPositions(java.util.List&lt;IGeoPosition&gt; positions){<a name="line.21"></a>
+<span class="sourceLineNo">022</span>      this.positions = positions;<a name="line.22"></a>
+<span class="sourceLineNo">023</span>    }<a name="line.23"></a>
+<span class="sourceLineNo">024</span><a name="line.24"></a>
+<span class="sourceLineNo">025</span><a name="line.25"></a>
+<span class="sourceLineNo">026</span>  /**<a name="line.26"></a>
+<span class="sourceLineNo">027</span>   * @return positions        An ordered list of IGeoPosition objects representing a 1 or more positions with an associated IGeoAltitudeMode to interpret the altitude values.  In the case of a point, a single position will create a single icon, wheras mulitple positions will create the same icon at multiple positions to be interpreted as a composite feature. For consistency, and IGeoRenderables use an IGeoPositionGroup even when only containing a single positions<a name="line.27"></a>
+<span class="sourceLineNo">028</span>   */<a name="line.28"></a>
+<span class="sourceLineNo">029</span>    public java.util.List&lt;IGeoPosition&gt; getPositions(){<a name="line.29"></a>
+<span class="sourceLineNo">030</span>      return this.positions;<a name="line.30"></a>
+<span class="sourceLineNo">031</span>    }<a name="line.31"></a>
+<span class="sourceLineNo">032</span><a name="line.32"></a>
+<span class="sourceLineNo">033</span><a name="line.33"></a>
+<span class="sourceLineNo">034</span>  /**<a name="line.34"></a>
+<span class="sourceLineNo">035</span>   * @param timeStamp        Defines a point in time that something occurred, was created, or was last updated time value as defined by http://tools.ietf.org/html/rfc3339<a name="line.35"></a>
+<span class="sourceLineNo">036</span>   */<a name="line.36"></a>
+<span class="sourceLineNo">037</span>    public void setTimeStamp(java.util.Date timeStamp){<a name="line.37"></a>
+<span class="sourceLineNo">038</span>      this.timeStamp = timeStamp;<a name="line.38"></a>
+<span class="sourceLineNo">039</span>    }<a name="line.39"></a>
+<span class="sourceLineNo">040</span><a name="line.40"></a>
+<span class="sourceLineNo">041</span><a name="line.41"></a>
+<span class="sourceLineNo">042</span>  /**<a name="line.42"></a>
+<span class="sourceLineNo">043</span>   * @return timeStamp        Defines a point in time that something occurred, was created, or was last updated time value as defined by http://tools.ietf.org/html/rfc3339<a name="line.43"></a>
+<span class="sourceLineNo">044</span>   */<a name="line.44"></a>
+<span class="sourceLineNo">045</span>    public java.util.Date getTimeStamp(){<a name="line.45"></a>
+<span class="sourceLineNo">046</span>      return this.timeStamp;<a name="line.46"></a>
+<span class="sourceLineNo">047</span>    }<a name="line.47"></a>
+<span class="sourceLineNo">048</span><a name="line.48"></a>
+<span class="sourceLineNo">049</span><a name="line.49"></a>
+<span class="sourceLineNo">050</span>  /**<a name="line.50"></a>
+<span class="sourceLineNo">051</span>   * @param timeSpans        Defines one or more periods of time something occured, or was active.<a name="line.51"></a>
+<span class="sourceLineNo">052</span>   */<a name="line.52"></a>
+<span class="sourceLineNo">053</span>    public void setTimeSpans(java.util.List&lt;IGeoTimeSpan&gt; timeSpans){<a name="line.53"></a>
+<span class="sourceLineNo">054</span>      this.timeSpans = timeSpans;<a name="line.54"></a>
+<span class="sourceLineNo">055</span>    }<a name="line.55"></a>
+<span class="sourceLineNo">056</span><a name="line.56"></a>
+<span class="sourceLineNo">057</span><a name="line.57"></a>
+<span class="sourceLineNo">058</span>  /**<a name="line.58"></a>
+<span class="sourceLineNo">059</span>   * @return timeSpans        Defines one or more periods of time something occured, or was active.<a name="line.59"></a>
+<span class="sourceLineNo">060</span>   */<a name="line.60"></a>
+<span class="sourceLineNo">061</span>    public java.util.List&lt;IGeoTimeSpan&gt; getTimeSpans(){<a name="line.61"></a>
+<span class="sourceLineNo">062</span>      return this.timeSpans;<a name="line.62"></a>
+<span class="sourceLineNo">063</span>    }<a name="line.63"></a>
+<span class="sourceLineNo">064</span><a name="line.64"></a>
+<span class="sourceLineNo">065</span>  }<a name="line.65"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>package org.cmapi.primitives;<a name="line.1"></a>
+<span class="sourceLineNo">002</span><a name="line.2"></a>
+<span class="sourceLineNo">003</span><a name="line.3"></a>
+<span class="sourceLineNo">004</span>  /**<a name="line.4"></a>
+<span class="sourceLineNo">005</span>   *  Defines the virtual camera that views the scene. This element defines the<a name="line.5"></a>
+<span class="sourceLineNo">006</span>   *  position of the camera relative to the Earth's surface as well as the<a name="line.6"></a>
+<span class="sourceLineNo">007</span>   *  viewing direction of the camera. The camera position is defined by &lt;longitude&gt;,<a name="line.7"></a>
+<span class="sourceLineNo">008</span>   *  &lt;latitude&gt;, &lt;altitude&gt;, and either &lt;altitudeMode&gt;. The viewing direction of<a name="line.8"></a>
+<span class="sourceLineNo">009</span>   *  the camera is defined by &lt;azimuth&gt;, &lt;tilt&gt;, and &lt;roll&gt;. An IGeoCamera provides<a name="line.9"></a>
+<span class="sourceLineNo">010</span>   *  full six-degrees-of-freedom control over the view, so you can position the<a name="line.10"></a>
+<span class="sourceLineNo">011</span>   *  Camera in space and then rotate it around the X, Y, and Z axes. Most importantly,<a name="line.11"></a>
+<span class="sourceLineNo">012</span>   *  you can tilt the camera view so that you're looking above the horizon into<a name="line.12"></a>
+<span class="sourceLineNo">013</span>   *  the sky. The order of rotation is important. By default, the camera is<a name="line.13"></a>
+<span class="sourceLineNo">014</span>   *  looking straight down the −Z axis toward the Earth. Before rotations are<a name="line.14"></a>
+<span class="sourceLineNo">015</span>   *  performed, the camera is translated along the Z axis to &lt;altitude&gt;. The<a name="line.15"></a>
+<span class="sourceLineNo">016</span>   *  order of transformations is as follows: &lt;altitude&gt; - translate along the<a name="line.16"></a>
+<span class="sourceLineNo">017</span>   *  Z axis to &lt;altitude&gt;&lt;azimuth&gt; - rotate around the Z axis.&lt;tilt&gt; - rotate<a name="line.17"></a>
+<span class="sourceLineNo">018</span>   *  around the X axis.&lt;roll&gt; - rotate around the Z axis (again). Note that<a name="line.18"></a>
+<span class="sourceLineNo">019</span>   *  each time a rotation is applied, two of the camera axes change their orientation.<a name="line.19"></a>
+<span class="sourceLineNo">020</span>   */<a name="line.20"></a>
+<span class="sourceLineNo">021</span>public interface IGeoCamera extends IGeoBase, IGeoAltitudeMode, IGeoPosition {<a name="line.21"></a>
+<span class="sourceLineNo">022</span><a name="line.22"></a>
+<span class="sourceLineNo">023</span>  /**<a name="line.23"></a>
+<span class="sourceLineNo">024</span>   *  Rotation, in degrees, of the camera around the X axis. A value of 0<a name="line.24"></a>
+<span class="sourceLineNo">025</span>   *  indicates that the view is aimed straight down toward the earth (the most<a name="line.25"></a>
+<span class="sourceLineNo">026</span>   *  common case). A value for 90 for &lt;tilt&gt; indicates that the view is aimed<a name="line.26"></a>
+<span class="sourceLineNo">027</span>   *  toward the horizon. Values greater than 90 indicate that the view is<a name="line.27"></a>
+<span class="sourceLineNo">028</span>   *  pointed up into the sky. Values for &lt;tilt&gt; are clamped at +180 degrees<a name="line.28"></a>
+<span class="sourceLineNo">029</span>   */<a name="line.29"></a>
+<span class="sourceLineNo">030</span>    public void setTilt(double tilt);<a name="line.30"></a>
+<span class="sourceLineNo">031</span><a name="line.31"></a>
+<span class="sourceLineNo">032</span>    public double getTilt();<a name="line.32"></a>
+<span class="sourceLineNo">033</span><a name="line.33"></a>
+<span class="sourceLineNo">034</span><a name="line.34"></a>
+<span class="sourceLineNo">035</span>  /**<a name="line.35"></a>
+<span class="sourceLineNo">036</span>   *  Rotation, in degrees, of the camera around the Z axis. Values range from<a name="line.36"></a>
+<span class="sourceLineNo">037</span>   *  −180 to +180 degrees<a name="line.37"></a>
+<span class="sourceLineNo">038</span>   */<a name="line.38"></a>
+<span class="sourceLineNo">039</span>    public void setRoll(double roll);<a name="line.39"></a>
+<span class="sourceLineNo">040</span><a name="line.40"></a>
+<span class="sourceLineNo">041</span>    public double getRoll();<a name="line.41"></a>
+<span class="sourceLineNo">042</span><a name="line.42"></a>
+<span class="sourceLineNo">043</span><a name="line.43"></a>
+<span class="sourceLineNo">044</span>  /**<a name="line.44"></a>
+<span class="sourceLineNo">045</span>   *  Direction (that is, North, South, East, West), in degrees. Default=0 (North).<a name="line.45"></a>
+<span class="sourceLineNo">046</span>   *  Values range from 0 to 360 degrees<a name="line.46"></a>
+<span class="sourceLineNo">047</span>   */<a name="line.47"></a>
+<span class="sourceLineNo">048</span>    public void setHeading(double heading);<a name="line.48"></a>
+<span class="sourceLineNo">049</span><a name="line.49"></a>
+<span class="sourceLineNo">050</span>    public double getHeading();<a name="line.50"></a>
+<span class="sourceLineNo">051</span><a name="line.51"></a>
+<span class="sourceLineNo">052</span>}<a name="line.52"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

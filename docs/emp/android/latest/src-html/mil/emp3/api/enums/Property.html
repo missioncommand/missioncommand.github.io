@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>package mil.emp3.api.enums;<a name="line.1"></a>
+<span class="sourceLineNo">002</span><a name="line.2"></a>
+<span class="sourceLineNo">003</span>/**<a name="line.3"></a>
+<span class="sourceLineNo">004</span> * Configuration property keys used by properties parameter of various API calls. Each enumerated<a name="line.4"></a>
+<span class="sourceLineNo">005</span> * value requires a specific value type.<a name="line.5"></a>
+<span class="sourceLineNo">006</span> */<a name="line.6"></a>
+<span class="sourceLineNo">007</span>public enum Property {<a name="line.7"></a>
+<span class="sourceLineNo">008</span>    /**<a name="line.8"></a>
+<span class="sourceLineNo">009</span>     * Fully qualified class name for a map engine. Property value must be of String type<a name="line.9"></a>
+<span class="sourceLineNo">010</span>     */<a name="line.10"></a>
+<span class="sourceLineNo">011</span>    ENGINE_CLASSNAME ("engine.className"),<a name="line.11"></a>
+<span class="sourceLineNo">012</span>    /**<a name="line.12"></a>
+<span class="sourceLineNo">013</span>     * Fully qualified android APK name that contains an implementation of engine.className. Property value must be of String type.<a name="line.13"></a>
+<span class="sourceLineNo">014</span>     */<a name="line.14"></a>
+<span class="sourceLineNo">015</span>    ENGINE_APKNAME   ("engine.apkName")  ,<a name="line.15"></a>
+<span class="sourceLineNo">016</span>    /**<a name="line.16"></a>
+<span class="sourceLineNo">017</span>     * Stroke color used to highlight selected feature(s) (Features selected using selectFeature method of IMap). The property value must be of<a name="line.17"></a>
+<span class="sourceLineNo">018</span>     * type IGeoColor. The default color is yellow.<a name="line.18"></a>
+<span class="sourceLineNo">019</span>     */<a name="line.19"></a>
+<span class="sourceLineNo">020</span>    DEFAULT_SELECT_STROKE_COLOR ("default.stroke.color"),<a name="line.20"></a>
+<span class="sourceLineNo">021</span>    /**<a name="line.21"></a>
+<span class="sourceLineNo">022</span>     * Scale factor to use when an icon type feature is selected. Property value must be of type double. The default value is 1.2.<a name="line.22"></a>
+<span class="sourceLineNo">023</span>     */<a name="line.23"></a>
+<span class="sourceLineNo">024</span>    DEFAULT_SELECT_ICON_SCALE   ("default.icon.scale"),<a name="line.24"></a>
+<span class="sourceLineNo">025</span>    /**<a name="line.25"></a>
+<span class="sourceLineNo">026</span>     * Debug setting for the API and implementation code. Property value must be of type boolean. The default is<a name="line.26"></a>
+<span class="sourceLineNo">027</span>     * false. Setting this value to true will generate additional log statements.<a name="line.27"></a>
+<span class="sourceLineNo">028</span>     */<a name="line.28"></a>
+<span class="sourceLineNo">029</span>    DEBUG                       ("debug"),<a name="line.29"></a>
+<span class="sourceLineNo">030</span>    /**<a name="line.30"></a>
+<span class="sourceLineNo">031</span>     * Proxy url to be used when a feature or map service set useProxy to true. The default value is null. Property value must be of type string.<a name="line.31"></a>
+<span class="sourceLineNo">032</span>     */<a name="line.32"></a>
+<span class="sourceLineNo">033</span>    PROXY_URL                   ("proxy.url"),<a name="line.33"></a>
+<span class="sourceLineNo">034</span>    /**<a name="line.34"></a>
+<span class="sourceLineNo">035</span>     * MirrorCache mode to be used. The default value is {@link mil.emp3.api.enums.MirrorCacheModeEnum#DISABLED}. This property requires a<a name="line.35"></a>
+<span class="sourceLineNo">036</span>     * {@link mil.emp3.api.enums.MirrorCacheModeEnum} value.<a name="line.36"></a>
+<span class="sourceLineNo">037</span>     */<a name="line.37"></a>
+<span class="sourceLineNo">038</span>    MIRROR_CACHE_MODE           ("mirror.cache.mode"),<a name="line.38"></a>
+<span class="sourceLineNo">039</span>    ;<a name="line.39"></a>
+<span class="sourceLineNo">040</span><a name="line.40"></a>
+<span class="sourceLineNo">041</span>    final private String value;<a name="line.41"></a>
+<span class="sourceLineNo">042</span>    Property(String value) {<a name="line.42"></a>
+<span class="sourceLineNo">043</span>        this.value = value;<a name="line.43"></a>
+<span class="sourceLineNo">044</span>    }<a name="line.44"></a>
+<span class="sourceLineNo">045</span><a name="line.45"></a>
+<span class="sourceLineNo">046</span>    public String getValue() {<a name="line.46"></a>
+<span class="sourceLineNo">047</span>        return value;<a name="line.47"></a>
+<span class="sourceLineNo">048</span>    }<a name="line.48"></a>
+<span class="sourceLineNo">049</span><a name="line.49"></a>
+<span class="sourceLineNo">050</span>    static public Property fromValue(String v) {<a name="line.50"></a>
+<span class="sourceLineNo">051</span>        for (Property c : Property.values()) {<a name="line.51"></a>
+<span class="sourceLineNo">052</span>            if (c.value.equals(v)) {<a name="line.52"></a>
+<span class="sourceLineNo">053</span>                return c;<a name="line.53"></a>
+<span class="sourceLineNo">054</span>            }<a name="line.54"></a>
+<span class="sourceLineNo">055</span>        }<a name="line.55"></a>
+<span class="sourceLineNo">056</span>        throw new IllegalArgumentException(v);<a name="line.56"></a>
+<span class="sourceLineNo">057</span>    }<a name="line.57"></a>
+<span class="sourceLineNo">058</span>}<a name="line.58"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>
