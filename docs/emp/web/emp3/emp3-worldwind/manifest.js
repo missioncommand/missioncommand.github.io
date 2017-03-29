@@ -93,11 +93,10 @@ function initializeWorldwind(args) {
       }
 
       var empWorldWind = new EMPWorldWind.map(wwd);
-      empWorldWind.initialize(instArgs);
+      empWorldWind.initialize(instArgs.mapInstance);
       instArgs.mapInstance.engine.initialize.succeed(empWorldWind);
     } catch (err) {
       instArgs.mapInstance.engine.initialize.fail(err);
-      window.console.log("+++++++++++++error initilaizing engine: " + err);
     }
   }
 
