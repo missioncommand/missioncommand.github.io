@@ -8,13 +8,13 @@
 <div class="sourceContainer">
 <pre><span class="sourceLineNo">001</span>package mil.emp3.api;<a name="line.1"></a>
 <span class="sourceLineNo">002</span><a name="line.2"></a>
-<span class="sourceLineNo">003</span>import org.cmapi.primitives.GeoBase;<a name="line.3"></a>
-<span class="sourceLineNo">004</span>import org.cmapi.primitives.GeoCamera;<a name="line.4"></a>
-<span class="sourceLineNo">005</span>import org.cmapi.primitives.IGeoAltitudeMode;<a name="line.5"></a>
-<span class="sourceLineNo">006</span>import org.cmapi.primitives.IGeoCamera;<a name="line.6"></a>
+<span class="sourceLineNo">003</span>import org.cmapi.primitives.GeoCamera;<a name="line.3"></a>
+<span class="sourceLineNo">004</span>import org.cmapi.primitives.IGeoAltitudeMode;<a name="line.4"></a>
+<span class="sourceLineNo">005</span>import org.cmapi.primitives.IGeoCamera;<a name="line.5"></a>
+<span class="sourceLineNo">006</span>import org.cmapi.primitives.IGeoPosition;<a name="line.6"></a>
 <span class="sourceLineNo">007</span><a name="line.7"></a>
-<span class="sourceLineNo">008</span>import java.security.InvalidParameterException;<a name="line.8"></a>
-<span class="sourceLineNo">009</span>import java.util.HashMap;<a name="line.9"></a>
+<span class="sourceLineNo">008</span>import java.util.HashMap;<a name="line.8"></a>
+<span class="sourceLineNo">009</span>import java.util.Locale;<a name="line.9"></a>
 <span class="sourceLineNo">010</span>import java.util.UUID;<a name="line.10"></a>
 <span class="sourceLineNo">011</span><a name="line.11"></a>
 <span class="sourceLineNo">012</span>import mil.emp3.api.enums.EventListenerTypeEnum;<a name="line.12"></a>
@@ -57,271 +57,349 @@
 <span class="sourceLineNo">049</span>     * @param camera An object that implements the IGeoCamera interface. See {@link IGeoCamera}<a name="line.49"></a>
 <span class="sourceLineNo">050</span>     */<a name="line.50"></a>
 <span class="sourceLineNo">051</span>    public Camera(IGeoCamera camera) {<a name="line.51"></a>
-<span class="sourceLineNo">052</span>        this.geoCamera = camera;<a name="line.52"></a>
-<span class="sourceLineNo">053</span>        if (this.geoCamera.getAltitudeMode() == null) {<a name="line.53"></a>
-<span class="sourceLineNo">054</span>            this.geoCamera.setAltitudeMode(AltitudeMode.ABSOLUTE);<a name="line.54"></a>
-<span class="sourceLineNo">055</span>        }<a name="line.55"></a>
-<span class="sourceLineNo">056</span>    }<a name="line.56"></a>
-<span class="sourceLineNo">057</span><a name="line.57"></a>
-<span class="sourceLineNo">058</span>    /**<a name="line.58"></a>
-<span class="sourceLineNo">059</span>     * Copy constructor<a name="line.59"></a>
-<span class="sourceLineNo">060</span>     */<a name="line.60"></a>
-<span class="sourceLineNo">061</span><a name="line.61"></a>
-<span class="sourceLineNo">062</span>    public Camera(ICamera from) {<a name="line.62"></a>
-<span class="sourceLineNo">063</span>        this.geoCamera = new GeoCamera();<a name="line.63"></a>
-<span class="sourceLineNo">064</span>        copySettingsFrom(from);<a name="line.64"></a>
-<span class="sourceLineNo">065</span>        if (this.geoCamera.getAltitudeMode() == null) {<a name="line.65"></a>
-<span class="sourceLineNo">066</span>            this.geoCamera.setAltitudeMode(AltitudeMode.ABSOLUTE);<a name="line.66"></a>
-<span class="sourceLineNo">067</span>        }<a name="line.67"></a>
-<span class="sourceLineNo">068</span>    }<a name="line.68"></a>
-<span class="sourceLineNo">069</span><a name="line.69"></a>
-<span class="sourceLineNo">070</span>    /**<a name="line.70"></a>
-<span class="sourceLineNo">071</span>     * Everything except geoId is copied as we don't want to change geoId after instantiation.<a name="line.71"></a>
-<span class="sourceLineNo">072</span>     * @param from An object that implements the ICamera interface.<a name="line.72"></a>
-<span class="sourceLineNo">073</span>     */<a name="line.73"></a>
-<span class="sourceLineNo">074</span>    @Override<a name="line.74"></a>
-<span class="sourceLineNo">075</span>    public void copySettingsFrom (ICamera from) {<a name="line.75"></a>
-<span class="sourceLineNo">076</span>        this.geoCamera.setAltitude(from.getAltitude());<a name="line.76"></a>
-<span class="sourceLineNo">077</span>        this.geoCamera.setAltitudeMode(from.getAltitudeMode());<a name="line.77"></a>
-<span class="sourceLineNo">078</span>        this.geoCamera.setHeading(from.getHeading());<a name="line.78"></a>
-<span class="sourceLineNo">079</span>        this.geoCamera.setLatitude(from.getLatitude());<a name="line.79"></a>
-<span class="sourceLineNo">080</span>        this.geoCamera.setLongitude(from.getLongitude());<a name="line.80"></a>
-<span class="sourceLineNo">081</span>        this.geoCamera.setRoll(from.getRoll());<a name="line.81"></a>
-<span class="sourceLineNo">082</span>        this.geoCamera.setTilt(from.getTilt());<a name="line.82"></a>
-<span class="sourceLineNo">083</span>    }<a name="line.83"></a>
-<span class="sourceLineNo">084</span>    <a name="line.84"></a>
-<span class="sourceLineNo">085</span>    @Override<a name="line.85"></a>
-<span class="sourceLineNo">086</span>    public EventListenerHandle addCameraEventListener(ICameraEventListener listener) throws EMP_Exception {<a name="line.86"></a>
-<span class="sourceLineNo">087</span>        return eventManager.addEventHandler(EventListenerTypeEnum.CAMERA_EVENT_LISTENER, this, listener);<a name="line.87"></a>
-<span class="sourceLineNo">088</span>    }<a name="line.88"></a>
-<span class="sourceLineNo">089</span><a name="line.89"></a>
-<span class="sourceLineNo">090</span>    @Override<a name="line.90"></a>
-<span class="sourceLineNo">091</span>    public void removeEventListener(EventListenerHandle listenerHandle) {<a name="line.91"></a>
-<span class="sourceLineNo">092</span>        eventManager.removeEventHandler(listenerHandle);<a name="line.92"></a>
-<span class="sourceLineNo">093</span>    }<a name="line.93"></a>
-<span class="sourceLineNo">094</span><a name="line.94"></a>
-<span class="sourceLineNo">095</span>    /**<a name="line.95"></a>
-<span class="sourceLineNo">096</span>     * This method sets the tilt on the camera.<a name="line.96"></a>
-<span class="sourceLineNo">097</span>     * @param value The tilt angle in degrees. The valid range is 0 - 180. A 0 deg tilt points the camera downward, a 90 deg tilt points the camera towards the horizon, and a 180 deg tilt points the camera skyward. An InvalidParameterException is raised if the value is out of range or NaN.<a name="line.97"></a>
+<span class="sourceLineNo">052</span>        if(null == camera) {<a name="line.52"></a>
+<span class="sourceLineNo">053</span>            this.geoCamera = new GeoCamera();<a name="line.53"></a>
+<span class="sourceLineNo">054</span>        } else {<a name="line.54"></a>
+<span class="sourceLineNo">055</span>            this.geoCamera = camera;<a name="line.55"></a>
+<span class="sourceLineNo">056</span>        }<a name="line.56"></a>
+<span class="sourceLineNo">057</span>        if (this.geoCamera.getAltitudeMode() == null) {<a name="line.57"></a>
+<span class="sourceLineNo">058</span>            this.geoCamera.setAltitudeMode(AltitudeMode.ABSOLUTE);<a name="line.58"></a>
+<span class="sourceLineNo">059</span>        }<a name="line.59"></a>
+<span class="sourceLineNo">060</span>        validate();<a name="line.60"></a>
+<span class="sourceLineNo">061</span>    }<a name="line.61"></a>
+<span class="sourceLineNo">062</span><a name="line.62"></a>
+<span class="sourceLineNo">063</span>    /**<a name="line.63"></a>
+<span class="sourceLineNo">064</span>     * Copy constructor<a name="line.64"></a>
+<span class="sourceLineNo">065</span>     */<a name="line.65"></a>
+<span class="sourceLineNo">066</span><a name="line.66"></a>
+<span class="sourceLineNo">067</span>    public Camera(ICamera from) {<a name="line.67"></a>
+<span class="sourceLineNo">068</span>        if(null == from) {<a name="line.68"></a>
+<span class="sourceLineNo">069</span>            throw new IllegalArgumentException("from Camera must be non-null");<a name="line.69"></a>
+<span class="sourceLineNo">070</span>        }<a name="line.70"></a>
+<span class="sourceLineNo">071</span>        this.geoCamera = new GeoCamera();<a name="line.71"></a>
+<span class="sourceLineNo">072</span>        copySettingsFrom(from);<a name="line.72"></a>
+<span class="sourceLineNo">073</span>        if (this.geoCamera.getAltitudeMode() == null) {<a name="line.73"></a>
+<span class="sourceLineNo">074</span>            this.geoCamera.setAltitudeMode(AltitudeMode.ABSOLUTE);<a name="line.74"></a>
+<span class="sourceLineNo">075</span>        }<a name="line.75"></a>
+<span class="sourceLineNo">076</span>    }<a name="line.76"></a>
+<span class="sourceLineNo">077</span><a name="line.77"></a>
+<span class="sourceLineNo">078</span>    /**<a name="line.78"></a>
+<span class="sourceLineNo">079</span>     * Build a camera using specified position. If altitudeMode is null then GeoCamera default is maintained.<a name="line.79"></a>
+<span class="sourceLineNo">080</span>     * An exception will be thrown if any of the position parameters are null.<a name="line.80"></a>
+<span class="sourceLineNo">081</span>     * @param latitude<a name="line.81"></a>
+<span class="sourceLineNo">082</span>     * @param longitude<a name="line.82"></a>
+<span class="sourceLineNo">083</span>     * @param altitude<a name="line.83"></a>
+<span class="sourceLineNo">084</span>     * @param altitudeMode<a name="line.84"></a>
+<span class="sourceLineNo">085</span>     */<a name="line.85"></a>
+<span class="sourceLineNo">086</span>    public Camera(double latitude, double longitude, double altitude, AltitudeMode altitudeMode) {<a name="line.86"></a>
+<span class="sourceLineNo">087</span>        this.geoCamera = new GeoCamera();<a name="line.87"></a>
+<span class="sourceLineNo">088</span>        if (this.geoCamera.getAltitudeMode() == null) {<a name="line.88"></a>
+<span class="sourceLineNo">089</span>            this.geoCamera.setAltitudeMode(AltitudeMode.ABSOLUTE);<a name="line.89"></a>
+<span class="sourceLineNo">090</span>        }<a name="line.90"></a>
+<span class="sourceLineNo">091</span>        setPosition(latitude, longitude, altitude, altitudeMode);<a name="line.91"></a>
+<span class="sourceLineNo">092</span>    }<a name="line.92"></a>
+<span class="sourceLineNo">093</span><a name="line.93"></a>
+<span class="sourceLineNo">094</span>    /**<a name="line.94"></a>
+<span class="sourceLineNo">095</span>     * Build a camera using specified position. If altitudeMode is null then GeoCamera default is maintained.<a name="line.95"></a>
+<span class="sourceLineNo">096</span>     * An exception will be thrown if any of the position parameters are null.<a name="line.96"></a>
+<span class="sourceLineNo">097</span>     * @param position<a name="line.97"></a>
 <span class="sourceLineNo">098</span>     */<a name="line.98"></a>
-<span class="sourceLineNo">099</span>    @Override<a name="line.99"></a>
-<span class="sourceLineNo">100</span>    public void setTilt(double value) {<a name="line.100"></a>
-<span class="sourceLineNo">101</span>        if (Double.isNaN(value) || (value &lt; global.CAMERA_TILT_MINIMUM) || (value &gt; global.CAMERA_TILT_MAXIMUM)) {<a name="line.101"></a>
-<span class="sourceLineNo">102</span>            throw new InvalidParameterException("The value is out of range.");<a name="line.102"></a>
+<span class="sourceLineNo">099</span>    public Camera(IGeoPosition position) {<a name="line.99"></a>
+<span class="sourceLineNo">100</span>        this.geoCamera = new GeoCamera();<a name="line.100"></a>
+<span class="sourceLineNo">101</span>        if (this.geoCamera.getAltitudeMode() == null) {<a name="line.101"></a>
+<span class="sourceLineNo">102</span>            this.geoCamera.setAltitudeMode(AltitudeMode.ABSOLUTE);<a name="line.102"></a>
 <span class="sourceLineNo">103</span>        }<a name="line.103"></a>
-<span class="sourceLineNo">104</span><a name="line.104"></a>
-<span class="sourceLineNo">105</span>        this.geoCamera.setTilt(value);<a name="line.105"></a>
-<span class="sourceLineNo">106</span>    }<a name="line.106"></a>
-<span class="sourceLineNo">107</span><a name="line.107"></a>
-<span class="sourceLineNo">108</span>    /**<a name="line.108"></a>
-<span class="sourceLineNo">109</span>     * This method retrieves the current tilt setting of the camera.<a name="line.109"></a>
-<span class="sourceLineNo">110</span>     * @return The current tilt in degrees.<a name="line.110"></a>
-<span class="sourceLineNo">111</span>     */<a name="line.111"></a>
-<span class="sourceLineNo">112</span>    @Override<a name="line.112"></a>
-<span class="sourceLineNo">113</span>    public double getTilt() {<a name="line.113"></a>
-<span class="sourceLineNo">114</span>        return this.geoCamera.getTilt();<a name="line.114"></a>
-<span class="sourceLineNo">115</span>    }<a name="line.115"></a>
-<span class="sourceLineNo">116</span><a name="line.116"></a>
+<span class="sourceLineNo">104</span>        setPosition(position);<a name="line.104"></a>
+<span class="sourceLineNo">105</span>    }<a name="line.105"></a>
+<span class="sourceLineNo">106</span><a name="line.106"></a>
+<span class="sourceLineNo">107</span>    /**<a name="line.107"></a>
+<span class="sourceLineNo">108</span>     * Use the get and set methods that already do the validation. Any invalid parameter will throw an Exception.<a name="line.108"></a>
+<span class="sourceLineNo">109</span>     */<a name="line.109"></a>
+<span class="sourceLineNo">110</span>    private void validate() {<a name="line.110"></a>
+<span class="sourceLineNo">111</span>        setLatitude(getLatitude());<a name="line.111"></a>
+<span class="sourceLineNo">112</span>        setLongitude(getLongitude());<a name="line.112"></a>
+<span class="sourceLineNo">113</span>        setTilt(getTilt());<a name="line.113"></a>
+<span class="sourceLineNo">114</span>        setRoll(getRoll());<a name="line.114"></a>
+<span class="sourceLineNo">115</span>        setHeading(getHeading());<a name="line.115"></a>
+<span class="sourceLineNo">116</span>    }<a name="line.116"></a>
 <span class="sourceLineNo">117</span>    /**<a name="line.117"></a>
-<span class="sourceLineNo">118</span>     * This method sets the roll on the camera. If this camera is the current camera on<a name="line.118"></a>
-<span class="sourceLineNo">119</span>     * any map, it will change the view on the map.<a name="line.119"></a>
-<span class="sourceLineNo">120</span>     * @param value The roll angle in degrees. The valid range is -180 - 180. An InvalidParameterException is raised if the value is out of range or NaN.<a name="line.120"></a>
-<span class="sourceLineNo">121</span>     */<a name="line.121"></a>
-<span class="sourceLineNo">122</span>    @Override<a name="line.122"></a>
-<span class="sourceLineNo">123</span>    public void setRoll(double value) {<a name="line.123"></a>
-<span class="sourceLineNo">124</span>        if (Double.isNaN(value) || (value &lt; global.CAMERA_ROLL_MINIMUM) || (value &gt; global.CAMERA_ROLL_MAXIMUM)) {<a name="line.124"></a>
-<span class="sourceLineNo">125</span>            throw new InvalidParameterException("The value is out of range.");<a name="line.125"></a>
-<span class="sourceLineNo">126</span>        }<a name="line.126"></a>
-<span class="sourceLineNo">127</span><a name="line.127"></a>
-<span class="sourceLineNo">128</span>        this.geoCamera.setRoll(value);<a name="line.128"></a>
-<span class="sourceLineNo">129</span>    }<a name="line.129"></a>
-<span class="sourceLineNo">130</span><a name="line.130"></a>
-<span class="sourceLineNo">131</span>    /**<a name="line.131"></a>
-<span class="sourceLineNo">132</span>     * This method retrieves the current roll setting of the camera.<a name="line.132"></a>
-<span class="sourceLineNo">133</span>     * @return The current roll in degrees.<a name="line.133"></a>
-<span class="sourceLineNo">134</span>     */<a name="line.134"></a>
-<span class="sourceLineNo">135</span>    @Override<a name="line.135"></a>
-<span class="sourceLineNo">136</span>    public double getRoll() {<a name="line.136"></a>
-<span class="sourceLineNo">137</span>        return this.geoCamera.getRoll();<a name="line.137"></a>
-<span class="sourceLineNo">138</span>    }<a name="line.138"></a>
-<span class="sourceLineNo">139</span><a name="line.139"></a>
-<span class="sourceLineNo">140</span>    /**<a name="line.140"></a>
-<span class="sourceLineNo">141</span>     * This method sets the cameras heading. Setting this value on a camera that is<a name="line.141"></a>
-<span class="sourceLineNo">142</span>     * associated with a map will cause the map to change its viewing area.<a name="line.142"></a>
-<span class="sourceLineNo">143</span>     * @param heading The new heading in degrees from north. An InvalidParameterException is raised if the value is out of range (-180 to 360) or NaN.<a name="line.143"></a>
-<span class="sourceLineNo">144</span>     */<a name="line.144"></a>
-<span class="sourceLineNo">145</span>    @Override<a name="line.145"></a>
-<span class="sourceLineNo">146</span>    public void setHeading(double heading) {<a name="line.146"></a>
-<span class="sourceLineNo">147</span>        if (Double.isNaN(heading) || (heading &lt; global.HEADING_MINIMUM) || (heading &gt; global.HEADING_MAXIMUM)) {<a name="line.147"></a>
-<span class="sourceLineNo">148</span>            throw new InvalidParameterException("The value is out of range.");<a name="line.148"></a>
-<span class="sourceLineNo">149</span>        }<a name="line.149"></a>
-<span class="sourceLineNo">150</span>        this.geoCamera.setHeading(heading);<a name="line.150"></a>
-<span class="sourceLineNo">151</span>    }<a name="line.151"></a>
-<span class="sourceLineNo">152</span><a name="line.152"></a>
-<span class="sourceLineNo">153</span>    /**<a name="line.153"></a>
-<span class="sourceLineNo">154</span>     * This method retrieves the current azimuth from the camera.<a name="line.154"></a>
-<span class="sourceLineNo">155</span>     * @return The azimuth in degrees from north.<a name="line.155"></a>
-<span class="sourceLineNo">156</span>     */<a name="line.156"></a>
-<span class="sourceLineNo">157</span>    @Override<a name="line.157"></a>
-<span class="sourceLineNo">158</span>    public double getHeading() {<a name="line.158"></a>
-<span class="sourceLineNo">159</span>        return this.geoCamera.getHeading();<a name="line.159"></a>
-<span class="sourceLineNo">160</span>    }<a name="line.160"></a>
-<span class="sourceLineNo">161</span><a name="line.161"></a>
-<span class="sourceLineNo">162</span>    /**<a name="line.162"></a>
-<span class="sourceLineNo">163</span>     * This method set the altitude mode for the elevation setting. Setting this value on a camera that is<a name="line.163"></a>
-<span class="sourceLineNo">164</span>     * associated with a map will cause the map to change its viewing area.<a name="line.164"></a>
-<span class="sourceLineNo">165</span>     * @param value The new altitude mode. See {@link IGeoAltitudeMode.AltitudeMode} An InvalidParameterException is raised if the value is null.<a name="line.165"></a>
-<span class="sourceLineNo">166</span>     */<a name="line.166"></a>
-<span class="sourceLineNo">167</span>    @Override<a name="line.167"></a>
-<span class="sourceLineNo">168</span>    public void setAltitudeMode(IGeoAltitudeMode.AltitudeMode value) {<a name="line.168"></a>
-<span class="sourceLineNo">169</span>        if (null == value) {<a name="line.169"></a>
-<span class="sourceLineNo">170</span>            throw new InvalidParameterException("The value can not be null.");<a name="line.170"></a>
-<span class="sourceLineNo">171</span>        }<a name="line.171"></a>
-<span class="sourceLineNo">172</span>        this.geoCamera.setAltitudeMode(value);<a name="line.172"></a>
-<span class="sourceLineNo">173</span>    }<a name="line.173"></a>
+<span class="sourceLineNo">118</span>     * Everything except geoId is copied as we don't want to change geoId after instantiation.<a name="line.118"></a>
+<span class="sourceLineNo">119</span>     * @param from An object that implements the ICamera interface.<a name="line.119"></a>
+<span class="sourceLineNo">120</span>     */<a name="line.120"></a>
+<span class="sourceLineNo">121</span>    @Override<a name="line.121"></a>
+<span class="sourceLineNo">122</span>    public void copySettingsFrom (ICamera from) {<a name="line.122"></a>
+<span class="sourceLineNo">123</span>        this.geoCamera.setAltitude(from.getAltitude());<a name="line.123"></a>
+<span class="sourceLineNo">124</span>        this.geoCamera.setAltitudeMode(from.getAltitudeMode());<a name="line.124"></a>
+<span class="sourceLineNo">125</span>        this.geoCamera.setHeading(from.getHeading());<a name="line.125"></a>
+<span class="sourceLineNo">126</span>        this.geoCamera.setLatitude(from.getLatitude());<a name="line.126"></a>
+<span class="sourceLineNo">127</span>        this.geoCamera.setLongitude(from.getLongitude());<a name="line.127"></a>
+<span class="sourceLineNo">128</span>        this.geoCamera.setRoll(from.getRoll());<a name="line.128"></a>
+<span class="sourceLineNo">129</span>        this.geoCamera.setTilt(from.getTilt());<a name="line.129"></a>
+<span class="sourceLineNo">130</span>    }<a name="line.130"></a>
+<span class="sourceLineNo">131</span>    <a name="line.131"></a>
+<span class="sourceLineNo">132</span>    @Override<a name="line.132"></a>
+<span class="sourceLineNo">133</span>    public EventListenerHandle addCameraEventListener(ICameraEventListener listener) throws EMP_Exception {<a name="line.133"></a>
+<span class="sourceLineNo">134</span>        return eventManager.addEventHandler(EventListenerTypeEnum.CAMERA_EVENT_LISTENER, this, listener);<a name="line.134"></a>
+<span class="sourceLineNo">135</span>    }<a name="line.135"></a>
+<span class="sourceLineNo">136</span><a name="line.136"></a>
+<span class="sourceLineNo">137</span>    @Override<a name="line.137"></a>
+<span class="sourceLineNo">138</span>    public void removeEventListener(EventListenerHandle listenerHandle) {<a name="line.138"></a>
+<span class="sourceLineNo">139</span>        eventManager.removeEventHandler(listenerHandle);<a name="line.139"></a>
+<span class="sourceLineNo">140</span>    }<a name="line.140"></a>
+<span class="sourceLineNo">141</span><a name="line.141"></a>
+<span class="sourceLineNo">142</span>    /**<a name="line.142"></a>
+<span class="sourceLineNo">143</span>     * This method sets the tilt on the camera.<a name="line.143"></a>
+<span class="sourceLineNo">144</span>     * @param value The tilt angle in degrees. The valid range is 0 - 180. A 0 deg tilt points the camera downward, a 90 deg tilt points the camera towards the horizon, and a 180 deg tilt points the camera skyward. An IllegalArgumentException is raised if the value is out of range or NaN.<a name="line.144"></a>
+<span class="sourceLineNo">145</span>     */<a name="line.145"></a>
+<span class="sourceLineNo">146</span>    @Override<a name="line.146"></a>
+<span class="sourceLineNo">147</span>    public void setTilt(double value) {<a name="line.147"></a>
+<span class="sourceLineNo">148</span>        if (Double.isNaN(value) || (value &lt; global.CAMERA_TILT_MINIMUM) || (value &gt; global.CAMERA_TILT_MAXIMUM)) {<a name="line.148"></a>
+<span class="sourceLineNo">149</span>            throw new IllegalArgumentException("The value is out of range.");<a name="line.149"></a>
+<span class="sourceLineNo">150</span>        }<a name="line.150"></a>
+<span class="sourceLineNo">151</span><a name="line.151"></a>
+<span class="sourceLineNo">152</span>        this.geoCamera.setTilt(value);<a name="line.152"></a>
+<span class="sourceLineNo">153</span>    }<a name="line.153"></a>
+<span class="sourceLineNo">154</span><a name="line.154"></a>
+<span class="sourceLineNo">155</span>    /**<a name="line.155"></a>
+<span class="sourceLineNo">156</span>     * This method retrieves the current tilt setting of the camera.<a name="line.156"></a>
+<span class="sourceLineNo">157</span>     * @return The current tilt in degrees.<a name="line.157"></a>
+<span class="sourceLineNo">158</span>     */<a name="line.158"></a>
+<span class="sourceLineNo">159</span>    @Override<a name="line.159"></a>
+<span class="sourceLineNo">160</span>    public double getTilt() {<a name="line.160"></a>
+<span class="sourceLineNo">161</span>        return this.geoCamera.getTilt();<a name="line.161"></a>
+<span class="sourceLineNo">162</span>    }<a name="line.162"></a>
+<span class="sourceLineNo">163</span><a name="line.163"></a>
+<span class="sourceLineNo">164</span>    /**<a name="line.164"></a>
+<span class="sourceLineNo">165</span>     * This method sets the roll on the camera. If this camera is the current camera on<a name="line.165"></a>
+<span class="sourceLineNo">166</span>     * any map, it will change the view on the map.<a name="line.166"></a>
+<span class="sourceLineNo">167</span>     * @param value The roll angle in degrees. The valid range is -180 - 180. An IllegalArgumentException is raised if the value is out of range or NaN.<a name="line.167"></a>
+<span class="sourceLineNo">168</span>     */<a name="line.168"></a>
+<span class="sourceLineNo">169</span>    @Override<a name="line.169"></a>
+<span class="sourceLineNo">170</span>    public void setRoll(double value) {<a name="line.170"></a>
+<span class="sourceLineNo">171</span>        if (Double.isNaN(value) || (value &lt; global.CAMERA_ROLL_MINIMUM) || (value &gt; global.CAMERA_ROLL_MAXIMUM)) {<a name="line.171"></a>
+<span class="sourceLineNo">172</span>            throw new IllegalArgumentException("The value is out of range.");<a name="line.172"></a>
+<span class="sourceLineNo">173</span>        }<a name="line.173"></a>
 <span class="sourceLineNo">174</span><a name="line.174"></a>
-<span class="sourceLineNo">175</span>    /**<a name="line.175"></a>
-<span class="sourceLineNo">176</span>     * This method retrieves the current altitude mode setting.<a name="line.176"></a>
-<span class="sourceLineNo">177</span>     * @return See {@link IGeoAltitudeMode.AltitudeMode}<a name="line.177"></a>
-<span class="sourceLineNo">178</span>     */<a name="line.178"></a>
-<span class="sourceLineNo">179</span>    @Override<a name="line.179"></a>
-<span class="sourceLineNo">180</span>    public IGeoAltitudeMode.AltitudeMode getAltitudeMode() {<a name="line.180"></a>
-<span class="sourceLineNo">181</span>        return this.geoCamera.getAltitudeMode();<a name="line.181"></a>
-<span class="sourceLineNo">182</span>    }<a name="line.182"></a>
-<span class="sourceLineNo">183</span><a name="line.183"></a>
-<span class="sourceLineNo">184</span>    /**<a name="line.184"></a>
-<span class="sourceLineNo">185</span>     * This method sets the latitude of the camera position. Setting this value on a camera that is<a name="line.185"></a>
-<span class="sourceLineNo">186</span>     * associated with a map will cause the map to change its viewing area.<a name="line.186"></a>
-<span class="sourceLineNo">187</span>     * @param value The latitude in degrees. The value must be -90.0 and 90 degrees. An InvalidParameterException is raised if the value is out of range or NaN.<a name="line.187"></a>
-<span class="sourceLineNo">188</span>     */<a name="line.188"></a>
-<span class="sourceLineNo">189</span>    @Override<a name="line.189"></a>
-<span class="sourceLineNo">190</span>    public void setLatitude(double value) {<a name="line.190"></a>
-<span class="sourceLineNo">191</span>        if (Double.isNaN(value) || (value &lt; global.LATITUDE_MINIMUM) || (value &gt; global.LATITUDE_MAXIMUM)) {<a name="line.191"></a>
-<span class="sourceLineNo">192</span>            throw new InvalidParameterException("The value is out of range.");<a name="line.192"></a>
-<span class="sourceLineNo">193</span>        }<a name="line.193"></a>
-<span class="sourceLineNo">194</span>        this.geoCamera.setLatitude(value);<a name="line.194"></a>
-<span class="sourceLineNo">195</span>    }<a name="line.195"></a>
-<span class="sourceLineNo">196</span><a name="line.196"></a>
-<span class="sourceLineNo">197</span>    /**<a name="line.197"></a>
-<span class="sourceLineNo">198</span>     * This method retrieves the current latitude from the camera.<a name="line.198"></a>
-<span class="sourceLineNo">199</span>     * @return The current latitude in degrees.<a name="line.199"></a>
-<span class="sourceLineNo">200</span>     */<a name="line.200"></a>
-<span class="sourceLineNo">201</span>    @Override<a name="line.201"></a>
-<span class="sourceLineNo">202</span>    public double getLatitude() {<a name="line.202"></a>
-<span class="sourceLineNo">203</span>        return this.geoCamera.getLatitude();<a name="line.203"></a>
-<span class="sourceLineNo">204</span>    }<a name="line.204"></a>
-<span class="sourceLineNo">205</span><a name="line.205"></a>
-<span class="sourceLineNo">206</span>    /**<a name="line.206"></a>
-<span class="sourceLineNo">207</span>     * This method sets the longitude of the camera position. Setting this value on a camera that is<a name="line.207"></a>
-<span class="sourceLineNo">208</span>     * associated with a map will cause the map to change its viewing area.<a name="line.208"></a>
-<span class="sourceLineNo">209</span>     * @param value The longitude in degrees. The value must be -180.0 and 180.0 degrees. An InvalidParameterException is raised if the value is out of range or NaN.<a name="line.209"></a>
-<span class="sourceLineNo">210</span>     */<a name="line.210"></a>
-<span class="sourceLineNo">211</span>    @Override<a name="line.211"></a>
-<span class="sourceLineNo">212</span>    public void setLongitude(double value) {<a name="line.212"></a>
-<span class="sourceLineNo">213</span>        if (Double.isNaN(value) || (value &lt; global.LONGITUDE_MINIMUM) || (value &gt; global.LONGITUDE_MAXIMUM)) {<a name="line.213"></a>
-<span class="sourceLineNo">214</span>            throw new InvalidParameterException("The value is out of range.");<a name="line.214"></a>
-<span class="sourceLineNo">215</span>        }<a name="line.215"></a>
-<span class="sourceLineNo">216</span>        this.geoCamera.setLongitude(value);<a name="line.216"></a>
-<span class="sourceLineNo">217</span>    }<a name="line.217"></a>
-<span class="sourceLineNo">218</span><a name="line.218"></a>
-<span class="sourceLineNo">219</span>    /**<a name="line.219"></a>
-<span class="sourceLineNo">220</span>     * This method retrieves the current longitude setting from the camera.<a name="line.220"></a>
-<span class="sourceLineNo">221</span>     * @return The current longitude in degrees.<a name="line.221"></a>
-<span class="sourceLineNo">222</span>     */<a name="line.222"></a>
-<span class="sourceLineNo">223</span>    @Override<a name="line.223"></a>
-<span class="sourceLineNo">224</span>    public double getLongitude() {<a name="line.224"></a>
-<span class="sourceLineNo">225</span>        return this.geoCamera.getLongitude();<a name="line.225"></a>
-<span class="sourceLineNo">226</span>    }<a name="line.226"></a>
-<span class="sourceLineNo">227</span><a name="line.227"></a>
-<span class="sourceLineNo">228</span>    /**<a name="line.228"></a>
-<span class="sourceLineNo">229</span>     * This method sets the altitude of the camera. Setting this value on a camera that is<a name="line.229"></a>
-<span class="sourceLineNo">230</span>     * associated with a map will cause the map to change its viewing area.<a name="line.230"></a>
-<span class="sourceLineNo">231</span>     * @param value The new altitude in meters.<a name="line.231"></a>
-<span class="sourceLineNo">232</span>     */<a name="line.232"></a>
-<span class="sourceLineNo">233</span>    @Override<a name="line.233"></a>
-<span class="sourceLineNo">234</span>    public void setAltitude(double value) {<a name="line.234"></a>
-<span class="sourceLineNo">235</span>        this.geoCamera.setAltitude(value);<a name="line.235"></a>
-<span class="sourceLineNo">236</span>    }<a name="line.236"></a>
-<span class="sourceLineNo">237</span><a name="line.237"></a>
-<span class="sourceLineNo">238</span>    /**<a name="line.238"></a>
-<span class="sourceLineNo">239</span>     * This method retrieves the current altitude setting of the camera.<a name="line.239"></a>
-<span class="sourceLineNo">240</span>     * @return The altitude in meters.<a name="line.240"></a>
-<span class="sourceLineNo">241</span>     */<a name="line.241"></a>
-<span class="sourceLineNo">242</span>    @Override<a name="line.242"></a>
-<span class="sourceLineNo">243</span>    public double getAltitude() {<a name="line.243"></a>
-<span class="sourceLineNo">244</span>        return this.geoCamera.getAltitude();<a name="line.244"></a>
-<span class="sourceLineNo">245</span>    }<a name="line.245"></a>
-<span class="sourceLineNo">246</span><a name="line.246"></a>
-<span class="sourceLineNo">247</span>    /**<a name="line.247"></a>
-<span class="sourceLineNo">248</span>     * This method allows the user to give the camera a name.<a name="line.248"></a>
-<span class="sourceLineNo">249</span>     * @param s The new name for the camera.<a name="line.249"></a>
-<span class="sourceLineNo">250</span>     */<a name="line.250"></a>
-<span class="sourceLineNo">251</span>    @Override<a name="line.251"></a>
-<span class="sourceLineNo">252</span>    public void setName(String s) {<a name="line.252"></a>
-<span class="sourceLineNo">253</span>        this.geoCamera.setName(s);<a name="line.253"></a>
-<span class="sourceLineNo">254</span>    }<a name="line.254"></a>
-<span class="sourceLineNo">255</span><a name="line.255"></a>
-<span class="sourceLineNo">256</span>    /**<a name="line.256"></a>
-<span class="sourceLineNo">257</span>     * This method retrieves the current name.<a name="line.257"></a>
-<span class="sourceLineNo">258</span>     * @return A string or null.<a name="line.258"></a>
-<span class="sourceLineNo">259</span>     */<a name="line.259"></a>
-<span class="sourceLineNo">260</span>    @Override<a name="line.260"></a>
-<span class="sourceLineNo">261</span>    public String getName() {<a name="line.261"></a>
-<span class="sourceLineNo">262</span>        return this.geoCamera.getName();<a name="line.262"></a>
-<span class="sourceLineNo">263</span>    }<a name="line.263"></a>
-<span class="sourceLineNo">264</span><a name="line.264"></a>
-<span class="sourceLineNo">265</span>    @Override<a name="line.265"></a>
-<span class="sourceLineNo">266</span>    public void setGeoId(java.util.UUID uuid) {<a name="line.266"></a>
-<span class="sourceLineNo">267</span>        this.geoCamera.setGeoId(uuid);<a name="line.267"></a>
-<span class="sourceLineNo">268</span>    }<a name="line.268"></a>
-<span class="sourceLineNo">269</span><a name="line.269"></a>
-<span class="sourceLineNo">270</span>    /**<a name="line.270"></a>
-<span class="sourceLineNo">271</span>     * This method retrieves the cameras unique identifier.<a name="line.271"></a>
-<span class="sourceLineNo">272</span>     * @return a UUID. See {@link java.util.UUID}<a name="line.272"></a>
-<span class="sourceLineNo">273</span>     */<a name="line.273"></a>
-<span class="sourceLineNo">274</span>    @Override<a name="line.274"></a>
-<span class="sourceLineNo">275</span>    public UUID getGeoId() {<a name="line.275"></a>
-<span class="sourceLineNo">276</span>        return this.geoCamera.getGeoId();<a name="line.276"></a>
-<span class="sourceLineNo">277</span>    }<a name="line.277"></a>
-<span class="sourceLineNo">278</span><a name="line.278"></a>
-<span class="sourceLineNo">279</span>    @Override<a name="line.279"></a>
-<span class="sourceLineNo">280</span>    public void setDataProviderId(String s) {<a name="line.280"></a>
-<span class="sourceLineNo">281</span>        this.geoCamera.setDataProviderId(s);<a name="line.281"></a>
-<span class="sourceLineNo">282</span>    }<a name="line.282"></a>
-<span class="sourceLineNo">283</span><a name="line.283"></a>
-<span class="sourceLineNo">284</span>    @Override<a name="line.284"></a>
-<span class="sourceLineNo">285</span>    public String getDataProviderId() {<a name="line.285"></a>
-<span class="sourceLineNo">286</span>        return this.geoCamera.getDataProviderId();<a name="line.286"></a>
-<span class="sourceLineNo">287</span>    }<a name="line.287"></a>
-<span class="sourceLineNo">288</span><a name="line.288"></a>
-<span class="sourceLineNo">289</span>    /**<a name="line.289"></a>
-<span class="sourceLineNo">290</span>     * This method allows the user to set a description.<a name="line.290"></a>
-<span class="sourceLineNo">291</span>     * @param s String<a name="line.291"></a>
-<span class="sourceLineNo">292</span>     */<a name="line.292"></a>
-<span class="sourceLineNo">293</span>    @Override<a name="line.293"></a>
-<span class="sourceLineNo">294</span>    public void setDescription(String s) {<a name="line.294"></a>
-<span class="sourceLineNo">295</span>        this.geoCamera.setDescription(s);<a name="line.295"></a>
-<span class="sourceLineNo">296</span>    }<a name="line.296"></a>
-<span class="sourceLineNo">297</span><a name="line.297"></a>
-<span class="sourceLineNo">298</span>    /**<a name="line.298"></a>
-<span class="sourceLineNo">299</span>     * This method retrieves the cameras description.<a name="line.299"></a>
-<span class="sourceLineNo">300</span>     * @return String or null.<a name="line.300"></a>
-<span class="sourceLineNo">301</span>     */<a name="line.301"></a>
-<span class="sourceLineNo">302</span>    @Override<a name="line.302"></a>
-<span class="sourceLineNo">303</span>    public String getDescription() {<a name="line.303"></a>
-<span class="sourceLineNo">304</span>        return this.geoCamera.getDescription();<a name="line.304"></a>
-<span class="sourceLineNo">305</span>    }<a name="line.305"></a>
-<span class="sourceLineNo">306</span><a name="line.306"></a>
+<span class="sourceLineNo">175</span>        this.geoCamera.setRoll(value);<a name="line.175"></a>
+<span class="sourceLineNo">176</span>    }<a name="line.176"></a>
+<span class="sourceLineNo">177</span><a name="line.177"></a>
+<span class="sourceLineNo">178</span>    /**<a name="line.178"></a>
+<span class="sourceLineNo">179</span>     * This method retrieves the current roll setting of the camera.<a name="line.179"></a>
+<span class="sourceLineNo">180</span>     * @return The current roll in degrees.<a name="line.180"></a>
+<span class="sourceLineNo">181</span>     */<a name="line.181"></a>
+<span class="sourceLineNo">182</span>    @Override<a name="line.182"></a>
+<span class="sourceLineNo">183</span>    public double getRoll() {<a name="line.183"></a>
+<span class="sourceLineNo">184</span>        return this.geoCamera.getRoll();<a name="line.184"></a>
+<span class="sourceLineNo">185</span>    }<a name="line.185"></a>
+<span class="sourceLineNo">186</span><a name="line.186"></a>
+<span class="sourceLineNo">187</span>    /**<a name="line.187"></a>
+<span class="sourceLineNo">188</span>     * This method sets the cameras heading. Setting this value on a camera that is<a name="line.188"></a>
+<span class="sourceLineNo">189</span>     * associated with a map will cause the map to change its viewing area.<a name="line.189"></a>
+<span class="sourceLineNo">190</span>     * @param heading The new heading in degrees from north. An IllegalArgumentException is raised if the value is out of range (-180 to 360) or NaN.<a name="line.190"></a>
+<span class="sourceLineNo">191</span>     */<a name="line.191"></a>
+<span class="sourceLineNo">192</span>    @Override<a name="line.192"></a>
+<span class="sourceLineNo">193</span>    public void setHeading(double heading) {<a name="line.193"></a>
+<span class="sourceLineNo">194</span>        if (Double.isNaN(heading) || (heading &lt; global.HEADING_MINIMUM) || (heading &gt; global.HEADING_MAXIMUM)) {<a name="line.194"></a>
+<span class="sourceLineNo">195</span>            throw new IllegalArgumentException("The value is out of range.");<a name="line.195"></a>
+<span class="sourceLineNo">196</span>        }<a name="line.196"></a>
+<span class="sourceLineNo">197</span>        this.geoCamera.setHeading(heading);<a name="line.197"></a>
+<span class="sourceLineNo">198</span>    }<a name="line.198"></a>
+<span class="sourceLineNo">199</span><a name="line.199"></a>
+<span class="sourceLineNo">200</span>    /**<a name="line.200"></a>
+<span class="sourceLineNo">201</span>     * This method retrieves the current azimuth from the camera.<a name="line.201"></a>
+<span class="sourceLineNo">202</span>     * @return The azimuth in degrees from north.<a name="line.202"></a>
+<span class="sourceLineNo">203</span>     */<a name="line.203"></a>
+<span class="sourceLineNo">204</span>    @Override<a name="line.204"></a>
+<span class="sourceLineNo">205</span>    public double getHeading() {<a name="line.205"></a>
+<span class="sourceLineNo">206</span>        return this.geoCamera.getHeading();<a name="line.206"></a>
+<span class="sourceLineNo">207</span>    }<a name="line.207"></a>
+<span class="sourceLineNo">208</span><a name="line.208"></a>
+<span class="sourceLineNo">209</span>    /**<a name="line.209"></a>
+<span class="sourceLineNo">210</span>     * This method set the altitude mode for the elevation setting. Setting this value on a camera that is<a name="line.210"></a>
+<span class="sourceLineNo">211</span>     * associated with a map will cause the map to change its viewing area.<a name="line.211"></a>
+<span class="sourceLineNo">212</span>     * @param value The new altitude mode. See {@link IGeoAltitudeMode.AltitudeMode} An IllegalArgumentException is raised if the value is null.<a name="line.212"></a>
+<span class="sourceLineNo">213</span>     */<a name="line.213"></a>
+<span class="sourceLineNo">214</span>    @Override<a name="line.214"></a>
+<span class="sourceLineNo">215</span>    public void setAltitudeMode(IGeoAltitudeMode.AltitudeMode value) {<a name="line.215"></a>
+<span class="sourceLineNo">216</span>        if (null == value) {<a name="line.216"></a>
+<span class="sourceLineNo">217</span>            throw new IllegalArgumentException("The value can not be null.");<a name="line.217"></a>
+<span class="sourceLineNo">218</span>        }<a name="line.218"></a>
+<span class="sourceLineNo">219</span>        this.geoCamera.setAltitudeMode(value);<a name="line.219"></a>
+<span class="sourceLineNo">220</span>    }<a name="line.220"></a>
+<span class="sourceLineNo">221</span><a name="line.221"></a>
+<span class="sourceLineNo">222</span>    /**<a name="line.222"></a>
+<span class="sourceLineNo">223</span>     * This method retrieves the current altitude mode setting.<a name="line.223"></a>
+<span class="sourceLineNo">224</span>     * @return See {@link IGeoAltitudeMode.AltitudeMode}<a name="line.224"></a>
+<span class="sourceLineNo">225</span>     */<a name="line.225"></a>
+<span class="sourceLineNo">226</span>    @Override<a name="line.226"></a>
+<span class="sourceLineNo">227</span>    public IGeoAltitudeMode.AltitudeMode getAltitudeMode() {<a name="line.227"></a>
+<span class="sourceLineNo">228</span>        return this.geoCamera.getAltitudeMode();<a name="line.228"></a>
+<span class="sourceLineNo">229</span>    }<a name="line.229"></a>
+<span class="sourceLineNo">230</span><a name="line.230"></a>
+<span class="sourceLineNo">231</span>    /**<a name="line.231"></a>
+<span class="sourceLineNo">232</span>     * This method sets the latitude of the camera position. Setting this value on a camera that is<a name="line.232"></a>
+<span class="sourceLineNo">233</span>     * associated with a map will cause the map to change its viewing area.<a name="line.233"></a>
+<span class="sourceLineNo">234</span>     * @param value The latitude in degrees. The value must be -90.0 and 90 degrees. An IllegalArgumentException is raised if the value is out of range or NaN.<a name="line.234"></a>
+<span class="sourceLineNo">235</span>     */<a name="line.235"></a>
+<span class="sourceLineNo">236</span>    @Override<a name="line.236"></a>
+<span class="sourceLineNo">237</span>    public void setLatitude(double value) {<a name="line.237"></a>
+<span class="sourceLineNo">238</span>        if (Double.isNaN(value) || (value &lt; global.LATITUDE_MINIMUM) || (value &gt; global.LATITUDE_MAXIMUM)) {<a name="line.238"></a>
+<span class="sourceLineNo">239</span>            throw new IllegalArgumentException("The value is out of range.");<a name="line.239"></a>
+<span class="sourceLineNo">240</span>        }<a name="line.240"></a>
+<span class="sourceLineNo">241</span>        this.geoCamera.setLatitude(value);<a name="line.241"></a>
+<span class="sourceLineNo">242</span>    }<a name="line.242"></a>
+<span class="sourceLineNo">243</span><a name="line.243"></a>
+<span class="sourceLineNo">244</span>    /**<a name="line.244"></a>
+<span class="sourceLineNo">245</span>     * This method retrieves the current latitude from the camera.<a name="line.245"></a>
+<span class="sourceLineNo">246</span>     * @return The current latitude in degrees.<a name="line.246"></a>
+<span class="sourceLineNo">247</span>     */<a name="line.247"></a>
+<span class="sourceLineNo">248</span>    @Override<a name="line.248"></a>
+<span class="sourceLineNo">249</span>    public double getLatitude() {<a name="line.249"></a>
+<span class="sourceLineNo">250</span>        return this.geoCamera.getLatitude();<a name="line.250"></a>
+<span class="sourceLineNo">251</span>    }<a name="line.251"></a>
+<span class="sourceLineNo">252</span><a name="line.252"></a>
+<span class="sourceLineNo">253</span>    /**<a name="line.253"></a>
+<span class="sourceLineNo">254</span>     * This method sets the longitude of the camera position. Setting this value on a camera that is<a name="line.254"></a>
+<span class="sourceLineNo">255</span>     * associated with a map will cause the map to change its viewing area.<a name="line.255"></a>
+<span class="sourceLineNo">256</span>     * @param value The longitude in degrees. The value must be -180.0 and 180.0 degrees. An IllegalArgumentException is raised if the value is out of range or NaN.<a name="line.256"></a>
+<span class="sourceLineNo">257</span>     */<a name="line.257"></a>
+<span class="sourceLineNo">258</span>    @Override<a name="line.258"></a>
+<span class="sourceLineNo">259</span>    public void setLongitude(double value) {<a name="line.259"></a>
+<span class="sourceLineNo">260</span>        if (Double.isNaN(value) || (value &lt; global.LONGITUDE_MINIMUM) || (value &gt; global.LONGITUDE_MAXIMUM)) {<a name="line.260"></a>
+<span class="sourceLineNo">261</span>            throw new IllegalArgumentException("The value is out of range.");<a name="line.261"></a>
+<span class="sourceLineNo">262</span>        }<a name="line.262"></a>
+<span class="sourceLineNo">263</span>        this.geoCamera.setLongitude(value);<a name="line.263"></a>
+<span class="sourceLineNo">264</span>    }<a name="line.264"></a>
+<span class="sourceLineNo">265</span><a name="line.265"></a>
+<span class="sourceLineNo">266</span>    /**<a name="line.266"></a>
+<span class="sourceLineNo">267</span>     * This method retrieves the current longitude setting from the camera.<a name="line.267"></a>
+<span class="sourceLineNo">268</span>     * @return The current longitude in degrees.<a name="line.268"></a>
+<span class="sourceLineNo">269</span>     */<a name="line.269"></a>
+<span class="sourceLineNo">270</span>    @Override<a name="line.270"></a>
+<span class="sourceLineNo">271</span>    public double getLongitude() {<a name="line.271"></a>
+<span class="sourceLineNo">272</span>        return this.geoCamera.getLongitude();<a name="line.272"></a>
+<span class="sourceLineNo">273</span>    }<a name="line.273"></a>
+<span class="sourceLineNo">274</span><a name="line.274"></a>
+<span class="sourceLineNo">275</span>    /**<a name="line.275"></a>
+<span class="sourceLineNo">276</span>     * This method sets the altitude of the camera. Setting this value on a camera that is<a name="line.276"></a>
+<span class="sourceLineNo">277</span>     * associated with a map will cause the map to change its viewing area.<a name="line.277"></a>
+<span class="sourceLineNo">278</span>     * @param value The new altitude in meters.<a name="line.278"></a>
+<span class="sourceLineNo">279</span>     */<a name="line.279"></a>
+<span class="sourceLineNo">280</span>    @Override<a name="line.280"></a>
+<span class="sourceLineNo">281</span>    public void setAltitude(double value) {<a name="line.281"></a>
+<span class="sourceLineNo">282</span>        this.geoCamera.setAltitude(value);<a name="line.282"></a>
+<span class="sourceLineNo">283</span>    }<a name="line.283"></a>
+<span class="sourceLineNo">284</span><a name="line.284"></a>
+<span class="sourceLineNo">285</span>    /**<a name="line.285"></a>
+<span class="sourceLineNo">286</span>     * This method retrieves the current altitude setting of the camera.<a name="line.286"></a>
+<span class="sourceLineNo">287</span>     * @return The altitude in meters.<a name="line.287"></a>
+<span class="sourceLineNo">288</span>     */<a name="line.288"></a>
+<span class="sourceLineNo">289</span>    @Override<a name="line.289"></a>
+<span class="sourceLineNo">290</span>    public double getAltitude() {<a name="line.290"></a>
+<span class="sourceLineNo">291</span>        return this.geoCamera.getAltitude();<a name="line.291"></a>
+<span class="sourceLineNo">292</span>    }<a name="line.292"></a>
+<span class="sourceLineNo">293</span><a name="line.293"></a>
+<span class="sourceLineNo">294</span>    /**<a name="line.294"></a>
+<span class="sourceLineNo">295</span>     * This method allows the user to give the camera a name.<a name="line.295"></a>
+<span class="sourceLineNo">296</span>     * @param s The new name for the camera.<a name="line.296"></a>
+<span class="sourceLineNo">297</span>     */<a name="line.297"></a>
+<span class="sourceLineNo">298</span>    @Override<a name="line.298"></a>
+<span class="sourceLineNo">299</span>    public void setName(String s) {<a name="line.299"></a>
+<span class="sourceLineNo">300</span>        this.geoCamera.setName(s);<a name="line.300"></a>
+<span class="sourceLineNo">301</span>    }<a name="line.301"></a>
+<span class="sourceLineNo">302</span><a name="line.302"></a>
+<span class="sourceLineNo">303</span>    /**<a name="line.303"></a>
+<span class="sourceLineNo">304</span>     * This method retrieves the current name.<a name="line.304"></a>
+<span class="sourceLineNo">305</span>     * @return A string or null.<a name="line.305"></a>
+<span class="sourceLineNo">306</span>     */<a name="line.306"></a>
 <span class="sourceLineNo">307</span>    @Override<a name="line.307"></a>
-<span class="sourceLineNo">308</span>    public HashMap&lt;String, String&gt; getProperties() {<a name="line.308"></a>
-<span class="sourceLineNo">309</span>        return this.geoCamera.getProperties();<a name="line.309"></a>
+<span class="sourceLineNo">308</span>    public String getName() {<a name="line.308"></a>
+<span class="sourceLineNo">309</span>        return this.geoCamera.getName();<a name="line.309"></a>
 <span class="sourceLineNo">310</span>    }<a name="line.310"></a>
 <span class="sourceLineNo">311</span><a name="line.311"></a>
 <span class="sourceLineNo">312</span>    @Override<a name="line.312"></a>
-<span class="sourceLineNo">313</span>    public void apply(boolean animate) {<a name="line.313"></a>
-<span class="sourceLineNo">314</span>        coreManager.processCameraSettingChange(this, animate);<a name="line.314"></a>
+<span class="sourceLineNo">313</span>    public void setGeoId(java.util.UUID uuid) {<a name="line.313"></a>
+<span class="sourceLineNo">314</span>        this.geoCamera.setGeoId(uuid);<a name="line.314"></a>
 <span class="sourceLineNo">315</span>    }<a name="line.315"></a>
-<span class="sourceLineNo">316</span>}<a name="line.316"></a>
+<span class="sourceLineNo">316</span><a name="line.316"></a>
+<span class="sourceLineNo">317</span>    /**<a name="line.317"></a>
+<span class="sourceLineNo">318</span>     * This method retrieves the cameras unique identifier.<a name="line.318"></a>
+<span class="sourceLineNo">319</span>     * @return a UUID. See {@link java.util.UUID}<a name="line.319"></a>
+<span class="sourceLineNo">320</span>     */<a name="line.320"></a>
+<span class="sourceLineNo">321</span>    @Override<a name="line.321"></a>
+<span class="sourceLineNo">322</span>    public UUID getGeoId() {<a name="line.322"></a>
+<span class="sourceLineNo">323</span>        return this.geoCamera.getGeoId();<a name="line.323"></a>
+<span class="sourceLineNo">324</span>    }<a name="line.324"></a>
+<span class="sourceLineNo">325</span><a name="line.325"></a>
+<span class="sourceLineNo">326</span>    @Override<a name="line.326"></a>
+<span class="sourceLineNo">327</span>    public void setDataProviderId(String s) {<a name="line.327"></a>
+<span class="sourceLineNo">328</span>        this.geoCamera.setDataProviderId(s);<a name="line.328"></a>
+<span class="sourceLineNo">329</span>    }<a name="line.329"></a>
+<span class="sourceLineNo">330</span><a name="line.330"></a>
+<span class="sourceLineNo">331</span>    @Override<a name="line.331"></a>
+<span class="sourceLineNo">332</span>    public String getDataProviderId() {<a name="line.332"></a>
+<span class="sourceLineNo">333</span>        return this.geoCamera.getDataProviderId();<a name="line.333"></a>
+<span class="sourceLineNo">334</span>    }<a name="line.334"></a>
+<span class="sourceLineNo">335</span><a name="line.335"></a>
+<span class="sourceLineNo">336</span>    /**<a name="line.336"></a>
+<span class="sourceLineNo">337</span>     * This method allows the user to set a description.<a name="line.337"></a>
+<span class="sourceLineNo">338</span>     * @param s String<a name="line.338"></a>
+<span class="sourceLineNo">339</span>     */<a name="line.339"></a>
+<span class="sourceLineNo">340</span>    @Override<a name="line.340"></a>
+<span class="sourceLineNo">341</span>    public void setDescription(String s) {<a name="line.341"></a>
+<span class="sourceLineNo">342</span>        this.geoCamera.setDescription(s);<a name="line.342"></a>
+<span class="sourceLineNo">343</span>    }<a name="line.343"></a>
+<span class="sourceLineNo">344</span><a name="line.344"></a>
+<span class="sourceLineNo">345</span>    /**<a name="line.345"></a>
+<span class="sourceLineNo">346</span>     * This method retrieves the cameras description.<a name="line.346"></a>
+<span class="sourceLineNo">347</span>     * @return String or null.<a name="line.347"></a>
+<span class="sourceLineNo">348</span>     */<a name="line.348"></a>
+<span class="sourceLineNo">349</span>    @Override<a name="line.349"></a>
+<span class="sourceLineNo">350</span>    public String getDescription() {<a name="line.350"></a>
+<span class="sourceLineNo">351</span>        return this.geoCamera.getDescription();<a name="line.351"></a>
+<span class="sourceLineNo">352</span>    }<a name="line.352"></a>
+<span class="sourceLineNo">353</span><a name="line.353"></a>
+<span class="sourceLineNo">354</span>    @Override<a name="line.354"></a>
+<span class="sourceLineNo">355</span>    public HashMap&lt;String, String&gt; getProperties() {<a name="line.355"></a>
+<span class="sourceLineNo">356</span>        return this.geoCamera.getProperties();<a name="line.356"></a>
+<span class="sourceLineNo">357</span>    }<a name="line.357"></a>
+<span class="sourceLineNo">358</span><a name="line.358"></a>
+<span class="sourceLineNo">359</span>    @Override<a name="line.359"></a>
+<span class="sourceLineNo">360</span>    public void apply(boolean animate, Object userContext) {<a name="line.360"></a>
+<span class="sourceLineNo">361</span>        coreManager.processCameraSettingChange(this, animate, userContext);<a name="line.361"></a>
+<span class="sourceLineNo">362</span>    }<a name="line.362"></a>
+<span class="sourceLineNo">363</span><a name="line.363"></a>
+<span class="sourceLineNo">364</span>    @Override<a name="line.364"></a>
+<span class="sourceLineNo">365</span>    public void apply(boolean animate) {<a name="line.365"></a>
+<span class="sourceLineNo">366</span>        coreManager.processCameraSettingChange(this, animate, null);<a name="line.366"></a>
+<span class="sourceLineNo">367</span>    }<a name="line.367"></a>
+<span class="sourceLineNo">368</span><a name="line.368"></a>
+<span class="sourceLineNo">369</span>    @Override<a name="line.369"></a>
+<span class="sourceLineNo">370</span>    public String toString() {<a name="line.370"></a>
+<span class="sourceLineNo">371</span>        return (String.format(Locale.US, "L %1$6.3f, N %2$6.3f, A %3$6.0f: %4s :H %5$6.3f, R %6$6.3f, T %7$6.0f",<a name="line.371"></a>
+<span class="sourceLineNo">372</span>                getLatitude(), getLongitude(), getAltitude(), getAltitudeMode(), getHeading(), getRoll(), getTilt()));<a name="line.372"></a>
+<span class="sourceLineNo">373</span>    }<a name="line.373"></a>
+<span class="sourceLineNo">374</span><a name="line.374"></a>
+<span class="sourceLineNo">375</span>    @Override<a name="line.375"></a>
+<span class="sourceLineNo">376</span>    public void setPosition(double latitude, double longitude, double altitude, AltitudeMode altitudeMode) {<a name="line.376"></a>
+<span class="sourceLineNo">377</span>        setLatitude(latitude);<a name="line.377"></a>
+<span class="sourceLineNo">378</span>        setLongitude(longitude);<a name="line.378"></a>
+<span class="sourceLineNo">379</span>        setAltitude(altitude);<a name="line.379"></a>
+<span class="sourceLineNo">380</span>        if(null != altitudeMode) {<a name="line.380"></a>
+<span class="sourceLineNo">381</span>            setAltitudeMode(altitudeMode);<a name="line.381"></a>
+<span class="sourceLineNo">382</span>        }<a name="line.382"></a>
+<span class="sourceLineNo">383</span>    }<a name="line.383"></a>
+<span class="sourceLineNo">384</span><a name="line.384"></a>
+<span class="sourceLineNo">385</span>    @Override<a name="line.385"></a>
+<span class="sourceLineNo">386</span>    public void setPosition(IGeoPosition position) {<a name="line.386"></a>
+<span class="sourceLineNo">387</span>        if(null == position) {<a name="line.387"></a>
+<span class="sourceLineNo">388</span>            throw new IllegalArgumentException("Camera-setPosition: position should be non-null");<a name="line.388"></a>
+<span class="sourceLineNo">389</span>        }<a name="line.389"></a>
+<span class="sourceLineNo">390</span>        setLatitude(position.getLatitude());<a name="line.390"></a>
+<span class="sourceLineNo">391</span>        setLongitude(position.getLongitude());<a name="line.391"></a>
+<span class="sourceLineNo">392</span>        setAltitude(position.getAltitude());<a name="line.392"></a>
+<span class="sourceLineNo">393</span>    }<a name="line.393"></a>
+<span class="sourceLineNo">394</span>}<a name="line.394"></a>
 
 
 

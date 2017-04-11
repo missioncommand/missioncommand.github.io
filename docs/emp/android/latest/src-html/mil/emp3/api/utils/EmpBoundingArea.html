@@ -15,267 +15,339 @@
 <span class="sourceLineNo">007</span>import org.cmapi.primitives.IGeoBounds;<a name="line.7"></a>
 <span class="sourceLineNo">008</span>import org.cmapi.primitives.IGeoPosition;<a name="line.8"></a>
 <span class="sourceLineNo">009</span><a name="line.9"></a>
-<span class="sourceLineNo">010</span>import java.security.InvalidParameterException;<a name="line.10"></a>
-<span class="sourceLineNo">011</span>import java.util.ArrayList;<a name="line.11"></a>
-<span class="sourceLineNo">012</span>import java.util.List;<a name="line.12"></a>
-<span class="sourceLineNo">013</span><a name="line.13"></a>
-<span class="sourceLineNo">014</span>import mil.emp3.api.Camera;<a name="line.14"></a>
-<span class="sourceLineNo">015</span>import mil.emp3.api.global;<a name="line.15"></a>
-<span class="sourceLineNo">016</span>import mil.emp3.api.interfaces.ICamera;<a name="line.16"></a>
-<span class="sourceLineNo">017</span>import mil.emp3.api.interfaces.IEmpBoundingArea;<a name="line.17"></a>
-<span class="sourceLineNo">018</span><a name="line.18"></a>
-<span class="sourceLineNo">019</span>/**<a name="line.19"></a>
-<span class="sourceLineNo">020</span> * When map view changes i.e. pan/zoom/tilt/rotate/heading we recalculate the quadrilateral that approximates visible geographical area<a name="line.20"></a>
-<span class="sourceLineNo">021</span> * of the map view. When the entire view is occupied by the map we can get the exact geographical coordinates of the four corners. When the map<a name="line.21"></a>
-<span class="sourceLineNo">022</span> * shows sky/space then we provide the best possible geographical coordinates. SEC Military Symbol render-er is one know customer of this<a name="line.22"></a>
-<span class="sourceLineNo">023</span> * capability.<a name="line.23"></a>
-<span class="sourceLineNo">024</span> *<a name="line.24"></a>
-<span class="sourceLineNo">025</span> * The vertices represent a polygon/quadrilateral and they are stored in clockwise order. You cannot associate any specific vertex to any specific<a name="line.25"></a>
-<span class="sourceLineNo">026</span> * corner of the view. The class guarentees that all four vertices are non-null and have valid latitude/longitude values. Altitude is always set to zero.<a name="line.26"></a>
-<span class="sourceLineNo">027</span> *<a name="line.27"></a>
-<span class="sourceLineNo">028</span> * Class also provides a capability to to convert (approximately) these four vertices to GeoBounds object i.e. North, East, West and South<a name="line.28"></a>
-<span class="sourceLineNo">029</span> * boundaries.<a name="line.29"></a>
-<span class="sourceLineNo">030</span> *<a name="line.30"></a>
-<span class="sourceLineNo">031</span> * If you are interested in the logic used to generate this object then please refer to BoundsGeneration class in mapengine-worldwind-apk project.<a name="line.31"></a>
-<span class="sourceLineNo">032</span> */<a name="line.32"></a>
-<span class="sourceLineNo">033</span><a name="line.33"></a>
-<span class="sourceLineNo">034</span>public class EmpBoundingArea extends GeoBounds implements IEmpBoundingArea {<a name="line.34"></a>
-<span class="sourceLineNo">035</span>    private static String TAG = EmpBoundingArea.class.getSimpleName();<a name="line.35"></a>
-<span class="sourceLineNo">036</span>    public final static int REQUIRED_VERTICES = 4;<a name="line.36"></a>
-<span class="sourceLineNo">037</span>    private final IGeoPosition[] vertices;<a name="line.37"></a>
-<span class="sourceLineNo">038</span><a name="line.38"></a>
-<span class="sourceLineNo">039</span>    private final ICamera camera;              // Camera when vertices were calculated, we will need this for<a name="line.39"></a>
-<span class="sourceLineNo">040</span>                                               // adjusting the distance.<a name="line.40"></a>
-<span class="sourceLineNo">041</span>    private final boolean cameraOnScreen;      // True if camera position is on screen.<a name="line.41"></a>
-<span class="sourceLineNo">042</span><a name="line.42"></a>
-<span class="sourceLineNo">043</span>    private final IGeoPosition geometricCenter; // Position corresponding to the geometric center of the vertices.<a name="line.43"></a>
-<span class="sourceLineNo">044</span><a name="line.44"></a>
-<span class="sourceLineNo">045</span>    // We will adjust vertices to restrict the distance from the camera. Purpose is to reduce the size of resources used<a name="line.45"></a>
-<span class="sourceLineNo">046</span>    // by SEC Military Symbol renderer. We will do the adjustment only when user tries to retrieve anything related<a name="line.46"></a>
-<span class="sourceLineNo">047</span>    // to the vertices.<a name="line.47"></a>
-<span class="sourceLineNo">048</span><a name="line.48"></a>
-<span class="sourceLineNo">049</span>    private final static double MAX_DISTANCE_FROM_CENTER = 5000000; // Maximum distance from center of four vertices.<a name="line.49"></a>
-<span class="sourceLineNo">050</span><a name="line.50"></a>
-<span class="sourceLineNo">051</span>    private IGeoPosition[] adjustedVertices = null;   // Approximate the vertices to keep longitude range to 180 degrees.<a name="line.51"></a>
-<span class="sourceLineNo">052</span><a name="line.52"></a>
-<span class="sourceLineNo">053</span>    private String boundingAreaString = null;                // Stores bounding area String that was created in toString operation.<a name="line.53"></a>
+<span class="sourceLineNo">010</span>import java.util.ArrayList;<a name="line.10"></a>
+<span class="sourceLineNo">011</span>import java.util.List;<a name="line.11"></a>
+<span class="sourceLineNo">012</span><a name="line.12"></a>
+<span class="sourceLineNo">013</span>import mil.emp3.api.Camera;<a name="line.13"></a>
+<span class="sourceLineNo">014</span>import mil.emp3.api.global;<a name="line.14"></a>
+<span class="sourceLineNo">015</span>import mil.emp3.api.interfaces.ICamera;<a name="line.15"></a>
+<span class="sourceLineNo">016</span>import mil.emp3.api.interfaces.IEmpBoundingArea;<a name="line.16"></a>
+<span class="sourceLineNo">017</span><a name="line.17"></a>
+<span class="sourceLineNo">018</span>/**<a name="line.18"></a>
+<span class="sourceLineNo">019</span> * When map view changes i.e. pan/zoom/tilt/rotate/heading we recalculate the quadrilateral that approximates visible geographical area<a name="line.19"></a>
+<span class="sourceLineNo">020</span> * of the map view. When the entire view is occupied by the map we can get the exact geographical coordinates of the four corners. When the map<a name="line.20"></a>
+<span class="sourceLineNo">021</span> * shows sky/space then we provide the best possible geographical coordinates. SEC Military Symbol render-er is one know customer of this<a name="line.21"></a>
+<span class="sourceLineNo">022</span> * capability.<a name="line.22"></a>
+<span class="sourceLineNo">023</span> *<a name="line.23"></a>
+<span class="sourceLineNo">024</span> * The vertices represent a polygon/quadrilateral and they are stored in clockwise order. You cannot associate any specific vertex to any specific<a name="line.24"></a>
+<span class="sourceLineNo">025</span> * corner of the view. The class guarentees that all four vertices are non-null and have valid latitude/longitude values. Altitude is always set to zero.<a name="line.25"></a>
+<span class="sourceLineNo">026</span> *<a name="line.26"></a>
+<span class="sourceLineNo">027</span> * Class also provides a capability to to convert (approximately) these four vertices to GeoBounds object i.e. North, East, West and South<a name="line.27"></a>
+<span class="sourceLineNo">028</span> * boundaries.<a name="line.28"></a>
+<span class="sourceLineNo">029</span> *<a name="line.29"></a>
+<span class="sourceLineNo">030</span> * If you are interested in the logic used to generate this object then please refer to BoundsGeneration class in mapengine-worldwind-apk project.<a name="line.30"></a>
+<span class="sourceLineNo">031</span> */<a name="line.31"></a>
+<span class="sourceLineNo">032</span><a name="line.32"></a>
+<span class="sourceLineNo">033</span>public class EmpBoundingArea extends GeoBounds implements IEmpBoundingArea {<a name="line.33"></a>
+<span class="sourceLineNo">034</span>    private static String TAG = EmpBoundingArea.class.getSimpleName();<a name="line.34"></a>
+<span class="sourceLineNo">035</span>    public final static int REQUIRED_VERTICES = 4;<a name="line.35"></a>
+<span class="sourceLineNo">036</span>    private final IGeoPosition[] vertices;<a name="line.36"></a>
+<span class="sourceLineNo">037</span><a name="line.37"></a>
+<span class="sourceLineNo">038</span>    private final ICamera camera;              // Camera when vertices were calculated, we will need this for<a name="line.38"></a>
+<span class="sourceLineNo">039</span>                                               // adjusting the distance.<a name="line.39"></a>
+<span class="sourceLineNo">040</span>    private final boolean cameraOnScreen;      // True if camera position is on screen.<a name="line.40"></a>
+<span class="sourceLineNo">041</span><a name="line.41"></a>
+<span class="sourceLineNo">042</span>    private final IGeoPosition geometricCenter; // Position corresponding to the geometric center of the vertices.<a name="line.42"></a>
+<span class="sourceLineNo">043</span><a name="line.43"></a>
+<span class="sourceLineNo">044</span>    // We will adjust vertices to restrict the distance from the camera. Purpose is to reduce the size of resources used<a name="line.44"></a>
+<span class="sourceLineNo">045</span>    // by SEC Military Symbol renderer. We will do the adjustment only when user tries to retrieve anything related<a name="line.45"></a>
+<span class="sourceLineNo">046</span>    // to the vertices.<a name="line.46"></a>
+<span class="sourceLineNo">047</span><a name="line.47"></a>
+<span class="sourceLineNo">048</span>    private final double MAXIMUM_LONGITUDE_SPAN = 180.0;<a name="line.48"></a>
+<span class="sourceLineNo">049</span><a name="line.49"></a>
+<span class="sourceLineNo">050</span>    // NOTE: We are no longer adjusting the vertices. If SPAN of the bounding area is more that 180 deg then we simply<a name="line.50"></a>
+<span class="sourceLineNo">051</span>    // return the bounding box that was calculated when bounding area was calculated. We are still populating<a name="line.51"></a>
+<span class="sourceLineNo">052</span>    // the adjusted vertices and span calculation is done on the adjustedVertices member. Since this is a work in<a name="line.52"></a>
+<span class="sourceLineNo">053</span>    // progress we have kept the member variable and keep using it.<a name="line.53"></a>
 <span class="sourceLineNo">054</span><a name="line.54"></a>
-<span class="sourceLineNo">055</span>    /**<a name="line.55"></a>
-<span class="sourceLineNo">056</span>     * All parameters must be non-null and have valid values.<a name="line.56"></a>
-<span class="sourceLineNo">057</span>     * @param currentCamera - Camera object when the vertices were calculated.<a name="line.57"></a>
-<span class="sourceLineNo">058</span>     * @param v1<a name="line.58"></a>
-<span class="sourceLineNo">059</span>     * @param v2<a name="line.59"></a>
-<span class="sourceLineNo">060</span>     * @param v3<a name="line.60"></a>
-<span class="sourceLineNo">061</span>     * @param v4<a name="line.61"></a>
-<span class="sourceLineNo">062</span>     */<a name="line.62"></a>
-<span class="sourceLineNo">063</span>    public EmpBoundingArea(ICamera currentCamera, boolean cameraOnScreen, IGeoPosition v1, IGeoPosition v2, IGeoPosition v3, IGeoPosition v4,<a name="line.63"></a>
-<span class="sourceLineNo">064</span>                           IGeoBounds geoBounds, IGeoPosition geometricCenter) {<a name="line.64"></a>
-<span class="sourceLineNo">065</span><a name="line.65"></a>
-<span class="sourceLineNo">066</span>        if((null == v1) || (null == v2) || (null == v3) || (null == v4)) {<a name="line.66"></a>
-<span class="sourceLineNo">067</span>            throw new IllegalArgumentException("All vertices must be non-null");<a name="line.67"></a>
-<span class="sourceLineNo">068</span>        }<a name="line.68"></a>
-<span class="sourceLineNo">069</span>        vertices = new IGeoPosition[REQUIRED_VERTICES];<a name="line.69"></a>
-<span class="sourceLineNo">070</span>        vertices[0] = v1;<a name="line.70"></a>
-<span class="sourceLineNo">071</span>        vertices[1] = v2;<a name="line.71"></a>
-<span class="sourceLineNo">072</span>        vertices[2] = v3;<a name="line.72"></a>
-<span class="sourceLineNo">073</span>        vertices[3] = v4;<a name="line.73"></a>
-<span class="sourceLineNo">074</span><a name="line.74"></a>
-<span class="sourceLineNo">075</span>        for(int ii = 0; ii &lt; vertices.length; ii++) {<a name="line.75"></a>
-<span class="sourceLineNo">076</span>            if (Double.isNaN(vertices[ii].getLatitude()) || (vertices[ii].getLatitude() &lt; global.LATITUDE_MINIMUM) || (vertices[ii].getLatitude() &gt; global.LATITUDE_MAXIMUM)) {<a name="line.76"></a>
-<span class="sourceLineNo">077</span>                throw new InvalidParameterException("Latitude is Out Of Range for vertex " + (ii+1));<a name="line.77"></a>
-<span class="sourceLineNo">078</span>            }<a name="line.78"></a>
+<span class="sourceLineNo">055</span>    private IGeoPosition[] adjustedVertices = null;   // Adjust the vertices to keep longitude range to 180 degrees.<a name="line.55"></a>
+<span class="sourceLineNo">056</span>    boolean adjustVerticesStatus = false;             // This is set to true if vertices could be adjusted to meet the 180 span requirement.<a name="line.56"></a>
+<span class="sourceLineNo">057</span><a name="line.57"></a>
+<span class="sourceLineNo">058</span>    private String boundingAreaString = null;         // Stores bounding area String that was created in toString operation.<a name="line.58"></a>
+<span class="sourceLineNo">059</span><a name="line.59"></a>
+<span class="sourceLineNo">060</span>    /**<a name="line.60"></a>
+<span class="sourceLineNo">061</span>     * All parameters must be non-null and have valid values.<a name="line.61"></a>
+<span class="sourceLineNo">062</span>     * @param currentCamera - Camera object when the vertices were calculated.<a name="line.62"></a>
+<span class="sourceLineNo">063</span>     * @param v1<a name="line.63"></a>
+<span class="sourceLineNo">064</span>     * @param v2<a name="line.64"></a>
+<span class="sourceLineNo">065</span>     * @param v3<a name="line.65"></a>
+<span class="sourceLineNo">066</span>     * @param v4<a name="line.66"></a>
+<span class="sourceLineNo">067</span>     */<a name="line.67"></a>
+<span class="sourceLineNo">068</span>    public EmpBoundingArea(ICamera currentCamera, boolean cameraOnScreen, IGeoPosition v1, IGeoPosition v2, IGeoPosition v3, IGeoPosition v4,<a name="line.68"></a>
+<span class="sourceLineNo">069</span>                           IGeoBounds geoBounds, IGeoPosition geometricCenter) {<a name="line.69"></a>
+<span class="sourceLineNo">070</span><a name="line.70"></a>
+<span class="sourceLineNo">071</span>        if((null == v1) || (null == v2) || (null == v3) || (null == v4)) {<a name="line.71"></a>
+<span class="sourceLineNo">072</span>            throw new IllegalArgumentException("All vertices must be non-null");<a name="line.72"></a>
+<span class="sourceLineNo">073</span>        }<a name="line.73"></a>
+<span class="sourceLineNo">074</span>        vertices = new IGeoPosition[REQUIRED_VERTICES];<a name="line.74"></a>
+<span class="sourceLineNo">075</span>        vertices[0] = v1;<a name="line.75"></a>
+<span class="sourceLineNo">076</span>        vertices[1] = v2;<a name="line.76"></a>
+<span class="sourceLineNo">077</span>        vertices[2] = v3;<a name="line.77"></a>
+<span class="sourceLineNo">078</span>        vertices[3] = v4;<a name="line.78"></a>
 <span class="sourceLineNo">079</span><a name="line.79"></a>
-<span class="sourceLineNo">080</span>            if (Double.isNaN(vertices[ii].getLongitude()) || (vertices[ii].getLongitude() &lt; global.LONGITUDE_MINIMUM) || (vertices[ii].getLongitude() &gt; global.LONGITUDE_MAXIMUM)) {<a name="line.80"></a>
-<span class="sourceLineNo">081</span>                throw new InvalidParameterException("Longitude is Out Of Range for vertex " + (ii+1));<a name="line.81"></a>
-<span class="sourceLineNo">082</span>            }<a name="line.82"></a>
-<span class="sourceLineNo">083</span><a name="line.83"></a>
-<span class="sourceLineNo">084</span>            vertices[ii].setAltitude(0);<a name="line.84"></a>
-<span class="sourceLineNo">085</span>        }<a name="line.85"></a>
-<span class="sourceLineNo">086</span><a name="line.86"></a>
-<span class="sourceLineNo">087</span>        camera = new Camera();<a name="line.87"></a>
-<span class="sourceLineNo">088</span>        camera.copySettingsFrom(currentCamera);<a name="line.88"></a>
-<span class="sourceLineNo">089</span>        this.cameraOnScreen = cameraOnScreen;<a name="line.89"></a>
-<span class="sourceLineNo">090</span>        this.geometricCenter = geometricCenter;<a name="line.90"></a>
+<span class="sourceLineNo">080</span>        for(int ii = 0; ii &lt; vertices.length; ii++) {<a name="line.80"></a>
+<span class="sourceLineNo">081</span>            if (Double.isNaN(vertices[ii].getLatitude()) || (vertices[ii].getLatitude() &lt; global.LATITUDE_MINIMUM) || (vertices[ii].getLatitude() &gt; global.LATITUDE_MAXIMUM)) {<a name="line.81"></a>
+<span class="sourceLineNo">082</span>                throw new IllegalArgumentException("Latitude is Out Of Range for vertex " + (ii+1));<a name="line.82"></a>
+<span class="sourceLineNo">083</span>            }<a name="line.83"></a>
+<span class="sourceLineNo">084</span><a name="line.84"></a>
+<span class="sourceLineNo">085</span>            if (Double.isNaN(vertices[ii].getLongitude()) || (vertices[ii].getLongitude() &lt; global.LONGITUDE_MINIMUM) || (vertices[ii].getLongitude() &gt; global.LONGITUDE_MAXIMUM)) {<a name="line.85"></a>
+<span class="sourceLineNo">086</span>                throw new IllegalArgumentException("Longitude is Out Of Range for vertex " + (ii+1));<a name="line.86"></a>
+<span class="sourceLineNo">087</span>            }<a name="line.87"></a>
+<span class="sourceLineNo">088</span><a name="line.88"></a>
+<span class="sourceLineNo">089</span>            vertices[ii].setAltitude(0);<a name="line.89"></a>
+<span class="sourceLineNo">090</span>        }<a name="line.90"></a>
 <span class="sourceLineNo">091</span><a name="line.91"></a>
-<span class="sourceLineNo">092</span>        super.setEast(geoBounds.getEast());<a name="line.92"></a>
-<span class="sourceLineNo">093</span>        super.setWest(geoBounds.getWest());<a name="line.93"></a>
-<span class="sourceLineNo">094</span>        super.setNorth(geoBounds.getNorth());<a name="line.94"></a>
-<span class="sourceLineNo">095</span>        super.setSouth(geoBounds.getSouth());<a name="line.95"></a>
-<span class="sourceLineNo">096</span>    }<a name="line.96"></a>
-<span class="sourceLineNo">097</span><a name="line.97"></a>
-<span class="sourceLineNo">098</span>    private void adjustVerticesByDistance() {<a name="line.98"></a>
-<span class="sourceLineNo">099</span>        if(null != adjustedVertices) return;<a name="line.99"></a>
-<span class="sourceLineNo">100</span><a name="line.100"></a>
-<span class="sourceLineNo">101</span>        IGeoPosition center;<a name="line.101"></a>
+<span class="sourceLineNo">092</span>        camera = new Camera();<a name="line.92"></a>
+<span class="sourceLineNo">093</span>        camera.copySettingsFrom(currentCamera);<a name="line.93"></a>
+<span class="sourceLineNo">094</span>        this.cameraOnScreen = cameraOnScreen;<a name="line.94"></a>
+<span class="sourceLineNo">095</span>        this.geometricCenter = geometricCenter;<a name="line.95"></a>
+<span class="sourceLineNo">096</span><a name="line.96"></a>
+<span class="sourceLineNo">097</span>        super.setEast(geoBounds.getEast());<a name="line.97"></a>
+<span class="sourceLineNo">098</span>        super.setWest(geoBounds.getWest());<a name="line.98"></a>
+<span class="sourceLineNo">099</span>        super.setNorth(geoBounds.getNorth());<a name="line.99"></a>
+<span class="sourceLineNo">100</span>        super.setSouth(geoBounds.getSouth());<a name="line.100"></a>
+<span class="sourceLineNo">101</span>    }<a name="line.101"></a>
 <span class="sourceLineNo">102</span><a name="line.102"></a>
-<span class="sourceLineNo">103</span>        if(!cameraOnScreen) {<a name="line.103"></a>
-<span class="sourceLineNo">104</span>            // Find the center of the four vertices.<a name="line.104"></a>
-<span class="sourceLineNo">105</span>            List&lt;IGeoPosition&gt; cornersFound = new ArrayList&lt;&gt;();<a name="line.105"></a>
-<span class="sourceLineNo">106</span>            for (int ii = 0; ii &lt; vertices.length; ii++) {<a name="line.106"></a>
-<span class="sourceLineNo">107</span>                cornersFound.add(vertices[ii]);<a name="line.107"></a>
-<span class="sourceLineNo">108</span>            }<a name="line.108"></a>
-<span class="sourceLineNo">109</span>            center = GeoLibrary.getCenter(cornersFound);<a name="line.109"></a>
-<span class="sourceLineNo">110</span>        } else {<a name="line.110"></a>
-<span class="sourceLineNo">111</span>            center = new GeoPosition();<a name="line.111"></a>
-<span class="sourceLineNo">112</span>            center.setLatitude(camera.getLatitude());<a name="line.112"></a>
-<span class="sourceLineNo">113</span>            center.setLongitude(camera.getLongitude());<a name="line.113"></a>
-<span class="sourceLineNo">114</span>        }<a name="line.114"></a>
-<span class="sourceLineNo">115</span><a name="line.115"></a>
-<span class="sourceLineNo">116</span>        adjustedVertices = new IGeoPosition[vertices.length];<a name="line.116"></a>
-<span class="sourceLineNo">117</span>        double distance;<a name="line.117"></a>
-<span class="sourceLineNo">118</span><a name="line.118"></a>
-<span class="sourceLineNo">119</span>        // If distance from center is more than 5,000,000 meters then clip it.<a name="line.119"></a>
-<span class="sourceLineNo">120</span>        for (int ii = 0; ii &lt; vertices.length; ii++) {<a name="line.120"></a>
-<span class="sourceLineNo">121</span>            try {<a name="line.121"></a>
-<span class="sourceLineNo">122</span>                distance = GeoLibrary.computeDistanceBetween(center, vertices[ii]);<a name="line.122"></a>
-<span class="sourceLineNo">123</span>                Log.d(TAG, "distance " + ii + " " + distance);<a name="line.123"></a>
-<span class="sourceLineNo">124</span>                if (distance &gt; MAX_DISTANCE_FROM_CENTER) {<a name="line.124"></a>
-<span class="sourceLineNo">125</span>                    double bearing = GeoLibrary.computeBearing(center, vertices[ii]);<a name="line.125"></a>
-<span class="sourceLineNo">126</span>                    adjustedVertices[ii] = GeoLibrary.computePositionAt(bearing, MAX_DISTANCE_FROM_CENTER, center);<a name="line.126"></a>
-<span class="sourceLineNo">127</span>                } else {<a name="line.127"></a>
-<span class="sourceLineNo">128</span>                    adjustedVertices[ii] = vertices[ii];<a name="line.128"></a>
-<span class="sourceLineNo">129</span>                }<a name="line.129"></a>
-<span class="sourceLineNo">130</span>            } catch(Exception e) {<a name="line.130"></a>
-<span class="sourceLineNo">131</span>                Log.e(TAG, e.getMessage(), e);<a name="line.131"></a>
-<span class="sourceLineNo">132</span>                adjustedVertices[ii] = vertices[ii];<a name="line.132"></a>
-<span class="sourceLineNo">133</span>            }<a name="line.133"></a>
-<span class="sourceLineNo">134</span>        }<a name="line.134"></a>
-<span class="sourceLineNo">135</span>    }<a name="line.135"></a>
-<span class="sourceLineNo">136</span>    /**<a name="line.136"></a>
-<span class="sourceLineNo">137</span>     * Converts vertices to a String to a format required by Military Symbol render-er. It returns a string based on adjustedVertices that<a name="line.137"></a>
-<span class="sourceLineNo">138</span>     * meets the SEC Render-er requirement of 180 degrees max span of longitude. This calculation is very much approximate and may need<a name="line.138"></a>
-<span class="sourceLineNo">139</span>     * more work in future.<a name="line.139"></a>
-<span class="sourceLineNo">140</span>     * @return<a name="line.140"></a>
-<span class="sourceLineNo">141</span>     */<a name="line.141"></a>
-<span class="sourceLineNo">142</span><a name="line.142"></a>
-<span class="sourceLineNo">143</span>    @Override<a name="line.143"></a>
-<span class="sourceLineNo">144</span>    public String toString() {<a name="line.144"></a>
-<span class="sourceLineNo">145</span>        if(null != boundingAreaString) {<a name="line.145"></a>
-<span class="sourceLineNo">146</span>            return boundingAreaString;<a name="line.146"></a>
-<span class="sourceLineNo">147</span>        }<a name="line.147"></a>
-<span class="sourceLineNo">148</span>        adjustVerticesByDistance();<a name="line.148"></a>
-<span class="sourceLineNo">149</span>        StringBuilder builder = new StringBuilder();<a name="line.149"></a>
-<span class="sourceLineNo">150</span>        for(int ii = adjustedVertices.length - 1; ii &gt;= 0 ; ii--) {<a name="line.150"></a>
-<span class="sourceLineNo">151</span>            builder.append(adjustedVertices[ii].getLongitude() + "," + adjustedVertices[ii].getLatitude() + " ");<a name="line.151"></a>
-<span class="sourceLineNo">152</span>        }<a name="line.152"></a>
-<span class="sourceLineNo">153</span>        builder.append(adjustedVertices[adjustedVertices.length - 1].getLongitude() + "," + adjustedVertices[adjustedVertices.length - 1].getLatitude());<a name="line.153"></a>
-<span class="sourceLineNo">154</span>        boundingAreaString = builder.toString();<a name="line.154"></a>
-<span class="sourceLineNo">155</span>        return boundingAreaString;<a name="line.155"></a>
-<span class="sourceLineNo">156</span>    }<a name="line.156"></a>
-<span class="sourceLineNo">157</span><a name="line.157"></a>
-<span class="sourceLineNo">158</span>    /**<a name="line.158"></a>
-<span class="sourceLineNo">159</span>     * Fetch the four vertices. We are cloning the vertices and returning. Application will not be allowed to change this object.<a name="line.159"></a>
-<span class="sourceLineNo">160</span>     * @return<a name="line.160"></a>
-<span class="sourceLineNo">161</span>     */<a name="line.161"></a>
-<span class="sourceLineNo">162</span>    public IGeoPosition[] getBoundingVertices() {<a name="line.162"></a>
-<span class="sourceLineNo">163</span>        IGeoPosition[] bounds = new IGeoPosition[REQUIRED_VERTICES];<a name="line.163"></a>
-<span class="sourceLineNo">164</span>        for(int ii = 0; ii &lt; vertices.length; ii++) {<a name="line.164"></a>
-<span class="sourceLineNo">165</span>            bounds[ii] = new GeoPosition();<a name="line.165"></a>
-<span class="sourceLineNo">166</span>            bounds[ii].setLatitude(vertices[ii].getLatitude());<a name="line.166"></a>
-<span class="sourceLineNo">167</span>            bounds[ii].setLongitude(vertices[ii].getLongitude());<a name="line.167"></a>
-<span class="sourceLineNo">168</span>        }<a name="line.168"></a>
-<span class="sourceLineNo">169</span>        return bounds;<a name="line.169"></a>
-<span class="sourceLineNo">170</span>    }<a name="line.170"></a>
-<span class="sourceLineNo">171</span><a name="line.171"></a>
-<span class="sourceLineNo">172</span>    /**<a name="line.172"></a>
-<span class="sourceLineNo">173</span>     * Application is not allowed to change the boundaries of the underlying GeoBounds object as they are calculated from<a name="line.173"></a>
-<span class="sourceLineNo">174</span>     * the vertices (approximation). Application can use getGeoBounds or getEmpBoundingBox method to fetch an object it can change.<a name="line.174"></a>
-<span class="sourceLineNo">175</span>     * @param west<a name="line.175"></a>
-<span class="sourceLineNo">176</span>     */<a name="line.176"></a>
-<span class="sourceLineNo">177</span>    @Override<a name="line.177"></a>
-<span class="sourceLineNo">178</span>    public void setWest(double west){<a name="line.178"></a>
-<span class="sourceLineNo">179</span>        throw new IllegalStateException("Cannot set on " + this.getClass().getSimpleName());<a name="line.179"></a>
-<span class="sourceLineNo">180</span>    }<a name="line.180"></a>
-<span class="sourceLineNo">181</span><a name="line.181"></a>
-<span class="sourceLineNo">182</span>    /**<a name="line.182"></a>
-<span class="sourceLineNo">183</span>     * Application is not allowed to change the boundaries of the underlying GeoBounds object as they are calculated from<a name="line.183"></a>
-<span class="sourceLineNo">184</span>     * the vertices (approximation). Application can use getGeoBounds or getEmpBoundingBox method to fetch an object it can change.<a name="line.184"></a>
-<span class="sourceLineNo">185</span>     * @param east<a name="line.185"></a>
-<span class="sourceLineNo">186</span>     */<a name="line.186"></a>
-<span class="sourceLineNo">187</span>    @Override<a name="line.187"></a>
-<span class="sourceLineNo">188</span>    public void setEast(double east){<a name="line.188"></a>
-<span class="sourceLineNo">189</span>        throw new IllegalStateException("Cannot set on " + this.getClass().getSimpleName());<a name="line.189"></a>
-<span class="sourceLineNo">190</span>    }<a name="line.190"></a>
-<span class="sourceLineNo">191</span><a name="line.191"></a>
-<span class="sourceLineNo">192</span>    /**<a name="line.192"></a>
-<span class="sourceLineNo">193</span>     * Application is not allowed to change the boundaries of the underlying GeoBounds object as they are calculated from<a name="line.193"></a>
-<span class="sourceLineNo">194</span>     * the vertices (approximation). Application can use getGeoBounds or getEmpBoundingBox method to fetch an object it can change.<a name="line.194"></a>
-<span class="sourceLineNo">195</span>     * @param north<a name="line.195"></a>
-<span class="sourceLineNo">196</span>     */<a name="line.196"></a>
-<span class="sourceLineNo">197</span>    @Override<a name="line.197"></a>
-<span class="sourceLineNo">198</span>    public void setNorth(double north){<a name="line.198"></a>
-<span class="sourceLineNo">199</span>        throw new IllegalStateException("Cannot set on " + this.getClass().getSimpleName());<a name="line.199"></a>
-<span class="sourceLineNo">200</span>    }<a name="line.200"></a>
-<span class="sourceLineNo">201</span><a name="line.201"></a>
-<span class="sourceLineNo">202</span>    /**<a name="line.202"></a>
-<span class="sourceLineNo">203</span>     * Application is not allowed to change the boundaries of the underlying GeoBounds object as they are calculated from<a name="line.203"></a>
-<span class="sourceLineNo">204</span>     * the vertices (approximation). Application can use getGeoBounds or getEmpBoundingBox method to fetch an object it can change.<a name="line.204"></a>
-<span class="sourceLineNo">205</span>     * @param south<a name="line.205"></a>
-<span class="sourceLineNo">206</span>     */<a name="line.206"></a>
-<span class="sourceLineNo">207</span>    @Override<a name="line.207"></a>
-<span class="sourceLineNo">208</span>    public void setSouth(double south){<a name="line.208"></a>
-<span class="sourceLineNo">209</span>        throw new IllegalStateException("Cannot set on " + this.getClass().getSimpleName());<a name="line.209"></a>
-<span class="sourceLineNo">210</span>    }<a name="line.210"></a>
-<span class="sourceLineNo">211</span><a name="line.211"></a>
-<span class="sourceLineNo">212</span>    /**<a name="line.212"></a>
-<span class="sourceLineNo">213</span>     * Builds a GeoBounds object using the calculated boundaries.<a name="line.213"></a>
-<span class="sourceLineNo">214</span>     * @return<a name="line.214"></a>
-<span class="sourceLineNo">215</span>     */<a name="line.215"></a>
-<span class="sourceLineNo">216</span>    @Override<a name="line.216"></a>
-<span class="sourceLineNo">217</span>    public IGeoBounds getGeoBounds() {<a name="line.217"></a>
-<span class="sourceLineNo">218</span>        IGeoBounds geoBounds = new GeoBounds();<a name="line.218"></a>
-<span class="sourceLineNo">219</span>        geoBounds.setNorth(getNorth());<a name="line.219"></a>
-<span class="sourceLineNo">220</span>        geoBounds.setEast(getEast());<a name="line.220"></a>
-<span class="sourceLineNo">221</span>        geoBounds.setWest(getWest());<a name="line.221"></a>
-<span class="sourceLineNo">222</span>        geoBounds.setSouth(getSouth());<a name="line.222"></a>
-<span class="sourceLineNo">223</span>        return geoBounds;<a name="line.223"></a>
-<span class="sourceLineNo">224</span>    }<a name="line.224"></a>
-<span class="sourceLineNo">225</span><a name="line.225"></a>
-<span class="sourceLineNo">226</span>    /**<a name="line.226"></a>
-<span class="sourceLineNo">227</span>     * Builds a EmpBoundingBox using the calculated boundaries.<a name="line.227"></a>
-<span class="sourceLineNo">228</span>     * @return<a name="line.228"></a>
-<span class="sourceLineNo">229</span>     */<a name="line.229"></a>
-<span class="sourceLineNo">230</span>    @Override<a name="line.230"></a>
-<span class="sourceLineNo">231</span>    public EmpBoundingBox getEmpBoundingBox() {<a name="line.231"></a>
-<span class="sourceLineNo">232</span>        EmpBoundingBox empBoundingBox = new EmpBoundingBox(getNorth(), getSouth(), getEast(), getWest());<a name="line.232"></a>
-<span class="sourceLineNo">233</span>        return empBoundingBox;<a name="line.233"></a>
-<span class="sourceLineNo">234</span>    }<a name="line.234"></a>
-<span class="sourceLineNo">235</span><a name="line.235"></a>
-<span class="sourceLineNo">236</span>    @Override<a name="line.236"></a>
-<span class="sourceLineNo">237</span>    public IGeoPosition getCenter() {<a name="line.237"></a>
-<span class="sourceLineNo">238</span>        List&lt;IGeoPosition&gt; cornersFound = new ArrayList&lt;&gt;();<a name="line.238"></a>
-<span class="sourceLineNo">239</span><a name="line.239"></a>
-<span class="sourceLineNo">240</span>        IGeoPosition nw = new GeoPosition();<a name="line.240"></a>
-<span class="sourceLineNo">241</span>        nw.setLatitude(getNorth());<a name="line.241"></a>
-<span class="sourceLineNo">242</span>        nw.setLongitude(getWest());<a name="line.242"></a>
-<span class="sourceLineNo">243</span>        cornersFound.add(nw);<a name="line.243"></a>
-<span class="sourceLineNo">244</span><a name="line.244"></a>
-<span class="sourceLineNo">245</span>        IGeoPosition ne = new GeoPosition();<a name="line.245"></a>
-<span class="sourceLineNo">246</span>        ne.setLatitude(getNorth());<a name="line.246"></a>
-<span class="sourceLineNo">247</span>        ne.setLongitude(getEast());<a name="line.247"></a>
-<span class="sourceLineNo">248</span>        cornersFound.add(ne);<a name="line.248"></a>
-<span class="sourceLineNo">249</span><a name="line.249"></a>
-<span class="sourceLineNo">250</span>        IGeoPosition se = new GeoPosition();<a name="line.250"></a>
-<span class="sourceLineNo">251</span>        se.setLatitude(getSouth());<a name="line.251"></a>
-<span class="sourceLineNo">252</span>        se.setLongitude(getEast());<a name="line.252"></a>
-<span class="sourceLineNo">253</span>        cornersFound.add(se);<a name="line.253"></a>
-<span class="sourceLineNo">254</span><a name="line.254"></a>
-<span class="sourceLineNo">255</span>        IGeoPosition sw = new GeoPosition();<a name="line.255"></a>
-<span class="sourceLineNo">256</span>        sw.setLatitude(getSouth());<a name="line.256"></a>
-<span class="sourceLineNo">257</span>        sw.setLongitude(getWest());<a name="line.257"></a>
-<span class="sourceLineNo">258</span>        cornersFound.add(sw);<a name="line.258"></a>
-<span class="sourceLineNo">259</span><a name="line.259"></a>
-<span class="sourceLineNo">260</span>        return GeoLibrary.getCenter(cornersFound);<a name="line.260"></a>
-<span class="sourceLineNo">261</span>    }<a name="line.261"></a>
-<span class="sourceLineNo">262</span><a name="line.262"></a>
-<span class="sourceLineNo">263</span>    @Override<a name="line.263"></a>
-<span class="sourceLineNo">264</span>    public boolean cameraPositionIsVisible() {<a name="line.264"></a>
-<span class="sourceLineNo">265</span>        return cameraOnScreen;<a name="line.265"></a>
-<span class="sourceLineNo">266</span>    }<a name="line.266"></a>
-<span class="sourceLineNo">267</span><a name="line.267"></a>
-<span class="sourceLineNo">268</span>    @Override<a name="line.268"></a>
-<span class="sourceLineNo">269</span>    public IGeoPosition getGeometricCenter() { return new EmpGeoPosition(geometricCenter);}<a name="line.269"></a>
-<span class="sourceLineNo">270</span>}<a name="line.270"></a>
+<span class="sourceLineNo">103</span>    /**<a name="line.103"></a>
+<span class="sourceLineNo">104</span>     * Get Longitude Span<a name="line.104"></a>
+<span class="sourceLineNo">105</span>     *    - If all longitudes are either positive or negative then span is simply the difference between highest and lowest<a name="line.105"></a>
+<span class="sourceLineNo">106</span>     *    - Otherwise we have to check the span over the 0 longitude or 180 degree longitude. Whichever is the lowers we will return.<a name="line.106"></a>
+<span class="sourceLineNo">107</span>     *    - We are presuming that vertices were copied to adjusted vertices in case we need to reintroduce the adjustment.<a name="line.107"></a>
+<span class="sourceLineNo">108</span>     * @return<a name="line.108"></a>
+<span class="sourceLineNo">109</span>     */<a name="line.109"></a>
+<span class="sourceLineNo">110</span>    private double getLongitudeSpan() {<a name="line.110"></a>
+<span class="sourceLineNo">111</span>        // If all vertices are either positive or negative then span is less tha or equal to 180<a name="line.111"></a>
+<span class="sourceLineNo">112</span>        if ((adjustedVertices[0].getLongitude() &gt;= 0 &amp;&amp; adjustedVertices[1].getLongitude() &gt;= 0 &amp;&amp;<a name="line.112"></a>
+<span class="sourceLineNo">113</span>                adjustedVertices[2].getLongitude() &gt;= 0 &amp;&amp; adjustedVertices[3].getLongitude() &gt;= 0) ||<a name="line.113"></a>
+<span class="sourceLineNo">114</span>                (adjustedVertices[0].getLongitude() &lt;= 0 &amp;&amp; adjustedVertices[1].getLongitude() &lt;= 0 &amp;&amp;<a name="line.114"></a>
+<span class="sourceLineNo">115</span>                        adjustedVertices[2].getLongitude() &lt;= 0 &amp;&amp; adjustedVertices[3].getLongitude() &lt;= 0)) {<a name="line.115"></a>
+<span class="sourceLineNo">116</span>            double lowest = global.LONGITUDE_MAXIMUM + 1.0;<a name="line.116"></a>
+<span class="sourceLineNo">117</span>            double highest = global.LONGITUDE_MINIMUM - 1.0;<a name="line.117"></a>
+<span class="sourceLineNo">118</span>            for (int ii = 0; ii &lt; adjustedVertices.length; ii++) {<a name="line.118"></a>
+<span class="sourceLineNo">119</span>                if (adjustedVertices[ii].getLongitude() &lt; lowest) {<a name="line.119"></a>
+<span class="sourceLineNo">120</span>                    lowest = adjustedVertices[ii].getLongitude();<a name="line.120"></a>
+<span class="sourceLineNo">121</span>                }<a name="line.121"></a>
+<span class="sourceLineNo">122</span>                if (adjustedVertices[ii].getLongitude() &gt; highest) {<a name="line.122"></a>
+<span class="sourceLineNo">123</span>                    highest = adjustedVertices[ii].getLongitude();<a name="line.123"></a>
+<span class="sourceLineNo">124</span>                }<a name="line.124"></a>
+<span class="sourceLineNo">125</span>            }<a name="line.125"></a>
+<span class="sourceLineNo">126</span><a name="line.126"></a>
+<span class="sourceLineNo">127</span>            return Math.abs(highest - lowest);<a name="line.127"></a>
+<span class="sourceLineNo">128</span>        } else {<a name="line.128"></a>
+<span class="sourceLineNo">129</span>            // Find the lowest longitude and highest longitude<a name="line.129"></a>
+<span class="sourceLineNo">130</span>            double lowest = global.LONGITUDE_MAXIMUM + 1.0;<a name="line.130"></a>
+<span class="sourceLineNo">131</span>            double highest = global.LONGITUDE_MINIMUM  - 1.0;<a name="line.131"></a>
+<span class="sourceLineNo">132</span>            for (int ii = 0; ii &lt; adjustedVertices.length; ii++) {<a name="line.132"></a>
+<span class="sourceLineNo">133</span>                if (adjustedVertices[ii].getLongitude() &lt; lowest) {<a name="line.133"></a>
+<span class="sourceLineNo">134</span>                    lowest = adjustedVertices[ii].getLongitude();<a name="line.134"></a>
+<span class="sourceLineNo">135</span>                }<a name="line.135"></a>
+<span class="sourceLineNo">136</span>                if (adjustedVertices[ii].getLongitude() &gt; highest) {<a name="line.136"></a>
+<span class="sourceLineNo">137</span>                    highest = adjustedVertices[ii].getLongitude();<a name="line.137"></a>
+<span class="sourceLineNo">138</span>                }<a name="line.138"></a>
+<span class="sourceLineNo">139</span>            }<a name="line.139"></a>
+<span class="sourceLineNo">140</span><a name="line.140"></a>
+<span class="sourceLineNo">141</span>            // check around longitude 0 if span is less than 180<a name="line.141"></a>
+<span class="sourceLineNo">142</span>            double span1 = Math.abs(lowest) + highest;<a name="line.142"></a>
+<span class="sourceLineNo">143</span>            if (span1 &lt; MAXIMUM_LONGITUDE_SPAN) {<a name="line.143"></a>
+<span class="sourceLineNo">144</span>                return span1;<a name="line.144"></a>
+<span class="sourceLineNo">145</span>            }<a name="line.145"></a>
+<span class="sourceLineNo">146</span><a name="line.146"></a>
+<span class="sourceLineNo">147</span><a name="line.147"></a>
+<span class="sourceLineNo">148</span>            // Find the lowest positive and highest negative longitude<a name="line.148"></a>
+<span class="sourceLineNo">149</span>            double lowestPositive = global.LONGITUDE_MAXIMUM + 1.0;<a name="line.149"></a>
+<span class="sourceLineNo">150</span>            double highestNegative = global.LONGITUDE_MINIMUM  - 1.0;<a name="line.150"></a>
+<span class="sourceLineNo">151</span>            for (int ii = 0; ii &lt; adjustedVertices.length; ii++) {<a name="line.151"></a>
+<span class="sourceLineNo">152</span>                if (adjustedVertices[ii].getLongitude() &gt;= 0 &amp;&amp; adjustedVertices[ii].getLongitude() &lt; lowestPositive) {<a name="line.152"></a>
+<span class="sourceLineNo">153</span>                    lowestPositive = adjustedVertices[ii].getLongitude();<a name="line.153"></a>
+<span class="sourceLineNo">154</span>                }<a name="line.154"></a>
+<span class="sourceLineNo">155</span>                if (adjustedVertices[ii].getLongitude() &lt;= 0 &amp;&amp; adjustedVertices[ii].getLongitude() &gt; highestNegative) {<a name="line.155"></a>
+<span class="sourceLineNo">156</span>                    highestNegative = adjustedVertices[ii].getLongitude();<a name="line.156"></a>
+<span class="sourceLineNo">157</span>                }<a name="line.157"></a>
+<span class="sourceLineNo">158</span>            }<a name="line.158"></a>
+<span class="sourceLineNo">159</span><a name="line.159"></a>
+<span class="sourceLineNo">160</span>            // check around longitude 180 if span is less than 180<a name="line.160"></a>
+<span class="sourceLineNo">161</span>            double span2 = (global.LONGITUDE_MAXIMUM - lowestPositive) + (global.LONGITUDE_MAXIMUM - Math.abs(highestNegative));<a name="line.161"></a>
+<span class="sourceLineNo">162</span>            if (span2 &lt; MAXIMUM_LONGITUDE_SPAN) {<a name="line.162"></a>
+<span class="sourceLineNo">163</span>                return span2;<a name="line.163"></a>
+<span class="sourceLineNo">164</span>            }<a name="line.164"></a>
+<span class="sourceLineNo">165</span><a name="line.165"></a>
+<span class="sourceLineNo">166</span>            if(span1 &lt; span2) {<a name="line.166"></a>
+<span class="sourceLineNo">167</span>                return span1;<a name="line.167"></a>
+<span class="sourceLineNo">168</span>            } else {<a name="line.168"></a>
+<span class="sourceLineNo">169</span>                return span2;<a name="line.169"></a>
+<span class="sourceLineNo">170</span>            }<a name="line.170"></a>
+<span class="sourceLineNo">171</span>        }<a name="line.171"></a>
+<span class="sourceLineNo">172</span>    }<a name="line.172"></a>
+<span class="sourceLineNo">173</span><a name="line.173"></a>
+<span class="sourceLineNo">174</span>    /**<a name="line.174"></a>
+<span class="sourceLineNo">175</span>     * Get the current span for the bounded area. If span is more than 180 deg then return false else return true. If the logic to<a name="line.175"></a>
+<span class="sourceLineNo">176</span>     * adjust vertices for span is to be reintroduced then we should do that here. Currently there is no adjustment.<a name="line.176"></a>
+<span class="sourceLineNo">177</span>     * @return<a name="line.177"></a>
+<span class="sourceLineNo">178</span>     */<a name="line.178"></a>
+<span class="sourceLineNo">179</span>    private boolean adjustVerticesByDistance() {<a name="line.179"></a>
+<span class="sourceLineNo">180</span>        if(null != adjustedVertices) {<a name="line.180"></a>
+<span class="sourceLineNo">181</span>            return adjustVerticesStatus;<a name="line.181"></a>
+<span class="sourceLineNo">182</span>        }<a name="line.182"></a>
+<span class="sourceLineNo">183</span><a name="line.183"></a>
+<span class="sourceLineNo">184</span>        adjustVerticesStatus = true;<a name="line.184"></a>
+<span class="sourceLineNo">185</span>        adjustedVertices = new IGeoPosition[vertices.length];<a name="line.185"></a>
+<span class="sourceLineNo">186</span>        for (int ii = 0; ii &lt; vertices.length; ii++) {<a name="line.186"></a>
+<span class="sourceLineNo">187</span>            adjustedVertices[ii] = new EmpGeoPosition(vertices[ii]);<a name="line.187"></a>
+<span class="sourceLineNo">188</span>        }<a name="line.188"></a>
+<span class="sourceLineNo">189</span>        double span = getLongitudeSpan();<a name="line.189"></a>
+<span class="sourceLineNo">190</span>        Log.i(TAG, "Initial Span " + span);<a name="line.190"></a>
+<span class="sourceLineNo">191</span>        if(span &lt; MAXIMUM_LONGITUDE_SPAN) {<a name="line.191"></a>
+<span class="sourceLineNo">192</span>            return true;<a name="line.192"></a>
+<span class="sourceLineNo">193</span>        } else {<a name="line.193"></a>
+<span class="sourceLineNo">194</span>            return false; // We are not adjusting vertices. Instead caller should simply use the bounding box.<a name="line.194"></a>
+<span class="sourceLineNo">195</span>        }<a name="line.195"></a>
+<span class="sourceLineNo">196</span>    }<a name="line.196"></a>
+<span class="sourceLineNo">197</span><a name="line.197"></a>
+<span class="sourceLineNo">198</span><a name="line.198"></a>
+<span class="sourceLineNo">199</span>    /**<a name="line.199"></a>
+<span class="sourceLineNo">200</span>     * Converts vertices to a String to a format required by Military Symbol render-er. It returns a string based on adjustedVertices that<a name="line.200"></a>
+<span class="sourceLineNo">201</span>     * meets the SEC Render-er requirement of 180 degrees max span of longitude. This calculation is very much approximate and may need<a name="line.201"></a>
+<span class="sourceLineNo">202</span>     * more work in future.<a name="line.202"></a>
+<span class="sourceLineNo">203</span>     *<a name="line.203"></a>
+<span class="sourceLineNo">204</span>     * If quadrilateral vertices can be adjusted to meet the 180 span requirement then that is the output. Otherwise use calculated bounds to<a name="line.204"></a>
+<span class="sourceLineNo">205</span>     * generate a string (this has a different format). This will usually be the case when camera is at or near the pole.<a name="line.205"></a>
+<span class="sourceLineNo">206</span>     * @return<a name="line.206"></a>
+<span class="sourceLineNo">207</span>     */<a name="line.207"></a>
+<span class="sourceLineNo">208</span><a name="line.208"></a>
+<span class="sourceLineNo">209</span>    @Override<a name="line.209"></a>
+<span class="sourceLineNo">210</span>    public String toString() {<a name="line.210"></a>
+<span class="sourceLineNo">211</span>        if(null != boundingAreaString) {<a name="line.211"></a>
+<span class="sourceLineNo">212</span>            return boundingAreaString;<a name="line.212"></a>
+<span class="sourceLineNo">213</span>        }<a name="line.213"></a>
+<span class="sourceLineNo">214</span>        if(adjustVerticesByDistance()) {<a name="line.214"></a>
+<span class="sourceLineNo">215</span><a name="line.215"></a>
+<span class="sourceLineNo">216</span>            StringBuilder builder = new StringBuilder();<a name="line.216"></a>
+<span class="sourceLineNo">217</span>            for (int ii = adjustedVertices.length - 1; ii &gt;= 0; ii--) {<a name="line.217"></a>
+<span class="sourceLineNo">218</span>                builder.append(adjustedVertices[ii].getLongitude() + "," + adjustedVertices[ii].getLatitude() + " ");<a name="line.218"></a>
+<span class="sourceLineNo">219</span>            }<a name="line.219"></a>
+<span class="sourceLineNo">220</span>            builder.append(adjustedVertices[adjustedVertices.length - 1].getLongitude() + "," + adjustedVertices[adjustedVertices.length - 1].getLatitude());<a name="line.220"></a>
+<span class="sourceLineNo">221</span>            boundingAreaString = builder.toString();<a name="line.221"></a>
+<span class="sourceLineNo">222</span>        } else {<a name="line.222"></a>
+<span class="sourceLineNo">223</span>            // Span of the area is larger than 180 deg, so simply sue the bounding box which is guarenteed to have a span less than 120.<a name="line.223"></a>
+<span class="sourceLineNo">224</span>            // This usually happens when complete globe is visible of we are at or near the pole.<a name="line.224"></a>
+<span class="sourceLineNo">225</span>            boundingAreaString = getWest() + "," + getSouth() + "," + getEast() + "," + getNorth();<a name="line.225"></a>
+<span class="sourceLineNo">226</span>        }<a name="line.226"></a>
+<span class="sourceLineNo">227</span>        return boundingAreaString;<a name="line.227"></a>
+<span class="sourceLineNo">228</span>    }<a name="line.228"></a>
+<span class="sourceLineNo">229</span><a name="line.229"></a>
+<span class="sourceLineNo">230</span>    /**<a name="line.230"></a>
+<span class="sourceLineNo">231</span>     * Fetch the four vertices. We are cloning the vertices and returning. Application will not be allowed to change this object.<a name="line.231"></a>
+<span class="sourceLineNo">232</span>     * @return<a name="line.232"></a>
+<span class="sourceLineNo">233</span>     */<a name="line.233"></a>
+<span class="sourceLineNo">234</span>    public IGeoPosition[] getBoundingVertices() {<a name="line.234"></a>
+<span class="sourceLineNo">235</span>        IGeoPosition[] bounds = new IGeoPosition[REQUIRED_VERTICES];<a name="line.235"></a>
+<span class="sourceLineNo">236</span>        for(int ii = 0; ii &lt; vertices.length; ii++) {<a name="line.236"></a>
+<span class="sourceLineNo">237</span>            bounds[ii] = new GeoPosition();<a name="line.237"></a>
+<span class="sourceLineNo">238</span>            bounds[ii].setLatitude(vertices[ii].getLatitude());<a name="line.238"></a>
+<span class="sourceLineNo">239</span>            bounds[ii].setLongitude(vertices[ii].getLongitude());<a name="line.239"></a>
+<span class="sourceLineNo">240</span>        }<a name="line.240"></a>
+<span class="sourceLineNo">241</span>        return bounds;<a name="line.241"></a>
+<span class="sourceLineNo">242</span>    }<a name="line.242"></a>
+<span class="sourceLineNo">243</span><a name="line.243"></a>
+<span class="sourceLineNo">244</span>    /**<a name="line.244"></a>
+<span class="sourceLineNo">245</span>     * Application is not allowed to change the boundaries of the underlying GeoBounds object as they are calculated from<a name="line.245"></a>
+<span class="sourceLineNo">246</span>     * the vertices (approximation). Application can use getGeoBounds or getEmpBoundingBox method to fetch an object it can change.<a name="line.246"></a>
+<span class="sourceLineNo">247</span>     * @param west<a name="line.247"></a>
+<span class="sourceLineNo">248</span>     */<a name="line.248"></a>
+<span class="sourceLineNo">249</span>    @Override<a name="line.249"></a>
+<span class="sourceLineNo">250</span>    public void setWest(double west){<a name="line.250"></a>
+<span class="sourceLineNo">251</span>        throw new IllegalStateException("Cannot set on " + this.getClass().getSimpleName());<a name="line.251"></a>
+<span class="sourceLineNo">252</span>    }<a name="line.252"></a>
+<span class="sourceLineNo">253</span><a name="line.253"></a>
+<span class="sourceLineNo">254</span>    /**<a name="line.254"></a>
+<span class="sourceLineNo">255</span>     * Application is not allowed to change the boundaries of the underlying GeoBounds object as they are calculated from<a name="line.255"></a>
+<span class="sourceLineNo">256</span>     * the vertices (approximation). Application can use getGeoBounds or getEmpBoundingBox method to fetch an object it can change.<a name="line.256"></a>
+<span class="sourceLineNo">257</span>     * @param east<a name="line.257"></a>
+<span class="sourceLineNo">258</span>     */<a name="line.258"></a>
+<span class="sourceLineNo">259</span>    @Override<a name="line.259"></a>
+<span class="sourceLineNo">260</span>    public void setEast(double east){<a name="line.260"></a>
+<span class="sourceLineNo">261</span>        throw new IllegalStateException("Cannot set on " + this.getClass().getSimpleName());<a name="line.261"></a>
+<span class="sourceLineNo">262</span>    }<a name="line.262"></a>
+<span class="sourceLineNo">263</span><a name="line.263"></a>
+<span class="sourceLineNo">264</span>    /**<a name="line.264"></a>
+<span class="sourceLineNo">265</span>     * Application is not allowed to change the boundaries of the underlying GeoBounds object as they are calculated from<a name="line.265"></a>
+<span class="sourceLineNo">266</span>     * the vertices (approximation). Application can use getGeoBounds or getEmpBoundingBox method to fetch an object it can change.<a name="line.266"></a>
+<span class="sourceLineNo">267</span>     * @param north<a name="line.267"></a>
+<span class="sourceLineNo">268</span>     */<a name="line.268"></a>
+<span class="sourceLineNo">269</span>    @Override<a name="line.269"></a>
+<span class="sourceLineNo">270</span>    public void setNorth(double north){<a name="line.270"></a>
+<span class="sourceLineNo">271</span>        throw new IllegalStateException("Cannot set on " + this.getClass().getSimpleName());<a name="line.271"></a>
+<span class="sourceLineNo">272</span>    }<a name="line.272"></a>
+<span class="sourceLineNo">273</span><a name="line.273"></a>
+<span class="sourceLineNo">274</span>    /**<a name="line.274"></a>
+<span class="sourceLineNo">275</span>     * Application is not allowed to change the boundaries of the underlying GeoBounds object as they are calculated from<a name="line.275"></a>
+<span class="sourceLineNo">276</span>     * the vertices (approximation). Application can use getGeoBounds or getEmpBoundingBox method to fetch an object it can change.<a name="line.276"></a>
+<span class="sourceLineNo">277</span>     * @param south<a name="line.277"></a>
+<span class="sourceLineNo">278</span>     */<a name="line.278"></a>
+<span class="sourceLineNo">279</span>    @Override<a name="line.279"></a>
+<span class="sourceLineNo">280</span>    public void setSouth(double south){<a name="line.280"></a>
+<span class="sourceLineNo">281</span>        throw new IllegalStateException("Cannot set on " + this.getClass().getSimpleName());<a name="line.281"></a>
+<span class="sourceLineNo">282</span>    }<a name="line.282"></a>
+<span class="sourceLineNo">283</span><a name="line.283"></a>
+<span class="sourceLineNo">284</span>    /**<a name="line.284"></a>
+<span class="sourceLineNo">285</span>     * Builds a GeoBounds object using the calculated boundaries.<a name="line.285"></a>
+<span class="sourceLineNo">286</span>     * @return<a name="line.286"></a>
+<span class="sourceLineNo">287</span>     */<a name="line.287"></a>
+<span class="sourceLineNo">288</span>    @Override<a name="line.288"></a>
+<span class="sourceLineNo">289</span>    public IGeoBounds getGeoBounds() {<a name="line.289"></a>
+<span class="sourceLineNo">290</span>        IGeoBounds geoBounds = new GeoBounds();<a name="line.290"></a>
+<span class="sourceLineNo">291</span>        geoBounds.setNorth(getNorth());<a name="line.291"></a>
+<span class="sourceLineNo">292</span>        geoBounds.setEast(getEast());<a name="line.292"></a>
+<span class="sourceLineNo">293</span>        geoBounds.setWest(getWest());<a name="line.293"></a>
+<span class="sourceLineNo">294</span>        geoBounds.setSouth(getSouth());<a name="line.294"></a>
+<span class="sourceLineNo">295</span>        return geoBounds;<a name="line.295"></a>
+<span class="sourceLineNo">296</span>    }<a name="line.296"></a>
+<span class="sourceLineNo">297</span><a name="line.297"></a>
+<span class="sourceLineNo">298</span>    /**<a name="line.298"></a>
+<span class="sourceLineNo">299</span>     * Builds a EmpBoundingBox using the calculated boundaries.<a name="line.299"></a>
+<span class="sourceLineNo">300</span>     * @return<a name="line.300"></a>
+<span class="sourceLineNo">301</span>     */<a name="line.301"></a>
+<span class="sourceLineNo">302</span>    @Override<a name="line.302"></a>
+<span class="sourceLineNo">303</span>    public EmpBoundingBox getEmpBoundingBox() {<a name="line.303"></a>
+<span class="sourceLineNo">304</span>        EmpBoundingBox empBoundingBox = new EmpBoundingBox(getNorth(), getSouth(), getEast(), getWest());<a name="line.304"></a>
+<span class="sourceLineNo">305</span>        return empBoundingBox;<a name="line.305"></a>
+<span class="sourceLineNo">306</span>    }<a name="line.306"></a>
+<span class="sourceLineNo">307</span><a name="line.307"></a>
+<span class="sourceLineNo">308</span>    @Override<a name="line.308"></a>
+<span class="sourceLineNo">309</span>    public IGeoPosition getCenter() {<a name="line.309"></a>
+<span class="sourceLineNo">310</span>        List&lt;IGeoPosition&gt; cornersFound = new ArrayList&lt;&gt;();<a name="line.310"></a>
+<span class="sourceLineNo">311</span><a name="line.311"></a>
+<span class="sourceLineNo">312</span>        IGeoPosition nw = new GeoPosition();<a name="line.312"></a>
+<span class="sourceLineNo">313</span>        nw.setLatitude(getNorth());<a name="line.313"></a>
+<span class="sourceLineNo">314</span>        nw.setLongitude(getWest());<a name="line.314"></a>
+<span class="sourceLineNo">315</span>        cornersFound.add(nw);<a name="line.315"></a>
+<span class="sourceLineNo">316</span><a name="line.316"></a>
+<span class="sourceLineNo">317</span>        IGeoPosition ne = new GeoPosition();<a name="line.317"></a>
+<span class="sourceLineNo">318</span>        ne.setLatitude(getNorth());<a name="line.318"></a>
+<span class="sourceLineNo">319</span>        ne.setLongitude(getEast());<a name="line.319"></a>
+<span class="sourceLineNo">320</span>        cornersFound.add(ne);<a name="line.320"></a>
+<span class="sourceLineNo">321</span><a name="line.321"></a>
+<span class="sourceLineNo">322</span>        IGeoPosition se = new GeoPosition();<a name="line.322"></a>
+<span class="sourceLineNo">323</span>        se.setLatitude(getSouth());<a name="line.323"></a>
+<span class="sourceLineNo">324</span>        se.setLongitude(getEast());<a name="line.324"></a>
+<span class="sourceLineNo">325</span>        cornersFound.add(se);<a name="line.325"></a>
+<span class="sourceLineNo">326</span><a name="line.326"></a>
+<span class="sourceLineNo">327</span>        IGeoPosition sw = new GeoPosition();<a name="line.327"></a>
+<span class="sourceLineNo">328</span>        sw.setLatitude(getSouth());<a name="line.328"></a>
+<span class="sourceLineNo">329</span>        sw.setLongitude(getWest());<a name="line.329"></a>
+<span class="sourceLineNo">330</span>        cornersFound.add(sw);<a name="line.330"></a>
+<span class="sourceLineNo">331</span><a name="line.331"></a>
+<span class="sourceLineNo">332</span>        return GeoLibrary.getCenter(cornersFound);<a name="line.332"></a>
+<span class="sourceLineNo">333</span>    }<a name="line.333"></a>
+<span class="sourceLineNo">334</span><a name="line.334"></a>
+<span class="sourceLineNo">335</span>    @Override<a name="line.335"></a>
+<span class="sourceLineNo">336</span>    public boolean cameraPositionIsVisible() {<a name="line.336"></a>
+<span class="sourceLineNo">337</span>        return cameraOnScreen;<a name="line.337"></a>
+<span class="sourceLineNo">338</span>    }<a name="line.338"></a>
+<span class="sourceLineNo">339</span><a name="line.339"></a>
+<span class="sourceLineNo">340</span>    @Override<a name="line.340"></a>
+<span class="sourceLineNo">341</span>    public IGeoPosition getGeometricCenter() { return new EmpGeoPosition(geometricCenter);}<a name="line.341"></a>
+<span class="sourceLineNo">342</span>}<a name="line.342"></a>
 
 
 
