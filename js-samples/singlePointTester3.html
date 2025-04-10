@@ -223,7 +223,10 @@
 			else
 				id += "00000";//2525D has 5 reserved positions
 
-			id += "000";//country code
+			if(document.getElementById("cbLabels").checked)
+				id += "840";//country code USA
+			else
+				id += "000";//country code
 
             document.getElementById("tbSymbolID").value = id;
 

@@ -5418,6 +5418,755 @@ export declare class MilStdSymbol {
 	get_WasClipped(): boolean;
 }
 /**
+ * Interface for Point Conversion objects.  Recommend using the functions
+ * that take and return Point2D objects.
+ *
+ */
+export interface IPointConversion {
+	PixelsToGeo(pixel: Point2D): Point2D;
+	GeoToPixels(coord: Point2D): Point2D;
+}
+/**
+ *
+ *
+ */
+export declare class PointConverter3D implements IPointConversion {
+	private _controlLat;
+	private _controlLong;
+	private _scale;
+	private _metersPerPixel;
+	constructor(controlLong: double, controlLat: double, scale: double);
+	PixelsToGeo(pixel: Point): Point2D;
+	PixelsToGeo(pixel: Point2D): Point2D;
+	GeoToPixels(coord: Point2D): Point;
+	GeoToPixels(coord: Point2D): Point2D;
+}
+declare class FontMetrics {
+	protected _fontRenderContext: FontRenderContext;
+	protected _font: Font;
+	constructor(font: Font);
+	stringWidth(str: string): int;
+	getFontRenderContext(): FontRenderContext;
+}
+declare class Graphics2D {
+	private _font;
+	private _fontMetrics;
+	private _fontRenderContext;
+	constructor();
+	setFont(value: Font): void;
+	getFont(): Font;
+	setFontMetrics(value: FontMetrics): void;
+	getFontMetrics(): FontMetrics;
+	setColor(color: Color): void;
+	setBackground(color: Color): void;
+	setTransform(id: AffineTransform): void;
+	getTransform(): null;
+	setStroke(stroke: BasicStroke): void;
+	drawLine(x1: double, y1: double, x2: double, y2: double): void;
+	dispose(): void;
+	rotate(theta: double, x: double, y: double): void;
+	clearRect(x: double, y: double, width: double, height: double): void;
+	drawString(s: string, x: double, y: double): void;
+	getFontRenderContext(): FontRenderContext;
+}
+declare class Shape2 extends ShapeInfo {
+	constructor(value: int);
+	private style;
+	set_Style(value: int): void;
+	get_Style(): int;
+	lineTo(pt: POINT2): void;
+	moveTo(pt: POINT2): void;
+	getBounds(): Rectangle;
+	getPoints(): Array<POINT2>;
+}
+declare class Modifier2 {
+	private textPath;
+	private textID;
+	private featureID;
+	private text;
+	private image;
+	private iteration;
+	private justify;
+	private type;
+	private lineFactor;
+	private static readonly _className;
+	private isIntegral;
+	private fitsMBR;
+	protected constructor();
+	private static readonly toEnd;
+	private static readonly aboveMiddle;
+	private static readonly area;
+	private static readonly screen;
+	private static readonly aboveEnd;
+	private static readonly aboveMiddlePerpendicular;
+	private static readonly aboveStartInside;
+	private static readonly aboveEndInside;
+	private static readonly areaImage;
+	private static fillAlphaCanObscureText;
+	private static DoublesBack;
+	/**
+	 * Returns a generic label for the symbol per Mil-Std-2525
+	 *
+	 * @param tg
+	 * @return
+	 */
+	private static GetCenterLabel;
+	get_TextPath(): POINT2[];
+	protected set_TextPath(value: POINT2[]): void;
+	protected set_IsIntegral(value: boolean): void;
+	protected get_IsIntegral(): boolean;
+	private static AddOffsetModifier;
+	/**
+	 *
+	 * @param tg
+	 * @param text
+	 * @param type
+	 * @param lineFactor
+	 * @param ptStart
+	 * @param ptEnd
+	 */
+	private static AddModifier;
+	private static AddModifier2;
+	private static AddIntegralModifier;
+	/**
+	 * sets modifier.textId to the modifier type, e.g. label, T, T1, etc.
+	 *
+	 * @param tg
+	 * @param text
+	 * @param type
+	 * @param lineFactor
+	 * @param pt0
+	 * @param pt1
+	 * @param modifierType
+	 */
+	private static AddAreaModifier;
+	private static AddIntegralAreaModifier;
+	private static AddImageModifier;
+	/**
+	 * Returns symbol MBR. Assumes points have been initialized with value of
+	 * 0th point
+	 *
+	 * @param tg the tactical graphic object
+	 * @param ptUl OUT - MBR upper left
+	 * @param ptUr OUT - MBR upper right
+	 * @param ptLr OUT - MBR lower right
+	 * @param ptLl OUT - MBR lower left
+	 */
+	static GetMBR(tg: TGLight, ptUl: POINT2, ptUr: POINT2, ptLr: POINT2, ptLl: POINT2): void;
+	/**
+	 * Tests segment of a Boundary
+	 *
+	 * @param tg
+	 * @param g2d
+	 * @param middleSegment
+	 * @return
+	 */
+	private static GetBoundarySegmentTooShort;
+	/**
+	 * Handles the line breaks for Boundary and Engineer Work Line
+	 *
+	 * @param tg
+	 * @param g2d
+	 */
+	private static AddBoundaryModifiers;
+	/**
+	 * added for USAS
+	 *
+	 * @param tg
+	 * @param metrics
+	 * @deprecated
+	 */
+	private static AddNameAboveDTG;
+	/**
+	 * shifts the path for modifiers that use toEnd to prevent vertical paths
+	 *
+	 * @param tg
+	 * @param pt0
+	 * @param pt1
+	 * @param ptLast
+	 * @param ptNextToLast
+	 */
+	private static shiftModifierPath;
+	/**
+	 * Adds label on line
+	 *
+	 * Replaces areasWithENY()
+	 *
+	 * @param label
+	 * @param tg
+	 * @param g2d
+	 * @param twoLabelOnly - true if only add two instances of label to line (used with N modifier)
+	 *                     Ignored if RendererSettings.TwoLabelOnly is true
+	 */
+	private static addModifierOnLine;
+	/**
+	 * Adds N modifier on line
+	 */
+	private static addNModifier;
+	private static addModifierBottomSegment;
+	private static addModifierTopSegment;
+	private static addDTG;
+	private static getVisibleMiddleSegment;
+	/**
+	 * called repeatedly by RemoveModifiers to remove modifiers which fall
+	 * outside the symbol MBR
+	 *
+	 * @param tg
+	 * @param modifierType
+	 */
+	private static removeModifier;
+	/**
+	 * removes text modifiers for CPOF tactical areas which do not fit inside
+	 * the symbol MBR
+	 *
+	 * @param tg
+	 * @param g2d
+	 * @param isTextFlipped true if text is flipped from the last segment
+	 * orientation
+	 * @param iteration the instance count for this modifier
+	 */
+	static RemoveModifiers(tg: TGLight, g2d: Graphics2D, isTextFlipped: boolean, iteration: int): void;
+	/**
+	 * Calculates a segment in the pixels middle by length to hold a string.
+	 *
+	 * @param tg
+	 * @param stringWidth
+	 * @param segPt0
+	 * @param segPt1
+	 */
+	private static getPixelsMiddleSegment;
+	private static getChange1Height;
+	/**
+	 * scale the line factor for closed areas
+	 *
+	 * @param tg
+	 */
+	private static scaleModifiers;
+	/**
+	 * Calculate modifiers identical to addModifiers except use geodesic
+	 * calculations for the center point.
+	 *
+	 * @param tg
+	 * @param g2d
+	 * @param clipBounds
+	 * @param converter
+	 */
+	static AddModifiersGeo(tg: TGLight, g2d: Graphics2D, clipBounds: Rectangle2D | Array<Point2D> | null, converter: IPointConversion): void;
+	/**
+	 * RFA, NFA, FFA need these for line spacing
+	 *
+	 * @param tg
+	 * @return
+	 */
+	private static getRFALines;
+	/**
+	 * Added sector range fan modifiers based using the calculated orientation
+	 * indicator points
+	 *
+	 * @param tg
+	 * @param converter
+	 * @return
+	 */
+	private static addSectorModifiers;
+	/**
+	 * Called by the renderer after tg.Pixels has been filled with the
+	 * calculated points. The modifier path depends on points calculated by
+	 * CELineArray.
+	 *
+	 * @param tg
+	 */
+	static AddModifiers2(tg: TGLight, converter: IPointConversion): void;
+	/**
+	 * Displays the tg modifiers using a client Graphics2D, this is an option
+	 * provided to clients for displaying modifiers without using shapes
+	 *
+	 * @param tg the tactical graphic
+	 * @param g2d the graphics object for drawing
+	 * @deprecated
+	 */
+	static DisplayModifiers(tg: TGLight, g2d: Graphics2D): void;
+	/**
+	 * Returns a Shape object for the text background for labels and modifiers
+	 *
+	 * @param tg the tactical graphic object
+	 * @param pt0 1st point of segment
+	 * @param pt1 last point of segment
+	 * @param stringWidth string width
+	 * @param stringHeight string height
+	 * @param lineFactor number of text lines above or below the segment
+	 * @param isTextFlipped true if text is flipped
+	 * @return the modifier shape
+	 */
+	static BuildModifierShape(tg: TGLight, pt0: POINT2, pt1: POINT2, stringWidth: int, stringHeight: int, lineFactor: double, isTextFlipped: boolean): Shape2;
+	/**
+	 * For BOUNDARY and other line types which require breaks for the integral
+	 * text. Currently only boundary uses this
+	 *
+	 * @param tg
+	 * @param g2d the graphics object for drawing
+	 * @param shapes the shape array
+	 */
+	static GetIntegralTextShapes(tg: TGLight, g2d: Graphics2D, shapes: Array<Shape2>): void;
+	private static switchDirection;
+	/**
+	 * Displays the modifiers to a Graphics2D from a BufferedImage
+	 *
+	 * @param tg the tactical graphic
+	 * @param g2d the Graphic for drawing
+	 * @param shapes the shape array
+	 * @param isTextFlipped true if text is flipped
+	 * @param converter to convert between geographic and pixel coordinates
+	 */
+	static DisplayModifiers2(tg: TGLight, g2d: Graphics2D, shapes: Array<Shape2>, isTextFlipped: boolean, converter: IPointConversion): void;
+	/**
+	 * Builds a shape object to wrap text
+	 *
+	 * @param g2d the Graphic object for drawing
+	 * @param str text to wrap
+	 * @param font the draw font
+	 * @param tx the drawing transform, text rotation and translation
+	 * @return
+	 */
+	static getTextShape(g2d: Graphics2D, str: string, font: Font, tx: AffineTransform): Shape;
+	/**
+	 * Creates text outline as a shape
+	 *
+	 * @param originalText the original text
+	 * @return text shape
+	 */
+	static createTextOutline(originalText: Shape2): Shape2;
+	/**
+	 * Channels don't return points in tg.Pixels. For Channels modifiers we only
+	 * need to collect the points, don't need internal arrays, and can calculate
+	 * on which segments the modifiers lie.
+	 *
+	 * @param shape
+	 * @return
+	 */
+	private static getShapePoints;
+}
+declare class TGLight {
+	LatLongs: Array<POINT2>;
+	private static readonly _className;
+	get_LatLongs(): Array<POINT2>;
+	set_LatLongs(value: Array<POINT2>): void;
+	Pixels: Array<POINT2>;
+	get_Pixels(): Array<POINT2>;
+	set_Pixels(value: Array<POINT2>): void;
+	modifiers: Array<Modifier2>;
+	get_Modifiers(): Array<Modifier2>;
+	set_Modifiers(value: Array<Modifier2>): void;
+	protected tp: TexturePaint;
+	set_TexturePaint(value: TexturePaint): void;
+	get_TexturePaint(): TexturePaint;
+	protected maskOff: boolean;
+	constructor();
+	private font;
+	set_Font(value: Font): void;
+	get_Font(): Font;
+	private iconSize;
+	/**
+	 * Set the icon size for areas that have a symbol like LAA or Biological Contaminated Area
+	 * @param pixelSize
+	 */
+	setIconSize(pixelSize: int): void;
+	getIconSize(): int;
+	private keepUnitRatio;
+	set_KeepUnitRatio(value: boolean): void;
+	get_KeepUnitRation(): boolean;
+	private lineType;
+	set_LineType(value: int): void;
+	get_LineType(): int;
+	private lineStyle;
+	set_LineStyle(value: int): void;
+	get_LineStyle(): int;
+	private lineColor;
+	get_LineColor(): Color | null;
+	set_LineColor(value: Color | null): void;
+	private fillStyle;
+	get_FillStyle(): int;
+	set_Fillstyle(value: int): void;
+	private fillColor;
+	get_FillColor(): Color | null;
+	set_FillColor(value: Color | null): void;
+	private fontBackColor;
+	get_FontBackColor(): Color;
+	set_FontBackColor(value: Color): void;
+	private textColor;
+	get_TextColor(): Color;
+	set_TextColor(value: Color): void;
+	private lineThickness;
+	get_LineThickness(): int;
+	set_LineThickness(value: int): void;
+	private t;
+	get_Name(): string;
+	private client;
+	get_Client(): string;
+	set_client(value: string): void;
+	set_Name(value: string): void;
+	private t1;
+	get_T1(): string;
+	set_T1(value: string): void;
+	private am;
+	get_AM(): string;
+	set_AM(value: string): void;
+	private am1;
+	get_AM1(): string;
+	set_AM1(value: string): void;
+	private an;
+	get_AN(): string;
+	set_AN(value: string): void;
+	private v;
+	get_V(): string;
+	set_V(value: string): void;
+	private ap;
+	get_AP(): string;
+	set_AP(value: string): void;
+	private as;
+	get_AS(): string;
+	set_AS(value: string): void;
+	private x;
+	get_X(): string;
+	set_X(value: string): void;
+	private x1;
+	get_X1(): string;
+	set_X1(value: string): void;
+	private h;
+	get_H(): string;
+	set_H(value: string): void;
+	get_Location(): string;
+	set_Location(value: string): void;
+	private h1;
+	/**
+	 * @deprecated
+	 */
+	get_H1(): string;
+	/**
+	 * @deprecated
+	 */
+	set_H1(value: string): void;
+	private y;
+	private n;
+	get_N(): string;
+	set_N(value: string): void;
+	private h2;
+	/**
+	 * @deprecated
+	 */
+	get_H2(): string;
+	/**
+	 * @deprecated
+	 */
+	set_H2(value: string): void;
+	/**
+	 * Only used for range fan
+	 * left azimuth,right azimuth,min radius,max radius
+	 */
+	private leftRightMinMax;
+	get_LRMM(): string;
+	set_LRMM(value: string): void;
+	private w;
+	get_DTG(): string;
+	set_DTG(value: string): void;
+	private w1;
+	get_DTG1(): string;
+	set_DTG1(value: string): void;
+	private standardIdentity;
+	get_StandardIdentity(): string;
+	/**
+	 * @return true if standard identity is suspect/joker or hostile/faker
+	 */
+	isHostile(): boolean;
+	private echelonSymbol;
+	get_EchelonSymbol(): string;
+	set_EchelonSymbol(value: string): void;
+	private symbolId;
+	get_SymbolId(): string;
+	private status;
+	get_Status(): string;
+	set_Status(value: string): void;
+	/**
+	 * Sets tactical graphic properties based on the 20-30 digit Mil-Std-2525 symbol code
+	 *
+	 * @param value
+	 */
+	set_SymbolId(value: string): void;
+	private visibleModifiers;
+	/**
+	 * @deprecated
+	 */
+	set_VisibleModifiers(value: boolean): void;
+	/**
+	 * @deprecated
+	 */
+	protected get_VisibleModifiers(): boolean;
+	private visibleLabels;
+	/**
+	 * @deprecated
+	 */
+	set_VisibleLabels(value: boolean): void;
+	/**
+	 * @deprecated
+	 */
+	protected get_VisibleLabels(): boolean;
+	protected _useLineInterpolation: boolean;
+	get_UseLineInterpolation(): boolean;
+	set_UseLineInterpolation(value: boolean): void;
+	protected _useDashArray: boolean;
+	get_UseDashArray(): boolean;
+	set_UseDashArray(value: boolean): void;
+	protected _useHatchFill: boolean;
+	get_UseHatchFill(): boolean;
+	set_UseHatchFill(value: boolean): void;
+	private _wasClipped;
+	set_WasClipped(value: boolean): void;
+	get_WasClipped(): boolean;
+	private _HideOptionalLabels;
+	get_HideOptionalLabels(): boolean;
+	set_HideOptionalLabels(value: boolean): void;
+	private lineCap;
+	set_lineCap(cap: int): void;
+	get_lineCap(): int;
+}
+/**
+ * Rendering class
+ *
+ *
+ */
+export declare class clsRenderer {
+	private static readonly _className;
+	/**
+	 * Set tg geo points from the client points
+	 *
+	 * @param milStd
+	 * @param tg
+	 */
+	private static setClientCoords;
+	private static getClientCoords;
+	/**
+	 * Create MilStdSymbol from tactical graphic
+	 *
+	 * @deprecated
+	 * @param tg tactical graphic
+	 * @param converter geographic to pixels to converter
+	 * @return MilstdSymbol object
+	 */
+	static createMilStdSymboFromTGLight(tg: TGLight, converter: IPointConversion): MilStdSymbol;
+	/**
+	 * Build a tactical graphic object from the client MilStdSymbol
+	 *
+	 * @param milStd MilstdSymbol object
+	 * @param converter geographic to pixels converter
+	 * @return tactical graphic
+	 */
+	static createTGLightFromMilStdSymbol(milStd: MilStdSymbol, converter: IPointConversion): TGLight;
+	/**
+	 * @deprecated @param milStd
+	 * @param converter
+	 * @param computeChannelPt
+	 * @return
+	 */
+	static createTGLightFromMilStdSymbol(milStd: MilStdSymbol, converter: IPointConversion, computeChannelPt: boolean): TGLight;
+	private static createAltitudeLabel;
+	private static Shape2ToShapeInfo;
+	/**
+	 * Added function to handle when coords or display area spans IDL but not
+	 * both, it prevents the symbol from rendering if the bounding rectangles
+	 * don't intersect.
+	 *
+	 * @param tg
+	 * @param converter
+	 * @param clipArea
+	 * @return
+	 */
+	static intersectsClipArea(tg: TGLight, converter: IPointConversion, clipArea: Point2D[] | Rectangle | Rectangle2D): boolean;
+	/**
+	 * Adds Feint, decoy, or dummy indicator to shapes. Does not check if tactical graphic should have indicator
+	 */
+	private static addFDI;
+	/**
+	 * GoogleEarth renderer uses polylines for rendering
+	 *
+	 * @param mss MilStdSymbol object
+	 * @param converter the geographic to pixels coordinate converter
+	 * @param clipArea the clip bounds
+	 */
+	static renderWithPolylines(mss: MilStdSymbol, converter: IPointConversion, clipArea: Point2D[] | Rectangle | Rectangle2D): void;
+	/**
+	 * @param mss
+	 * @param converter
+	 * @param clipArea
+	 * @param g2d
+	 * @deprecated Graphics2D not used
+	 */
+	static renderWithPolylines(mss: MilStdSymbol, converter: IPointConversion, clipArea: Point2D[] | Rectangle | Rectangle2D, g2d: Graphics2D): void;
+	/**
+	 * Google Earth renderer: Called by mapfragment-demo This is the public
+	 * interface for Google Earth renderer assumes tg.Pixels is filled assumes
+	 * the caller instantiated the ShapeInfo arrays
+	 *
+	 * @param tg tactical graphic
+	 * @param shapeInfos symbol ShapeInfo array
+	 * @param modifierShapeInfos modifier ShapeInfo array
+	 * @param converter geographic to pixels coordinate converter
+	 * @param clipArea clipping bounds in pixels
+	 */
+	static render_GE(tg: TGLight, shapeInfos: Array<ShapeInfo>, modifierShapeInfos: Array<ShapeInfo>, converter: IPointConversion, clipArea: Point2D[] | Rectangle | Rectangle2D): void;
+	/**
+	 * See render_GE below for comments
+	 *
+	 * @param tg
+	 * @param shapeInfos
+	 * @param modifierShapeInfos
+	 * @param converter
+	 * @param clipArea
+	 * @param g2d test android-gradle
+	 * @deprecated Graphics2D not used
+	 */
+	static render_GE(tg: TGLight, shapeInfos: Array<ShapeInfo>, modifierShapeInfos: Array<ShapeInfo>, converter: IPointConversion, clipArea: Point2D[] | Rectangle | Rectangle2D, g2d: Graphics2D): void;
+	/**
+	 * creates a shape for known symbols. The intent is to use client points for
+	 * the shape and is intended for use with ellipse. If hatch &gt; 1 it creates 2 shapes
+	 * one for the hatch pattern, the second one is for the outline.
+	 *
+	 * @param milStd
+	 * @param ipc
+	 * @param clipArea
+	 * @param shapeType
+	 * @param lineColor
+	 * @param fillColor
+	 * @param hatch
+	 */
+	static render_Shape(milStd: MilStdSymbol, ipc: IPointConversion, clipArea: Point2D[] | Rectangle | Rectangle2D, shapeType: int, lineColor: Color, fillColor: Color, hatch: int): void;
+	/**
+	 * to follow right hand rule for LC when affiliation is hostile. also fixes
+	 * MSDZ point order and maybe various other wayward symbols
+	 *
+	 * @param tg
+	 */
+	private static setHostileLC;
+	/**
+	 * set the clip rectangle as an arraylist or a Rectangle2D depending on the
+	 * object
+	 *
+	 * @param clipBounds
+	 * @param clipRect
+	 * @param clipArray
+	 * @return
+	 */
+	private static setClip;
+	/**
+	 * public render function transferred from JavaLineArrayCPOF project. Use
+	 * this function to replicate CPOF renderer functionality.
+	 *
+	 * @param mss the milStdSymbol object
+	 * @param converter the geographic to pixels coordinate converter
+	 * @param clipBounds the pixels based clip bounds
+	 */
+	static render(mss: MilStdSymbol, converter: IPointConversion, clipBounds: Rectangle2D | Array<Point2D> | null): void;
+	/**
+	 * Generic tester button says Tiger or use JavaRendererSample. Generic
+	 * renderer testers: called by JavaRendererSample and TestJavaLineArray
+	 * public render function transferred from JavaLineArrayCPOF project. Use
+	 * this function to replicate CPOF renderer functionality.
+	 *
+	 * @param mss MilStdSymbol
+	 * @param converter geographic to pixels converter
+	 * @param shapeInfos ShapeInfo array
+	 * @param modifierShapeInfos modifier ShapeInfo array
+	 * @param clipBounds clip bounds
+	 */
+	static render(mss: MilStdSymbol, converter: IPointConversion, shapeInfos: Array<ShapeInfo>, modifierShapeInfos: Array<ShapeInfo>, clipBounds: Rectangle2D | Rectangle | Array<Point2D> | null): void;
+	static getCMLineType(version: int, entityCode: int): int;
+	/**
+	 * Some symbol's points are reversed when moving from 2525C to 2525D. This method should be called at the start of each render.
+	 *
+	 * It's a simpler fix to reverse the points order at start than to reverse order when rendering.
+	 *
+	 * Note: Make sure to only call once to not reverse reversed points
+	 * @param tg
+	 */
+	private static reversePointsRevD;
+}
+export declare class RendererUtilities {
+	private static readonly OUTLINE_SCALING_FACTOR;
+	static imgToBase64String(img: OffscreenCanvas): Promise<string>;
+	private static pastIdealOutlineColors;
+	/**
+	 *
+	 * @param color {String} color like "#FFFFFF"
+	 * @return {String}
+	 */
+	static getIdealOutlineColor(color: Color): Color;
+	/**
+	 * Create a copy of the {@Color} object with the passed alpha value.
+	 * @param color {@Color} object used for RGB values
+	 * @param alpha {@float} value between 0 and 1
+	 * @return
+	 */
+	static setColorAlpha(color: Color, alpha: float): Color;
+	/**
+	 *
+	 * @param color
+	 * @return 8 character hex code, will have to prepend '#' or '0x' depending on your usage
+	 */
+	private static ColorToHex;
+	/**
+	 *
+	 * @param color
+	 * @param withAlpha
+	 * @return
+	 */
+	static colorToHexString(color: Color, withAlpha: boolean): string;
+	/**
+	 * Clients should use getTextBounds
+	 * @param {String} fontName like "Arial" or "Arial, sans-serif" so a backup is
+	 * available in case 'Arial' is not present.
+	 * @param {Number} fontSize like 12
+	 * @param {String} fontStyle like "bold"
+	 * @param {String} text include if you want a width value.
+	 * @param {OffscreenCanvasRenderingContext2D}
+	 * @returns {Object} {width:Number,height:Number,descent:Number,fullHeight:Number}
+	 */
+	static measureText(fontName: string, fontSize: int, fontStyle: string, text: string, context: OffscreenCanvasRenderingContext2D | null): Rectangle2D;
+	static measureText(font: string, text: string, context: OffscreenCanvasRenderingContext2D | null): Rectangle2D;
+	static measureText(text: string, context: OffscreenCanvasRenderingContext2D): Rectangle2D;
+	/**
+	 *
+	 * @param hexValue - String representing hex value (formatted "0xRRGGBB"
+	 * i.e. "0xFFFFFF") OR formatted "0xAARRGGBB" i.e. "0x00FFFFFF" for a color
+	 * with an alpha value I will also put up with "RRGGBB" and "AARRGGBB"
+	 * without the starting "0x" or "#"
+	 * @return
+	 */
+	static getColorFromHexString(hexValue: string): Color | null;
+	/**
+	 * For Renderer Use Only
+	 * Assumes a fresh SVG String from the SVGLookup with its default values
+	 * @param symbolID
+	 * @param svg
+	 * @param strokeColor hex value like "#FF0000";
+	 * @param fillColor hex value like "#FF0000";
+	 * @return SVG String
+	 */
+	static setSVGFrameColors(symbolID: string, svg: string, strokeColor: Color, fillColor: Color): string;
+	static setSVGSPCMColors(symbolID: string, svg: string, strokeColor: Color, fillColor: Color): string;
+	/**
+	 * For Renderer Use Only
+	 * Changes colors for single point control measures
+	 * @param symbolID
+	 * @param svg
+	 * @param strokeColor hex value like "#FF0000";
+	 * @param fillColor hex value like "#FF0000";
+	 * @param isOutline true if this represents a thicker outline to render first beneath the normal symbol (the function must be called twice)
+	 * @return SVG String
+	 *
+	 */
+	static setSVGSPCMColors(symbolID: string, svg: string, strokeColor: Color, fillColor: Color, isOutline: boolean): string;
+	static findWidestStrokeWidth(svg: string): float;
+	static getData(path: string): Promise<any>;
+}
+/**
  * This class is used for rendering icons that represent the single point graphics in the MilStd 2525.
  * It can also be used for rendering icon previews for multipoint graphics.
  */
