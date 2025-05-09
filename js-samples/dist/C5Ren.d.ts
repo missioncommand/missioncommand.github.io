@@ -3733,6 +3733,7 @@ export declare class RendererSettings {
 	 */
 	private static _SymbolOutlineWidth;
 	private static _OutlineSPControlMeasures;
+	private static _ActionPointDefaultFill;
 	/**
 	 * If true (default), when HQ Staff is present, location will be indicated by the free
 	 * end of the staff
@@ -3759,6 +3760,7 @@ export declare class RendererSettings {
 	private static _KMLLabelScale;
 	private static _DPI;
 	private _TwoLabelOnly;
+	private _scaleMainIconWithoutSectorMods;
 	private _friendlyUnitFillColor;
 	private _hostileUnitFillColor;
 	private _neutralUnitFillColor;
@@ -3921,6 +3923,8 @@ export declare class RendererSettings {
 	getSinglePointSymbolOutlineWidth(): int;
 	setOutlineSPControlMeasures(value: boolean): void;
 	getOutlineSPControlMeasures(): boolean;
+	setActionPointDefaultFill(value: boolean): void;
+	getActionPointDefaultFill(): boolean;
 	/**
 	 * false to use label font size
 	 * true to scale it using symbolPixelBounds / 3.5
@@ -4015,6 +4019,17 @@ export declare class RendererSettings {
 	 * @param TwoLabelOnly
 	 */
 	setTwoLabelOnly(TwoLabelOnly: boolean): void;
+	/**
+	 * When true, if the main icon is normally small to allow room for sector modifiers,
+	 * make it larger when no sector modifiers are present for better visibility.
+	 * @param scaleMainIcon
+	 */
+	setScaleMainIcon(scaleMainIcon: boolean): void;
+	/**
+	 * When true, if the main icon is normally small to allow room for sector modifiers,
+	 * main icon is made larger when no sector modifiers are present for better visibility.
+	 */
+	getScaleMainIcon(): boolean;
 	/**
 	 * get the preferred fill affiliation color for units.
 	 *
@@ -4632,24 +4647,6 @@ export declare class SymbolID {
 	 */
 	static getFrameShape(symbolID: string): string;
 }
-declare class TexturePaint {
-	private _rect;
-	private _g2d;
-	private _bi;
-	constructor(bi: ImageBitmap, rect: Rectangle2D | null);
-}
-declare class DistanceUnit {
-	private static readonly FEET_PER_METER;
-	private static readonly FLIGHT_LEVEL_PER_METER;
-	readonly conversionFactor: double;
-	readonly label: string;
-	constructor(conversionFactor: double, label: string);
-	static parse(distanceUnitText: string): DistanceUnit | null;
-	toAttribute(): string;
-	static METERS: DistanceUnit;
-	static FEET: DistanceUnit;
-	static FLIGHT_LEVEL: DistanceUnit;
-}
 declare class AffineTransform {
 	constructor();
 }
@@ -4956,7 +4953,18 @@ declare class TextLayout {
 	getPixelBounds(frc: FontRenderContext, x: float, y: float): null;
 	getBounds(): Rectangle;
 }
-declare class ShapeInfo {
+declare class TexturePaint {
+	private _rect;
+	private _g2d;
+	private _bi;
+	constructor(bi: ImageBitmap, rect: Rectangle2D | null);
+}
+/**
+ * Holds information on how to draw the pieces of a multipoint symbol.
+ * Can be retrieved from {@link MilStdSymbol#getSymbolShapes()} and
+ * {@link MilStdSymbol#getModifierShapes()} after {@link armyc2.c5isr.web.render.WebRenderer#RenderMultiPointAsMilStdSymbol(String, String, String, String, String, String, double, String, Map, Map)} is called.
+ */
+export declare class ShapeInfo {
 	static SHAPE_TYPE_POLYLINE: int;
 	static SHAPE_TYPE_FILL: int;
 	static SHAPE_TYPE_MODIFIER: int;
@@ -5124,6 +5132,18 @@ declare class ShapeInfo {
 	getPatternFillImageInfo(): SVGSymbolInfo;
 	getTextJustify(): int;
 	setTextJustify(value: int): void;
+}
+declare class DistanceUnit {
+	private static readonly FEET_PER_METER;
+	private static readonly FLIGHT_LEVEL_PER_METER;
+	readonly conversionFactor: double;
+	readonly label: string;
+	constructor(conversionFactor: double, label: string);
+	static parse(distanceUnitText: string): DistanceUnit | null;
+	toAttribute(): string;
+	static METERS: DistanceUnit;
+	static FEET: DistanceUnit;
+	static FLIGHT_LEVEL: DistanceUnit;
 }
 /**
  * Object that holds information on how to draw a multipoint symbol after {@link armyc2.c5isr.web.render.WebRenderer#RenderMultiPointAsMilStdSymbol(String, String, String, String, String, String, double, String, Map, Map)}  is called.
@@ -6164,6 +6184,8 @@ export declare class RendererUtilities {
 	 */
 	static setSVGSPCMColors(symbolID: string, svg: string, strokeColor: Color, fillColor: Color, isOutline: boolean): string;
 	static findWidestStrokeWidth(svg: string): float;
+	static getDistanceBetweenPoints(pt1: Point2D, pt2: Point2D): int;
+	static scaleIcon(symbolID: string, icon: SVGInfo): SVGInfo;
 	static getData(path: string): Promise<any>;
 }
 /**
@@ -6201,6 +6223,7 @@ export declare class MilStdIconRenderer {
  *
  */
 export declare class WebRenderer {
+	static readonly OUTPUT_FORMAT_KML = 0;
 	/**
 	 * @deprecated
 	 */
