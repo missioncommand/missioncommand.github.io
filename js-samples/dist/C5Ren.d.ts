@@ -869,6 +869,56 @@ export declare class Color {
 	private getBlueFromColor;
 }
 /**
+ * Default Affiliation Colors for the symbols
+ *
+ */
+export declare class AffiliationColors {
+	static FriendlyUnitFillColor: Color;
+	static HostileUnitFillColor: Color;
+	static NeutralUnitFillColor: Color;
+	static UnknownUnitFillColor: Color;
+	static SuspectUnitFillColor: Color;
+	static FriendlyGraphicFillColor: Color;
+	static HostileGraphicFillColor: Color;
+	static NeutralGraphicFillColor: Color;
+	static UnknownGraphicFillColor: Color;
+	static SuspectGraphicFillColor: Color;
+	static FriendlyUnitLineColor: Color;
+	static HostileUnitLineColor: Color;
+	static NeutralUnitLineColor: Color;
+	static UnknownUnitLineColor: Color;
+	static SuspectUnitLineColor: Color;
+	static FriendlyGraphicLineColor: Color;
+	static HostileGraphicLineColor: Color;
+	static NeutralGraphicLineColor: Color;
+	static UnknownGraphicLineColor: Color;
+	static SuspectGraphicLineColor: Color;
+	static ObstacleGreenDark: Color;
+	static ObstacleGreen: Color;
+	static WeatherRed: Color;
+	static WeatherBlue: Color;
+	static WeatherPurpleDark: Color;
+	static WeatherPurpleLight: Color;
+	static WeatherBrownDark: Color;
+	static WeatherBrownLight: Color;
+}
+/**
+ * Units of Measure to be used with {@link MilStdAttributes#DistanceUnits}
+ * Default is meters.
+ */
+export declare class DistanceUnit {
+	private static readonly FEET_PER_METER;
+	private static readonly FLIGHT_LEVEL_PER_METER;
+	readonly conversionFactor: double;
+	readonly label: string;
+	constructor(conversionFactor: double, label: string);
+	static parse(distanceUnitText: string): DistanceUnit | null;
+	toAttribute(): string;
+	static METERS: DistanceUnit;
+	static FEET: DistanceUnit;
+	static FLIGHT_LEVEL: DistanceUnit;
+}
+/**
  * Port of java.util.logging.Level class
  */
 export declare class LogLevel {
@@ -1254,6 +1304,12 @@ export declare class MilStdAttributes {
 	 * This attribute expects a hex string for the color
 	 */
 	static readonly EngagementBarColor: string;
+	/**
+	 * Multipoint features and patterns scale with line width ({@link MilStdAttributes#LineWidth}).
+	 * {@code PatternScale} is the ratio of how much to increase features and patterns by with line width.
+	 * default value is {@link RendererSettings#getPatternScale()}
+	 */
+	static readonly PatternScale: string;
 	/**
 	 * No Longer relevant
 	 * @return
@@ -1985,7 +2041,7 @@ export declare class DrawRules {
 	 * Size/Shape: Determined by the anchor points. The information fields
 	 * should be moveable and scalable as a block within the area.
 	 *
-	 * Orientation: Not applicable.
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly AREA1: number;
 	/**
@@ -1998,7 +2054,7 @@ export declare class DrawRules {
 	 * Size/Shape: Determined by the anchor points. The information fields
 	 * should be moveable and scalable as a block within the area.
 	 *
-	 * Orientation: Not applicable.
+	 * Used by: 2525D,Dch1,E
 	 */
 	static readonly AREA2: number;
 	/**
@@ -2008,8 +2064,7 @@ export declare class DrawRules {
 	 *
 	 * Size/Shape: Determined by the anchor points.
 	 *
-	 * Orientation: The side opposite Field B (Echelon) faces toward the
-	 * hostile force.
+	 * Used by: 2525D,Dch1,E
 	 */
 	static readonly AREA3: number;
 	/**
@@ -2025,7 +2080,7 @@ export declare class DrawRules {
 	 * height of B, which in turn should affect the tic length and spacing
 	 * accordingly.
 	 *
-	 * Orientation: Not applicable.
+	 * Used by: 2525D,Dch1,E
 	 */
 	static readonly AREA4: number;
 	/**
@@ -2042,7 +2097,7 @@ export declare class DrawRules {
 	 * provided a facility to allow them to manually alter the height of B,
 	 * which in turn should affect the tic length and spacing accordingly.
 	 *
-	 * Orientation: The opening typically faces enemy forces.
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly AREA5: number;
 	/**
@@ -2058,7 +2113,7 @@ export declare class DrawRules {
 	 * facility to allow them to manually alter the height of R, which in turn
 	 * should affect the tic length and spacing accordingly.
 	 *
-	 * Orientation: The opening will be on the friendly side of the symbol.
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly AREA6: number;
 	/**
@@ -2073,6 +2128,8 @@ export declare class DrawRules {
 	 * Orientation: Orientation is determined by the anchor points. The back
 	 * side of the symbol encompasses the firing position, while the arrowhead
 	 * typically points at the target.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly AREA7: number;
 	/**
@@ -2088,6 +2145,8 @@ export declare class DrawRules {
 	 * side of the symbol encompasses the firing position, while the arrowheads
 	 * typically indicate the left and right limits of coverage that the firing
 	 * position is meant to support.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly AREA8: number;
 	/**
@@ -2103,6 +2162,8 @@ export declare class DrawRules {
 	 * The naming convention determines whether the area describes a series or
 	 * group of targets.
 	 *
+	 * Used by: 2525D,Dch1,E
+	 *
 	 */
 	static readonly AREA9: number;
 	/**
@@ -2114,7 +2175,7 @@ export declare class DrawRules {
 	 * Size/Shape: Determined by the anchor points. The information fields
 	 * should be moveable and scalable within the area.
 	 *
-	 * Orientation: Not applicable.
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly AREA10: number;
 	/**
@@ -2127,6 +2188,8 @@ export declare class DrawRules {
 	 * plane extending perpendicularly from the midpoint of the vertical line.
 	 *
 	 * Orientation: The head of the "T" typically faces enemy forces.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly AREA11: number;
 	/**
@@ -2140,6 +2203,8 @@ export declare class DrawRules {
 	 * arrows will remain in proportion to the length of the longest arrow.
 	 *
 	 * Orientation: The arrows point away from enemy forces.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly AREA12: number;
 	/**
@@ -2149,7 +2214,7 @@ export declare class DrawRules {
 	 * Size/Shape: Points 1 and 2 determine the length of the straight line.
 	 * The radius of the semicircle is ½ the length of the straight line.
 	 *
-	 * Orientation: Not applicable.
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly AREA13: number;
 	/**
@@ -2161,6 +2226,8 @@ export declare class DrawRules {
 	 *
 	 * Orientation: The center point is typically centered over Ground Zero (GZ)
 	 * or Designated Ground Zero (DGZ).
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly AREA14: number;
 	/**
@@ -2173,6 +2240,8 @@ export declare class DrawRules {
 	 * arc of the circle.
 	 *
 	 * Orientation: The opening will be on the friendly side of the symbol.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly AREA15: number;
 	/**
@@ -2186,6 +2255,8 @@ export declare class DrawRules {
 	 *
 	 * Orientation: The opening will be on the friendly side of the
 	 * control measure.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly AREA16: number;
 	/**
@@ -2198,6 +2269,8 @@ export declare class DrawRules {
 	 * from the midpoint of the vertical line.
 	 *
 	 * Orientation: The arrow points toward enemy forces.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly AREA17: number;
 	/**
@@ -2213,6 +2286,8 @@ export declare class DrawRules {
 	 * typically located at the base of the curve and the unit performing the
 	 * relief is typically located at the end of the symbol. The arrowhead
 	 * typically points to the location the relieved unit should move to.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly AREA18: number;
 	/**
@@ -2225,6 +2300,8 @@ export declare class DrawRules {
 	 * will be a 30-degree arc of the circle.
 	 *
 	 * Orientation: The opening will be on the friendly side of the symbol.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly AREA19: number;
 	/**
@@ -2234,7 +2311,7 @@ export declare class DrawRules {
 	 *
 	 * Size/Shape: Determined by the anchor points.
 	 *
-	 * Orientation: Not applicable.
+	 * Used by: 2525D,Dch1,E
 	 */
 	static readonly AREA20: number;
 	/**
@@ -2248,6 +2325,8 @@ export declare class DrawRules {
 	 * Orientation: Orientation is determined by the anchor points.
 	 * The arrowheads may touch other symbols that define the limits of the
 	 * task. The tactical symbol indicator is centered over point 1.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly AREA21: number;
 	/**
@@ -2257,6 +2336,8 @@ export declare class DrawRules {
 	 * Size/Shape: Static.
 	 *
 	 * Orientation: The symbol is typically centered over the desired location.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly AREA22: number;
 	/**
@@ -2265,7 +2346,7 @@ export declare class DrawRules {
 	 *
 	 * Size/Shape: Determined by the anchor points
 	 *
-	 * Orientation: Not applicable.
+	 * Used by: 2525D,Dch1,E
 	 */
 	static readonly AREA23: number;
 	/**
@@ -2278,6 +2359,8 @@ export declare class DrawRules {
 	 * project perpendicularly from the midpoint of the vertical line.
 	 *
 	 * Orientation: The head of the "T" typically faces enemy forces.
+	 *
+	 * Used by: 2525D,Dch1,E
 	 */
 	static readonly AREA24: number;
 	/**
@@ -2293,6 +2376,8 @@ export declare class DrawRules {
 	 * parallel to each other.
 	 *
 	 * Orientation: The arrows typically point toward enemy forces.
+	 *
+	 * Used by: 2525D,Dch1
 	 */
 	static readonly AREA25: number;
 	/**
@@ -2305,6 +2390,8 @@ export declare class DrawRules {
 	 * Size/Shape: Determined by the anchor points.
 	 *
 	 * Orientation: The symbol will typically be oriented upright.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly AREA26: number;
 	/**
@@ -2314,6 +2401,8 @@ export declare class DrawRules {
 	 * Size/Shape: Static.
 	 *
 	 * Orientation: The symbol will typically be oriented upright.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly POINT1: number;
 	/**
@@ -2323,6 +2412,8 @@ export declare class DrawRules {
 	 * Size/Shape: Static.
 	 *
 	 * Orientation: The symbol is typically centered over the desired location.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly POINT2: number;
 	/**
@@ -2334,6 +2425,8 @@ export declare class DrawRules {
 	 * performance-contoured color options
 	 *
 	 * Orientation: The symbol is typically centered over the desired location.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly POINT3: number;
 	/**
@@ -2344,6 +2437,8 @@ export declare class DrawRules {
 	 * Size/Shape: Static.
 	 *
 	 * Orientation: The symbol will typically be oriented upright (as shown in the template and example).
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly POINT4: number;
 	/**
@@ -2354,6 +2449,8 @@ export declare class DrawRules {
 	 *
 	 * Orientation: The symbol will typically be oriented upright (as shown in
 	 * the example).
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly POINT5: number;
 	/**
@@ -2364,6 +2461,8 @@ export declare class DrawRules {
 	 * Size/Shape: Static.
 	 *
 	 * Orientation: The symbol will typically be oriented upright.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly POINT6: number;
 	/**
@@ -2374,6 +2473,8 @@ export declare class DrawRules {
 	 *
 	 * Orientation: The symbol will typically be oriented upright (as shown in
 	 * the template and example).
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly POINT7: number;
 	/**
@@ -2385,6 +2486,8 @@ export declare class DrawRules {
 	 * Orientation: The symbol is typically centered over the desired location.
 	 * A user can use this symbol to define a new type of point if the selection
 	 * that follows is not sufficient.
+	 *
+	 * Used by: 2525D,Dch1,E
 	 */
 	static readonly POINT8: number;
 	/**
@@ -2396,6 +2499,8 @@ export declare class DrawRules {
 	 * Orientation: The symbol's center point is typically centered over the
 	 * desired location. The symbol shall be oriented upright, as shown in the
 	 * examples.
+	 *
+	 * Used by: 2525D,Dch1,E
 	 */
 	static readonly POINT9: number;
 	/**
@@ -2408,6 +2513,8 @@ export declare class DrawRules {
 	 * Orientation: The symbol's center point is typically centered over the
 	 * desired location. The symbol will be oriented upright, as shown in the
 	 * example.
+	 *
+	 * Used by: 2525D,Dch1,E
 	 */
 	static readonly POINT10: number;
 	/**
@@ -2418,6 +2525,8 @@ export declare class DrawRules {
 	 *
 	 * Orientation: The symbol is centered over the desired location. The symbol
 	 * shall be oriented upright, as shown in the example.
+	 *
+	 * Used by: 2525D,Dch1,E
 	 */
 	static readonly POINT11: number;
 	/**
@@ -2432,6 +2541,8 @@ export declare class DrawRules {
 	 * ending with points 1 and 2.
 	 *
 	 * Orientation: The opening typically faces the applicable obstacle.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly POINT12: number;
 	/**
@@ -2441,6 +2552,8 @@ export declare class DrawRules {
 	 * Size/Shape: Static.
 	 *
 	 * Orientation: The symbol is typically centered over the desired location.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly POINT13: number;
 	/**
@@ -2451,6 +2564,8 @@ export declare class DrawRules {
 	 * two arrows.
 	 *
 	 * Orientation: The symbol is typically centered over the desired location.
+	 *
+	 * Used by: 2525D,Dch1,E
 	 */
 	static readonly POINT14: number;
 	/**
@@ -2460,6 +2575,8 @@ export declare class DrawRules {
 	 * Size/Shape: Static.
 	 *
 	 * Orientation: The symbol is typically centered over the desired location.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly POINT15: number;
 	/**
@@ -2469,6 +2586,8 @@ export declare class DrawRules {
 	 * Size/Shape: The symbol is a high-angle cone.
 	 *
 	 * Orientation: The symbol will remain upright.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly POINT16: number;
 	/**
@@ -2485,6 +2604,8 @@ export declare class DrawRules {
 	 * Orientation: The orientation of this symbol is determined by the
 	 * rotation angle provided, where 0 degrees is North and a positive
 	 * rotation angle rotates the rectangle in a clockwise direction.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly POINT17: number;
 	/**
@@ -2500,6 +2621,8 @@ export declare class DrawRules {
 	 *
 	 * Orientation: The orientation of this symbol is determined by the search
 	 * axis azimuth provided.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly POINT18: number;
 	/**
@@ -2511,6 +2634,8 @@ export declare class DrawRules {
 	 * line.
 	 *
 	 * Orientation: Orientation is determined by the order in which the anchor points are entered.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly LINE1: number;
 	/**
@@ -2524,6 +2649,8 @@ export declare class DrawRules {
 	 *
 	 * Orientation: Orientation is determined by the order in which the anchor points
 	 * are entered.
+	 *
+	 * Used by: 2525D,Dch1
 	 */
 	static readonly LINE2: number;
 	/**
@@ -2536,6 +2663,8 @@ export declare class DrawRules {
 	 * Orientation: Orientation is determined by the anchor points. The
 	 * arrowheads may touch other symbols that define the limits of the task.
 	 * The top of the tactical symbol indicator may touch point 1
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly LINE3: number;
 	/**
@@ -2545,6 +2674,8 @@ export declare class DrawRules {
 	 * Size/Shape: The symbol varies only in length.
 	 *
 	 * Orientation: Orientation is determined by the anchor points.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly LINE4: number;
 	/**
@@ -2556,6 +2687,8 @@ export declare class DrawRules {
 	 * Orientation: One point defines the origin from which the bearing is being
 	 * taken and the other point defines the location or direction from which a
 	 * contact is made.
+	 *
+	 * Used by: 2525D,Dch1,E
 	 */
 	static readonly LINE5: number;
 	/**
@@ -2567,6 +2700,8 @@ export declare class DrawRules {
 	 * length as the line between points 2 and 3.
 	 *
 	 * Orientation: Orientation is determined by the anchor points
+	 *
+	 * Used by: 2525D,Dch1
 	 */
 	static readonly LINE6: number;
 	/**
@@ -2580,6 +2715,8 @@ export declare class DrawRules {
 	 *
 	 * Orientation: Orientation is determined by the order in which the anchor
 	 * points are entered.
+	 *
+	 * Used by: 2525D,Dch1,E
 	 */
 	static readonly LINE7: number;
 	/**
@@ -2591,6 +2728,8 @@ export declare class DrawRules {
 	 * Size/Shape: The anchor points define the size and shape.
 	 *
 	 * Orientation: The orientation is determined by the anchor points.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly LINE8: number;
 	/**
@@ -2601,6 +2740,8 @@ export declare class DrawRules {
 	 * varies only in length.
 	 *
 	 * Orientation: The orientation is determined by the anchor points.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly LINE9: number;
 	/**
@@ -2614,6 +2755,8 @@ export declare class DrawRules {
 	 * Orientation: The rear of the symbol identifies the enemy’s location and
 	 * the arrow points in the direction the obstacle should force the enemy to
 	 * turn.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly LINE10: number;
 	/**
@@ -2623,7 +2766,7 @@ export declare class DrawRules {
 	 *
 	 * Size/Shape. Determined by the anchor points.
 	 *
-	 * Orientation: Not applicable.
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly LINE11: number;
 	/**
@@ -2635,6 +2778,8 @@ export declare class DrawRules {
 	 * point 3 determines its width.
 	 *
 	 * Orientation: Orientation is determined by the anchor points.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly LINE12: number;
 	/**
@@ -2646,6 +2791,8 @@ export declare class DrawRules {
 	 * line. The size of the tooth does not change.
 	 *
 	 * Orientation: Orientation is determined by the anchor points.
+	 *
+	 * Used by: 2525D,Dch1,E
 	 */
 	static readonly LINE13: number;
 	/**
@@ -2657,21 +2804,10 @@ export declare class DrawRules {
 	 * angle.
 	 *
 	 * Orientation: Orientation is determined by the anchor points.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly LINE14: number;
-	/**
-	 * Anchor Points: This symbol requires two anchor points. Points 1 and 2
-	 * define the length and orientation of the straight line (trip wire)
-	 * portion of the symbol.
-	 *
-	 * Size/Shape: Points 1 and 2 determine the length and orientation of the
-	 * line drawn from the physical mine to the end of the trip wire. The
-	 * distance between the line connecting points 1 and 2 is the length of
-	 * the trip wire connected to the mine.
-	 *
-	 * Orientation: Orientation is determined by the anchor points.
-	 */
-	static readonly LINE15: number;
 	/**
 	 * Anchor Points: This symbol requires four points. Points 1 and 2 define
 	 * one side of the assault crossing site and points 3 and 4 define the
@@ -2679,7 +2815,7 @@ export declare class DrawRules {
 	 *
 	 * Size/Shape: Determined by the anchor points.
 	 *
-	 * Orientation: Not applicable.
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly LINE16: number;
 	/**
@@ -2691,6 +2827,8 @@ export declare class DrawRules {
 	 * determines its width.
 	 *
 	 * Orientation: Orientation is determined by the anchor points.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly LINE17: number;
 	/**
@@ -2702,6 +2840,8 @@ export declare class DrawRules {
 	 * common arrowhead.
 	 *
 	 * Orientation: Orientation is determined by the anchor points.
+	 *
+	 * Used by: 2525D,Dch1,E
 	 */
 	static readonly LINE18: number;
 	/**
@@ -2712,6 +2852,8 @@ export declare class DrawRules {
 	 * varies only in length.
 	 *
 	 * Orientation: Orientation is determined by the anchor points
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly LINE19: number;
 	/**
@@ -2722,6 +2864,8 @@ export declare class DrawRules {
 	 * varies only in length.
 	 *
 	 * Orientation: The arrow points to the location where the convoy has halted.
+	 *
+	 * Used by: 2525D,Dch1,E
 	 */
 	static readonly LINE20: number;
 	/**
@@ -2733,6 +2877,8 @@ export declare class DrawRules {
 	 * information associated with the line segment.
 	 *
 	 * Orientation: Orientation is determined by the anchor points.
+	 *
+	 * Used by: 2525D,Dch1,E
 	 */
 	static readonly LINE21: number;
 	/**
@@ -2746,6 +2892,8 @@ export declare class DrawRules {
 	 *
 	 * Orientation: The opening defines the span of the breach and typically
 	 * faces enemy forces.
+	 *
+	 * Used by: 2525D,Dch1
 	 */
 	static readonly LINE22: number;
 	/**
@@ -2761,6 +2909,8 @@ export declare class DrawRules {
 	 * orientation of the symbol as a whole.
 	 *
 	 * Orientation: The arrows typically point toward enemy forces.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly LINE23: number;
 	/**
@@ -2778,6 +2928,8 @@ export declare class DrawRules {
 	 * the arrowhead may indicate the location where the action is to conclude.
 	 * The unit’s current location is typically represented at the base of the
 	 * arc. The 180 degree circular arc is always perpendicular to the line.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly LINE24: number;
 	/**
@@ -2789,6 +2941,8 @@ export declare class DrawRules {
 	 * varies only in length.
 	 *
 	 * Orientation: The arrow typically points in the direction of the action.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly LINE25: number;
 	/**
@@ -2808,6 +2962,8 @@ export declare class DrawRules {
 	 * task. The tactical symbol indicator is centered between point 2 and
 	 * point 3 when four points are in use or centered on Point 1 when three
 	 * points are in use.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly LINE26: number;
 	/**
@@ -2829,6 +2985,8 @@ export declare class DrawRules {
 	 * Orientation: The arrowhead identifies the location/object to be seized
 	 * and the circle identifies the unit(s) assigned the task. See 5.3.11 for
 	 * options to accommodate multiple units.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly LINE27: number;
 	/**
@@ -2842,6 +3000,8 @@ export declare class DrawRules {
 	 * of the arrowhead indicating the location of the action.
 	 *
 	 * Duplicate of Line9 so removed in 2525E
+	 *
+	 * Used by: 2525D,Dch1
 	 */
 	static readonly LINE28: number;
 	/**
@@ -2857,8 +3017,58 @@ export declare class DrawRules {
 	 * Orientation: Orientation is determined by the anchor points. The back
 	 * side of the symbol encompasses the ambush position, while the arrowhead
 	 * typically points at the target.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly LINE29: number;
+	/**
+ * Anchor Points: Point 1 defines the tip of the arrowhead. Point 2 defines
+ * the end of the symbol. Point 3’s distance from Point 2 defines the length
+ * of the four angled lines making up the arrowhead and dashed “tail”. Angles
+ * a are always drawn at 45 degrees. Angle b is always drawn at 90 degrees.
+ *
+ * Size/Shape: The symbol varies only in length.
+ *
+ * Used by: Ech1
+ */
+	static readonly LINE30: number;
+	/**
+	 * Anchor Points: This graphic requires four anchor points. Point 1 defines the
+	 * beginning of the straight line. Point 2 defines the end of the straight-line
+	 * portion of the graphic. Point 3 defines the diameter. Point 4 defines the
+	 * orientation of the 180 degree circular arc.
+	 *
+	 * Size/Shape: Points 1 and 2 determine the length of the straight-line portion
+	 * of the symbol. Point 3 defines the diameter of the arc. Point 4 defines which
+	 * side of the line the arc is on.
+	 *
+	 * Used by: Ech1
+	 */
+	static readonly LINE31: number;
+	/**
+	 * Anchor Points: This graphic requires three anchor points. Point 1 defines the
+	 * end of the straight-line portion of the graphic. Point 2 defines the center of
+	 * the two 90 degree circular arcs. Point 3 defines the tip of the arrowhead.
+	 *
+	 * Size/Shape: Points 1 and 3 determine the length of the symbol.
+	 *
+	 * Used by: Ech1
+	 */
+	static readonly LINE32: number;
+	/**
+	 * Anchor Points: This graphic requires three anchor points.
+	 * Point 1 defines the beginning of the straight line. Point 2
+	 * defines the end of the straight line portion of the graphic.
+	 * Point 3 defines the diameter and orientation of the 180 degree
+	 * circular arc and the tip of the arrowhead.
+	 *
+	 * Size/Shape: Points 1 and 2 determine the length of the straight
+	 * line portion of the symbol. Point 3 defines which side of the
+	 * line the arc is on and the diameter of the arc.
+	 *
+	 * Used by: Ech1
+	 */
+	static readonly LINE33: number;
 	/**
 	 * Anchor Points: This symbol may contain multiple segments. Each segment
 	 * requires 2 anchor points. Point numbers that define the trace of the
@@ -2874,6 +3084,8 @@ export declare class DrawRules {
 	 * symbol.
 	 *
 	 * Orientation: The anchor points determine orientation.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly CORRIDOR1: number;
 	/**
@@ -2888,6 +3100,8 @@ export declare class DrawRules {
 	 * occur between Points 1 and 2.
 	 *
 	 * Orientation: The arrowhead typically points toward enemy forces.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly AXIS1: number;
 	/**
@@ -2901,6 +3115,8 @@ export declare class DrawRules {
 	 * and Point N determines the width.
 	 *
 	 * Orientation: The arrowhead typically points toward enemy forces.
+	 *
+	 * Used by: 2525D,Dch1,E
 	 */
 	static readonly AXIS2: number;
 	/**
@@ -2913,6 +3129,8 @@ export declare class DrawRules {
 	 * symbol stays proportional to the length of the center line.
 	 *
 	 * Orientation: Orientation is determined by points 1 and 2.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly POLYLINE1: number;
 	/**
@@ -2928,6 +3146,8 @@ export declare class DrawRules {
 	 * Orientation: The orientation of this symbol is determined by the rotation
 	 * angle provided, where 0 degrees is east/west and a positive rotation
 	 * angle rotates the ellipse in a counter-clockwise direction.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly ELLIPSE1: number;
 	/**
@@ -2941,6 +3161,8 @@ export declare class DrawRules {
 	 * information fields should be moveable and scalable.
 	 *
 	 * Orientation: As determined by the anchor points.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly RECTANGULAR1: number;
 	/**
@@ -2953,6 +3175,8 @@ export declare class DrawRules {
 	 * saleable within the area. Shape: Rectangle.
 	 *
 	 * Orientation: As determined by the Target Attitude (in mils).
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly RECTANGULAR2: number;
 	/**
@@ -2968,6 +3192,8 @@ export declare class DrawRules {
 	 * Orientation: As determined by the anchor points. The center point of the
 	 * area shall always have the target symbol with the same
 	 * upright orientation.
+	 *
+	 * Used by: 2525D,Dch1,E
 	 */
 	static readonly RECTANGULAR3: number;
 	/**
@@ -2978,6 +3204,8 @@ export declare class DrawRules {
 	 * information fields should be scalable within the circle.
 	 *
 	 * Orientation: Not applicable
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly CIRCULAR1: number;
 	/**
@@ -2994,6 +3222,8 @@ export declare class DrawRules {
 	 *
 	 * Orientation: The center point is typically centered over the known
 	 * location of a weapon or sensor system.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly CIRCULAR2: number;
 	/**
@@ -3016,6 +3246,8 @@ export declare class DrawRules {
 	 * Orientation: The center point is typically centered over the known
 	 * location of a weapon or sensor system. The orientation may change as
 	 * the object moves or changes.
+	 *
+	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly ARC1: number;
 }
@@ -3225,7 +3457,7 @@ export declare class GENCLookup {
 	private static _isReady;
 	private static _GENCLookup;
 	private static genc;
-	static loadData(location?: string): Promise<void>;
+	static setData(url: string): Promise<void>;
 	private constructor();
 	static getInstance(): GENCLookup;
 	isReady(): boolean;
@@ -3309,7 +3541,7 @@ export declare class MSLookup {
 	private _IDListE;
 	private static msdJSON;
 	private static mseJSON;
-	static loadData(location?: string): Promise<void>;
+	static setData(urls: string[]): Promise<void>;
 	private constructor();
 	static getInstance(): MSLookup;
 	private init;
@@ -3761,6 +3993,7 @@ export declare class RendererSettings {
 	private static _DPI;
 	private _TwoLabelOnly;
 	private _scaleMainIconWithoutSectorMods;
+	private _patternScale;
 	private _friendlyUnitFillColor;
 	private _hostileUnitFillColor;
 	private _neutralUnitFillColor;
@@ -4008,15 +4241,17 @@ export declare class RendererSettings {
 	 */
 	getMPLabelFontSize(): int;
 	/**
-	 ** Get a boolean indicating between the use of ENY labels in all segments (false) or
+	 ** Get a boolean indicating between the use of supply routes labels in all segments (false) or
 	 * to only set 2 labels one at the north and the other one at the south of the graphic (true).
 	 * @return {boolean}
+	+* @deprecated
 	 */
 	getTwoLabelOnly(): boolean;
 	/**
-	 * Set a boolean indicating between the use of ENY labels in all segments (false) or
+	 * Set a boolean indicating between the use of supply routes labels in all segments (false) or
 	 * to only set 2 labels one at the north and the other one at the south of the graphic (true).
 	 * @param TwoLabelOnly
+	 * @deprecated
 	 */
 	setTwoLabelOnly(TwoLabelOnly: boolean): void;
 	/**
@@ -4030,6 +4265,14 @@ export declare class RendererSettings {
 	 * main icon is made larger when no sector modifiers are present for better visibility.
 	 */
 	getScaleMainIcon(): boolean;
+	/**
+	 * Multipoint features and patterns scale with line width ({@link MilStdAttributes#LineWidth}).
+	 * {@code patternScale} is the ratio of how much to increase features and patterns by with line width.
+	 * default value is 1.0. Can be overwritten on render with {@link MilStdAttributes#PatternScale}
+	 * @param patternScale
+	 */
+	setPatternScale(patternScale: double): void;
+	getPatternScale(): double;
 	/**
 	 * get the preferred fill affiliation color for units.
 	 *
@@ -5133,18 +5376,6 @@ export declare class ShapeInfo {
 	getTextJustify(): int;
 	setTextJustify(value: int): void;
 }
-declare class DistanceUnit {
-	private static readonly FEET_PER_METER;
-	private static readonly FLIGHT_LEVEL_PER_METER;
-	readonly conversionFactor: double;
-	readonly label: string;
-	constructor(conversionFactor: double, label: string);
-	static parse(distanceUnitText: string): DistanceUnit | null;
-	toAttribute(): string;
-	static METERS: DistanceUnit;
-	static FEET: DistanceUnit;
-	static FLIGHT_LEVEL: DistanceUnit;
-}
 /**
  * Object that holds information on how to draw a multipoint symbol after {@link armyc2.c5isr.web.render.WebRenderer#RenderMultiPointAsMilStdSymbol(String, String, String, String, String, String, double, String, Map, Map)}  is called.
  */
@@ -5182,6 +5413,7 @@ export declare class MilStdSymbol {
 	protected _tp: TexturePaint;
 	protected _fs: boolean;
 	protected _patternFillType: int;
+	private patternScale;
 	private static _AltitudeMode;
 	private static _AltitudeUnit;
 	private static _DistanceUnit;
@@ -5436,6 +5668,14 @@ export declare class MilStdSymbol {
 	private _wasClipped;
 	set_WasClipped(value: boolean): void;
 	get_WasClipped(): boolean;
+	/**
+	 * Multipoint features and patterns scale with line width ({@link #getLineWidth()}).
+	 * {@link #patternScale} is the ratio of how much to increase features and patterns by with line width.
+	 * default value is 1.0. Can be set with {@link RendererSettings#setPatternScale(double)} and {@link MilStdAttributes#PatternScale}
+	 * @param scale
+	 */
+	setPatternScale(scale: double): void;
+	getPatternScale(): double;
 }
 /**
  * Interface for Point Conversion objects.  Recommend using the functions
@@ -5608,19 +5848,16 @@ declare class Modifier2 {
 	 */
 	private static shiftModifierPath;
 	/**
-	 * Adds label on line
-	 *
-	 * Replaces areasWithENY()
+	 * Adds two or four labels on area outline
 	 *
 	 * @param label
 	 * @param tg
-	 * @param g2d
-	 * @param twoLabelOnly - true if only add two instances of label to line (used with N modifier)
-	 *                     Ignored if RendererSettings.TwoLabelOnly is true
+	 * @param twoLabelOnly - when true only two labels are added to line (east and west most segment midpoints)
+	 *                     when false, four labels are added to line (north, south, east and west most segment midpoints)
 	 */
 	private static addModifierOnLine;
 	/**
-	 * Adds N modifier on line
+	 * Adds N modifier on area outline
 	 */
 	private static addNModifier;
 	private static addModifierBottomSegment;
@@ -5947,6 +6184,9 @@ declare class TGLight {
 	private lineCap;
 	set_lineCap(cap: int): void;
 	get_lineCap(): int;
+	private patternScale;
+	get_patternScale(): double;
+	set_patternScale(scale: double): void;
 }
 /**
  * Rendering class
@@ -6058,13 +6298,6 @@ export declare class clsRenderer {
 	 * @param hatch
 	 */
 	static render_Shape(milStd: MilStdSymbol, ipc: IPointConversion, clipArea: Point2D[] | Rectangle | Rectangle2D, shapeType: int, lineColor: Color, fillColor: Color, hatch: int): void;
-	/**
-	 * to follow right hand rule for LC when affiliation is hostile. also fixes
-	 * MSDZ point order and maybe various other wayward symbols
-	 *
-	 * @param tg
-	 */
-	private static setHostileLC;
 	/**
 	 * set the clip rectangle as an arraylist or a Rectangle2D depending on the
 	 * object
@@ -6466,6 +6699,7 @@ export declare class WebRenderer {
  * pass in "/dist/".  This is needed when all the files aren't in the same location.  When the renderer gets imported, it thinks it's
  * in the location of the file that imported it, not where it actually exists and then it can't find the asset files.  If location is not
  * set, the renderer assumes the json asset files are in the same location as where the C5Ren script is being run.
+ * Additionally, if your build process hashes the manifest.json file, you should include the new name like "/dist/manifest.[hash].json"
  */
 export declare function initialize(location?: string): Promise<any>;
 /**
