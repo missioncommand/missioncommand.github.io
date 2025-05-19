@@ -101,8 +101,8 @@
 <span class="source-line-no">088</span><span id="line-88">                case TacticalLines.LC:</span>
 <span class="source-line-no">089</span><span id="line-89">                    pUpperLinePoints = Channels.GetChannelArray2Double(1, pUpperLinePoints, 1, lElements, tg.get_LineType(), ChannelWidth);</span>
 <span class="source-line-no">090</span><span id="line-90">                    pLowerLinePoints = Channels.GetChannelArray2Double(1, pLowerLinePoints, 0, lElements, tg.get_LineType(), ChannelWidth);</span>
-<span class="source-line-no">091</span><span id="line-91">                    lUpperFlotCount = flot.GetFlotCountDouble(pUpperLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness()), lElements);</span>
-<span class="source-line-no">092</span><span id="line-92">                    lLowerFlotCount = flot.GetFlotCountDouble(pLowerLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness()), lElements);</span>
+<span class="source-line-no">091</span><span id="line-91">                    lUpperFlotCount = flot.GetFlotCountDouble(pUpperLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()), lElements);</span>
+<span class="source-line-no">092</span><span id="line-92">                    lLowerFlotCount = flot.GetFlotCountDouble(pLowerLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()), lElements);</span>
 <span class="source-line-no">093</span><span id="line-93">                    lResult = lUpperFlotCount + lLowerFlotCount;</span>
 <span class="source-line-no">094</span><span id="line-94">                    break;</span>
 <span class="source-line-no">095</span><span id="line-95">                default:</span>

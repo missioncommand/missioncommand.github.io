@@ -80,11 +80,11 @@
 <span class="source-line-no">067</span><span id="line-67">                    count=vblCounter*15;    //15 points per segment</span>
 <span class="source-line-no">068</span><span id="line-68">                    break;</span>
 <span class="source-line-no">069</span><span id="line-69">                case TacticalLines.REEF:</span>
-<span class="source-line-no">070</span><span id="line-70">                    vblCounter = GetReefCount(pLinePoints, arraysupport.getScaledSize(40, tg.get_LineThickness()), vblSaveCounter);</span>
+<span class="source-line-no">070</span><span id="line-70">                    vblCounter = GetReefCount(pLinePoints, arraysupport.getScaledSize(40, tg.get_LineThickness(), tg.get_patternScale()), vblSaveCounter);</span>
 <span class="source-line-no">071</span><span id="line-71">                    count=vblCounter;</span>
 <span class="source-line-no">072</span><span id="line-72">                    break;</span>
 <span class="source-line-no">073</span><span id="line-73">                case TacticalLines.RESTRICTED_AREA:</span>
-<span class="source-line-no">074</span><span id="line-74">                    vblCounter = GetRestrictedAreaCount(pLinePoints, arraysupport.getScaledSize(15, tg.get_LineThickness()), vblSaveCounter);</span>
+<span class="source-line-no">074</span><span id="line-74">                    vblCounter = GetRestrictedAreaCount(pLinePoints, arraysupport.getScaledSize(15, tg.get_LineThickness(), tg.get_patternScale()), vblSaveCounter);</span>
 <span class="source-line-no">075</span><span id="line-75">                    count=vblCounter;</span>
 <span class="source-line-no">076</span><span id="line-76">                    break;</span>
 <span class="source-line-no">077</span><span id="line-77">                case TacticalLines.TRAINING_AREA:</span>
@@ -92,41 +92,41 @@
 <span class="source-line-no">079</span><span id="line-79">                    count=vblCounter;</span>
 <span class="source-line-no">080</span><span id="line-80">                    break;</span>
 <span class="source-line-no">081</span><span id="line-81">                case TacticalLines.PIPE:</span>
-<span class="source-line-no">082</span><span id="line-82">                    count = GetPipeCount(pLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness()), vblSaveCounter);</span>
+<span class="source-line-no">082</span><span id="line-82">                    count = GetPipeCount(pLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()), vblSaveCounter);</span>
 <span class="source-line-no">083</span><span id="line-83">                    break;</span>
 <span class="source-line-no">084</span><span id="line-84">                case TacticalLines.ANCHORAGE_AREA:</span>
 <span class="source-line-no">085</span><span id="line-85">                case TacticalLines.ANCHORAGE_LINE:</span>
-<span class="source-line-no">086</span><span id="line-86">                    count = flot.GetAnchorageCountDouble(pLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness()), vblCounter);</span>
+<span class="source-line-no">086</span><span id="line-86">                    count = flot.GetAnchorageCountDouble(pLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()), vblCounter);</span>
 <span class="source-line-no">087</span><span id="line-87">                    break;</span>
 <span class="source-line-no">088</span><span id="line-88">                case TacticalLines.LRO:</span>
-<span class="source-line-no">089</span><span id="line-89">                    int xCount=GetXPointsCount(pLinePoints, arraysupport.getScaledSize(30, tg.get_LineThickness()), vblCounter);</span>
-<span class="source-line-no">090</span><span id="line-90">                    int lvoCount=GetLVOCount(pLinePoints, arraysupport.getScaledSize(30, tg.get_LineThickness()), vblCounter);</span>
+<span class="source-line-no">089</span><span id="line-89">                    int xCount=GetXPointsCount(pLinePoints, arraysupport.getScaledSize(30, tg.get_LineThickness(), tg.get_patternScale()), vblCounter);</span>
+<span class="source-line-no">090</span><span id="line-90">                    int lvoCount=GetLVOCount(pLinePoints, arraysupport.getScaledSize(30, tg.get_LineThickness(), tg.get_patternScale()), vblCounter);</span>
 <span class="source-line-no">091</span><span id="line-91">                    count=xCount+lvoCount;</span>
 <span class="source-line-no">092</span><span id="line-92">                    break;</span>
 <span class="source-line-no">093</span><span id="line-93">                case TacticalLines.LVO:</span>
-<span class="source-line-no">094</span><span id="line-94">                    count=GetLVOCount(pLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness()), vblCounter);</span>
+<span class="source-line-no">094</span><span id="line-94">                    count=GetLVOCount(pLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()), vblCounter);</span>
 <span class="source-line-no">095</span><span id="line-95">                    break;</span>
 <span class="source-line-no">096</span><span id="line-96">                case TacticalLines.ICING:</span>
-<span class="source-line-no">097</span><span id="line-97">                    vblCounter = GetIcingCount(pLinePoints, arraysupport.getScaledSize(15, tg.get_LineThickness()), vblCounter);</span>
+<span class="source-line-no">097</span><span id="line-97">                    vblCounter = GetIcingCount(pLinePoints, arraysupport.getScaledSize(15, tg.get_LineThickness(), tg.get_patternScale()), vblCounter);</span>
 <span class="source-line-no">098</span><span id="line-98">                    count=vblCounter;</span>
 <span class="source-line-no">099</span><span id="line-99">                    break;</span>
 <span class="source-line-no">100</span><span id="line-100">                case TacticalLines.FLOT:</span>
 <span class="source-line-no">101</span><span id="line-101">                    vblSaveCounter = vblCounter;</span>
-<span class="source-line-no">102</span><span id="line-102">                    vblCounter = flot.GetFlotCountDouble(pLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness()), vblCounter);</span>
+<span class="source-line-no">102</span><span id="line-102">                    vblCounter = flot.GetFlotCountDouble(pLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()), vblCounter);</span>
 <span class="source-line-no">103</span><span id="line-103">                    count=vblCounter;</span>
 <span class="source-line-no">104</span><span id="line-104">                    break;</span>
 <span class="source-line-no">105</span><span id="line-105">                case TacticalLines.MVFR:</span>
 <span class="source-line-no">106</span><span id="line-106">                case TacticalLines.UNDERCAST:</span>
 <span class="source-line-no">107</span><span id="line-107">                    vblSaveCounter = vblCounter;</span>
-<span class="source-line-no">108</span><span id="line-108">                    vblCounter = flot.GetFlotCountDouble(pLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness()), vblCounter);</span>
+<span class="source-line-no">108</span><span id="line-108">                    vblCounter = flot.GetFlotCountDouble(pLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()), vblCounter);</span>
 <span class="source-line-no">109</span><span id="line-109">                    count=vblCounter;</span>
 <span class="source-line-no">110</span><span id="line-110">                    break;</span>
 <span class="source-line-no">111</span><span id="line-111">                case TacticalLines.ITD:</span>
-<span class="source-line-no">112</span><span id="line-112">                    vblCounter = GetITDQty(pLinePoints, arraysupport.getScaledSize(15, tg.get_LineThickness()), vblCounter) + vblCounter;</span>
+<span class="source-line-no">112</span><span id="line-112">                    vblCounter = GetITDQty(pLinePoints, arraysupport.getScaledSize(15, tg.get_LineThickness(), tg.get_patternScale()), vblCounter) + vblCounter;</span>
 <span class="source-line-no">113</span><span id="line-113">                    count=vblCounter;</span>
 <span class="source-line-no">114</span><span id="line-114">                    break;</span>
 <span class="source-line-no">115</span><span id="line-115">                case TacticalLines.CONVERGENCE:</span>
-<span class="source-line-no">116</span><span id="line-116">                    vblCounter = GetConvergenceQty(pLinePoints, arraysupport.getScaledSize(10, tg.get_LineThickness()), vblCounter) + vblCounter;</span>
+<span class="source-line-no">116</span><span id="line-116">                    vblCounter = GetConvergenceQty(pLinePoints, arraysupport.getScaledSize(10, tg.get_LineThickness(), tg.get_patternScale()), vblCounter) + vblCounter;</span>
 <span class="source-line-no">117</span><span id="line-117">                    count=vblCounter;</span>
 <span class="source-line-no">118</span><span id="line-118">                    break;</span>
 <span class="source-line-no">119</span><span id="line-119">                case TacticalLines.RIDGE:</span>
@@ -137,15 +137,15 @@
 <span class="source-line-no">124</span><span id="line-124">                case TacticalLines.UPPER_TROUGH:</span>
 <span class="source-line-no">125</span><span id="line-125">                case TacticalLines.INSTABILITY:</span>
 <span class="source-line-no">126</span><span id="line-126">                case TacticalLines.SHEAR:</span>
-<span class="source-line-no">127</span><span id="line-127">                    vblCounter = GetSquallQty(pLinePoints, 6, arraysupport.getScaledSize(30, tg.get_LineThickness()), (int)vblSaveCounter);</span>
+<span class="source-line-no">127</span><span id="line-127">                    vblCounter = GetSquallQty(pLinePoints, 6, arraysupport.getScaledSize(30, tg.get_LineThickness(), tg.get_patternScale()), (int)vblSaveCounter);</span>
 <span class="source-line-no">128</span><span id="line-128">                    count=vblCounter;</span>
 <span class="source-line-no">129</span><span id="line-129">                    break;</span>
 <span class="source-line-no">130</span><span id="line-130">                case TacticalLines.CABLE:</span>
-<span class="source-line-no">131</span><span id="line-131">                    vblCounter = GetSquallQty(pLinePoints, 6, arraysupport.getScaledSize(20, tg.get_LineThickness()), (int)vblSaveCounter);</span>
+<span class="source-line-no">131</span><span id="line-131">                    vblCounter = GetSquallQty(pLinePoints, 6, arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()), (int)vblSaveCounter);</span>
 <span class="source-line-no">132</span><span id="line-132">                    count=vblCounter;</span>
 <span class="source-line-no">133</span><span id="line-133">                    break;</span>
 <span class="source-line-no">134</span><span id="line-134">                case TacticalLines.SQUALL:</span>
-<span class="source-line-no">135</span><span id="line-135">                    vblCounter = GetSquallQty(pLinePoints, 5, arraysupport.getScaledSize(30, tg.get_LineThickness()), (int)vblSaveCounter)+ 2 * vblSaveCounter;</span>
+<span class="source-line-no">135</span><span id="line-135">                    vblCounter = GetSquallQty(pLinePoints, 5, arraysupport.getScaledSize(30, tg.get_LineThickness(), tg.get_patternScale()), (int)vblSaveCounter)+ 2 * vblSaveCounter;</span>
 <span class="source-line-no">136</span><span id="line-136">                    count=vblCounter;</span>
 <span class="source-line-no">137</span><span id="line-137">                    break;</span>
 <span class="source-line-no">138</span><span id="line-138">                case TacticalLines.USF:</span>
@@ -157,7 +157,7 @@
 <span class="source-line-no">144</span><span id="line-144">                    break;</span>
 <span class="source-line-no">145</span><span id="line-145">                case TacticalLines.OFY:</span>
 <span class="source-line-no">146</span><span id="line-146">                    vblSaveCounter = vblCounter;</span>
-<span class="source-line-no">147</span><span id="line-147">                    vblCounter = flot.GetOFYCountDouble(pLinePoints, arraysupport.getScaledSize(80, tg.get_LineThickness()), vblCounter);</span>
+<span class="source-line-no">147</span><span id="line-147">                    vblCounter = flot.GetOFYCountDouble(pLinePoints, arraysupport.getScaledSize(80, tg.get_LineThickness(), tg.get_patternScale()), vblCounter);</span>
 <span class="source-line-no">148</span><span id="line-148">                    count=vblCounter;</span>
 <span class="source-line-no">149</span><span id="line-149">                    break;</span>
 <span class="source-line-no">150</span><span id="line-150">                case TacticalLines.UCF:</span>
@@ -184,661 +184,658 @@
 <span class="source-line-no">171</span><span id="line-171">                case TacticalLines.FOXHOLE:</span>
 <span class="source-line-no">172</span><span id="line-172">                    count = 4;</span>
 <span class="source-line-no">173</span><span id="line-173">                    break;</span>
-<span class="source-line-no">174</span><span id="line-174">                case TacticalLines.TRIP:</span>
-<span class="source-line-no">175</span><span id="line-175">                    count = 35;</span>
-<span class="source-line-no">176</span><span id="line-176">                    break;</span>
-<span class="source-line-no">177</span><span id="line-177">                case TacticalLines.AMBUSH:      //extra 3 for open arrow, extra 26 for the tail arc,</span>
-<span class="source-line-no">178</span><span id="line-178">                    //and an extra 22 for the tail line segments</span>
-<span class="source-line-no">179</span><span id="line-179">                    count = 53;//vblCounter+51;</span>
+<span class="source-line-no">174</span><span id="line-174">                case TacticalLines.AMBUSH:      //extra 3 for open arrow, extra 26 for the tail arc,</span>
+<span class="source-line-no">175</span><span id="line-175">                    //and an extra 22 for the tail line segments</span>
+<span class="source-line-no">176</span><span id="line-176">                    count = 53;//vblCounter+51;</span>
+<span class="source-line-no">177</span><span id="line-177">                    break;</span>
+<span class="source-line-no">178</span><span id="line-178">                case TacticalLines.CLUSTER:</span>
+<span class="source-line-no">179</span><span id="line-179">                    count = 28;</span>
 <span class="source-line-no">180</span><span id="line-180">                    break;</span>
-<span class="source-line-no">181</span><span id="line-181">                case TacticalLines.CLUSTER:</span>
-<span class="source-line-no">182</span><span id="line-182">                    count = 28;</span>
+<span class="source-line-no">181</span><span id="line-181">                case TacticalLines.CONTAIN:</span>
+<span class="source-line-no">182</span><span id="line-182">                    count = 40;</span>
 <span class="source-line-no">183</span><span id="line-183">                    break;</span>
-<span class="source-line-no">184</span><span id="line-184">                case TacticalLines.CONTAIN:</span>
-<span class="source-line-no">185</span><span id="line-185">                    count = 40;</span>
+<span class="source-line-no">184</span><span id="line-184">                case TacticalLines.BYIMP:</span>
+<span class="source-line-no">185</span><span id="line-185">                    count = 18;</span>
 <span class="source-line-no">186</span><span id="line-186">                    break;</span>
-<span class="source-line-no">187</span><span id="line-187">                case TacticalLines.BYIMP:</span>
-<span class="source-line-no">188</span><span id="line-188">                    count = 18;</span>
+<span class="source-line-no">187</span><span id="line-187">                case TacticalLines.SPTBYFIRE:</span>
+<span class="source-line-no">188</span><span id="line-188">                    count = 16;</span>
 <span class="source-line-no">189</span><span id="line-189">                    break;</span>
-<span class="source-line-no">190</span><span id="line-190">                case TacticalLines.SPTBYFIRE:</span>
-<span class="source-line-no">191</span><span id="line-191">                    count = 16;</span>
-<span class="source-line-no">192</span><span id="line-192">                    break;</span>
-<span class="source-line-no">193</span><span id="line-193">                case TacticalLines.BLOCK:</span>
-<span class="source-line-no">194</span><span id="line-194">                case TacticalLines.MNFLDBLK:</span>
-<span class="source-line-no">195</span><span id="line-195">                    count = 4;</span>
+<span class="source-line-no">190</span><span id="line-190">                case TacticalLines.BLOCK:</span>
+<span class="source-line-no">191</span><span id="line-191">                case TacticalLines.MNFLDBLK:</span>
+<span class="source-line-no">192</span><span id="line-192">                    count = 4;</span>
+<span class="source-line-no">193</span><span id="line-193">                    break;</span>
+<span class="source-line-no">194</span><span id="line-194">                case TacticalLines.PAA_RECTANGULAR:</span>
+<span class="source-line-no">195</span><span id="line-195">                    count = 5;</span>
 <span class="source-line-no">196</span><span id="line-196">                    break;</span>
-<span class="source-line-no">197</span><span id="line-197">                case TacticalLines.PAA_RECTANGULAR:</span>
-<span class="source-line-no">198</span><span id="line-198">                    count = 5;</span>
+<span class="source-line-no">197</span><span id="line-197">                case TacticalLines.RECTANGULAR_TARGET:</span>
+<span class="source-line-no">198</span><span id="line-198">                    count = 9;</span>
 <span class="source-line-no">199</span><span id="line-199">                    break;</span>
-<span class="source-line-no">200</span><span id="line-200">                case TacticalLines.RECTANGULAR_TARGET:</span>
-<span class="source-line-no">201</span><span id="line-201">                    count = 9;</span>
+<span class="source-line-no">200</span><span id="line-200">                case TacticalLines.PENETRATE:</span>
+<span class="source-line-no">201</span><span id="line-201">                    count = 7;</span>
 <span class="source-line-no">202</span><span id="line-202">                    break;</span>
-<span class="source-line-no">203</span><span id="line-203">                case TacticalLines.PENETRATE:</span>
-<span class="source-line-no">204</span><span id="line-204">                    count = 7;</span>
-<span class="source-line-no">205</span><span id="line-205">                    break;</span>
-<span class="source-line-no">206</span><span id="line-206">                case TacticalLines.ASLTXING:    //double for the channel type plus 4 for the hash marks</span>
-<span class="source-line-no">207</span><span id="line-207">                case TacticalLines.GAP:</span>
-<span class="source-line-no">208</span><span id="line-208">                case TacticalLines.BYPASS:</span>
-<span class="source-line-no">209</span><span id="line-209">                case TacticalLines.EASY:</span>
-<span class="source-line-no">210</span><span id="line-210">                case TacticalLines.BREACH:</span>
-<span class="source-line-no">211</span><span id="line-211">                case TacticalLines.CANALIZE:</span>
-<span class="source-line-no">212</span><span id="line-212">                    count = 12;</span>
+<span class="source-line-no">203</span><span id="line-203">                case TacticalLines.ASLTXING:    //double for the channel type plus 4 for the hash marks</span>
+<span class="source-line-no">204</span><span id="line-204">                case TacticalLines.GAP:</span>
+<span class="source-line-no">205</span><span id="line-205">                case TacticalLines.BYPASS:</span>
+<span class="source-line-no">206</span><span id="line-206">                case TacticalLines.EASY:</span>
+<span class="source-line-no">207</span><span id="line-207">                case TacticalLines.BREACH:</span>
+<span class="source-line-no">208</span><span id="line-208">                case TacticalLines.CANALIZE:</span>
+<span class="source-line-no">209</span><span id="line-209">                    count = 12;</span>
+<span class="source-line-no">210</span><span id="line-210">                    break;</span>
+<span class="source-line-no">211</span><span id="line-211">                case TacticalLines.MNFLDDIS:</span>
+<span class="source-line-no">212</span><span id="line-212">                    count = 22;</span>
 <span class="source-line-no">213</span><span id="line-213">                    break;</span>
-<span class="source-line-no">214</span><span id="line-214">                case TacticalLines.MNFLDDIS:</span>
-<span class="source-line-no">215</span><span id="line-215">                    count = 22;</span>
-<span class="source-line-no">216</span><span id="line-216">                    break;</span>
-<span class="source-line-no">217</span><span id="line-217">                case TacticalLines.WITHDRAW:</span>
-<span class="source-line-no">218</span><span id="line-218">                case TacticalLines.WDRAWUP:</span>
-<span class="source-line-no">219</span><span id="line-219">                case TacticalLines.DELAY:               //extra four points for hash marks on last segment</span>
-<span class="source-line-no">220</span><span id="line-220">                case TacticalLines.RETIRE:</span>
-<span class="source-line-no">221</span><span id="line-221">                case TacticalLines.FPOL:</span>
-<span class="source-line-no">222</span><span id="line-222">                case TacticalLines.RPOL:</span>
-<span class="source-line-no">223</span><span id="line-223">                    count = 23;</span>
+<span class="source-line-no">214</span><span id="line-214">                case TacticalLines.WITHDRAW:</span>
+<span class="source-line-no">215</span><span id="line-215">                case TacticalLines.WDRAWUP:</span>
+<span class="source-line-no">216</span><span id="line-216">                case TacticalLines.DELAY:               //extra four points for hash marks on last segment</span>
+<span class="source-line-no">217</span><span id="line-217">                case TacticalLines.RETIRE:</span>
+<span class="source-line-no">218</span><span id="line-218">                case TacticalLines.FPOL:</span>
+<span class="source-line-no">219</span><span id="line-219">                case TacticalLines.RPOL:</span>
+<span class="source-line-no">220</span><span id="line-220">                    count = 23;</span>
+<span class="source-line-no">221</span><span id="line-221">                    break;</span>
+<span class="source-line-no">222</span><span id="line-222">                case TacticalLines.SEIZE:</span>
+<span class="source-line-no">223</span><span id="line-223">                    count = 37;</span>
 <span class="source-line-no">224</span><span id="line-224">                    break;</span>
-<span class="source-line-no">225</span><span id="line-225">                case TacticalLines.SEIZE:</span>
-<span class="source-line-no">226</span><span id="line-226">                    count = 37;</span>
+<span class="source-line-no">225</span><span id="line-225">                case TacticalLines.RIP:</span>
+<span class="source-line-no">226</span><span id="line-226">                    count = 29;</span>
 <span class="source-line-no">227</span><span id="line-227">                    break;</span>
-<span class="source-line-no">228</span><span id="line-228">                case TacticalLines.RIP:</span>
-<span class="source-line-no">229</span><span id="line-229">                    count = 29;</span>
+<span class="source-line-no">228</span><span id="line-228">                case TacticalLines.DIRATKSPT:</span>
+<span class="source-line-no">229</span><span id="line-229">                    count = vblCounter + 3;</span>
 <span class="source-line-no">230</span><span id="line-230">                    break;</span>
-<span class="source-line-no">231</span><span id="line-231">                case TacticalLines.DIRATKSPT:</span>
+<span class="source-line-no">231</span><span id="line-231">                case TacticalLines.ABATIS:</span>
 <span class="source-line-no">232</span><span id="line-232">                    count = vblCounter + 3;</span>
 <span class="source-line-no">233</span><span id="line-233">                    break;</span>
-<span class="source-line-no">234</span><span id="line-234">                case TacticalLines.ABATIS:</span>
-<span class="source-line-no">235</span><span id="line-235">                    count = vblCounter + 3;</span>
-<span class="source-line-no">236</span><span id="line-236">                    break;</span>
-<span class="source-line-no">237</span><span id="line-237">                case TacticalLines.FPF: //extra two points for blocks at each end</span>
-<span class="source-line-no">238</span><span id="line-238">                case TacticalLines.LINTGT:      //extra two points for blocks at each end</span>
-<span class="source-line-no">239</span><span id="line-239">                case TacticalLines.LINTGTS:</span>
-<span class="source-line-no">240</span><span id="line-240">                    count = vblCounter + 4;</span>
-<span class="source-line-no">241</span><span id="line-241">                    break;</span>
-<span class="source-line-no">242</span><span id="line-242">                case TacticalLines.CHANNEL:</span>
-<span class="source-line-no">243</span><span id="line-243">                case TacticalLines.CHANNEL_FLARED:</span>
-<span class="source-line-no">244</span><span id="line-244">                case TacticalLines.CHANNEL_DASHED:</span>
-<span class="source-line-no">245</span><span id="line-245">                    //pvblCounters[0]=2*lElements;</span>
-<span class="source-line-no">246</span><span id="line-246">                    //pvblCounters[1]=lElements;</span>
-<span class="source-line-no">247</span><span id="line-247">                    count=2*vblCounter;</span>
+<span class="source-line-no">234</span><span id="line-234">                case TacticalLines.FPF: //extra two points for blocks at each end</span>
+<span class="source-line-no">235</span><span id="line-235">                case TacticalLines.LINTGT:      //extra two points for blocks at each end</span>
+<span class="source-line-no">236</span><span id="line-236">                case TacticalLines.LINTGTS:</span>
+<span class="source-line-no">237</span><span id="line-237">                    count = vblCounter + 4;</span>
+<span class="source-line-no">238</span><span id="line-238">                    break;</span>
+<span class="source-line-no">239</span><span id="line-239">                case TacticalLines.CHANNEL:</span>
+<span class="source-line-no">240</span><span id="line-240">                case TacticalLines.CHANNEL_FLARED:</span>
+<span class="source-line-no">241</span><span id="line-241">                case TacticalLines.CHANNEL_DASHED:</span>
+<span class="source-line-no">242</span><span id="line-242">                    //pvblCounters[0]=2*lElements;</span>
+<span class="source-line-no">243</span><span id="line-243">                    //pvblCounters[1]=lElements;</span>
+<span class="source-line-no">244</span><span id="line-244">                    count=2*vblCounter;</span>
+<span class="source-line-no">245</span><span id="line-245">                    break;</span>
+<span class="source-line-no">246</span><span id="line-246">                case TacticalLines.SARA:</span>
+<span class="source-line-no">247</span><span id="line-247">                    count = 16; //same for DISM</span>
 <span class="source-line-no">248</span><span id="line-248">                    break;</span>
-<span class="source-line-no">249</span><span id="line-249">                case TacticalLines.SARA:</span>
-<span class="source-line-no">250</span><span id="line-250">                    count = 16; //same for DISM</span>
-<span class="source-line-no">251</span><span id="line-251">                    break;</span>
-<span class="source-line-no">252</span><span id="line-252">                case TacticalLines.COVER:               //vblSaveCounter = vblCounter;</span>
-<span class="source-line-no">253</span><span id="line-253">                case TacticalLines.SCREEN:</span>
-<span class="source-line-no">254</span><span id="line-254">                case TacticalLines.GUARD:</span>
-<span class="source-line-no">255</span><span id="line-255">                case TacticalLines.PDF:</span>
-<span class="source-line-no">256</span><span id="line-256">                case TacticalLines.ATKBYFIRE:</span>
-<span class="source-line-no">257</span><span id="line-257">                    count = 14; //same for DISM</span>
-<span class="source-line-no">258</span><span id="line-258">                    break;</span>
-<span class="source-line-no">259</span><span id="line-259">                case TacticalLines.RAFT:</span>
-<span class="source-line-no">260</span><span id="line-260">                case TacticalLines.MFLANE:      //extra eight points for hash marks at either end</span>
-<span class="source-line-no">261</span><span id="line-261">                    count = 8;</span>
+<span class="source-line-no">249</span><span id="line-249">                case TacticalLines.COVER:               //vblSaveCounter = vblCounter;</span>
+<span class="source-line-no">250</span><span id="line-250">                case TacticalLines.SCREEN:</span>
+<span class="source-line-no">251</span><span id="line-251">                case TacticalLines.GUARD:</span>
+<span class="source-line-no">252</span><span id="line-252">                case TacticalLines.PDF:</span>
+<span class="source-line-no">253</span><span id="line-253">                case TacticalLines.ATKBYFIRE:</span>
+<span class="source-line-no">254</span><span id="line-254">                    count = 14; //same for DISM</span>
+<span class="source-line-no">255</span><span id="line-255">                    break;</span>
+<span class="source-line-no">256</span><span id="line-256">                case TacticalLines.RAFT:</span>
+<span class="source-line-no">257</span><span id="line-257">                case TacticalLines.MFLANE:      //extra eight points for hash marks at either end</span>
+<span class="source-line-no">258</span><span id="line-258">                    count = 8;</span>
+<span class="source-line-no">259</span><span id="line-259">                    break;</span>
+<span class="source-line-no">260</span><span id="line-260">                case TacticalLines.DIRATKGND:</span>
+<span class="source-line-no">261</span><span id="line-261">                    count = vblCounter + 10;</span>
 <span class="source-line-no">262</span><span id="line-262">                    break;</span>
-<span class="source-line-no">263</span><span id="line-263">                case TacticalLines.DIRATKGND:</span>
-<span class="source-line-no">264</span><span id="line-264">                    count = vblCounter + 10;</span>
+<span class="source-line-no">263</span><span id="line-263">                case TacticalLines.DIRATKAIR:</span>
+<span class="source-line-no">264</span><span id="line-264">                    count = vblCounter + 9;</span>
 <span class="source-line-no">265</span><span id="line-265">                    break;</span>
-<span class="source-line-no">266</span><span id="line-266">                case TacticalLines.DIRATKAIR:</span>
-<span class="source-line-no">267</span><span id="line-267">                    count = vblCounter + 9;</span>
-<span class="source-line-no">268</span><span id="line-268">                    break;</span>
-<span class="source-line-no">269</span><span id="line-269">                case TacticalLines.DISRUPT:</span>
-<span class="source-line-no">270</span><span id="line-270">                case TacticalLines.CLEAR:</span>
-<span class="source-line-no">271</span><span id="line-271">                    count = 20;</span>
+<span class="source-line-no">266</span><span id="line-266">                case TacticalLines.DISRUPT:</span>
+<span class="source-line-no">267</span><span id="line-267">                case TacticalLines.CLEAR:</span>
+<span class="source-line-no">268</span><span id="line-268">                    count = 20;</span>
+<span class="source-line-no">269</span><span id="line-269">                    break;</span>
+<span class="source-line-no">270</span><span id="line-270">                case TacticalLines.MSDZ:</span>
+<span class="source-line-no">271</span><span id="line-271">                    count = 300;</span>
 <span class="source-line-no">272</span><span id="line-272">                    break;</span>
-<span class="source-line-no">273</span><span id="line-273">                case TacticalLines.MSDZ:</span>
-<span class="source-line-no">274</span><span id="line-274">                    count = 300;</span>
-<span class="source-line-no">275</span><span id="line-275">                    break;</span>
-<span class="source-line-no">276</span><span id="line-276">                case TacticalLines.CONVOY:</span>
-<span class="source-line-no">277</span><span id="line-277">                case TacticalLines.HCONVOY:</span>
-<span class="source-line-no">278</span><span id="line-278">                    count = 10;</span>
-<span class="source-line-no">279</span><span id="line-279">                    break;</span>
-<span class="source-line-no">280</span><span id="line-280">                case TacticalLines.ISOLATE:</span>
-<span class="source-line-no">281</span><span id="line-281">                case TacticalLines.CORDONKNOCK:</span>
-<span class="source-line-no">282</span><span id="line-282">                case TacticalLines.CORDONSEARCH:</span>
-<span class="source-line-no">283</span><span id="line-283">                    count = 50;</span>
+<span class="source-line-no">273</span><span id="line-273">                case TacticalLines.CONVOY:</span>
+<span class="source-line-no">274</span><span id="line-274">                case TacticalLines.HCONVOY:</span>
+<span class="source-line-no">275</span><span id="line-275">                    count = 10;</span>
+<span class="source-line-no">276</span><span id="line-276">                    break;</span>
+<span class="source-line-no">277</span><span id="line-277">                case TacticalLines.ISOLATE:</span>
+<span class="source-line-no">278</span><span id="line-278">                case TacticalLines.CORDONKNOCK:</span>
+<span class="source-line-no">279</span><span id="line-279">                case TacticalLines.CORDONSEARCH:</span>
+<span class="source-line-no">280</span><span id="line-280">                    count = 50;</span>
+<span class="source-line-no">281</span><span id="line-281">                    break;</span>
+<span class="source-line-no">282</span><span id="line-282">                case TacticalLines.OCCUPY:</span>
+<span class="source-line-no">283</span><span id="line-283">                    count = 32;</span>
 <span class="source-line-no">284</span><span id="line-284">                    break;</span>
-<span class="source-line-no">285</span><span id="line-285">                case TacticalLines.OCCUPY:</span>
-<span class="source-line-no">286</span><span id="line-286">                    count = 32;</span>
+<span class="source-line-no">285</span><span id="line-285">                case TacticalLines.SECURE:</span>
+<span class="source-line-no">286</span><span id="line-286">                    count = 29;</span>
 <span class="source-line-no">287</span><span id="line-287">                    break;</span>
-<span class="source-line-no">288</span><span id="line-288">                case TacticalLines.SECURE:</span>
-<span class="source-line-no">289</span><span id="line-289">                    count = 29;</span>
+<span class="source-line-no">288</span><span id="line-288">                case TacticalLines.RETAIN:</span>
+<span class="source-line-no">289</span><span id="line-289">                    count = 75;</span>
 <span class="source-line-no">290</span><span id="line-290">                    break;</span>
-<span class="source-line-no">291</span><span id="line-291">                case TacticalLines.RETAIN:</span>
-<span class="source-line-no">292</span><span id="line-292">                    count = 75;</span>
+<span class="source-line-no">291</span><span id="line-291">                case TacticalLines.TURN:</span>
+<span class="source-line-no">292</span><span id="line-292">                    count = 29;</span>
 <span class="source-line-no">293</span><span id="line-293">                    break;</span>
-<span class="source-line-no">294</span><span id="line-294">                case TacticalLines.TURN:</span>
-<span class="source-line-no">295</span><span id="line-295">                    count = 29;</span>
+<span class="source-line-no">294</span><span id="line-294">                case TacticalLines.AIRFIELD:</span>
+<span class="source-line-no">295</span><span id="line-295">                    count = vblCounter + 5;</span>
 <span class="source-line-no">296</span><span id="line-296">                    break;</span>
-<span class="source-line-no">297</span><span id="line-297">                case TacticalLines.AIRFIELD:</span>
-<span class="source-line-no">298</span><span id="line-298">                    count = vblCounter + 5;</span>
+<span class="source-line-no">297</span><span id="line-297">                case TacticalLines.FENCED:</span>
+<span class="source-line-no">298</span><span id="line-298">                    count = vblCounter;</span>
 <span class="source-line-no">299</span><span id="line-299">                    break;</span>
-<span class="source-line-no">300</span><span id="line-300">                case TacticalLines.FENCED:</span>
-<span class="source-line-no">301</span><span id="line-301">                    count = vblCounter;</span>
-<span class="source-line-no">302</span><span id="line-302">                    break;</span>
-<span class="source-line-no">303</span><span id="line-303">                case TacticalLines.MSR_ALT:</span>
-<span class="source-line-no">304</span><span id="line-304">                case TacticalLines.ASR_ALT:</span>
-<span class="source-line-no">305</span><span id="line-305">                case TacticalLines.ROUTE_ALT:</span>
-<span class="source-line-no">306</span><span id="line-306">                    count = vblCounter * 9;</span>
-<span class="source-line-no">307</span><span id="line-307">                    break;</span>
-<span class="source-line-no">308</span><span id="line-308">                case TacticalLines.MSR_TWOWAY:</span>
-<span class="source-line-no">309</span><span id="line-309">                case TacticalLines.ASR_TWOWAY:</span>
-<span class="source-line-no">310</span><span id="line-310">                    count = vblCounter * 11;</span>
-<span class="source-line-no">311</span><span id="line-311">                    break;</span>
-<span class="source-line-no">312</span><span id="line-312">                case TacticalLines.MSR_ONEWAY:</span>
-<span class="source-line-no">313</span><span id="line-313">                case TacticalLines.ASR_ONEWAY:</span>
-<span class="source-line-no">314</span><span id="line-314">                case TacticalLines.ROUTE_ONEWAY:</span>
-<span class="source-line-no">315</span><span id="line-315">                    count = vblCounter * 6;</span>
-<span class="source-line-no">316</span><span id="line-316">                    break;</span>
-<span class="source-line-no">317</span><span id="line-317">                case TacticalLines.WF:</span>
-<span class="source-line-no">318</span><span id="line-318">                case TacticalLines.UWF:</span>
-<span class="source-line-no">319</span><span id="line-319">                    vblCounter = flot.GetFlotCount2Double(tg, pLinePoints, vblCounter);</span>
-<span class="source-line-no">320</span><span id="line-320">                    vblCounter += vblSaveCounter;</span>
-<span class="source-line-no">321</span><span id="line-321">                    count=vblCounter;</span>
-<span class="source-line-no">322</span><span id="line-322">                    break;</span>
-<span class="source-line-no">323</span><span id="line-323">                case TacticalLines.WFG:</span>
-<span class="source-line-no">324</span><span id="line-324">                case TacticalLines.WFY:</span>
-<span class="source-line-no">325</span><span id="line-325">                    vblCounter = flot.GetFlotCount2Double(tg, pLinePoints, vblCounter);</span>
-<span class="source-line-no">326</span><span id="line-326">                    count=vblCounter;</span>
-<span class="source-line-no">327</span><span id="line-327">                    break;</span>
-<span class="source-line-no">328</span><span id="line-328">                case TacticalLines.FORDIF:</span>
-<span class="source-line-no">329</span><span id="line-329">                    dRadius = lineutility.CalcDistanceToLineDouble(pLinePoints[0], pLinePoints[1], pLinePoints[2]);</span>
-<span class="source-line-no">330</span><span id="line-330">                    double spikeLength = arraysupport.getScaledSize(10, tg.get_LineThickness());</span>
-<span class="source-line-no">331</span><span id="line-331">                    count=(int)((dRadius / (spikeLength / 2)) * 3) + 6;</span>
-<span class="source-line-no">332</span><span id="line-332">                    if(clipBounds != null)</span>
-<span class="source-line-no">333</span><span id="line-333">                    {</span>
-<span class="source-line-no">334</span><span id="line-334">                        double width=clipBounds.getWidth();</span>
-<span class="source-line-no">335</span><span id="line-335">                        double height=clipBounds.getHeight();</span>
-<span class="source-line-no">336</span><span id="line-336">                        dRadius=Math.sqrt(width*width+height*height);</span>
-<span class="source-line-no">337</span><span id="line-337">                        count = (int)(dRadius / (spikeLength / 2)) + 6;</span>
-<span class="source-line-no">338</span><span id="line-338">                    }</span>
-<span class="source-line-no">339</span><span id="line-339">                    </span>
-<span class="source-line-no">340</span><span id="line-340">                    </span>
-<span class="source-line-no">341</span><span id="line-341">                    break;</span>
-<span class="source-line-no">342</span><span id="line-342">                case TacticalLines.ATDITCH:     //call function to determine the array size</span>
-<span class="source-line-no">343</span><span id="line-343">                case TacticalLines.ATDITCHC:    //call function to determine the array size</span>
-<span class="source-line-no">344</span><span id="line-344">                case TacticalLines.ATDITCHM:</span>
-<span class="source-line-no">345</span><span id="line-345">                    count = GetDitchCountDouble(pLinePoints, vblSaveCounter, vbiDrawThis);</span>
-<span class="source-line-no">346</span><span id="line-346">                    break;</span>
-<span class="source-line-no">347</span><span id="line-347">                case TacticalLines.CATK:</span>
-<span class="source-line-no">348</span><span id="line-348">                case TacticalLines.MAIN:</span>
-<span class="source-line-no">349</span><span id="line-349">                case TacticalLines.MAIN_STRAIGHT:</span>
-<span class="source-line-no">350</span><span id="line-350">                case TacticalLines.AIRAOA:</span>
-<span class="source-line-no">351</span><span id="line-351">                case TacticalLines.SPT:</span>
-<span class="source-line-no">352</span><span id="line-352">                case TacticalLines.SPT_STRAIGHT:</span>
-<span class="source-line-no">353</span><span id="line-353">                    //points for these need not be bounded</span>
-<span class="source-line-no">354</span><span id="line-354">                    //they have an extra 8 points for the arrowhead</span>
-<span class="source-line-no">355</span><span id="line-355">                    count=2*vblCounter+8;</span>
+<span class="source-line-no">300</span><span id="line-300">                case TacticalLines.MSR_ALT:</span>
+<span class="source-line-no">301</span><span id="line-301">                case TacticalLines.ASR_ALT:</span>
+<span class="source-line-no">302</span><span id="line-302">                case TacticalLines.ROUTE_ALT:</span>
+<span class="source-line-no">303</span><span id="line-303">                    count = vblCounter * 9;</span>
+<span class="source-line-no">304</span><span id="line-304">                    break;</span>
+<span class="source-line-no">305</span><span id="line-305">                case TacticalLines.MSR_TWOWAY:</span>
+<span class="source-line-no">306</span><span id="line-306">                case TacticalLines.ASR_TWOWAY:</span>
+<span class="source-line-no">307</span><span id="line-307">                    count = vblCounter * 11;</span>
+<span class="source-line-no">308</span><span id="line-308">                    break;</span>
+<span class="source-line-no">309</span><span id="line-309">                case TacticalLines.MSR_ONEWAY:</span>
+<span class="source-line-no">310</span><span id="line-310">                case TacticalLines.ASR_ONEWAY:</span>
+<span class="source-line-no">311</span><span id="line-311">                case TacticalLines.ROUTE_ONEWAY:</span>
+<span class="source-line-no">312</span><span id="line-312">                    count = vblCounter * 6;</span>
+<span class="source-line-no">313</span><span id="line-313">                    break;</span>
+<span class="source-line-no">314</span><span id="line-314">                case TacticalLines.WF:</span>
+<span class="source-line-no">315</span><span id="line-315">                case TacticalLines.UWF:</span>
+<span class="source-line-no">316</span><span id="line-316">                    vblCounter = flot.GetFlotCount2Double(tg, pLinePoints, vblCounter);</span>
+<span class="source-line-no">317</span><span id="line-317">                    vblCounter += vblSaveCounter;</span>
+<span class="source-line-no">318</span><span id="line-318">                    count=vblCounter;</span>
+<span class="source-line-no">319</span><span id="line-319">                    break;</span>
+<span class="source-line-no">320</span><span id="line-320">                case TacticalLines.WFG:</span>
+<span class="source-line-no">321</span><span id="line-321">                case TacticalLines.WFY:</span>
+<span class="source-line-no">322</span><span id="line-322">                    vblCounter = flot.GetFlotCount2Double(tg, pLinePoints, vblCounter);</span>
+<span class="source-line-no">323</span><span id="line-323">                    count=vblCounter;</span>
+<span class="source-line-no">324</span><span id="line-324">                    break;</span>
+<span class="source-line-no">325</span><span id="line-325">                case TacticalLines.FORDIF:</span>
+<span class="source-line-no">326</span><span id="line-326">                    dRadius = lineutility.CalcDistanceToLineDouble(pLinePoints[0], pLinePoints[1], pLinePoints[2]);</span>
+<span class="source-line-no">327</span><span id="line-327">                    double spikeLength = arraysupport.getScaledSize(10, tg.get_LineThickness(), tg.get_patternScale());</span>
+<span class="source-line-no">328</span><span id="line-328">                    count=(int)((dRadius / (spikeLength / 2)) * 3) + 6;</span>
+<span class="source-line-no">329</span><span id="line-329">                    if(clipBounds != null)</span>
+<span class="source-line-no">330</span><span id="line-330">                    {</span>
+<span class="source-line-no">331</span><span id="line-331">                        double width=clipBounds.getWidth();</span>
+<span class="source-line-no">332</span><span id="line-332">                        double height=clipBounds.getHeight();</span>
+<span class="source-line-no">333</span><span id="line-333">                        dRadius=Math.sqrt(width*width+height*height);</span>
+<span class="source-line-no">334</span><span id="line-334">                        count = (int)(dRadius / (spikeLength / 2)) + 6;</span>
+<span class="source-line-no">335</span><span id="line-335">                    }</span>
+<span class="source-line-no">336</span><span id="line-336">                    </span>
+<span class="source-line-no">337</span><span id="line-337">                    </span>
+<span class="source-line-no">338</span><span id="line-338">                    break;</span>
+<span class="source-line-no">339</span><span id="line-339">                case TacticalLines.ATDITCH:     //call function to determine the array size</span>
+<span class="source-line-no">340</span><span id="line-340">                case TacticalLines.ATDITCHC:    //call function to determine the array size</span>
+<span class="source-line-no">341</span><span id="line-341">                case TacticalLines.ATDITCHM:</span>
+<span class="source-line-no">342</span><span id="line-342">                    count = GetDitchCountDouble(pLinePoints, vblSaveCounter, vbiDrawThis);</span>
+<span class="source-line-no">343</span><span id="line-343">                    break;</span>
+<span class="source-line-no">344</span><span id="line-344">                case TacticalLines.CATK:</span>
+<span class="source-line-no">345</span><span id="line-345">                case TacticalLines.MAIN:</span>
+<span class="source-line-no">346</span><span id="line-346">                case TacticalLines.MAIN_STRAIGHT:</span>
+<span class="source-line-no">347</span><span id="line-347">                case TacticalLines.AIRAOA:</span>
+<span class="source-line-no">348</span><span id="line-348">                case TacticalLines.SPT:</span>
+<span class="source-line-no">349</span><span id="line-349">                case TacticalLines.SPT_STRAIGHT:</span>
+<span class="source-line-no">350</span><span id="line-350">                    //points for these need not be bounded</span>
+<span class="source-line-no">351</span><span id="line-351">                    //they have an extra 8 points for the arrowhead</span>
+<span class="source-line-no">352</span><span id="line-352">                    count=2*vblCounter+8;</span>
+<span class="source-line-no">353</span><span id="line-353">                    break;</span>
+<span class="source-line-no">354</span><span id="line-354">                case TacticalLines.CATKBYFIRE:</span>
+<span class="source-line-no">355</span><span id="line-355">                    count=2*vblCounter+17;</span>
 <span class="source-line-no">356</span><span id="line-356">                    break;</span>
-<span class="source-line-no">357</span><span id="line-357">                case TacticalLines.CATKBYFIRE:</span>
-<span class="source-line-no">358</span><span id="line-358">                    count=2*vblCounter+17;</span>
+<span class="source-line-no">357</span><span id="line-357">                case TacticalLines.AAAAA:</span>
+<span class="source-line-no">358</span><span id="line-358">                    count=2*vblCounter+19;</span>
 <span class="source-line-no">359</span><span id="line-359">                    break;</span>
-<span class="source-line-no">360</span><span id="line-360">                case TacticalLines.AAAAA:</span>
-<span class="source-line-no">361</span><span id="line-361">                    count=2*vblCounter+19;</span>
-<span class="source-line-no">362</span><span id="line-362">                    break;</span>
-<span class="source-line-no">363</span><span id="line-363">                case TacticalLines.LLTR:  //added 5-4-07</span>
-<span class="source-line-no">364</span><span id="line-364">                case TacticalLines.SAAFR:</span>
-<span class="source-line-no">365</span><span id="line-365">                case TacticalLines.AC:</span>
-<span class="source-line-no">366</span><span id="line-366">                case TacticalLines.SC:</span>
-<span class="source-line-no">367</span><span id="line-367">                case TacticalLines.MRR:</span>
-<span class="source-line-no">368</span><span id="line-368">                case TacticalLines.SL:</span>
-<span class="source-line-no">369</span><span id="line-369">                case TacticalLines.TC:</span>
-<span class="source-line-no">370</span><span id="line-370">                    vblCounter = 6 * (vblSaveCounter - 1);      //6 per segment</span>
-<span class="source-line-no">371</span><span id="line-371">                    count = vblCounter + 26 * vblSaveCounter*2; //26 for each circle and potentially two circles at each endpoint</span>
-<span class="source-line-no">372</span><span id="line-372">                    break;</span>
-<span class="source-line-no">373</span><span id="line-373">                case TacticalLines.ATWALL:</span>
-<span class="source-line-no">374</span><span id="line-374">                case TacticalLines.LINE:</span>
-<span class="source-line-no">375</span><span id="line-375">                case TacticalLines.OBSAREA:</span>
-<span class="source-line-no">376</span><span id="line-376">                case TacticalLines.OBSFAREA:</span>
-<span class="source-line-no">377</span><span id="line-377">                case TacticalLines.STRONG:</span>
-<span class="source-line-no">378</span><span id="line-378">                case TacticalLines.ZONE:</span>
-<span class="source-line-no">379</span><span id="line-379">                case TacticalLines.ENCIRCLE:</span>
-<span class="source-line-no">380</span><span id="line-380">                case TacticalLines.FORT_REVD:</span>
-<span class="source-line-no">381</span><span id="line-381">                case TacticalLines.FORT:</span>
-<span class="source-line-no">382</span><span id="line-382">                case TacticalLines.FORTL:</span>
-<span class="source-line-no">383</span><span id="line-383">                    count = GetFORTLCountDouble(tg, pLinePoints, vblSaveCounter);</span>
-<span class="source-line-no">384</span><span id="line-384">                    break;</span>
-<span class="source-line-no">385</span><span id="line-385">                case TacticalLines.TRIPLE:</span>
-<span class="source-line-no">386</span><span id="line-386">                case TacticalLines.DOUBLEC:</span>
-<span class="source-line-no">387</span><span id="line-387">                case TacticalLines.SINGLEC:</span>
-<span class="source-line-no">388</span><span id="line-388">                case TacticalLines.HWFENCE:</span>
-<span class="source-line-no">389</span><span id="line-389">                case TacticalLines.LWFENCE:</span>
-<span class="source-line-no">390</span><span id="line-390">                case TacticalLines.UNSP:</span>
-<span class="source-line-no">391</span><span id="line-391">                case TacticalLines.DOUBLEA:</span>
-<span class="source-line-no">392</span><span id="line-392">                case TacticalLines.SFENCE:</span>
-<span class="source-line-no">393</span><span id="line-393">                case TacticalLines.DFENCE:</span>
-<span class="source-line-no">394</span><span id="line-394">                    count = Channels.GetTripleCountDouble(pLinePoints, vblCounter, vbiDrawThis);</span>
-<span class="source-line-no">395</span><span id="line-395">                    break;</span>
-<span class="source-line-no">396</span><span id="line-396">                case TacticalLines.LC:</span>
-<span class="source-line-no">397</span><span id="line-397">                    pUpperLinePoints = Channels.GetChannelArray2Double(1,pUpperLinePoints,1,vblCounter,vbiDrawThis,(int) arraysupport.getScaledSize(20, tg.get_LineThickness()));</span>
-<span class="source-line-no">398</span><span id="line-398">                    pLowerLinePoints = Channels.GetChannelArray2Double(1,pLowerLinePoints,0,vblCounter,vbiDrawThis,(int) arraysupport.getScaledSize(20, tg.get_LineThickness()));</span>
-<span class="source-line-no">399</span><span id="line-399">                    int lUpperFlotCount= flot.GetFlotCountDouble(pUpperLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness()), vblCounter);</span>
-<span class="source-line-no">400</span><span id="line-400">                    int lLowerFlotCount= flot.GetFlotCountDouble(pLowerLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness()), vblCounter);</span>
-<span class="source-line-no">401</span><span id="line-401">                    count=lUpperFlotCount+lLowerFlotCount;</span>
-<span class="source-line-no">402</span><span id="line-402">                    break;</span>
-<span class="source-line-no">403</span><span id="line-403">                case TacticalLines.OCCLUDED:</span>
-<span class="source-line-no">404</span><span id="line-404">                case TacticalLines.UOF:</span>
-<span class="source-line-no">405</span><span id="line-405">                    vblSaveCounter = vblCounter;</span>
-<span class="source-line-no">406</span><span id="line-406">                    vblCounter = flot.GetOccludedCountDouble(pLinePoints, vblCounter);</span>
-<span class="source-line-no">407</span><span id="line-407">                    vblCounter += vblSaveCounter;</span>
-<span class="source-line-no">408</span><span id="line-408">                    count=vblCounter;</span>
-<span class="source-line-no">409</span><span id="line-409">                    break;</span>
-<span class="source-line-no">410</span><span id="line-410">                case TacticalLines.FIX:</span>
-<span class="source-line-no">411</span><span id="line-411">                case TacticalLines.MNFLDFIX:</span>
-<span class="source-line-no">412</span><span id="line-412">                    if(pLinePoints.length&gt;1)</span>
-<span class="source-line-no">413</span><span id="line-413">                        count = GetDISMFixCountDouble(pLinePoints[0], pLinePoints[1],clipBounds);</span>
-<span class="source-line-no">414</span><span id="line-414">                    else count=0;</span>
-<span class="source-line-no">415</span><span id="line-415">                    break;</span>
-<span class="source-line-no">416</span><span id="line-416">                case TacticalLines.BYDIF:</span>
-<span class="source-line-no">417</span><span id="line-417">                    if(clipBounds != null)</span>
-<span class="source-line-no">418</span><span id="line-418">                    {</span>
-<span class="source-line-no">419</span><span id="line-419">                        GetByDifSegment(pLinePoints, pointsCorner);</span>
-<span class="source-line-no">420</span><span id="line-420">                        POINT2 ul=new POINT2(clipBounds.getMinX(),clipBounds.getMinY());    //-100,1000</span>
-<span class="source-line-no">421</span><span id="line-421">                        POINT2 lr=new POINT2(clipBounds.getMaxX(),clipBounds.getMaxY());  //-100,1000</span>
-<span class="source-line-no">422</span><span id="line-422">                        POINT2[] ptsCorner=lineutility.BoundOneSegment(pointsCorner[0],pointsCorner[1], ul, lr);</span>
-<span class="source-line-no">423</span><span id="line-423"></span>
-<span class="source-line-no">424</span><span id="line-424">                        if(ptsCorner != null)</span>
-<span class="source-line-no">425</span><span id="line-425">                            count = GetDISMFixCountDouble(ptsCorner[0], ptsCorner[1],clipBounds);</span>
-<span class="source-line-no">426</span><span id="line-426">                        else</span>
-<span class="source-line-no">427</span><span id="line-427">                            count=20;</span>
-<span class="source-line-no">428</span><span id="line-428">                    }</span>
-<span class="source-line-no">429</span><span id="line-429">                    else</span>
-<span class="source-line-no">430</span><span id="line-430">                        count = GetDISMFixCountDouble(pLinePoints[0], pLinePoints[1],clipBounds);</span>
-<span class="source-line-no">431</span><span id="line-431"></span>
+<span class="source-line-no">360</span><span id="line-360">                case TacticalLines.LLTR:  //added 5-4-07</span>
+<span class="source-line-no">361</span><span id="line-361">                case TacticalLines.SAAFR:</span>
+<span class="source-line-no">362</span><span id="line-362">                case TacticalLines.AC:</span>
+<span class="source-line-no">363</span><span id="line-363">                case TacticalLines.SC:</span>
+<span class="source-line-no">364</span><span id="line-364">                case TacticalLines.MRR:</span>
+<span class="source-line-no">365</span><span id="line-365">                case TacticalLines.SL:</span>
+<span class="source-line-no">366</span><span id="line-366">                case TacticalLines.TC:</span>
+<span class="source-line-no">367</span><span id="line-367">                    vblCounter = 6 * (vblSaveCounter - 1);      //6 per segment</span>
+<span class="source-line-no">368</span><span id="line-368">                    count = vblCounter + 26 * vblSaveCounter*2; //26 for each circle and potentially two circles at each endpoint</span>
+<span class="source-line-no">369</span><span id="line-369">                    break;</span>
+<span class="source-line-no">370</span><span id="line-370">                case TacticalLines.ATWALL:</span>
+<span class="source-line-no">371</span><span id="line-371">                case TacticalLines.LINE:</span>
+<span class="source-line-no">372</span><span id="line-372">                case TacticalLines.OBSAREA:</span>
+<span class="source-line-no">373</span><span id="line-373">                case TacticalLines.OBSFAREA:</span>
+<span class="source-line-no">374</span><span id="line-374">                case TacticalLines.STRONG:</span>
+<span class="source-line-no">375</span><span id="line-375">                case TacticalLines.ZONE:</span>
+<span class="source-line-no">376</span><span id="line-376">                case TacticalLines.ENCIRCLE:</span>
+<span class="source-line-no">377</span><span id="line-377">                case TacticalLines.FORT_REVD:</span>
+<span class="source-line-no">378</span><span id="line-378">                case TacticalLines.FORT:</span>
+<span class="source-line-no">379</span><span id="line-379">                case TacticalLines.FORTL:</span>
+<span class="source-line-no">380</span><span id="line-380">                    count = GetFORTLCountDouble(tg, pLinePoints, vblSaveCounter);</span>
+<span class="source-line-no">381</span><span id="line-381">                    break;</span>
+<span class="source-line-no">382</span><span id="line-382">                case TacticalLines.TRIPLE:</span>
+<span class="source-line-no">383</span><span id="line-383">                case TacticalLines.DOUBLEC:</span>
+<span class="source-line-no">384</span><span id="line-384">                case TacticalLines.SINGLEC:</span>
+<span class="source-line-no">385</span><span id="line-385">                case TacticalLines.HWFENCE:</span>
+<span class="source-line-no">386</span><span id="line-386">                case TacticalLines.LWFENCE:</span>
+<span class="source-line-no">387</span><span id="line-387">                case TacticalLines.UNSP:</span>
+<span class="source-line-no">388</span><span id="line-388">                case TacticalLines.DOUBLEA:</span>
+<span class="source-line-no">389</span><span id="line-389">                case TacticalLines.SFENCE:</span>
+<span class="source-line-no">390</span><span id="line-390">                case TacticalLines.DFENCE:</span>
+<span class="source-line-no">391</span><span id="line-391">                    count = Channels.GetTripleCountDouble(pLinePoints, vblCounter, vbiDrawThis);</span>
+<span class="source-line-no">392</span><span id="line-392">                    break;</span>
+<span class="source-line-no">393</span><span id="line-393">                case TacticalLines.LC:</span>
+<span class="source-line-no">394</span><span id="line-394">                    pUpperLinePoints = Channels.GetChannelArray2Double(1,pUpperLinePoints,1,vblCounter,vbiDrawThis,(int) arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()));</span>
+<span class="source-line-no">395</span><span id="line-395">                    pLowerLinePoints = Channels.GetChannelArray2Double(1,pLowerLinePoints,0,vblCounter,vbiDrawThis,(int) arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()));</span>
+<span class="source-line-no">396</span><span id="line-396">                    int lUpperFlotCount= flot.GetFlotCountDouble(pUpperLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()), vblCounter);</span>
+<span class="source-line-no">397</span><span id="line-397">                    int lLowerFlotCount= flot.GetFlotCountDouble(pLowerLinePoints, arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()), vblCounter);</span>
+<span class="source-line-no">398</span><span id="line-398">                    count=lUpperFlotCount+lLowerFlotCount;</span>
+<span class="source-line-no">399</span><span id="line-399">                    break;</span>
+<span class="source-line-no">400</span><span id="line-400">                case TacticalLines.OCCLUDED:</span>
+<span class="source-line-no">401</span><span id="line-401">                case TacticalLines.UOF:</span>
+<span class="source-line-no">402</span><span id="line-402">                    vblSaveCounter = vblCounter;</span>
+<span class="source-line-no">403</span><span id="line-403">                    vblCounter = flot.GetOccludedCountDouble(pLinePoints, vblCounter);</span>
+<span class="source-line-no">404</span><span id="line-404">                    vblCounter += vblSaveCounter;</span>
+<span class="source-line-no">405</span><span id="line-405">                    count=vblCounter;</span>
+<span class="source-line-no">406</span><span id="line-406">                    break;</span>
+<span class="source-line-no">407</span><span id="line-407">                case TacticalLines.FIX:</span>
+<span class="source-line-no">408</span><span id="line-408">                case TacticalLines.MNFLDFIX:</span>
+<span class="source-line-no">409</span><span id="line-409">                    if(pLinePoints.length&gt;1)</span>
+<span class="source-line-no">410</span><span id="line-410">                        count = GetDISMFixCountDouble(pLinePoints[0], pLinePoints[1],clipBounds);</span>
+<span class="source-line-no">411</span><span id="line-411">                    else count=0;</span>
+<span class="source-line-no">412</span><span id="line-412">                    break;</span>
+<span class="source-line-no">413</span><span id="line-413">                case TacticalLines.BYDIF:</span>
+<span class="source-line-no">414</span><span id="line-414">                    if(clipBounds != null)</span>
+<span class="source-line-no">415</span><span id="line-415">                    {</span>
+<span class="source-line-no">416</span><span id="line-416">                        GetByDifSegment(pLinePoints, pointsCorner);</span>
+<span class="source-line-no">417</span><span id="line-417">                        POINT2 ul=new POINT2(clipBounds.getMinX(),clipBounds.getMinY());    //-100,1000</span>
+<span class="source-line-no">418</span><span id="line-418">                        POINT2 lr=new POINT2(clipBounds.getMaxX(),clipBounds.getMaxY());  //-100,1000</span>
+<span class="source-line-no">419</span><span id="line-419">                        POINT2[] ptsCorner=lineutility.BoundOneSegment(pointsCorner[0],pointsCorner[1], ul, lr);</span>
+<span class="source-line-no">420</span><span id="line-420"></span>
+<span class="source-line-no">421</span><span id="line-421">                        if(ptsCorner != null)</span>
+<span class="source-line-no">422</span><span id="line-422">                            count = GetDISMFixCountDouble(ptsCorner[0], ptsCorner[1],clipBounds);</span>
+<span class="source-line-no">423</span><span id="line-423">                        else</span>
+<span class="source-line-no">424</span><span id="line-424">                            count=20;</span>
+<span class="source-line-no">425</span><span id="line-425">                    }</span>
+<span class="source-line-no">426</span><span id="line-426">                    else</span>
+<span class="source-line-no">427</span><span id="line-427">                        count = GetDISMFixCountDouble(pLinePoints[0], pLinePoints[1],clipBounds);</span>
+<span class="source-line-no">428</span><span id="line-428"></span>
+<span class="source-line-no">429</span><span id="line-429">                    break;</span>
+<span class="source-line-no">430</span><span id="line-430">                default:</span>
+<span class="source-line-no">431</span><span id="line-431">                    count=vblCounter;</span>
 <span class="source-line-no">432</span><span id="line-432">                    break;</span>
-<span class="source-line-no">433</span><span id="line-433">                default:</span>
-<span class="source-line-no">434</span><span id="line-434">                    count=vblCounter;</span>
-<span class="source-line-no">435</span><span id="line-435">                    break;</span>
-<span class="source-line-no">436</span><span id="line-436">            }</span>
-<span class="source-line-no">437</span><span id="line-437">        }</span>
-<span class="source-line-no">438</span><span id="line-438">        catch(Exception exc)</span>
-<span class="source-line-no">439</span><span id="line-439">        {</span>
-<span class="source-line-no">440</span><span id="line-440">            ErrorLogger.LogException(_className ,"GetCountersDouble",</span>
-<span class="source-line-no">441</span><span id="line-441">                    new RendererException("Failed inside GetCountersDouble " + Integer.toString(tg.get_LineType()), exc));</span>
-<span class="source-line-no">442</span><span id="line-442">        }</span>
-<span class="source-line-no">443</span><span id="line-443">        return count;</span>
-<span class="source-line-no">444</span><span id="line-444">    }</span>
-<span class="source-line-no">445</span><span id="line-445">    private static int GetReefCount(POINT2[] pLinePoints,</span>
-<span class="source-line-no">446</span><span id="line-446">            double length,</span>
-<span class="source-line-no">447</span><span id="line-447">            int vblCounter) {</span>
-<span class="source-line-no">448</span><span id="line-448">        int count = 0;</span>
-<span class="source-line-no">449</span><span id="line-449">        try {</span>
-<span class="source-line-no">450</span><span id="line-450">            double d = 0;</span>
-<span class="source-line-no">451</span><span id="line-451">            for (int j = 0; j &lt; vblCounter - 1; j++) {</span>
-<span class="source-line-no">452</span><span id="line-452">                d = lineutility.CalcDistanceDouble(pLinePoints[j], pLinePoints[j + 1]);</span>
-<span class="source-line-no">453</span><span id="line-453">                count += 5 * (int) d / length;</span>
-<span class="source-line-no">454</span><span id="line-454">            }</span>
-<span class="source-line-no">455</span><span id="line-455">            count += 2 * (int) vblCounter;</span>
-<span class="source-line-no">456</span><span id="line-456">        } catch (Exception exc) {</span>
-<span class="source-line-no">457</span><span id="line-457">            ErrorLogger.LogException(_className ,"GetReefCount",</span>
-<span class="source-line-no">458</span><span id="line-458">                    new RendererException("Failed inside GetReefCount", exc));</span>
-<span class="source-line-no">459</span><span id="line-459">        }</span>
-<span class="source-line-no">460</span><span id="line-460">        return count;</span>
-<span class="source-line-no">461</span><span id="line-461">    }</span>
-<span class="source-line-no">462</span><span id="line-462">    private static int GetRestrictedAreaCount(POINT2[] pLinePoints,</span>
-<span class="source-line-no">463</span><span id="line-463">            double length,</span>
-<span class="source-line-no">464</span><span id="line-464">            int vblCounter) {</span>
-<span class="source-line-no">465</span><span id="line-465">        int count = 0;</span>
-<span class="source-line-no">466</span><span id="line-466">        try {</span>
-<span class="source-line-no">467</span><span id="line-467">            double d = 0;</span>
-<span class="source-line-no">468</span><span id="line-468">            for (int j = 0; j &lt; vblCounter - 1; j++) {</span>
-<span class="source-line-no">469</span><span id="line-469">                d = lineutility.CalcDistanceDouble(pLinePoints[j], pLinePoints[j + 1]);</span>
-<span class="source-line-no">470</span><span id="line-470">                count += 4 * (int) d / length;</span>
-<span class="source-line-no">471</span><span id="line-471">            }</span>
-<span class="source-line-no">472</span><span id="line-472">            count += 2 * (int) vblCounter;</span>
-<span class="source-line-no">473</span><span id="line-473">        } catch (Exception exc) {</span>
-<span class="source-line-no">474</span><span id="line-474">            ErrorLogger.LogException(_className ,"GetRestrictedAreaCount",</span>
-<span class="source-line-no">475</span><span id="line-475">                    new RendererException("Failed inside GetRestrictedAreaCount", exc));</span>
-<span class="source-line-no">476</span><span id="line-476">        }</span>
-<span class="source-line-no">477</span><span id="line-477">        return count;</span>
-<span class="source-line-no">478</span><span id="line-478">    }</span>
-<span class="source-line-no">479</span><span id="line-479"></span>
-<span class="source-line-no">480</span><span id="line-480">    private static int GetPipeCount(POINT2[] pLinePoints,</span>
-<span class="source-line-no">481</span><span id="line-481">            double length,</span>
-<span class="source-line-no">482</span><span id="line-482">            int vblCounter) {</span>
-<span class="source-line-no">483</span><span id="line-483">        int count = 0;</span>
-<span class="source-line-no">484</span><span id="line-484">        try {</span>
-<span class="source-line-no">485</span><span id="line-485">            double d = 0;</span>
-<span class="source-line-no">486</span><span id="line-486">            for (int j = 0; j &lt; vblCounter - 1; j++) {</span>
-<span class="source-line-no">487</span><span id="line-487">                d = lineutility.CalcDistanceDouble(pLinePoints[j], pLinePoints[j + 1]);</span>
-<span class="source-line-no">488</span><span id="line-488">                count += 3 * (int) d / length;</span>
-<span class="source-line-no">489</span><span id="line-489">            }</span>
-<span class="source-line-no">490</span><span id="line-490">            count += 2 * (int) vblCounter;</span>
-<span class="source-line-no">491</span><span id="line-491">        } catch (Exception exc) {</span>
-<span class="source-line-no">492</span><span id="line-492">            ErrorLogger.LogException(_className ,"GetPipeCount",</span>
-<span class="source-line-no">493</span><span id="line-493">                    new RendererException("Failed inside GetPipeCount", exc));</span>
-<span class="source-line-no">494</span><span id="line-494">            }</span>
-<span class="source-line-no">495</span><span id="line-495">        return count;</span>
-<span class="source-line-no">496</span><span id="line-496">    }</span>
-<span class="source-line-no">497</span><span id="line-497"></span>
-<span class="source-line-no">498</span><span id="line-498">    protected static int GetXPointsCount(POINT2[] pOriginalLinePoints, double segmentLength, int vblCounter)</span>
-<span class="source-line-no">499</span><span id="line-499">    {</span>
-<span class="source-line-no">500</span><span id="line-500">        int xCounter=0;</span>
-<span class="source-line-no">501</span><span id="line-501">        try</span>
-<span class="source-line-no">502</span><span id="line-502">        {</span>
-<span class="source-line-no">503</span><span id="line-503">            int j=0;</span>
-<span class="source-line-no">504</span><span id="line-504">            double d=0;</span>
-<span class="source-line-no">505</span><span id="line-505">            //POINT2 pt0,pt1,pt2,pt3=new POINT2(),pt4=new POINT2(),pt5=new POINT2(),pt6=new POINT2();</span>
-<span class="source-line-no">506</span><span id="line-506">            int numThisSegment=0;</span>
-<span class="source-line-no">507</span><span id="line-507">            for(j=0;j&lt;vblCounter-1;j++)</span>
-<span class="source-line-no">508</span><span id="line-508">            {</span>
-<span class="source-line-no">509</span><span id="line-509">                d=lineutility.CalcDistanceDouble(pOriginalLinePoints[j],pOriginalLinePoints[j+1]);</span>
-<span class="source-line-no">510</span><span id="line-510">                numThisSegment=(int)((d-segmentLength/2)/segmentLength);</span>
-<span class="source-line-no">511</span><span id="line-511">                xCounter += 4*numThisSegment;</span>
-<span class="source-line-no">512</span><span id="line-512">            }</span>
-<span class="source-line-no">513</span><span id="line-513">        }</span>
-<span class="source-line-no">514</span><span id="line-514">        catch(Exception exc)</span>
-<span class="source-line-no">515</span><span id="line-515">        {</span>
-<span class="source-line-no">516</span><span id="line-516">            ErrorLogger.LogException(_className ,"GetXPointsCount",</span>
-<span class="source-line-no">517</span><span id="line-517">                    new RendererException("Failed inside GetXPointsCount", exc));</span>
-<span class="source-line-no">518</span><span id="line-518">        }</span>
-<span class="source-line-no">519</span><span id="line-519">        return xCounter;</span>
-<span class="source-line-no">520</span><span id="line-520">    }</span>
-<span class="source-line-no">521</span><span id="line-521"></span>
-<span class="source-line-no">522</span><span id="line-522">    protected static int GetLVOCount(POINT2[] pOriginalLinePoints, double segmentLength, int vblCounter)</span>
-<span class="source-line-no">523</span><span id="line-523">    {</span>
-<span class="source-line-no">524</span><span id="line-524">        int lEllipseCounter = 0;</span>
-<span class="source-line-no">525</span><span id="line-525">        try {</span>
-<span class="source-line-no">526</span><span id="line-526">            double d = 0;</span>
-<span class="source-line-no">527</span><span id="line-527">            int lHowManyThisSegment = 0, j = 0;</span>
-<span class="source-line-no">528</span><span id="line-528">            //end declarations</span>
-<span class="source-line-no">529</span><span id="line-529">            for (j = 0; j &lt; vblCounter - 1; j++)</span>
-<span class="source-line-no">530</span><span id="line-530">            {</span>
-<span class="source-line-no">531</span><span id="line-531">                d = lineutility.CalcDistanceDouble(pOriginalLinePoints[j], pOriginalLinePoints[j + 1]);</span>
-<span class="source-line-no">532</span><span id="line-532">                //lHowManyThisSegment = (int) ((d - 20) / 20);</span>
-<span class="source-line-no">533</span><span id="line-533">                lHowManyThisSegment = (int) ((d - segmentLength) / segmentLength)+1;</span>
-<span class="source-line-no">534</span><span id="line-534">                lEllipseCounter += lHowManyThisSegment*37;</span>
-<span class="source-line-no">535</span><span id="line-535">            }</span>
-<span class="source-line-no">536</span><span id="line-536">        } catch (Exception exc) {</span>
-<span class="source-line-no">537</span><span id="line-537">            ErrorLogger.LogException(_className ,"GetLVOCount",</span>
-<span class="source-line-no">538</span><span id="line-538">                    new RendererException("Failed inside GetLVOCount", exc));</span>
-<span class="source-line-no">539</span><span id="line-539">        }</span>
-<span class="source-line-no">540</span><span id="line-540">        return lEllipseCounter;</span>
-<span class="source-line-no">541</span><span id="line-541">    }</span>
-<span class="source-line-no">542</span><span id="line-542"></span>
-<span class="source-line-no">543</span><span id="line-543">    private static int GetIcingCount(POINT2[] points, double length, int vblCounter) {</span>
-<span class="source-line-no">544</span><span id="line-544">        int total = 2 * vblCounter;</span>
-<span class="source-line-no">545</span><span id="line-545">        try {</span>
-<span class="source-line-no">546</span><span id="line-546">            double d = 0;</span>
-<span class="source-line-no">547</span><span id="line-547">            for (int j = 0; j &lt; vblCounter - 1; j++) {</span>
-<span class="source-line-no">548</span><span id="line-548">                d = lineutility.CalcDistanceDouble(points[j], points[j + 1]);</span>
-<span class="source-line-no">549</span><span id="line-549">                d = (d / length) * 4;</span>
-<span class="source-line-no">550</span><span id="line-550">                total += d;</span>
-<span class="source-line-no">551</span><span id="line-551">            }</span>
-<span class="source-line-no">552</span><span id="line-552">        } catch (Exception exc) {</span>
-<span class="source-line-no">553</span><span id="line-553">            ErrorLogger.LogException(_className ,"GetIcingCount",</span>
-<span class="source-line-no">554</span><span id="line-554">                    new RendererException("Failed inside GetIcingCount", exc));</span>
-<span class="source-line-no">555</span><span id="line-555">            }</span>
-<span class="source-line-no">556</span><span id="line-556">        return total;</span>
-<span class="source-line-no">557</span><span id="line-557">    }</span>
-<span class="source-line-no">558</span><span id="line-558"></span>
-<span class="source-line-no">559</span><span id="line-559">    protected static int GetITDQty(POINT2[] pLinePoints, double length, int vblCounter) {</span>
-<span class="source-line-no">560</span><span id="line-560">        int total = 0;</span>
-<span class="source-line-no">561</span><span id="line-561">        try {</span>
-<span class="source-line-no">562</span><span id="line-562">            int j = 0;</span>
-<span class="source-line-no">563</span><span id="line-563">            double d = 0;</span>
-<span class="source-line-no">564</span><span id="line-564">            int n=0;</span>
-<span class="source-line-no">565</span><span id="line-565">            for (j = 0; j &lt; vblCounter - 1; j++) {</span>
-<span class="source-line-no">566</span><span id="line-566">                d = lineutility.CalcDistanceDouble(pLinePoints[j], pLinePoints[j + 1]);</span>
-<span class="source-line-no">567</span><span id="line-567">                n= 2 * (int) (d / length);</span>
-<span class="source-line-no">568</span><span id="line-568">                if(n&lt;2)</span>
-<span class="source-line-no">569</span><span id="line-569">                    n=2;</span>
-<span class="source-line-no">570</span><span id="line-570">                total += n;</span>
-<span class="source-line-no">571</span><span id="line-571">            }</span>
-<span class="source-line-no">572</span><span id="line-572">        } catch (Exception exc) {</span>
-<span class="source-line-no">573</span><span id="line-573">            ErrorLogger.LogException(_className ,"GetITDQty",</span>
-<span class="source-line-no">574</span><span id="line-574">                    new RendererException("Failed inside GetITDQty", exc));</span>
-<span class="source-line-no">575</span><span id="line-575">            }</span>
-<span class="source-line-no">576</span><span id="line-576">        return total;</span>
-<span class="source-line-no">577</span><span id="line-577">        }</span>
-<span class="source-line-no">578</span><span id="line-578"></span>
-<span class="source-line-no">579</span><span id="line-579">    protected static int GetConvergenceQty(POINT2[] pLinePoints, double length, int vblCounter) {</span>
-<span class="source-line-no">580</span><span id="line-580">        int total = vblCounter;</span>
-<span class="source-line-no">581</span><span id="line-581">        try</span>
-<span class="source-line-no">582</span><span id="line-582">        {</span>
-<span class="source-line-no">583</span><span id="line-583">            int j = 0;</span>
-<span class="source-line-no">584</span><span id="line-584">            double d = 0;</span>
-<span class="source-line-no">585</span><span id="line-585">            for (j = 0; j &lt; vblCounter - 1; j++)</span>
-<span class="source-line-no">586</span><span id="line-586">            {</span>
-<span class="source-line-no">587</span><span id="line-587">                d = lineutility.CalcDistanceDouble(pLinePoints[j], pLinePoints[j + 1]);</span>
-<span class="source-line-no">588</span><span id="line-588">                total += 4 * (int) (d / length);</span>
-<span class="source-line-no">589</span><span id="line-589">            }</span>
-<span class="source-line-no">590</span><span id="line-590">        } catch (Exception exc) {</span>
-<span class="source-line-no">591</span><span id="line-591">            ErrorLogger.LogException(_className ,"GetConvergenceQty",</span>
-<span class="source-line-no">592</span><span id="line-592">                    new RendererException("Failed inside GetConvergenceQty", exc));</span>
-<span class="source-line-no">593</span><span id="line-593">        }</span>
-<span class="source-line-no">594</span><span id="line-594">        return total;</span>
-<span class="source-line-no">595</span><span id="line-595">    }</span>
-<span class="source-line-no">596</span><span id="line-596"></span>
-<span class="source-line-no">597</span><span id="line-597">    /**</span>
-<span class="source-line-no">598</span><span id="line-598">     * Calculates the points for ATDITCH, ATDITCHC, ATDITCHM</span>
-<span class="source-line-no">599</span><span id="line-599">     * @param pLinePoints the client point array</span>
-<span class="source-line-no">600</span><span id="line-600">     * @param vblCounter the number of client points</span>
-<span class="source-line-no">601</span><span id="line-601">     * @param vbiDrawThis the line type</span>
-<span class="source-line-no">602</span><span id="line-602">     * @return</span>
-<span class="source-line-no">603</span><span id="line-603">     */</span>
-<span class="source-line-no">604</span><span id="line-604">    private static int GetDitchCountDouble(POINT2[] pLinePoints,</span>
-<span class="source-line-no">605</span><span id="line-605">            int vblCounter,</span>
-<span class="source-line-no">606</span><span id="line-606">            int vbiDrawThis) {</span>
-<span class="source-line-no">607</span><span id="line-607">        int vblXCounter = 0;</span>
-<span class="source-line-no">608</span><span id="line-608">        try {</span>
-<span class="source-line-no">609</span><span id="line-609">            //declarations</span>
-<span class="source-line-no">610</span><span id="line-610">            int j = 0;</span>
-<span class="source-line-no">611</span><span id="line-611">            int nHowManyThisSegment = 0;</span>
-<span class="source-line-no">612</span><span id="line-612">            double dHowFar = 0;</span>
-<span class="source-line-no">613</span><span id="line-613">                    //dPrinter = (double) nPrinter;</span>
-<span class="source-line-no">614</span><span id="line-614"></span>
-<span class="source-line-no">615</span><span id="line-615">            vblXCounter = vblCounter;</span>
-<span class="source-line-no">616</span><span id="line-616"></span>
-<span class="source-line-no">617</span><span id="line-617">            for (j = 0; j &lt; vblCounter - 1; j++) {</span>
-<span class="source-line-no">618</span><span id="line-618">                dHowFar = lineutility.CalcDistanceDouble(pLinePoints[j], pLinePoints[j + 1]);</span>
-<span class="source-line-no">619</span><span id="line-619">                nHowManyThisSegment = (int) ( (dHowFar-1) / 12);</span>
-<span class="source-line-no">620</span><span id="line-620">                if (dHowFar &gt; 24) {</span>
-<span class="source-line-no">621</span><span id="line-621">                    switch (vbiDrawThis) {</span>
-<span class="source-line-no">622</span><span id="line-622">                        //case TacticalLines.FORT:</span>
-<span class="source-line-no">623</span><span id="line-623">                        //    break;</span>
-<span class="source-line-no">624</span><span id="line-624">                        case TacticalLines.ATDITCHM:</span>
-<span class="source-line-no">625</span><span id="line-625">                            vblXCounter += 5 * nHowManyThisSegment+1;//was 4 * nHowManyThisSegment</span>
+<span class="source-line-no">433</span><span id="line-433">            }</span>
+<span class="source-line-no">434</span><span id="line-434">        }</span>
+<span class="source-line-no">435</span><span id="line-435">        catch(Exception exc)</span>
+<span class="source-line-no">436</span><span id="line-436">        {</span>
+<span class="source-line-no">437</span><span id="line-437">            ErrorLogger.LogException(_className ,"GetCountersDouble",</span>
+<span class="source-line-no">438</span><span id="line-438">                    new RendererException("Failed inside GetCountersDouble " + Integer.toString(tg.get_LineType()), exc));</span>
+<span class="source-line-no">439</span><span id="line-439">        }</span>
+<span class="source-line-no">440</span><span id="line-440">        return count;</span>
+<span class="source-line-no">441</span><span id="line-441">    }</span>
+<span class="source-line-no">442</span><span id="line-442">    private static int GetReefCount(POINT2[] pLinePoints,</span>
+<span class="source-line-no">443</span><span id="line-443">            double length,</span>
+<span class="source-line-no">444</span><span id="line-444">            int vblCounter) {</span>
+<span class="source-line-no">445</span><span id="line-445">        int count = 0;</span>
+<span class="source-line-no">446</span><span id="line-446">        try {</span>
+<span class="source-line-no">447</span><span id="line-447">            double d = 0;</span>
+<span class="source-line-no">448</span><span id="line-448">            for (int j = 0; j &lt; vblCounter - 1; j++) {</span>
+<span class="source-line-no">449</span><span id="line-449">                d = lineutility.CalcDistanceDouble(pLinePoints[j], pLinePoints[j + 1]);</span>
+<span class="source-line-no">450</span><span id="line-450">                count += 5 * (int) d / length;</span>
+<span class="source-line-no">451</span><span id="line-451">            }</span>
+<span class="source-line-no">452</span><span id="line-452">            count += 2 * (int) vblCounter;</span>
+<span class="source-line-no">453</span><span id="line-453">        } catch (Exception exc) {</span>
+<span class="source-line-no">454</span><span id="line-454">            ErrorLogger.LogException(_className ,"GetReefCount",</span>
+<span class="source-line-no">455</span><span id="line-455">                    new RendererException("Failed inside GetReefCount", exc));</span>
+<span class="source-line-no">456</span><span id="line-456">        }</span>
+<span class="source-line-no">457</span><span id="line-457">        return count;</span>
+<span class="source-line-no">458</span><span id="line-458">    }</span>
+<span class="source-line-no">459</span><span id="line-459">    private static int GetRestrictedAreaCount(POINT2[] pLinePoints,</span>
+<span class="source-line-no">460</span><span id="line-460">            double length,</span>
+<span class="source-line-no">461</span><span id="line-461">            int vblCounter) {</span>
+<span class="source-line-no">462</span><span id="line-462">        int count = 0;</span>
+<span class="source-line-no">463</span><span id="line-463">        try {</span>
+<span class="source-line-no">464</span><span id="line-464">            double d = 0;</span>
+<span class="source-line-no">465</span><span id="line-465">            for (int j = 0; j &lt; vblCounter - 1; j++) {</span>
+<span class="source-line-no">466</span><span id="line-466">                d = lineutility.CalcDistanceDouble(pLinePoints[j], pLinePoints[j + 1]);</span>
+<span class="source-line-no">467</span><span id="line-467">                count += 4 * (int) d / length;</span>
+<span class="source-line-no">468</span><span id="line-468">            }</span>
+<span class="source-line-no">469</span><span id="line-469">            count += 2 * (int) vblCounter;</span>
+<span class="source-line-no">470</span><span id="line-470">        } catch (Exception exc) {</span>
+<span class="source-line-no">471</span><span id="line-471">            ErrorLogger.LogException(_className ,"GetRestrictedAreaCount",</span>
+<span class="source-line-no">472</span><span id="line-472">                    new RendererException("Failed inside GetRestrictedAreaCount", exc));</span>
+<span class="source-line-no">473</span><span id="line-473">        }</span>
+<span class="source-line-no">474</span><span id="line-474">        return count;</span>
+<span class="source-line-no">475</span><span id="line-475">    }</span>
+<span class="source-line-no">476</span><span id="line-476"></span>
+<span class="source-line-no">477</span><span id="line-477">    private static int GetPipeCount(POINT2[] pLinePoints,</span>
+<span class="source-line-no">478</span><span id="line-478">            double length,</span>
+<span class="source-line-no">479</span><span id="line-479">            int vblCounter) {</span>
+<span class="source-line-no">480</span><span id="line-480">        int count = 0;</span>
+<span class="source-line-no">481</span><span id="line-481">        try {</span>
+<span class="source-line-no">482</span><span id="line-482">            double d = 0;</span>
+<span class="source-line-no">483</span><span id="line-483">            for (int j = 0; j &lt; vblCounter - 1; j++) {</span>
+<span class="source-line-no">484</span><span id="line-484">                d = lineutility.CalcDistanceDouble(pLinePoints[j], pLinePoints[j + 1]);</span>
+<span class="source-line-no">485</span><span id="line-485">                count += 3 * (int) d / length;</span>
+<span class="source-line-no">486</span><span id="line-486">            }</span>
+<span class="source-line-no">487</span><span id="line-487">            count += 2 * (int) vblCounter;</span>
+<span class="source-line-no">488</span><span id="line-488">        } catch (Exception exc) {</span>
+<span class="source-line-no">489</span><span id="line-489">            ErrorLogger.LogException(_className ,"GetPipeCount",</span>
+<span class="source-line-no">490</span><span id="line-490">                    new RendererException("Failed inside GetPipeCount", exc));</span>
+<span class="source-line-no">491</span><span id="line-491">            }</span>
+<span class="source-line-no">492</span><span id="line-492">        return count;</span>
+<span class="source-line-no">493</span><span id="line-493">    }</span>
+<span class="source-line-no">494</span><span id="line-494"></span>
+<span class="source-line-no">495</span><span id="line-495">    protected static int GetXPointsCount(POINT2[] pOriginalLinePoints, double segmentLength, int vblCounter)</span>
+<span class="source-line-no">496</span><span id="line-496">    {</span>
+<span class="source-line-no">497</span><span id="line-497">        int xCounter=0;</span>
+<span class="source-line-no">498</span><span id="line-498">        try</span>
+<span class="source-line-no">499</span><span id="line-499">        {</span>
+<span class="source-line-no">500</span><span id="line-500">            int j=0;</span>
+<span class="source-line-no">501</span><span id="line-501">            double d=0;</span>
+<span class="source-line-no">502</span><span id="line-502">            //POINT2 pt0,pt1,pt2,pt3=new POINT2(),pt4=new POINT2(),pt5=new POINT2(),pt6=new POINT2();</span>
+<span class="source-line-no">503</span><span id="line-503">            int numThisSegment=0;</span>
+<span class="source-line-no">504</span><span id="line-504">            for(j=0;j&lt;vblCounter-1;j++)</span>
+<span class="source-line-no">505</span><span id="line-505">            {</span>
+<span class="source-line-no">506</span><span id="line-506">                d=lineutility.CalcDistanceDouble(pOriginalLinePoints[j],pOriginalLinePoints[j+1]);</span>
+<span class="source-line-no">507</span><span id="line-507">                numThisSegment=(int)((d-segmentLength/2)/segmentLength);</span>
+<span class="source-line-no">508</span><span id="line-508">                xCounter += 4*numThisSegment;</span>
+<span class="source-line-no">509</span><span id="line-509">            }</span>
+<span class="source-line-no">510</span><span id="line-510">        }</span>
+<span class="source-line-no">511</span><span id="line-511">        catch(Exception exc)</span>
+<span class="source-line-no">512</span><span id="line-512">        {</span>
+<span class="source-line-no">513</span><span id="line-513">            ErrorLogger.LogException(_className ,"GetXPointsCount",</span>
+<span class="source-line-no">514</span><span id="line-514">                    new RendererException("Failed inside GetXPointsCount", exc));</span>
+<span class="source-line-no">515</span><span id="line-515">        }</span>
+<span class="source-line-no">516</span><span id="line-516">        return xCounter;</span>
+<span class="source-line-no">517</span><span id="line-517">    }</span>
+<span class="source-line-no">518</span><span id="line-518"></span>
+<span class="source-line-no">519</span><span id="line-519">    protected static int GetLVOCount(POINT2[] pOriginalLinePoints, double segmentLength, int vblCounter)</span>
+<span class="source-line-no">520</span><span id="line-520">    {</span>
+<span class="source-line-no">521</span><span id="line-521">        int lEllipseCounter = 0;</span>
+<span class="source-line-no">522</span><span id="line-522">        try {</span>
+<span class="source-line-no">523</span><span id="line-523">            double d = 0;</span>
+<span class="source-line-no">524</span><span id="line-524">            int lHowManyThisSegment = 0, j = 0;</span>
+<span class="source-line-no">525</span><span id="line-525">            //end declarations</span>
+<span class="source-line-no">526</span><span id="line-526">            for (j = 0; j &lt; vblCounter - 1; j++)</span>
+<span class="source-line-no">527</span><span id="line-527">            {</span>
+<span class="source-line-no">528</span><span id="line-528">                d = lineutility.CalcDistanceDouble(pOriginalLinePoints[j], pOriginalLinePoints[j + 1]);</span>
+<span class="source-line-no">529</span><span id="line-529">                //lHowManyThisSegment = (int) ((d - 20) / 20);</span>
+<span class="source-line-no">530</span><span id="line-530">                lHowManyThisSegment = (int) ((d - segmentLength) / segmentLength)+1;</span>
+<span class="source-line-no">531</span><span id="line-531">                lEllipseCounter += lHowManyThisSegment*37;</span>
+<span class="source-line-no">532</span><span id="line-532">            }</span>
+<span class="source-line-no">533</span><span id="line-533">        } catch (Exception exc) {</span>
+<span class="source-line-no">534</span><span id="line-534">            ErrorLogger.LogException(_className ,"GetLVOCount",</span>
+<span class="source-line-no">535</span><span id="line-535">                    new RendererException("Failed inside GetLVOCount", exc));</span>
+<span class="source-line-no">536</span><span id="line-536">        }</span>
+<span class="source-line-no">537</span><span id="line-537">        return lEllipseCounter;</span>
+<span class="source-line-no">538</span><span id="line-538">    }</span>
+<span class="source-line-no">539</span><span id="line-539"></span>
+<span class="source-line-no">540</span><span id="line-540">    private static int GetIcingCount(POINT2[] points, double length, int vblCounter) {</span>
+<span class="source-line-no">541</span><span id="line-541">        int total = 2 * vblCounter;</span>
+<span class="source-line-no">542</span><span id="line-542">        try {</span>
+<span class="source-line-no">543</span><span id="line-543">            double d = 0;</span>
+<span class="source-line-no">544</span><span id="line-544">            for (int j = 0; j &lt; vblCounter - 1; j++) {</span>
+<span class="source-line-no">545</span><span id="line-545">                d = lineutility.CalcDistanceDouble(points[j], points[j + 1]);</span>
+<span class="source-line-no">546</span><span id="line-546">                d = (d / length) * 4;</span>
+<span class="source-line-no">547</span><span id="line-547">                total += d;</span>
+<span class="source-line-no">548</span><span id="line-548">            }</span>
+<span class="source-line-no">549</span><span id="line-549">        } catch (Exception exc) {</span>
+<span class="source-line-no">550</span><span id="line-550">            ErrorLogger.LogException(_className ,"GetIcingCount",</span>
+<span class="source-line-no">551</span><span id="line-551">                    new RendererException("Failed inside GetIcingCount", exc));</span>
+<span class="source-line-no">552</span><span id="line-552">            }</span>
+<span class="source-line-no">553</span><span id="line-553">        return total;</span>
+<span class="source-line-no">554</span><span id="line-554">    }</span>
+<span class="source-line-no">555</span><span id="line-555"></span>
+<span class="source-line-no">556</span><span id="line-556">    protected static int GetITDQty(POINT2[] pLinePoints, double length, int vblCounter) {</span>
+<span class="source-line-no">557</span><span id="line-557">        int total = 0;</span>
+<span class="source-line-no">558</span><span id="line-558">        try {</span>
+<span class="source-line-no">559</span><span id="line-559">            int j = 0;</span>
+<span class="source-line-no">560</span><span id="line-560">            double d = 0;</span>
+<span class="source-line-no">561</span><span id="line-561">            int n=0;</span>
+<span class="source-line-no">562</span><span id="line-562">            for (j = 0; j &lt; vblCounter - 1; j++) {</span>
+<span class="source-line-no">563</span><span id="line-563">                d = lineutility.CalcDistanceDouble(pLinePoints[j], pLinePoints[j + 1]);</span>
+<span class="source-line-no">564</span><span id="line-564">                n= 2 * (int) (d / length);</span>
+<span class="source-line-no">565</span><span id="line-565">                if(n&lt;2)</span>
+<span class="source-line-no">566</span><span id="line-566">                    n=2;</span>
+<span class="source-line-no">567</span><span id="line-567">                total += n;</span>
+<span class="source-line-no">568</span><span id="line-568">            }</span>
+<span class="source-line-no">569</span><span id="line-569">        } catch (Exception exc) {</span>
+<span class="source-line-no">570</span><span id="line-570">            ErrorLogger.LogException(_className ,"GetITDQty",</span>
+<span class="source-line-no">571</span><span id="line-571">                    new RendererException("Failed inside GetITDQty", exc));</span>
+<span class="source-line-no">572</span><span id="line-572">            }</span>
+<span class="source-line-no">573</span><span id="line-573">        return total;</span>
+<span class="source-line-no">574</span><span id="line-574">        }</span>
+<span class="source-line-no">575</span><span id="line-575"></span>
+<span class="source-line-no">576</span><span id="line-576">    protected static int GetConvergenceQty(POINT2[] pLinePoints, double length, int vblCounter) {</span>
+<span class="source-line-no">577</span><span id="line-577">        int total = vblCounter;</span>
+<span class="source-line-no">578</span><span id="line-578">        try</span>
+<span class="source-line-no">579</span><span id="line-579">        {</span>
+<span class="source-line-no">580</span><span id="line-580">            int j = 0;</span>
+<span class="source-line-no">581</span><span id="line-581">            double d = 0;</span>
+<span class="source-line-no">582</span><span id="line-582">            for (j = 0; j &lt; vblCounter - 1; j++)</span>
+<span class="source-line-no">583</span><span id="line-583">            {</span>
+<span class="source-line-no">584</span><span id="line-584">                d = lineutility.CalcDistanceDouble(pLinePoints[j], pLinePoints[j + 1]);</span>
+<span class="source-line-no">585</span><span id="line-585">                total += 4 * (int) (d / length);</span>
+<span class="source-line-no">586</span><span id="line-586">            }</span>
+<span class="source-line-no">587</span><span id="line-587">        } catch (Exception exc) {</span>
+<span class="source-line-no">588</span><span id="line-588">            ErrorLogger.LogException(_className ,"GetConvergenceQty",</span>
+<span class="source-line-no">589</span><span id="line-589">                    new RendererException("Failed inside GetConvergenceQty", exc));</span>
+<span class="source-line-no">590</span><span id="line-590">        }</span>
+<span class="source-line-no">591</span><span id="line-591">        return total;</span>
+<span class="source-line-no">592</span><span id="line-592">    }</span>
+<span class="source-line-no">593</span><span id="line-593"></span>
+<span class="source-line-no">594</span><span id="line-594">    /**</span>
+<span class="source-line-no">595</span><span id="line-595">     * Calculates the points for ATDITCH, ATDITCHC, ATDITCHM</span>
+<span class="source-line-no">596</span><span id="line-596">     * @param pLinePoints the client point array</span>
+<span class="source-line-no">597</span><span id="line-597">     * @param vblCounter the number of client points</span>
+<span class="source-line-no">598</span><span id="line-598">     * @param vbiDrawThis the line type</span>
+<span class="source-line-no">599</span><span id="line-599">     * @return</span>
+<span class="source-line-no">600</span><span id="line-600">     */</span>
+<span class="source-line-no">601</span><span id="line-601">    private static int GetDitchCountDouble(POINT2[] pLinePoints,</span>
+<span class="source-line-no">602</span><span id="line-602">            int vblCounter,</span>
+<span class="source-line-no">603</span><span id="line-603">            int vbiDrawThis) {</span>
+<span class="source-line-no">604</span><span id="line-604">        int vblXCounter = 0;</span>
+<span class="source-line-no">605</span><span id="line-605">        try {</span>
+<span class="source-line-no">606</span><span id="line-606">            //declarations</span>
+<span class="source-line-no">607</span><span id="line-607">            int j = 0;</span>
+<span class="source-line-no">608</span><span id="line-608">            int nHowManyThisSegment = 0;</span>
+<span class="source-line-no">609</span><span id="line-609">            double dHowFar = 0;</span>
+<span class="source-line-no">610</span><span id="line-610">                    //dPrinter = (double) nPrinter;</span>
+<span class="source-line-no">611</span><span id="line-611"></span>
+<span class="source-line-no">612</span><span id="line-612">            vblXCounter = vblCounter;</span>
+<span class="source-line-no">613</span><span id="line-613"></span>
+<span class="source-line-no">614</span><span id="line-614">            for (j = 0; j &lt; vblCounter - 1; j++) {</span>
+<span class="source-line-no">615</span><span id="line-615">                dHowFar = lineutility.CalcDistanceDouble(pLinePoints[j], pLinePoints[j + 1]);</span>
+<span class="source-line-no">616</span><span id="line-616">                nHowManyThisSegment = (int) ( (dHowFar-1) / 12);</span>
+<span class="source-line-no">617</span><span id="line-617">                if (dHowFar &gt; 24) {</span>
+<span class="source-line-no">618</span><span id="line-618">                    switch (vbiDrawThis) {</span>
+<span class="source-line-no">619</span><span id="line-619">                        //case TacticalLines.FORT:</span>
+<span class="source-line-no">620</span><span id="line-620">                        //    break;</span>
+<span class="source-line-no">621</span><span id="line-621">                        case TacticalLines.ATDITCHM:</span>
+<span class="source-line-no">622</span><span id="line-622">                            vblXCounter += 5 * nHowManyThisSegment+1;//was 4 * nHowManyThisSegment</span>
+<span class="source-line-no">623</span><span id="line-623">                            break;</span>
+<span class="source-line-no">624</span><span id="line-624">                        default:</span>
+<span class="source-line-no">625</span><span id="line-625">                            vblXCounter += 4 * nHowManyThisSegment;//was 3 * nHowManyThisSegment</span>
 <span class="source-line-no">626</span><span id="line-626">                            break;</span>
-<span class="source-line-no">627</span><span id="line-627">                        default:</span>
-<span class="source-line-no">628</span><span id="line-628">                            vblXCounter += 4 * nHowManyThisSegment;//was 3 * nHowManyThisSegment</span>
-<span class="source-line-no">629</span><span id="line-629">                            break;</span>
-<span class="source-line-no">630</span><span id="line-630">                    }   //end switch</span>
-<span class="source-line-no">631</span><span id="line-631">                    } //end if</span>
-<span class="source-line-no">632</span><span id="line-632">                else {</span>
-<span class="source-line-no">633</span><span id="line-633">                    vblXCounter += 2;</span>
-<span class="source-line-no">634</span><span id="line-634">                }</span>
-<span class="source-line-no">635</span><span id="line-635">            }   //end for</span>
-<span class="source-line-no">636</span><span id="line-636">            } catch (Exception exc) {</span>
-<span class="source-line-no">637</span><span id="line-637">            ErrorLogger.LogException(_className ,"GetDitchcountDouble",</span>
-<span class="source-line-no">638</span><span id="line-638">                    new RendererException("Failed inside GetDitchCountDouble " + Integer.toString(vbiDrawThis), exc));</span>
-<span class="source-line-no">639</span><span id="line-639">        }</span>
-<span class="source-line-no">640</span><span id="line-640">        return vblXCounter;</span>
-<span class="source-line-no">641</span><span id="line-641">    }</span>
-<span class="source-line-no">642</span><span id="line-642">    protected static int GetSquallQty(POINT2[] pLinePoints,</span>
-<span class="source-line-no">643</span><span id="line-643">            int quantity,</span>
-<span class="source-line-no">644</span><span id="line-644">            double length,</span>
-<span class="source-line-no">645</span><span id="line-645">            int numPoints) {</span>
-<span class="source-line-no">646</span><span id="line-646">        int counter = 0;</span>
-<span class="source-line-no">647</span><span id="line-647">        try {</span>
-<span class="source-line-no">648</span><span id="line-648">            int j = 0;</span>
-<span class="source-line-no">649</span><span id="line-649">            double dist = 0;</span>
-<span class="source-line-no">650</span><span id="line-650">            int numCurves = 0;</span>
-<span class="source-line-no">651</span><span id="line-651">            //end declarations</span>
-<span class="source-line-no">652</span><span id="line-652"></span>
-<span class="source-line-no">653</span><span id="line-653">            for (j = 0; j &lt; numPoints-1; j++) {</span>
-<span class="source-line-no">654</span><span id="line-654">                dist = lineutility.CalcDistanceDouble(pLinePoints[j], pLinePoints[j + 1]);</span>
-<span class="source-line-no">655</span><span id="line-655">                numCurves = (int) (dist / (double) length);</span>
-<span class="source-line-no">656</span><span id="line-656">                counter += numCurves * quantity;</span>
-<span class="source-line-no">657</span><span id="line-657">                if (numCurves == 0) {</span>
-<span class="source-line-no">658</span><span id="line-658">                    counter += 2;</span>
-<span class="source-line-no">659</span><span id="line-659">                }</span>
-<span class="source-line-no">660</span><span id="line-660">            }</span>
-<span class="source-line-no">661</span><span id="line-661"></span>
-<span class="source-line-no">662</span><span id="line-662">            if (counter &lt; numPoints) {</span>
-<span class="source-line-no">663</span><span id="line-663">                counter = numPoints;</span>
-<span class="source-line-no">664</span><span id="line-664">            }</span>
-<span class="source-line-no">665</span><span id="line-665"></span>
-<span class="source-line-no">666</span><span id="line-666">            } catch (Exception exc) {</span>
-<span class="source-line-no">667</span><span id="line-667">            ErrorLogger.LogException(_className ,"GetSquallQty",</span>
-<span class="source-line-no">668</span><span id="line-668">                    new RendererException("Failed inside GetSquallQty", exc));</span>
-<span class="source-line-no">669</span><span id="line-669">        }</span>
-<span class="source-line-no">670</span><span id="line-670">        return counter;</span>
-<span class="source-line-no">671</span><span id="line-671">    }</span>
-<span class="source-line-no">672</span><span id="line-672">    </span>
-<span class="source-line-no">673</span><span id="line-673">    protected static int GetSquallSegQty(POINT2 StartPt,</span>
-<span class="source-line-no">674</span><span id="line-674">            POINT2 EndPt,</span>
-<span class="source-line-no">675</span><span id="line-675">            int quantity,</span>
-<span class="source-line-no">676</span><span id="line-676">            double length) {</span>
-<span class="source-line-no">677</span><span id="line-677">        int qty = 0;</span>
-<span class="source-line-no">678</span><span id="line-678">        try {</span>
-<span class="source-line-no">679</span><span id="line-679">            double dist = lineutility.CalcDistanceDouble(StartPt, EndPt);</span>
-<span class="source-line-no">680</span><span id="line-680">            int numCurves = (int) (dist / (double) length);</span>
-<span class="source-line-no">681</span><span id="line-681">            qty = numCurves * quantity;</span>
-<span class="source-line-no">682</span><span id="line-682">        } catch (Exception exc) {</span>
-<span class="source-line-no">683</span><span id="line-683">            ErrorLogger.LogException(_className ,"GetSquallSegQty",</span>
-<span class="source-line-no">684</span><span id="line-684">                    new RendererException("Failed inside GetSquallSegQty", exc));</span>
-<span class="source-line-no">685</span><span id="line-685">        }</span>
-<span class="source-line-no">686</span><span id="line-686">        return qty;</span>
-<span class="source-line-no">687</span><span id="line-687">    }</span>
-<span class="source-line-no">688</span><span id="line-688"></span>
-<span class="source-line-no">689</span><span id="line-689">    /**</span>
-<span class="source-line-no">690</span><span id="line-690">     * returns number of points required for ATWALL, FORT and other symbols</span>
-<span class="source-line-no">691</span><span id="line-691">     * @param pLinePoints the client points</span>
-<span class="source-line-no">692</span><span id="line-692">     * @param vblCounter the number of client points</span>
-<span class="source-line-no">693</span><span id="line-693">     * @return</span>
-<span class="source-line-no">694</span><span id="line-694">     */</span>
-<span class="source-line-no">695</span><span id="line-695">    protected static int GetFORTLCountDouble(TGLight tg, POINT2[] pLinePoints, int vblCounter) {</span>
-<span class="source-line-no">696</span><span id="line-696">        int lCounter = 0;</span>
-<span class="source-line-no">697</span><span id="line-697">        try {</span>
-<span class="source-line-no">698</span><span id="line-698">            //declarations</span>
-<span class="source-line-no">699</span><span id="line-699">            int j = 0;</span>
-<span class="source-line-no">700</span><span id="line-700">            double dCounter = 0, dIncrement = 0;</span>
-<span class="source-line-no">701</span><span id="line-701">            //end declarations</span>
-<span class="source-line-no">702</span><span id="line-702"></span>
-<span class="source-line-no">703</span><span id="line-703">            switch (tg.get_LineType()) {</span>
-<span class="source-line-no">704</span><span id="line-704">                    case TacticalLines.UCF:</span>
-<span class="source-line-no">705</span><span id="line-705">                    case TacticalLines.CF:</span>
-<span class="source-line-no">706</span><span id="line-706">                    case TacticalLines.CFG:</span>
-<span class="source-line-no">707</span><span id="line-707">                    case TacticalLines.CFY:</span>
-<span class="source-line-no">708</span><span id="line-708">                        dIncrement = arraysupport.getScaledSize(60, tg.get_LineThickness());</span>
+<span class="source-line-no">627</span><span id="line-627">                    }   //end switch</span>
+<span class="source-line-no">628</span><span id="line-628">                    } //end if</span>
+<span class="source-line-no">629</span><span id="line-629">                else {</span>
+<span class="source-line-no">630</span><span id="line-630">                    vblXCounter += 2;</span>
+<span class="source-line-no">631</span><span id="line-631">                }</span>
+<span class="source-line-no">632</span><span id="line-632">            }   //end for</span>
+<span class="source-line-no">633</span><span id="line-633">            } catch (Exception exc) {</span>
+<span class="source-line-no">634</span><span id="line-634">            ErrorLogger.LogException(_className ,"GetDitchcountDouble",</span>
+<span class="source-line-no">635</span><span id="line-635">                    new RendererException("Failed inside GetDitchCountDouble " + Integer.toString(vbiDrawThis), exc));</span>
+<span class="source-line-no">636</span><span id="line-636">        }</span>
+<span class="source-line-no">637</span><span id="line-637">        return vblXCounter;</span>
+<span class="source-line-no">638</span><span id="line-638">    }</span>
+<span class="source-line-no">639</span><span id="line-639">    protected static int GetSquallQty(POINT2[] pLinePoints,</span>
+<span class="source-line-no">640</span><span id="line-640">            int quantity,</span>
+<span class="source-line-no">641</span><span id="line-641">            double length,</span>
+<span class="source-line-no">642</span><span id="line-642">            int numPoints) {</span>
+<span class="source-line-no">643</span><span id="line-643">        int counter = 0;</span>
+<span class="source-line-no">644</span><span id="line-644">        try {</span>
+<span class="source-line-no">645</span><span id="line-645">            int j = 0;</span>
+<span class="source-line-no">646</span><span id="line-646">            double dist = 0;</span>
+<span class="source-line-no">647</span><span id="line-647">            int numCurves = 0;</span>
+<span class="source-line-no">648</span><span id="line-648">            //end declarations</span>
+<span class="source-line-no">649</span><span id="line-649"></span>
+<span class="source-line-no">650</span><span id="line-650">            for (j = 0; j &lt; numPoints-1; j++) {</span>
+<span class="source-line-no">651</span><span id="line-651">                dist = lineutility.CalcDistanceDouble(pLinePoints[j], pLinePoints[j + 1]);</span>
+<span class="source-line-no">652</span><span id="line-652">                numCurves = (int) (dist / (double) length);</span>
+<span class="source-line-no">653</span><span id="line-653">                counter += numCurves * quantity;</span>
+<span class="source-line-no">654</span><span id="line-654">                if (numCurves == 0) {</span>
+<span class="source-line-no">655</span><span id="line-655">                    counter += 2;</span>
+<span class="source-line-no">656</span><span id="line-656">                }</span>
+<span class="source-line-no">657</span><span id="line-657">            }</span>
+<span class="source-line-no">658</span><span id="line-658"></span>
+<span class="source-line-no">659</span><span id="line-659">            if (counter &lt; numPoints) {</span>
+<span class="source-line-no">660</span><span id="line-660">                counter = numPoints;</span>
+<span class="source-line-no">661</span><span id="line-661">            }</span>
+<span class="source-line-no">662</span><span id="line-662"></span>
+<span class="source-line-no">663</span><span id="line-663">            } catch (Exception exc) {</span>
+<span class="source-line-no">664</span><span id="line-664">            ErrorLogger.LogException(_className ,"GetSquallQty",</span>
+<span class="source-line-no">665</span><span id="line-665">                    new RendererException("Failed inside GetSquallQty", exc));</span>
+<span class="source-line-no">666</span><span id="line-666">        }</span>
+<span class="source-line-no">667</span><span id="line-667">        return counter;</span>
+<span class="source-line-no">668</span><span id="line-668">    }</span>
+<span class="source-line-no">669</span><span id="line-669">    </span>
+<span class="source-line-no">670</span><span id="line-670">    protected static int GetSquallSegQty(POINT2 StartPt,</span>
+<span class="source-line-no">671</span><span id="line-671">            POINT2 EndPt,</span>
+<span class="source-line-no">672</span><span id="line-672">            int quantity,</span>
+<span class="source-line-no">673</span><span id="line-673">            double length) {</span>
+<span class="source-line-no">674</span><span id="line-674">        int qty = 0;</span>
+<span class="source-line-no">675</span><span id="line-675">        try {</span>
+<span class="source-line-no">676</span><span id="line-676">            double dist = lineutility.CalcDistanceDouble(StartPt, EndPt);</span>
+<span class="source-line-no">677</span><span id="line-677">            int numCurves = (int) (dist / (double) length);</span>
+<span class="source-line-no">678</span><span id="line-678">            qty = numCurves * quantity;</span>
+<span class="source-line-no">679</span><span id="line-679">        } catch (Exception exc) {</span>
+<span class="source-line-no">680</span><span id="line-680">            ErrorLogger.LogException(_className ,"GetSquallSegQty",</span>
+<span class="source-line-no">681</span><span id="line-681">                    new RendererException("Failed inside GetSquallSegQty", exc));</span>
+<span class="source-line-no">682</span><span id="line-682">        }</span>
+<span class="source-line-no">683</span><span id="line-683">        return qty;</span>
+<span class="source-line-no">684</span><span id="line-684">    }</span>
+<span class="source-line-no">685</span><span id="line-685"></span>
+<span class="source-line-no">686</span><span id="line-686">    /**</span>
+<span class="source-line-no">687</span><span id="line-687">     * returns number of points required for ATWALL, FORT and other symbols</span>
+<span class="source-line-no">688</span><span id="line-688">     * @param pLinePoints the client points</span>
+<span class="source-line-no">689</span><span id="line-689">     * @param vblCounter the number of client points</span>
+<span class="source-line-no">690</span><span id="line-690">     * @return</span>
+<span class="source-line-no">691</span><span id="line-691">     */</span>
+<span class="source-line-no">692</span><span id="line-692">    protected static int GetFORTLCountDouble(TGLight tg, POINT2[] pLinePoints, int vblCounter) {</span>
+<span class="source-line-no">693</span><span id="line-693">        int lCounter = 0;</span>
+<span class="source-line-no">694</span><span id="line-694">        try {</span>
+<span class="source-line-no">695</span><span id="line-695">            //declarations</span>
+<span class="source-line-no">696</span><span id="line-696">            int j = 0;</span>
+<span class="source-line-no">697</span><span id="line-697">            double dCounter = 0, dIncrement = 0;</span>
+<span class="source-line-no">698</span><span id="line-698">            //end declarations</span>
+<span class="source-line-no">699</span><span id="line-699"></span>
+<span class="source-line-no">700</span><span id="line-700">            switch (tg.get_LineType()) {</span>
+<span class="source-line-no">701</span><span id="line-701">                    case TacticalLines.UCF:</span>
+<span class="source-line-no">702</span><span id="line-702">                    case TacticalLines.CF:</span>
+<span class="source-line-no">703</span><span id="line-703">                    case TacticalLines.CFG:</span>
+<span class="source-line-no">704</span><span id="line-704">                    case TacticalLines.CFY:</span>
+<span class="source-line-no">705</span><span id="line-705">                        dIncrement = arraysupport.getScaledSize(60, tg.get_LineThickness(), tg.get_patternScale());</span>
+<span class="source-line-no">706</span><span id="line-706">                        break;</span>
+<span class="source-line-no">707</span><span id="line-707">                    case TacticalLines.RIDGE:</span>
+<span class="source-line-no">708</span><span id="line-708">                        dIncrement = arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale());</span>
 <span class="source-line-no">709</span><span id="line-709">                        break;</span>
-<span class="source-line-no">710</span><span id="line-710">                    case TacticalLines.RIDGE:</span>
-<span class="source-line-no">711</span><span id="line-711">                        dIncrement = arraysupport.getScaledSize(20, tg.get_LineThickness());</span>
-<span class="source-line-no">712</span><span id="line-712">                        break;</span>
-<span class="source-line-no">713</span><span id="line-713">                default:</span>
-<span class="source-line-no">714</span><span id="line-714">                    dIncrement = arraysupport.getScaledSize(20, tg.get_LineThickness());</span>
-<span class="source-line-no">715</span><span id="line-715">                    break;</span>
-<span class="source-line-no">716</span><span id="line-716">            }</span>
+<span class="source-line-no">710</span><span id="line-710">                default:</span>
+<span class="source-line-no">711</span><span id="line-711">                    dIncrement = arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale());</span>
+<span class="source-line-no">712</span><span id="line-712">                    break;</span>
+<span class="source-line-no">713</span><span id="line-713">            }</span>
+<span class="source-line-no">714</span><span id="line-714"></span>
+<span class="source-line-no">715</span><span id="line-715">            for (j = 0; j &lt; vblCounter - 1; j++) {</span>
+<span class="source-line-no">716</span><span id="line-716">                dCounter = lineutility.CalcDistanceDouble(pLinePoints[j], pLinePoints[j + 1]);</span>
 <span class="source-line-no">717</span><span id="line-717"></span>
-<span class="source-line-no">718</span><span id="line-718">            for (j = 0; j &lt; vblCounter - 1; j++) {</span>
-<span class="source-line-no">719</span><span id="line-719">                dCounter = lineutility.CalcDistanceDouble(pLinePoints[j], pLinePoints[j + 1]);</span>
-<span class="source-line-no">720</span><span id="line-720"></span>
-<span class="source-line-no">721</span><span id="line-721">                switch (tg.get_LineType()) {</span>
-<span class="source-line-no">722</span><span id="line-722">                        case TacticalLines.CFG:</span>
-<span class="source-line-no">723</span><span id="line-723">                            dCounter = (dCounter / dIncrement) * 13;</span>
+<span class="source-line-no">718</span><span id="line-718">                switch (tg.get_LineType()) {</span>
+<span class="source-line-no">719</span><span id="line-719">                        case TacticalLines.CFG:</span>
+<span class="source-line-no">720</span><span id="line-720">                            dCounter = (dCounter / dIncrement) * 13;</span>
+<span class="source-line-no">721</span><span id="line-721">                            break;</span>
+<span class="source-line-no">722</span><span id="line-722">                        case TacticalLines.CFY:</span>
+<span class="source-line-no">723</span><span id="line-723">                            dCounter = (dCounter / dIncrement) * 17;</span>
 <span class="source-line-no">724</span><span id="line-724">                            break;</span>
-<span class="source-line-no">725</span><span id="line-725">                        case TacticalLines.CFY:</span>
-<span class="source-line-no">726</span><span id="line-726">                            dCounter = (dCounter / dIncrement) * 17;</span>
-<span class="source-line-no">727</span><span id="line-727">                            break;</span>
-<span class="source-line-no">728</span><span id="line-728">                    default:</span>
-<span class="source-line-no">729</span><span id="line-729">                        dCounter = (dCounter / dIncrement) * 10;</span>
-<span class="source-line-no">730</span><span id="line-730">                        break;</span>
-<span class="source-line-no">731</span><span id="line-731">                }</span>
-<span class="source-line-no">732</span><span id="line-732"></span>
-<span class="source-line-no">733</span><span id="line-733">                if (dCounter &lt; 4) {</span>
-<span class="source-line-no">734</span><span id="line-734">                    dCounter = 4;</span>
-<span class="source-line-no">735</span><span id="line-735">                }</span>
-<span class="source-line-no">736</span><span id="line-736">                lCounter += (long) dCounter;</span>
-<span class="source-line-no">737</span><span id="line-737">            }</span>
-<span class="source-line-no">738</span><span id="line-738">            lCounter += 10 + vblCounter;</span>
-<span class="source-line-no">739</span><span id="line-739"></span>
-<span class="source-line-no">740</span><span id="line-740">        } catch (Exception exc) {</span>
-<span class="source-line-no">741</span><span id="line-741">            ErrorLogger.LogException(_className ,"GetFORTLCountDouble",</span>
-<span class="source-line-no">742</span><span id="line-742">                    new RendererException("Failed inside GetFORTLCountDouble", exc));</span>
-<span class="source-line-no">743</span><span id="line-743">            }</span>
-<span class="source-line-no">744</span><span id="line-744">        return lCounter;</span>
-<span class="source-line-no">745</span><span id="line-745">    }</span>
-<span class="source-line-no">746</span><span id="line-746">    </span>
-<span class="source-line-no">747</span><span id="line-747">    private static void GetByDifSegment(POINT2[] points, POINT2[] pointsCorner) {</span>
-<span class="source-line-no">748</span><span id="line-748">        try {</span>
-<span class="source-line-no">749</span><span id="line-749">            // draw open-ended rectangle</span>
-<span class="source-line-no">750</span><span id="line-750">            POINT2 point_mid = new POINT2();</span>
-<span class="source-line-no">751</span><span id="line-751">            //int j=0;</span>
-<span class="source-line-no">752</span><span id="line-752">            //  POINT1 pts[4];</span>
-<span class="source-line-no">753</span><span id="line-753">            if (pointsCorner == null) {</span>
-<span class="source-line-no">754</span><span id="line-754">                pointsCorner = new POINT2[2];</span>
-<span class="source-line-no">755</span><span id="line-755">                lineutility.InitializePOINT2Array(pointsCorner);</span>
-<span class="source-line-no">756</span><span id="line-756">            }</span>
-<span class="source-line-no">757</span><span id="line-757">            point_mid.x = (points[0].x + points[1].x) / 2;</span>
-<span class="source-line-no">758</span><span id="line-758">            point_mid.y = (points[0].y + points[1].y) / 2;</span>
-<span class="source-line-no">759</span><span id="line-759">            pointsCorner[0].x = points[0].x - point_mid.x + points[2].x;</span>
-<span class="source-line-no">760</span><span id="line-760">            pointsCorner[0].y = points[0].y - point_mid.y + points[2].y;</span>
-<span class="source-line-no">761</span><span id="line-761">            pointsCorner[1].x = points[1].x - point_mid.x + points[2].x;</span>
-<span class="source-line-no">762</span><span id="line-762">            pointsCorner[1].y = points[1].y - point_mid.y + points[2].y;</span>
-<span class="source-line-no">763</span><span id="line-763">        } catch (Exception exc) {</span>
-<span class="source-line-no">764</span><span id="line-764">            ErrorLogger.LogException(_className ,"GetByDifSegment",</span>
-<span class="source-line-no">765</span><span id="line-765">                    new RendererException("Failed inside GetByDifSegment", exc));</span>
-<span class="source-line-no">766</span><span id="line-766">        }</span>
-<span class="source-line-no">767</span><span id="line-767">    }</span>
-<span class="source-line-no">768</span><span id="line-768">    /**</span>
-<span class="source-line-no">769</span><span id="line-769">     * clipBounds is used because of the glyphs on one segment</span>
-<span class="source-line-no">770</span><span id="line-770">     * @param FirstLinePoint</span>
-<span class="source-line-no">771</span><span id="line-771">     * @param LastLinePoint</span>
-<span class="source-line-no">772</span><span id="line-772">     * @param clipBounds</span>
-<span class="source-line-no">773</span><span id="line-773">     * @return</span>
-<span class="source-line-no">774</span><span id="line-774">     */</span>
-<span class="source-line-no">775</span><span id="line-775">    protected static int GetDISMFixCountDouble(POINT2 FirstLinePoint,</span>
-<span class="source-line-no">776</span><span id="line-776">            POINT2 LastLinePoint,</span>
-<span class="source-line-no">777</span><span id="line-777">            Rectangle2D clipBounds) {</span>
-<span class="source-line-no">778</span><span id="line-778">        int counter = 0;</span>
-<span class="source-line-no">779</span><span id="line-779">        try {</span>
-<span class="source-line-no">780</span><span id="line-780">            POINT2[] savepoints = new POINT2[2];</span>
-<span class="source-line-no">781</span><span id="line-781">            //double dAngle1 = 0;</span>
-<span class="source-line-no">782</span><span id="line-782">            double dLength = 0;</span>
-<span class="source-line-no">783</span><span id="line-783">            double dJaggyHalfAmp = 0;</span>
-<span class="source-line-no">784</span><span id="line-784">            double dJaggyHalfPeriod = 0;</span>
-<span class="source-line-no">785</span><span id="line-785">            int iNumJaggies = 0;</span>
-<span class="source-line-no">786</span><span id="line-786"></span>
-<span class="source-line-no">787</span><span id="line-787">            savepoints[0] = new POINT2(FirstLinePoint);</span>
-<span class="source-line-no">788</span><span id="line-788">            savepoints[1] = new POINT2(LastLinePoint);</span>
-<span class="source-line-no">789</span><span id="line-789">            </span>
-<span class="source-line-no">790</span><span id="line-790">            //Boolean drawJaggies=true;</span>
-<span class="source-line-no">791</span><span id="line-791">            if(clipBounds != null)</span>
-<span class="source-line-no">792</span><span id="line-792">            {</span>
-<span class="source-line-no">793</span><span id="line-793">                POINT2 ul=new POINT2(clipBounds.getMinX(),clipBounds.getMinY());</span>
-<span class="source-line-no">794</span><span id="line-794">                POINT2 lr=new POINT2(clipBounds.getMaxX(),clipBounds.getMaxY());</span>
-<span class="source-line-no">795</span><span id="line-795">                savepoints=lineutility.BoundOneSegment(FirstLinePoint, LastLinePoint, ul, lr);</span>
-<span class="source-line-no">796</span><span id="line-796">            }</span>
+<span class="source-line-no">725</span><span id="line-725">                    default:</span>
+<span class="source-line-no">726</span><span id="line-726">                        dCounter = (dCounter / dIncrement) * 10;</span>
+<span class="source-line-no">727</span><span id="line-727">                        break;</span>
+<span class="source-line-no">728</span><span id="line-728">                }</span>
+<span class="source-line-no">729</span><span id="line-729"></span>
+<span class="source-line-no">730</span><span id="line-730">                if (dCounter &lt; 4) {</span>
+<span class="source-line-no">731</span><span id="line-731">                    dCounter = 4;</span>
+<span class="source-line-no">732</span><span id="line-732">                }</span>
+<span class="source-line-no">733</span><span id="line-733">                lCounter += (long) dCounter;</span>
+<span class="source-line-no">734</span><span id="line-734">            }</span>
+<span class="source-line-no">735</span><span id="line-735">            lCounter += 10 + vblCounter;</span>
+<span class="source-line-no">736</span><span id="line-736"></span>
+<span class="source-line-no">737</span><span id="line-737">        } catch (Exception exc) {</span>
+<span class="source-line-no">738</span><span id="line-738">            ErrorLogger.LogException(_className ,"GetFORTLCountDouble",</span>
+<span class="source-line-no">739</span><span id="line-739">                    new RendererException("Failed inside GetFORTLCountDouble", exc));</span>
+<span class="source-line-no">740</span><span id="line-740">            }</span>
+<span class="source-line-no">741</span><span id="line-741">        return lCounter;</span>
+<span class="source-line-no">742</span><span id="line-742">    }</span>
+<span class="source-line-no">743</span><span id="line-743">    </span>
+<span class="source-line-no">744</span><span id="line-744">    private static void GetByDifSegment(POINT2[] points, POINT2[] pointsCorner) {</span>
+<span class="source-line-no">745</span><span id="line-745">        try {</span>
+<span class="source-line-no">746</span><span id="line-746">            // draw open-ended rectangle</span>
+<span class="source-line-no">747</span><span id="line-747">            POINT2 point_mid = new POINT2();</span>
+<span class="source-line-no">748</span><span id="line-748">            //int j=0;</span>
+<span class="source-line-no">749</span><span id="line-749">            //  POINT1 pts[4];</span>
+<span class="source-line-no">750</span><span id="line-750">            if (pointsCorner == null) {</span>
+<span class="source-line-no">751</span><span id="line-751">                pointsCorner = new POINT2[2];</span>
+<span class="source-line-no">752</span><span id="line-752">                lineutility.InitializePOINT2Array(pointsCorner);</span>
+<span class="source-line-no">753</span><span id="line-753">            }</span>
+<span class="source-line-no">754</span><span id="line-754">            point_mid.x = (points[0].x + points[1].x) / 2;</span>
+<span class="source-line-no">755</span><span id="line-755">            point_mid.y = (points[0].y + points[1].y) / 2;</span>
+<span class="source-line-no">756</span><span id="line-756">            pointsCorner[0].x = points[0].x - point_mid.x + points[2].x;</span>
+<span class="source-line-no">757</span><span id="line-757">            pointsCorner[0].y = points[0].y - point_mid.y + points[2].y;</span>
+<span class="source-line-no">758</span><span id="line-758">            pointsCorner[1].x = points[1].x - point_mid.x + points[2].x;</span>
+<span class="source-line-no">759</span><span id="line-759">            pointsCorner[1].y = points[1].y - point_mid.y + points[2].y;</span>
+<span class="source-line-no">760</span><span id="line-760">        } catch (Exception exc) {</span>
+<span class="source-line-no">761</span><span id="line-761">            ErrorLogger.LogException(_className ,"GetByDifSegment",</span>
+<span class="source-line-no">762</span><span id="line-762">                    new RendererException("Failed inside GetByDifSegment", exc));</span>
+<span class="source-line-no">763</span><span id="line-763">        }</span>
+<span class="source-line-no">764</span><span id="line-764">    }</span>
+<span class="source-line-no">765</span><span id="line-765">    /**</span>
+<span class="source-line-no">766</span><span id="line-766">     * clipBounds is used because of the glyphs on one segment</span>
+<span class="source-line-no">767</span><span id="line-767">     * @param FirstLinePoint</span>
+<span class="source-line-no">768</span><span id="line-768">     * @param LastLinePoint</span>
+<span class="source-line-no">769</span><span id="line-769">     * @param clipBounds</span>
+<span class="source-line-no">770</span><span id="line-770">     * @return</span>
+<span class="source-line-no">771</span><span id="line-771">     */</span>
+<span class="source-line-no">772</span><span id="line-772">    protected static int GetDISMFixCountDouble(POINT2 FirstLinePoint,</span>
+<span class="source-line-no">773</span><span id="line-773">            POINT2 LastLinePoint,</span>
+<span class="source-line-no">774</span><span id="line-774">            Rectangle2D clipBounds) {</span>
+<span class="source-line-no">775</span><span id="line-775">        int counter = 0;</span>
+<span class="source-line-no">776</span><span id="line-776">        try {</span>
+<span class="source-line-no">777</span><span id="line-777">            POINT2[] savepoints = new POINT2[2];</span>
+<span class="source-line-no">778</span><span id="line-778">            //double dAngle1 = 0;</span>
+<span class="source-line-no">779</span><span id="line-779">            double dLength = 0;</span>
+<span class="source-line-no">780</span><span id="line-780">            double dJaggyHalfAmp = 0;</span>
+<span class="source-line-no">781</span><span id="line-781">            double dJaggyHalfPeriod = 0;</span>
+<span class="source-line-no">782</span><span id="line-782">            int iNumJaggies = 0;</span>
+<span class="source-line-no">783</span><span id="line-783"></span>
+<span class="source-line-no">784</span><span id="line-784">            savepoints[0] = new POINT2(FirstLinePoint);</span>
+<span class="source-line-no">785</span><span id="line-785">            savepoints[1] = new POINT2(LastLinePoint);</span>
+<span class="source-line-no">786</span><span id="line-786">            </span>
+<span class="source-line-no">787</span><span id="line-787">            //Boolean drawJaggies=true;</span>
+<span class="source-line-no">788</span><span id="line-788">            if(clipBounds != null)</span>
+<span class="source-line-no">789</span><span id="line-789">            {</span>
+<span class="source-line-no">790</span><span id="line-790">                POINT2 ul=new POINT2(clipBounds.getMinX(),clipBounds.getMinY());</span>
+<span class="source-line-no">791</span><span id="line-791">                POINT2 lr=new POINT2(clipBounds.getMaxX(),clipBounds.getMaxY());</span>
+<span class="source-line-no">792</span><span id="line-792">                savepoints=lineutility.BoundOneSegment(FirstLinePoint, LastLinePoint, ul, lr);</span>
+<span class="source-line-no">793</span><span id="line-793">            }</span>
+<span class="source-line-no">794</span><span id="line-794"></span>
+<span class="source-line-no">795</span><span id="line-795">            if(savepoints==null)</span>
+<span class="source-line-no">796</span><span id="line-796">                return 0;</span>
 <span class="source-line-no">797</span><span id="line-797"></span>
-<span class="source-line-no">798</span><span id="line-798">            if(savepoints==null)</span>
-<span class="source-line-no">799</span><span id="line-799">                return 0;</span>
-<span class="source-line-no">800</span><span id="line-800"></span>
-<span class="source-line-no">801</span><span id="line-801">            dLength = Math.sqrt((savepoints[1].x - savepoints[0].x) * (savepoints[1].x - savepoints[0].x) +</span>
-<span class="source-line-no">802</span><span id="line-802">                    (savepoints[1].y - savepoints[0].y) * (savepoints[1].y - savepoints[0].y));</span>
-<span class="source-line-no">803</span><span id="line-803">            dJaggyHalfAmp = dLength / 15; // half the amplitude of the "jaggy function"</span>
-<span class="source-line-no">804</span><span id="line-804"></span>
-<span class="source-line-no">805</span><span id="line-805">            double DPIScaleFactor = RendererSettings.getInstance().getDeviceDPI() / 96.0;</span>
-<span class="source-line-no">806</span><span id="line-806">            if (dJaggyHalfAmp &gt; maxLength * DPIScaleFactor) {</span>
-<span class="source-line-no">807</span><span id="line-807">                dJaggyHalfAmp = maxLength * DPIScaleFactor;</span>
+<span class="source-line-no">798</span><span id="line-798">            dLength = Math.sqrt((savepoints[1].x - savepoints[0].x) * (savepoints[1].x - savepoints[0].x) +</span>
+<span class="source-line-no">799</span><span id="line-799">                    (savepoints[1].y - savepoints[0].y) * (savepoints[1].y - savepoints[0].y));</span>
+<span class="source-line-no">800</span><span id="line-800">            dJaggyHalfAmp = dLength / 15; // half the amplitude of the "jaggy function"</span>
+<span class="source-line-no">801</span><span id="line-801"></span>
+<span class="source-line-no">802</span><span id="line-802">            double DPIScaleFactor = RendererSettings.getInstance().getDeviceDPI() / 96.0;</span>
+<span class="source-line-no">803</span><span id="line-803">            if (dJaggyHalfAmp &gt; maxLength * DPIScaleFactor) {</span>
+<span class="source-line-no">804</span><span id="line-804">                dJaggyHalfAmp = maxLength * DPIScaleFactor;</span>
+<span class="source-line-no">805</span><span id="line-805">            }</span>
+<span class="source-line-no">806</span><span id="line-806">            if (dJaggyHalfAmp &lt; minLength * DPIScaleFactor) {</span>
+<span class="source-line-no">807</span><span id="line-807">                dJaggyHalfAmp = minLength * DPIScaleFactor;</span>
 <span class="source-line-no">808</span><span id="line-808">            }</span>
-<span class="source-line-no">809</span><span id="line-809">            if (dJaggyHalfAmp &lt; minLength * DPIScaleFactor) {</span>
-<span class="source-line-no">810</span><span id="line-810">                dJaggyHalfAmp = minLength * DPIScaleFactor;</span>
-<span class="source-line-no">811</span><span id="line-811">            }</span>
-<span class="source-line-no">812</span><span id="line-812"></span>
-<span class="source-line-no">813</span><span id="line-813">            dJaggyHalfPeriod = dJaggyHalfAmp / 1.5; // half the period of the "jaggy function"</span>
-<span class="source-line-no">814</span><span id="line-814">            iNumJaggies = (int) (dLength / dJaggyHalfPeriod) - 3;</span>
-<span class="source-line-no">815</span><span id="line-815">            if (iNumJaggies &lt; 0) {</span>
-<span class="source-line-no">816</span><span id="line-816">                iNumJaggies = 0;</span>
-<span class="source-line-no">817</span><span id="line-817">            }</span>
-<span class="source-line-no">818</span><span id="line-818"></span>
-<span class="source-line-no">819</span><span id="line-819">            savepoints = null;</span>
-<span class="source-line-no">820</span><span id="line-820">            counter = 20 + iNumJaggies * 3;</span>
-<span class="source-line-no">821</span><span id="line-821">        } catch (Exception exc) {</span>
-<span class="source-line-no">822</span><span id="line-822">            ErrorLogger.LogException(_className ,"GetDISMFixCount",</span>
-<span class="source-line-no">823</span><span id="line-823">                    new RendererException("Failed inside GetDISMFixCount", exc));</span>
-<span class="source-line-no">824</span><span id="line-824">        }</span>
-<span class="source-line-no">825</span><span id="line-825">        return counter;</span>
-<span class="source-line-no">826</span><span id="line-826">    }</span>
-<span class="source-line-no">827</span><span id="line-827"></span>
-<span class="source-line-no">828</span><span id="line-828">}</span>
+<span class="source-line-no">809</span><span id="line-809"></span>
+<span class="source-line-no">810</span><span id="line-810">            dJaggyHalfPeriod = dJaggyHalfAmp / 1.5; // half the period of the "jaggy function"</span>
+<span class="source-line-no">811</span><span id="line-811">            iNumJaggies = (int) (dLength / dJaggyHalfPeriod) - 3;</span>
+<span class="source-line-no">812</span><span id="line-812">            if (iNumJaggies &lt; 0) {</span>
+<span class="source-line-no">813</span><span id="line-813">                iNumJaggies = 0;</span>
+<span class="source-line-no">814</span><span id="line-814">            }</span>
+<span class="source-line-no">815</span><span id="line-815"></span>
+<span class="source-line-no">816</span><span id="line-816">            savepoints = null;</span>
+<span class="source-line-no">817</span><span id="line-817">            counter = 20 + iNumJaggies * 3;</span>
+<span class="source-line-no">818</span><span id="line-818">        } catch (Exception exc) {</span>
+<span class="source-line-no">819</span><span id="line-819">            ErrorLogger.LogException(_className ,"GetDISMFixCount",</span>
+<span class="source-line-no">820</span><span id="line-820">                    new RendererException("Failed inside GetDISMFixCount", exc));</span>
+<span class="source-line-no">821</span><span id="line-821">        }</span>
+<span class="source-line-no">822</span><span id="line-822">        return counter;</span>
+<span class="source-line-no">823</span><span id="line-823">    }</span>
+<span class="source-line-no">824</span><span id="line-824"></span>
+<span class="source-line-no">825</span><span id="line-825">}</span>
 
 
 

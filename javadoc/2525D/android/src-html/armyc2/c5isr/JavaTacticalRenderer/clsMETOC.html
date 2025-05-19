@@ -1129,7 +1129,7 @@
 <span class="source-line-no">1116</span><span id="line-1116">                            continue;</span>
 <span class="source-line-no">1117</span><span id="line-1117"></span>
 <span class="source-line-no">1118</span><span id="line-1118">                        twoSplines = new ArrayList();</span>
-<span class="source-line-no">1119</span><span id="line-1119">                        twoSplines = ParallelLines2(pixels, (int) arraysupport.getScaledSize(20, tg.get_LineThickness()));</span>
+<span class="source-line-no">1119</span><span id="line-1119">                        twoSplines = ParallelLines2(pixels, (int) arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()));</span>
 <span class="source-line-no">1120</span><span id="line-1120"></span>
 <span class="source-line-no">1121</span><span id="line-1121">                        upperSpline = new ArrayList();</span>
 <span class="source-line-no">1122</span><span id="line-1122">                        lowerSpline = new ArrayList();</span>
@@ -1175,7 +1175,7 @@
 <span class="source-line-no">1162</span><span id="line-1162">                            continue;</span>
 <span class="source-line-no">1163</span><span id="line-1163"></span>
 <span class="source-line-no">1164</span><span id="line-1164">                        twoSplines = new ArrayList();</span>
-<span class="source-line-no">1165</span><span id="line-1165">                        twoSplines = ParallelLines2(pixels, (int) arraysupport.getScaledSize(20, tg.get_LineThickness()));</span>
+<span class="source-line-no">1165</span><span id="line-1165">                        twoSplines = ParallelLines2(pixels, (int) arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()));</span>
 <span class="source-line-no">1166</span><span id="line-1166"></span>
 <span class="source-line-no">1167</span><span id="line-1167">                        upperSpline = new ArrayList();</span>
 <span class="source-line-no">1168</span><span id="line-1168">                        lowerSpline = new ArrayList();</span>
@@ -1225,7 +1225,7 @@
 <span class="source-line-no">1212</span><span id="line-1212">                        if (pixels.isEmpty())</span>
 <span class="source-line-no">1213</span><span id="line-1213">                            continue;</span>
 <span class="source-line-no">1214</span><span id="line-1214"></span>
-<span class="source-line-no">1215</span><span id="line-1215">                        twoSplines = ParallelLines2(pixels, (int) arraysupport.getScaledSize(20, tg.get_LineThickness()));</span>
+<span class="source-line-no">1215</span><span id="line-1215">                        twoSplines = ParallelLines2(pixels, (int) arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale()));</span>
 <span class="source-line-no">1216</span><span id="line-1216">                        upperSpline = new ArrayList&lt;&gt;();</span>
 <span class="source-line-no">1217</span><span id="line-1217">                        lowerSpline = new ArrayList&lt;&gt;();</span>
 <span class="source-line-no">1218</span><span id="line-1218">                        u = twoSplines.size();</span>
@@ -1754,11 +1754,11 @@
 <span class="source-line-no">1741</span><span id="line-1741">                        if (i == array.size() - 2)</span>
 <span class="source-line-no">1742</span><span id="line-1742">                        {</span>
 <span class="source-line-no">1743</span><span id="line-1743">                            if(splinePoints.size()&gt;=2)</span>
-<span class="source-line-no">1744</span><span id="line-1744">                                DrawArrow(splinePoints.get(splinePoints.size() - 2), tg.Pixels.get(tg.Pixels.size() - 1), arraysupport.getScaledSize(10, tg.get_LineThickness()), lineObject);</span>
+<span class="source-line-no">1744</span><span id="line-1744">                                DrawArrow(splinePoints.get(splinePoints.size() - 2), tg.Pixels.get(tg.Pixels.size() - 1), arraysupport.getScaledSize(10, tg.get_LineThickness(), tg.get_patternScale()), lineObject);</span>
 <span class="source-line-no">1745</span><span id="line-1745">                        }</span>
 <span class="source-line-no">1746</span><span id="line-1746">                        break;</span>
 <span class="source-line-no">1747</span><span id="line-1747">                    case TacticalLines.FLOOD_TIDE:</span>
-<span class="source-line-no">1748</span><span id="line-1748">                        d = arraysupport.getScaledSize(10, tg.get_LineThickness());</span>
+<span class="source-line-no">1748</span><span id="line-1748">                        d = arraysupport.getScaledSize(10, tg.get_LineThickness(), tg.get_patternScale());</span>
 <span class="source-line-no">1749</span><span id="line-1749">                        if (i == 0 &amp;&amp; splinePoints.size() &gt; 1) {</span>
 <span class="source-line-no">1750</span><span id="line-1750">                            //finally get the feather points</span>
 <span class="source-line-no">1751</span><span id="line-1751">                            //must allocate for the feather points, requires 4 additional points</span>
@@ -1786,11 +1786,11 @@
 <span class="source-line-no">1773</span><span id="line-1773">                    case TacticalLines.STREAM:</span>
 <span class="source-line-no">1774</span><span id="line-1774">                    case TacticalLines.JET:</span>
 <span class="source-line-no">1775</span><span id="line-1775">                        if (splinePoints.size() &gt; i + 1) {</span>
-<span class="source-line-no">1776</span><span id="line-1776">                            DrawArrow(splinePoints.get(i + 1), splinePoints.get(i), arraysupport.getScaledSize(10, tg.get_LineThickness()), lineObject);</span>
+<span class="source-line-no">1776</span><span id="line-1776">                            DrawArrow(splinePoints.get(i + 1), splinePoints.get(i), arraysupport.getScaledSize(10, tg.get_LineThickness(), tg.get_patternScale()), lineObject);</span>
 <span class="source-line-no">1777</span><span id="line-1777">                        }</span>
 <span class="source-line-no">1778</span><span id="line-1778">                        break;</span>
 <span class="source-line-no">1779</span><span id="line-1779">                    case TacticalLines.FLOOD_TIDE_GE:</span>
-<span class="source-line-no">1780</span><span id="line-1780">                        d = arraysupport.getScaledSize(10, tg.get_LineThickness());</span>
+<span class="source-line-no">1780</span><span id="line-1780">                        d = arraysupport.getScaledSize(10, tg.get_LineThickness(), tg.get_patternScale());</span>
 <span class="source-line-no">1781</span><span id="line-1781">                        if (i == 0 &amp;&amp; splinePoints.size() &gt; 1) {</span>
 <span class="source-line-no">1782</span><span id="line-1782">                            //finally get the feather points</span>
 <span class="source-line-no">1783</span><span id="line-1783">                            //must allocate for the feather points, requires 4 additional points</span>
@@ -1832,13 +1832,13 @@
 <span class="source-line-no">1819</span><span id="line-1819">                                lineObject.lineTo((int)splinePoints2.get(j).x,(int)splinePoints2.get(j).y);</span>
 <span class="source-line-no">1820</span><span id="line-1820"></span>
 <span class="source-line-no">1821</span><span id="line-1821">                            if(splinePoints.size()&gt;=2)</span>
-<span class="source-line-no">1822</span><span id="line-1822">                                DrawArrow(splinePoints.get(splinePoints.size() - 2), tg.Pixels.get(tg.Pixels.size() - 1), arraysupport.getScaledSize(10, tg.get_LineThickness()), lineObject);</span>
+<span class="source-line-no">1822</span><span id="line-1822">                                DrawArrow(splinePoints.get(splinePoints.size() - 2), tg.Pixels.get(tg.Pixels.size() - 1), arraysupport.getScaledSize(10, tg.get_LineThickness(), tg.get_patternScale()), lineObject);</span>
 <span class="source-line-no">1823</span><span id="line-1823">                        }</span>
 <span class="source-line-no">1824</span><span id="line-1824">                        break;</span>
 <span class="source-line-no">1825</span><span id="line-1825">                    case TacticalLines.JET_GE:</span>
 <span class="source-line-no">1826</span><span id="line-1826">                    case TacticalLines.STREAM_GE:</span>
 <span class="source-line-no">1827</span><span id="line-1827">                        if (splinePoints.size() &gt; i + 1) {</span>
-<span class="source-line-no">1828</span><span id="line-1828">                            DrawArrow(splinePoints.get(i + 1), splinePoints.get(i), arraysupport.getScaledSize(10, tg.get_LineThickness()), lineObject);</span>
+<span class="source-line-no">1828</span><span id="line-1828">                            DrawArrow(splinePoints.get(i + 1), splinePoints.get(i), arraysupport.getScaledSize(10, tg.get_LineThickness(), tg.get_patternScale()), lineObject);</span>
 <span class="source-line-no">1829</span><span id="line-1829">                        }</span>
 <span class="source-line-no">1830</span><span id="line-1830">                        if(i==array.size()-2)//the last point in the array</span>
 <span class="source-line-no">1831</span><span id="line-1831">                        {</span>
@@ -1884,7 +1884,7 @@
 <span class="source-line-no">1871</span><span id="line-1871">                        break;</span>
 <span class="source-line-no">1872</span><span id="line-1872">                    case TacticalLines.ICE_EDGE_RADAR:</span>
 <span class="source-line-no">1873</span><span id="line-1873">                        t=splinePoints.size();</span>
-<span class="source-line-no">1874</span><span id="line-1874">                        d = arraysupport.getScaledSize(5, tg.get_LineThickness());</span>
+<span class="source-line-no">1874</span><span id="line-1874">                        d = arraysupport.getScaledSize(5, tg.get_LineThickness(), tg.get_patternScale());</span>
 <span class="source-line-no">1875</span><span id="line-1875">                        //for (j = 0; j &lt; splinePoints.size() - 1; j++) </span>
 <span class="source-line-no">1876</span><span id="line-1876">                        for (j = 0; j &lt; t - 1; j++) </span>
 <span class="source-line-no">1877</span><span id="line-1877">                        {</span>
@@ -1909,7 +1909,7 @@
 <span class="source-line-no">1896</span><span id="line-1896">                        break;</span>
 <span class="source-line-no">1897</span><span id="line-1897">                    case TacticalLines.ICE_EDGE_RADAR_GE:</span>
 <span class="source-line-no">1898</span><span id="line-1898">                        t=splinePoints.size();</span>
-<span class="source-line-no">1899</span><span id="line-1899">                        d = arraysupport.getScaledSize(5, tg.get_LineThickness());</span>
+<span class="source-line-no">1899</span><span id="line-1899">                        d = arraysupport.getScaledSize(5, tg.get_LineThickness(), tg.get_patternScale());</span>
 <span class="source-line-no">1900</span><span id="line-1900">                        //for (j = 0; j &lt; splinePoints.size() - 1; j++)</span>
 <span class="source-line-no">1901</span><span id="line-1901">                        for (j = 0; j &lt; t - 1; j++)</span>
 <span class="source-line-no">1902</span><span id="line-1902">                        {</span>
@@ -1942,7 +1942,7 @@
 <span class="source-line-no">1929</span><span id="line-1929">                        break;</span>
 <span class="source-line-no">1930</span><span id="line-1930">                    case TacticalLines.CRACKS_SPECIFIC_LOCATION:</span>
 <span class="source-line-no">1931</span><span id="line-1931">                        t=splinePoints.size();</span>
-<span class="source-line-no">1932</span><span id="line-1932">                        d = arraysupport.getScaledSize(5, tg.get_LineThickness());</span>
+<span class="source-line-no">1932</span><span id="line-1932">                        d = arraysupport.getScaledSize(5, tg.get_LineThickness(), tg.get_patternScale());</span>
 <span class="source-line-no">1933</span><span id="line-1933">                        //for (j = 0; j &lt; splinePoints.size() - 1; j++)</span>
 <span class="source-line-no">1934</span><span id="line-1934">                        for (j = 0; j &lt; t - 1; j++)</span>
 <span class="source-line-no">1935</span><span id="line-1935">                        {</span>
@@ -1956,7 +1956,7 @@
 <span class="source-line-no">1943</span><span id="line-1943">                        break;</span>
 <span class="source-line-no">1944</span><span id="line-1944">                    case TacticalLines.CRACKS_SPECIFIC_LOCATION_GE:</span>
 <span class="source-line-no">1945</span><span id="line-1945">                        t=splinePoints.size();</span>
-<span class="source-line-no">1946</span><span id="line-1946">                        d = arraysupport.getScaledSize(5, tg.get_LineThickness());</span>
+<span class="source-line-no">1946</span><span id="line-1946">                        d = arraysupport.getScaledSize(5, tg.get_LineThickness(), tg.get_patternScale());</span>
 <span class="source-line-no">1947</span><span id="line-1947">                        //for (j = 0; j &lt; splinePoints.size() - 1; j++)</span>
 <span class="source-line-no">1948</span><span id="line-1948">                        for (j = 0; j &lt; t - 1; j++)</span>
 <span class="source-line-no">1949</span><span id="line-1949">                        {</span>
@@ -2146,17 +2146,17 @@
 <span class="source-line-no">2133</span><span id="line-2133">            switch (tg.get_LineType()) {</span>
 <span class="source-line-no">2134</span><span id="line-2134">                case TacticalLines.ICE_EDGE_RADAR:</span>
 <span class="source-line-no">2135</span><span id="line-2135">                case TacticalLines.ICE_EDGE_RADAR_GE:</span>
-<span class="source-line-no">2136</span><span id="line-2136">                    increment = arraysupport.getScaledSize(20, tg.get_LineThickness());</span>
+<span class="source-line-no">2136</span><span id="line-2136">                    increment = arraysupport.getScaledSize(20, tg.get_LineThickness(), tg.get_patternScale());</span>
 <span class="source-line-no">2137</span><span id="line-2137">                    break;</span>
 <span class="source-line-no">2138</span><span id="line-2138">                case TacticalLines.ICE_OPENINGS_FROZEN:</span>
 <span class="source-line-no">2139</span><span id="line-2139">                case TacticalLines.ICE_OPENINGS_FROZEN_GE:</span>
 <span class="source-line-no">2140</span><span id="line-2140">                case TacticalLines.CRACKS_SPECIFIC_LOCATION:</span>
 <span class="source-line-no">2141</span><span id="line-2141">                case TacticalLines.CRACKS_SPECIFIC_LOCATION_GE:</span>
 <span class="source-line-no">2142</span><span id="line-2142">                    //increment = 12.0;</span>
-<span class="source-line-no">2143</span><span id="line-2143">                    increment = arraysupport.getScaledSize(7, tg.get_LineThickness());</span>
+<span class="source-line-no">2143</span><span id="line-2143">                    increment = arraysupport.getScaledSize(7, tg.get_LineThickness(), tg.get_patternScale());</span>
 <span class="source-line-no">2144</span><span id="line-2144">                    break;</span>
 <span class="source-line-no">2145</span><span id="line-2145">                default:</span>
-<span class="source-line-no">2146</span><span id="line-2146">                    increment = arraysupport.getScaledSize(10, tg.get_LineThickness());</span>
+<span class="source-line-no">2146</span><span id="line-2146">                    increment = arraysupport.getScaledSize(10, tg.get_LineThickness(), tg.get_patternScale());</span>
 <span class="source-line-no">2147</span><span id="line-2147">                    break;</span>
 <span class="source-line-no">2148</span><span id="line-2148">            }</span>
 <span class="source-line-no">2149</span><span id="line-2149"></span>

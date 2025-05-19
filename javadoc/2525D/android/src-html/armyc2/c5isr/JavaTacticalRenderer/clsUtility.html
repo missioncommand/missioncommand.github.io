@@ -228,536 +228,536 @@
 <span class="source-line-no">215</span><span id="line-215">            case TacticalLines.ESR1:</span>
 <span class="source-line-no">216</span><span id="line-216">            case TacticalLines.ESR2:</span>
 <span class="source-line-no">217</span><span id="line-217">            case TacticalLines.ROADBLK:</span>
-<span class="source-line-no">218</span><span id="line-218">            case TacticalLines.TRIP:</span>
-<span class="source-line-no">219</span><span id="line-219">            case TacticalLines.EASY:</span>
-<span class="source-line-no">220</span><span id="line-220">            case TacticalLines.BYDIF:</span>
-<span class="source-line-no">221</span><span id="line-221">            case TacticalLines.BYIMP:</span>
-<span class="source-line-no">222</span><span id="line-222">            case TacticalLines.FORDSITE:</span>
-<span class="source-line-no">223</span><span id="line-223">            case TacticalLines.FORDIF:</span>
-<span class="source-line-no">224</span><span id="line-224">            //METOCs</span>
-<span class="source-line-no">225</span><span id="line-225">            case TacticalLines.IFR:</span>
-<span class="source-line-no">226</span><span id="line-226">            case TacticalLines.MVFR:</span>
-<span class="source-line-no">227</span><span id="line-227">            case TacticalLines.TURBULENCE:</span>
-<span class="source-line-no">228</span><span id="line-228">            case TacticalLines.ICING:</span>
-<span class="source-line-no">229</span><span id="line-229">            case TacticalLines.NON_CONVECTIVE:</span>
-<span class="source-line-no">230</span><span id="line-230">            case TacticalLines.CONVECTIVE:</span>
-<span class="source-line-no">231</span><span id="line-231">            case TacticalLines.FROZEN:</span>
-<span class="source-line-no">232</span><span id="line-232">            case TacticalLines.THUNDERSTORMS:</span>
-<span class="source-line-no">233</span><span id="line-233">            case TacticalLines.FOG:</span>
-<span class="source-line-no">234</span><span id="line-234">            case TacticalLines.SAND:</span>
-<span class="source-line-no">235</span><span id="line-235">            case TacticalLines.FREEFORM:</span>
-<span class="source-line-no">236</span><span id="line-236">            case TacticalLines.DEPTH_AREA:</span>
-<span class="source-line-no">237</span><span id="line-237">            case TacticalLines.ISLAND:</span>
-<span class="source-line-no">238</span><span id="line-238">            case TacticalLines.BEACH:</span>
-<span class="source-line-no">239</span><span id="line-239">            case TacticalLines.WATER:</span>
-<span class="source-line-no">240</span><span id="line-240">            case TacticalLines.FISH_TRAPS:</span>
-<span class="source-line-no">241</span><span id="line-241">            case TacticalLines.SWEPT_AREA:</span>
-<span class="source-line-no">242</span><span id="line-242">            case TacticalLines.OIL_RIG_FIELD:</span>
-<span class="source-line-no">243</span><span id="line-243">            case TacticalLines.FOUL_GROUND:</span>
-<span class="source-line-no">244</span><span id="line-244">            case TacticalLines.KELP:</span>
-<span class="source-line-no">245</span><span id="line-245">            case TacticalLines.BEACH_SLOPE_MODERATE:</span>
-<span class="source-line-no">246</span><span id="line-246">            case TacticalLines.BEACH_SLOPE_STEEP:</span>
-<span class="source-line-no">247</span><span id="line-247">            case TacticalLines.ANCHORAGE_AREA:</span>
-<span class="source-line-no">248</span><span id="line-248">            case TacticalLines.TRAINING_AREA:</span>
-<span class="source-line-no">249</span><span id="line-249">            case TacticalLines.FORESHORE_AREA:</span>
-<span class="source-line-no">250</span><span id="line-250">            case TacticalLines.DRYDOCK:</span>
-<span class="source-line-no">251</span><span id="line-251">            case TacticalLines.LOADING_FACILITY_AREA:</span>
-<span class="source-line-no">252</span><span id="line-252">            case TacticalLines.PERCHES:</span>
-<span class="source-line-no">253</span><span id="line-253">            case TacticalLines.UNDERWATER_HAZARD:</span>
-<span class="source-line-no">254</span><span id="line-254">            case TacticalLines.DISCOLORED_WATER:</span>
-<span class="source-line-no">255</span><span id="line-255">            case TacticalLines.BEACH_SLOPE_FLAT:</span>
-<span class="source-line-no">256</span><span id="line-256">            case TacticalLines.BEACH_SLOPE_GENTLE:</span>
-<span class="source-line-no">257</span><span id="line-257">            case TacticalLines.MARITIME_AREA:</span>
-<span class="source-line-no">258</span><span id="line-258">            case TacticalLines.OPERATOR_DEFINED:</span>
-<span class="source-line-no">259</span><span id="line-259">            case TacticalLines.SUBMERGED_CRIB:</span>
-<span class="source-line-no">260</span><span id="line-260">            case TacticalLines.VDR_LEVEL_12:</span>
-<span class="source-line-no">261</span><span id="line-261">            case TacticalLines.VDR_LEVEL_23:</span>
-<span class="source-line-no">262</span><span id="line-262">            case TacticalLines.VDR_LEVEL_34:</span>
-<span class="source-line-no">263</span><span id="line-263">            case TacticalLines.VDR_LEVEL_45:</span>
-<span class="source-line-no">264</span><span id="line-264">            case TacticalLines.VDR_LEVEL_56:</span>
-<span class="source-line-no">265</span><span id="line-265">            case TacticalLines.VDR_LEVEL_67:</span>
-<span class="source-line-no">266</span><span id="line-266">            case TacticalLines.VDR_LEVEL_78:</span>
-<span class="source-line-no">267</span><span id="line-267">            case TacticalLines.VDR_LEVEL_89:</span>
-<span class="source-line-no">268</span><span id="line-268">            case TacticalLines.VDR_LEVEL_910:</span>
-<span class="source-line-no">269</span><span id="line-269">            case TacticalLines.SOLID_ROCK:</span>
-<span class="source-line-no">270</span><span id="line-270">            case TacticalLines.CLAY:</span>
-<span class="source-line-no">271</span><span id="line-271">            case TacticalLines.VERY_COARSE_SAND:</span>
-<span class="source-line-no">272</span><span id="line-272">            case TacticalLines.COARSE_SAND:</span>
-<span class="source-line-no">273</span><span id="line-273">            case TacticalLines.MEDIUM_SAND:</span>
-<span class="source-line-no">274</span><span id="line-274">            case TacticalLines.FINE_SAND:</span>
-<span class="source-line-no">275</span><span id="line-275">            case TacticalLines.VERY_FINE_SAND:</span>
-<span class="source-line-no">276</span><span id="line-276">            case TacticalLines.VERY_FINE_SILT:</span>
-<span class="source-line-no">277</span><span id="line-277">            case TacticalLines.FINE_SILT:</span>
-<span class="source-line-no">278</span><span id="line-278">            case TacticalLines.MEDIUM_SILT:</span>
-<span class="source-line-no">279</span><span id="line-279">            case TacticalLines.COARSE_SILT:</span>
-<span class="source-line-no">280</span><span id="line-280">            case TacticalLines.BOULDERS:</span>
-<span class="source-line-no">281</span><span id="line-281">            case TacticalLines.OYSTER_SHELLS:</span>
-<span class="source-line-no">282</span><span id="line-282">            case TacticalLines.PEBBLES:</span>
-<span class="source-line-no">283</span><span id="line-283">            case TacticalLines.SAND_AND_SHELLS:</span>
-<span class="source-line-no">284</span><span id="line-284">            case TacticalLines.BOTTOM_SEDIMENTS_LAND:</span>
-<span class="source-line-no">285</span><span id="line-285">            case TacticalLines.BOTTOM_SEDIMENTS_NO_DATA:</span>
-<span class="source-line-no">286</span><span id="line-286">            case TacticalLines.BOTTOM_ROUGHNESS_SMOOTH:</span>
-<span class="source-line-no">287</span><span id="line-287">            case TacticalLines.BOTTOM_ROUGHNESS_MODERATE:</span>
-<span class="source-line-no">288</span><span id="line-288">            case TacticalLines.BOTTOM_ROUGHNESS_ROUGH:</span>
-<span class="source-line-no">289</span><span id="line-289">            case TacticalLines.CLUTTER_LOW:</span>
-<span class="source-line-no">290</span><span id="line-290">            case TacticalLines.CLUTTER_MEDIUM:</span>
-<span class="source-line-no">291</span><span id="line-291">            case TacticalLines.CLUTTER_HIGH:</span>
-<span class="source-line-no">292</span><span id="line-292">            case TacticalLines.IMPACT_BURIAL_0:</span>
-<span class="source-line-no">293</span><span id="line-293">            case TacticalLines.IMPACT_BURIAL_10:</span>
-<span class="source-line-no">294</span><span id="line-294">            case TacticalLines.IMPACT_BURIAL_20:</span>
-<span class="source-line-no">295</span><span id="line-295">            case TacticalLines.IMPACT_BURIAL_75:</span>
-<span class="source-line-no">296</span><span id="line-296">            case TacticalLines.IMPACT_BURIAL_100:</span>
-<span class="source-line-no">297</span><span id="line-297">            case TacticalLines.BOTTOM_CATEGORY_A:</span>
-<span class="source-line-no">298</span><span id="line-298">            case TacticalLines.BOTTOM_CATEGORY_B:</span>
-<span class="source-line-no">299</span><span id="line-299">            case TacticalLines.BOTTOM_CATEGORY_C:</span>
-<span class="source-line-no">300</span><span id="line-300">            case TacticalLines.BOTTOM_TYPE_A1:</span>
-<span class="source-line-no">301</span><span id="line-301">            case TacticalLines.BOTTOM_TYPE_A2:</span>
-<span class="source-line-no">302</span><span id="line-302">            case TacticalLines.BOTTOM_TYPE_A3:</span>
-<span class="source-line-no">303</span><span id="line-303">            case TacticalLines.BOTTOM_TYPE_B1:</span>
-<span class="source-line-no">304</span><span id="line-304">            case TacticalLines.BOTTOM_TYPE_B2:</span>
-<span class="source-line-no">305</span><span id="line-305">            case TacticalLines.BOTTOM_TYPE_B3:</span>
-<span class="source-line-no">306</span><span id="line-306">            case TacticalLines.BOTTOM_TYPE_C1:</span>
-<span class="source-line-no">307</span><span id="line-307">            case TacticalLines.BOTTOM_TYPE_C2:</span>
-<span class="source-line-no">308</span><span id="line-308">            case TacticalLines.BOTTOM_TYPE_C3:</span>
-<span class="source-line-no">309</span><span id="line-309">                result = 3;</span>
-<span class="source-line-no">310</span><span id="line-310">                break;</span>
-<span class="source-line-no">311</span><span id="line-311">            case TacticalLines.MRR:</span>
-<span class="source-line-no">312</span><span id="line-312">            case TacticalLines.SL:</span>
-<span class="source-line-no">313</span><span id="line-313">            case TacticalLines.TC:</span>
-<span class="source-line-no">314</span><span id="line-314">            case TacticalLines.SC:</span>
-<span class="source-line-no">315</span><span id="line-315">            case TacticalLines.LLTR:</span>
-<span class="source-line-no">316</span><span id="line-316">            case TacticalLines.DIRATKAIR:</span>
-<span class="source-line-no">317</span><span id="line-317">            case TacticalLines.ABATIS:</span>
-<span class="source-line-no">318</span><span id="line-318">            case TacticalLines.CLUSTER:</span>
-<span class="source-line-no">319</span><span id="line-319">            case TacticalLines.MNFLDFIX:</span>
-<span class="source-line-no">320</span><span id="line-320">            case TacticalLines.FERRY:</span>
-<span class="source-line-no">321</span><span id="line-321">            case TacticalLines.MFLANE:</span>
-<span class="source-line-no">322</span><span id="line-322">            case TacticalLines.RAFT:</span>
-<span class="source-line-no">323</span><span id="line-323">            case TacticalLines.FOXHOLE:</span>
-<span class="source-line-no">324</span><span id="line-324">            case TacticalLines.LINTGT:</span>
-<span class="source-line-no">325</span><span id="line-325">            case TacticalLines.LINTGTS:</span>
-<span class="source-line-no">326</span><span id="line-326">            case TacticalLines.FPF:</span>
-<span class="source-line-no">327</span><span id="line-327">            case TacticalLines.CONVOY:</span>
-<span class="source-line-no">328</span><span id="line-328">            case TacticalLines.HCONVOY:</span>
-<span class="source-line-no">329</span><span id="line-329">                result = 2;</span>
-<span class="source-line-no">330</span><span id="line-330">                break;</span>
-<span class="source-line-no">331</span><span id="line-331">            default:</span>
-<span class="source-line-no">332</span><span id="line-332">                result = 2;</span>
-<span class="source-line-no">333</span><span id="line-333">                break;</span>
-<span class="source-line-no">334</span><span id="line-334">        }</span>
-<span class="source-line-no">335</span><span id="line-335">        if (isClosedPolygon(lineType)) {</span>
-<span class="source-line-no">336</span><span id="line-336">            result = 3;</span>
-<span class="source-line-no">337</span><span id="line-337">        }</span>
-<span class="source-line-no">338</span><span id="line-338">        //add code for change 1 areas</span>
-<span class="source-line-no">339</span><span id="line-339">        return result;</span>
-<span class="source-line-no">340</span><span id="line-340">    }</span>
-<span class="source-line-no">341</span><span id="line-341">    /**</span>
-<span class="source-line-no">342</span><span id="line-342">     * @param linetype line type</span>
-<span class="source-line-no">343</span><span id="line-343">     * @return true if the line is a closed area</span>
-<span class="source-line-no">344</span><span id="line-344">     */</span>
-<span class="source-line-no">345</span><span id="line-345">    public static boolean isClosedPolygon(int linetype) {</span>
-<span class="source-line-no">346</span><span id="line-346">        boolean result = false;</span>
-<span class="source-line-no">347</span><span id="line-347">        switch (linetype) {</span>
-<span class="source-line-no">348</span><span id="line-348">            case TacticalLines.AT:</span>
-<span class="source-line-no">349</span><span id="line-349">            case TacticalLines.DEPICT:</span>
-<span class="source-line-no">350</span><span id="line-350">            case TacticalLines.DZ:</span>
-<span class="source-line-no">351</span><span id="line-351">            case TacticalLines.MINED:</span>
-<span class="source-line-no">352</span><span id="line-352">            case TacticalLines.FENCED:</span>
-<span class="source-line-no">353</span><span id="line-353">            case TacticalLines.UXO:</span>
-<span class="source-line-no">354</span><span id="line-354">            case TacticalLines.ROZ:</span>
-<span class="source-line-no">355</span><span id="line-355">            case TacticalLines.AARROZ:</span>
-<span class="source-line-no">356</span><span id="line-356">            case TacticalLines.UAROZ:</span>
-<span class="source-line-no">357</span><span id="line-357">            case TacticalLines.WEZ:</span>
-<span class="source-line-no">358</span><span id="line-358">            case TacticalLines.FEZ:</span>
-<span class="source-line-no">359</span><span id="line-359">            case TacticalLines.JEZ:</span>
-<span class="source-line-no">360</span><span id="line-360">            case TacticalLines.FAADZ:</span>
-<span class="source-line-no">361</span><span id="line-361">            case TacticalLines.HIDACZ:</span>
-<span class="source-line-no">362</span><span id="line-362">            case TacticalLines.MEZ:</span>
-<span class="source-line-no">363</span><span id="line-363">            case TacticalLines.LOMEZ:</span>
-<span class="source-line-no">364</span><span id="line-364">            case TacticalLines.HIMEZ:</span>
-<span class="source-line-no">365</span><span id="line-365">            case TacticalLines.WFZ:</span>
-<span class="source-line-no">366</span><span id="line-366">            case TacticalLines.PNO:</span>
-<span class="source-line-no">367</span><span id="line-367">            case TacticalLines.BATTLE:</span>
-<span class="source-line-no">368</span><span id="line-368">            case TacticalLines.EA:</span>
-<span class="source-line-no">369</span><span id="line-369">            case TacticalLines.EZ:</span>
-<span class="source-line-no">370</span><span id="line-370">            case TacticalLines.LZ:</span>
-<span class="source-line-no">371</span><span id="line-371">            case TacticalLines.PZ:</span>
-<span class="source-line-no">372</span><span id="line-372">            case TacticalLines.GENERAL:</span>
-<span class="source-line-no">373</span><span id="line-373">            case TacticalLines.JTAA:</span>
-<span class="source-line-no">374</span><span id="line-374">            case TacticalLines.SAA:</span>
-<span class="source-line-no">375</span><span id="line-375">            case TacticalLines.SGAA:</span>
-<span class="source-line-no">376</span><span id="line-376">            case TacticalLines.ASSAULT:</span>
-<span class="source-line-no">377</span><span id="line-377">            case TacticalLines.ATKPOS:</span>
-<span class="source-line-no">378</span><span id="line-378">            case TacticalLines.OBJ:</span>
-<span class="source-line-no">379</span><span id="line-379">            case TacticalLines.AO:</span>
-<span class="source-line-no">380</span><span id="line-380">            case TacticalLines.AIRHEAD:</span>
-<span class="source-line-no">381</span><span id="line-381">            case TacticalLines.NAI:</span>
-<span class="source-line-no">382</span><span id="line-382">            case TacticalLines.TAI:</span>
-<span class="source-line-no">383</span><span id="line-383">            case TacticalLines.BASE_CAMP_REVD:</span>
-<span class="source-line-no">384</span><span id="line-384">            case TacticalLines.BASE_CAMP:</span>
-<span class="source-line-no">385</span><span id="line-385">            case TacticalLines.GUERILLA_BASE_REVD:</span>
-<span class="source-line-no">386</span><span id="line-386">            case TacticalLines.GUERILLA_BASE:</span>
-<span class="source-line-no">387</span><span id="line-387">            case TacticalLines.GENERIC_AREA:</span>
-<span class="source-line-no">388</span><span id="line-388">            case TacticalLines.OBSFAREA:</span>
-<span class="source-line-no">389</span><span id="line-389">            case TacticalLines.OBSAREA:</span>
-<span class="source-line-no">390</span><span id="line-390">            case TacticalLines.ZONE:</span>
-<span class="source-line-no">391</span><span id="line-391">            case TacticalLines.STRONG:</span>
-<span class="source-line-no">392</span><span id="line-392">            case TacticalLines.DRCL:</span>
-<span class="source-line-no">393</span><span id="line-393">            case TacticalLines.FSA:</span>
-<span class="source-line-no">394</span><span id="line-394">            case TacticalLines.ACA:</span>
-<span class="source-line-no">395</span><span id="line-395">            case TacticalLines.ASSY:</span>
-<span class="source-line-no">396</span><span id="line-396">            case TacticalLines.BSA:</span>
-<span class="source-line-no">397</span><span id="line-397">            case TacticalLines.NFA:</span>
-<span class="source-line-no">398</span><span id="line-398">            case TacticalLines.RFA:</span>
-<span class="source-line-no">399</span><span id="line-399">            case TacticalLines.FARP:</span>
-<span class="source-line-no">400</span><span id="line-400">            case TacticalLines.AIRFIELD:</span>
-<span class="source-line-no">401</span><span id="line-401">            case TacticalLines.LAA:</span>
-<span class="source-line-no">402</span><span id="line-402">            case TacticalLines.BOMB:</span>
-<span class="source-line-no">403</span><span id="line-403">            case TacticalLines.FFA:</span>
-<span class="source-line-no">404</span><span id="line-404">            case TacticalLines.SMOKE:</span>
-<span class="source-line-no">405</span><span id="line-405">            case TacticalLines.PAA:</span>
-<span class="source-line-no">406</span><span id="line-406">            case TacticalLines.ENCIRCLE:</span>
-<span class="source-line-no">407</span><span id="line-407">            case TacticalLines.DHA_REVD:</span>
-<span class="source-line-no">408</span><span id="line-408">            case TacticalLines.DHA:</span>
-<span class="source-line-no">409</span><span id="line-409">            case TacticalLines.EPW:</span>
-<span class="source-line-no">410</span><span id="line-410">            case TacticalLines.RHA:</span>
-<span class="source-line-no">411</span><span id="line-411">            case TacticalLines.DSA:</span>
-<span class="source-line-no">412</span><span id="line-412">            case TacticalLines.CSA:</span>
-<span class="source-line-no">413</span><span id="line-413">            case TacticalLines.RSA:</span>
-<span class="source-line-no">414</span><span id="line-414">            case TacticalLines.FORT_REVD:</span>
-<span class="source-line-no">415</span><span id="line-415">            case TacticalLines.FORT:</span>
-<span class="source-line-no">416</span><span id="line-416">            case TacticalLines.PEN:</span>
-<span class="source-line-no">417</span><span id="line-417">            case TacticalLines.BIO:</span>
-<span class="source-line-no">418</span><span id="line-418">            case TacticalLines.NUC:</span>
-<span class="source-line-no">419</span><span id="line-419">            case TacticalLines.RAD:</span>
-<span class="source-line-no">420</span><span id="line-420">            case TacticalLines.CHEM:</span>
-<span class="source-line-no">421</span><span id="line-421">            case TacticalLines.SERIES:</span>
-<span class="source-line-no">422</span><span id="line-422">            case TacticalLines.ATI:</span>
-<span class="source-line-no">423</span><span id="line-423">            case TacticalLines.TBA:</span>
-<span class="source-line-no">424</span><span id="line-424">            case TacticalLines.TVAR:</span>
-<span class="source-line-no">425</span><span id="line-425">            case TacticalLines.CFFZ:</span>
-<span class="source-line-no">426</span><span id="line-426">            case TacticalLines.CENSOR:</span>
-<span class="source-line-no">427</span><span id="line-427">            case TacticalLines.SENSOR:</span>
-<span class="source-line-no">428</span><span id="line-428">            case TacticalLines.ZOR:</span>
-<span class="source-line-no">429</span><span id="line-429">            case TacticalLines.DA:</span>
-<span class="source-line-no">430</span><span id="line-430">            case TacticalLines.CFZ:</span>
-<span class="source-line-no">431</span><span id="line-431">            case TacticalLines.KILLBOXBLUE:</span>
-<span class="source-line-no">432</span><span id="line-432">            case TacticalLines.KILLBOXPURPLE:</span>
-<span class="source-line-no">433</span><span id="line-433">            //METOCs</span>
-<span class="source-line-no">434</span><span id="line-434">            case TacticalLines.IFR:</span>
-<span class="source-line-no">435</span><span id="line-435">            case TacticalLines.MVFR:</span>
-<span class="source-line-no">436</span><span id="line-436">            case TacticalLines.TURBULENCE:</span>
-<span class="source-line-no">437</span><span id="line-437">            case TacticalLines.ICING:</span>
-<span class="source-line-no">438</span><span id="line-438">            case TacticalLines.NON_CONVECTIVE:</span>
-<span class="source-line-no">439</span><span id="line-439">            case TacticalLines.CONVECTIVE:</span>
-<span class="source-line-no">440</span><span id="line-440">            case TacticalLines.FROZEN:</span>
-<span class="source-line-no">441</span><span id="line-441">            case TacticalLines.THUNDERSTORMS:</span>
-<span class="source-line-no">442</span><span id="line-442">            case TacticalLines.FOG:</span>
-<span class="source-line-no">443</span><span id="line-443">            case TacticalLines.SAND:</span>
-<span class="source-line-no">444</span><span id="line-444">            case TacticalLines.FREEFORM:</span>
-<span class="source-line-no">445</span><span id="line-445">            case TacticalLines.DEPTH_AREA:</span>
-<span class="source-line-no">446</span><span id="line-446">            case TacticalLines.ISLAND:</span>
-<span class="source-line-no">447</span><span id="line-447">            case TacticalLines.BEACH:</span>
-<span class="source-line-no">448</span><span id="line-448">            case TacticalLines.WATER:</span>
-<span class="source-line-no">449</span><span id="line-449">            case TacticalLines.FISH_TRAPS:</span>
-<span class="source-line-no">450</span><span id="line-450">            case TacticalLines.SWEPT_AREA:</span>
-<span class="source-line-no">451</span><span id="line-451">            case TacticalLines.OIL_RIG_FIELD:</span>
-<span class="source-line-no">452</span><span id="line-452">            case TacticalLines.FOUL_GROUND:</span>
-<span class="source-line-no">453</span><span id="line-453">            case TacticalLines.KELP:</span>
-<span class="source-line-no">454</span><span id="line-454">            case TacticalLines.BEACH_SLOPE_MODERATE:</span>
-<span class="source-line-no">455</span><span id="line-455">            case TacticalLines.BEACH_SLOPE_STEEP:</span>
-<span class="source-line-no">456</span><span id="line-456">            case TacticalLines.ANCHORAGE_AREA:</span>
-<span class="source-line-no">457</span><span id="line-457">            case TacticalLines.TRAINING_AREA:</span>
-<span class="source-line-no">458</span><span id="line-458">            case TacticalLines.FORESHORE_AREA:</span>
-<span class="source-line-no">459</span><span id="line-459">            case TacticalLines.DRYDOCK:</span>
-<span class="source-line-no">460</span><span id="line-460">            case TacticalLines.LOADING_FACILITY_AREA:</span>
-<span class="source-line-no">461</span><span id="line-461">            case TacticalLines.PERCHES:</span>
-<span class="source-line-no">462</span><span id="line-462">            case TacticalLines.UNDERWATER_HAZARD:</span>
-<span class="source-line-no">463</span><span id="line-463">            case TacticalLines.DISCOLORED_WATER:</span>
-<span class="source-line-no">464</span><span id="line-464">            case TacticalLines.BEACH_SLOPE_FLAT:</span>
-<span class="source-line-no">465</span><span id="line-465">            case TacticalLines.BEACH_SLOPE_GENTLE:</span>
-<span class="source-line-no">466</span><span id="line-466">            case TacticalLines.MARITIME_AREA:</span>
-<span class="source-line-no">467</span><span id="line-467">            case TacticalLines.OPERATOR_DEFINED:</span>
-<span class="source-line-no">468</span><span id="line-468">            case TacticalLines.SUBMERGED_CRIB:</span>
-<span class="source-line-no">469</span><span id="line-469">            case TacticalLines.VDR_LEVEL_12:</span>
-<span class="source-line-no">470</span><span id="line-470">            case TacticalLines.VDR_LEVEL_23:</span>
-<span class="source-line-no">471</span><span id="line-471">            case TacticalLines.VDR_LEVEL_34:</span>
-<span class="source-line-no">472</span><span id="line-472">            case TacticalLines.VDR_LEVEL_45:</span>
-<span class="source-line-no">473</span><span id="line-473">            case TacticalLines.VDR_LEVEL_56:</span>
-<span class="source-line-no">474</span><span id="line-474">            case TacticalLines.VDR_LEVEL_67:</span>
-<span class="source-line-no">475</span><span id="line-475">            case TacticalLines.VDR_LEVEL_78:</span>
-<span class="source-line-no">476</span><span id="line-476">            case TacticalLines.VDR_LEVEL_89:</span>
-<span class="source-line-no">477</span><span id="line-477">            case TacticalLines.VDR_LEVEL_910:</span>
-<span class="source-line-no">478</span><span id="line-478">            case TacticalLines.SOLID_ROCK:</span>
-<span class="source-line-no">479</span><span id="line-479">            case TacticalLines.CLAY:</span>
-<span class="source-line-no">480</span><span id="line-480">            case TacticalLines.VERY_COARSE_SAND:</span>
-<span class="source-line-no">481</span><span id="line-481">            case TacticalLines.COARSE_SAND:</span>
-<span class="source-line-no">482</span><span id="line-482">            case TacticalLines.MEDIUM_SAND:</span>
-<span class="source-line-no">483</span><span id="line-483">            case TacticalLines.FINE_SAND:</span>
-<span class="source-line-no">484</span><span id="line-484">            case TacticalLines.VERY_FINE_SAND:</span>
-<span class="source-line-no">485</span><span id="line-485">            case TacticalLines.VERY_FINE_SILT:</span>
-<span class="source-line-no">486</span><span id="line-486">            case TacticalLines.FINE_SILT:</span>
-<span class="source-line-no">487</span><span id="line-487">            case TacticalLines.MEDIUM_SILT:</span>
-<span class="source-line-no">488</span><span id="line-488">            case TacticalLines.COARSE_SILT:</span>
-<span class="source-line-no">489</span><span id="line-489">            case TacticalLines.BOULDERS:</span>
-<span class="source-line-no">490</span><span id="line-490">            case TacticalLines.OYSTER_SHELLS:</span>
-<span class="source-line-no">491</span><span id="line-491">            case TacticalLines.PEBBLES:</span>
-<span class="source-line-no">492</span><span id="line-492">            case TacticalLines.SAND_AND_SHELLS:</span>
-<span class="source-line-no">493</span><span id="line-493">            case TacticalLines.BOTTOM_SEDIMENTS_LAND:</span>
-<span class="source-line-no">494</span><span id="line-494">            case TacticalLines.BOTTOM_SEDIMENTS_NO_DATA:</span>
-<span class="source-line-no">495</span><span id="line-495">            case TacticalLines.BOTTOM_ROUGHNESS_SMOOTH:</span>
-<span class="source-line-no">496</span><span id="line-496">            case TacticalLines.BOTTOM_ROUGHNESS_MODERATE:</span>
-<span class="source-line-no">497</span><span id="line-497">            case TacticalLines.BOTTOM_ROUGHNESS_ROUGH:</span>
-<span class="source-line-no">498</span><span id="line-498">            case TacticalLines.CLUTTER_LOW:</span>
-<span class="source-line-no">499</span><span id="line-499">            case TacticalLines.CLUTTER_MEDIUM:</span>
-<span class="source-line-no">500</span><span id="line-500">            case TacticalLines.CLUTTER_HIGH:</span>
-<span class="source-line-no">501</span><span id="line-501">            case TacticalLines.IMPACT_BURIAL_0:</span>
-<span class="source-line-no">502</span><span id="line-502">            case TacticalLines.IMPACT_BURIAL_10:</span>
-<span class="source-line-no">503</span><span id="line-503">            case TacticalLines.IMPACT_BURIAL_20:</span>
-<span class="source-line-no">504</span><span id="line-504">            case TacticalLines.IMPACT_BURIAL_75:</span>
-<span class="source-line-no">505</span><span id="line-505">            case TacticalLines.IMPACT_BURIAL_100:</span>
-<span class="source-line-no">506</span><span id="line-506">            case TacticalLines.BOTTOM_CATEGORY_A:</span>
-<span class="source-line-no">507</span><span id="line-507">            case TacticalLines.BOTTOM_CATEGORY_B:</span>
-<span class="source-line-no">508</span><span id="line-508">            case TacticalLines.BOTTOM_CATEGORY_C:</span>
-<span class="source-line-no">509</span><span id="line-509">            case TacticalLines.BOTTOM_TYPE_A1:</span>
-<span class="source-line-no">510</span><span id="line-510">            case TacticalLines.BOTTOM_TYPE_A2:</span>
-<span class="source-line-no">511</span><span id="line-511">            case TacticalLines.BOTTOM_TYPE_A3:</span>
-<span class="source-line-no">512</span><span id="line-512">            case TacticalLines.BOTTOM_TYPE_B1:</span>
-<span class="source-line-no">513</span><span id="line-513">            case TacticalLines.BOTTOM_TYPE_B2:</span>
-<span class="source-line-no">514</span><span id="line-514">            case TacticalLines.BOTTOM_TYPE_B3:</span>
-<span class="source-line-no">515</span><span id="line-515">            case TacticalLines.BOTTOM_TYPE_C1:</span>
-<span class="source-line-no">516</span><span id="line-516">            case TacticalLines.BOTTOM_TYPE_C2:</span>
-<span class="source-line-no">517</span><span id="line-517">            case TacticalLines.BOTTOM_TYPE_C3:</span>
-<span class="source-line-no">518</span><span id="line-518">            case TacticalLines.TGMF:</span>
-<span class="source-line-no">519</span><span id="line-519">                result = true;</span>
-<span class="source-line-no">520</span><span id="line-520">                break;</span>
-<span class="source-line-no">521</span><span id="line-521">            default:</span>
-<span class="source-line-no">522</span><span id="line-522">                break;</span>
-<span class="source-line-no">523</span><span id="line-523">        }</span>
-<span class="source-line-no">524</span><span id="line-524">        return result;</span>
-<span class="source-line-no">525</span><span id="line-525">    }</span>
-<span class="source-line-no">526</span><span id="line-526"></span>
-<span class="source-line-no">527</span><span id="line-527">    /**</span>
-<span class="source-line-no">528</span><span id="line-528">     * Closes the polygon for areas</span>
-<span class="source-line-no">529</span><span id="line-529">     * @param Pixels the client points</span>
-<span class="source-line-no">530</span><span id="line-530">     */</span>
-<span class="source-line-no">531</span><span id="line-531">    public static void ClosePolygon(ArrayList&lt;POINT2&gt; Pixels) {</span>
-<span class="source-line-no">532</span><span id="line-532">        try {</span>
-<span class="source-line-no">533</span><span id="line-533">            POINT2 pt0 = Pixels.get(0);</span>
-<span class="source-line-no">534</span><span id="line-534">            POINT2 pt1 = Pixels.get(Pixels.size() - 1);</span>
-<span class="source-line-no">535</span><span id="line-535">            if (pt0.x != pt1.x || pt0.y != pt1.y) {</span>
-<span class="source-line-no">536</span><span id="line-536">                Pixels.add(new POINT2(pt0.x, pt0.y));</span>
-<span class="source-line-no">537</span><span id="line-537">            }</span>
-<span class="source-line-no">538</span><span id="line-538">        } catch (Exception exc) {</span>
-<span class="source-line-no">539</span><span id="line-539">               ErrorLogger.LogException(_className ,"ClosePolygon",</span>
-<span class="source-line-no">540</span><span id="line-540">                    new RendererException("Failed inside ClosePolygon", exc));</span>
-<span class="source-line-no">541</span><span id="line-541">        }</span>
-<span class="source-line-no">542</span><span id="line-542">    }</span>
-<span class="source-line-no">543</span><span id="line-543">    /**</span>
-<span class="source-line-no">544</span><span id="line-544">     * for change 1 symbol the W/w1 modifiers run too close to the symbol outline</span>
-<span class="source-line-no">545</span><span id="line-545">     * so it shifts the line along the line away from the edge</span>
-<span class="source-line-no">546</span><span id="line-546">     * @param p1</span>
-<span class="source-line-no">547</span><span id="line-547">     * @param p2</span>
-<span class="source-line-no">548</span><span id="line-548">     * @param shift</span>
-<span class="source-line-no">549</span><span id="line-549">     */</span>
-<span class="source-line-no">550</span><span id="line-550">    protected static void shiftModifiersLeft(POINT2 p1, POINT2 p2, double shift)</span>
-<span class="source-line-no">551</span><span id="line-551">    {</span>
-<span class="source-line-no">552</span><span id="line-552">        try</span>
-<span class="source-line-no">553</span><span id="line-553">        {</span>
-<span class="source-line-no">554</span><span id="line-554">            POINT2 pt1=new POINT2(p1);</span>
-<span class="source-line-no">555</span><span id="line-555">            POINT2 pt2=new POINT2(p2);</span>
-<span class="source-line-no">556</span><span id="line-556">            double dist=lineutility.CalcDistanceDouble(pt1, pt2);</span>
-<span class="source-line-no">557</span><span id="line-557">            if(pt1.x&lt;pt2.x || (pt1.x==pt2.x &amp;&amp; pt1.y&lt;pt2.y))</span>
-<span class="source-line-no">558</span><span id="line-558">            {</span>
-<span class="source-line-no">559</span><span id="line-559">                pt1=lineutility.ExtendAlongLineDouble(pt2, pt1, dist+shift);</span>
-<span class="source-line-no">560</span><span id="line-560">                pt2=lineutility.ExtendAlongLineDouble(pt1, pt2, dist-shift);</span>
-<span class="source-line-no">561</span><span id="line-561">            }</span>
-<span class="source-line-no">562</span><span id="line-562">            else</span>
-<span class="source-line-no">563</span><span id="line-563">            {</span>
-<span class="source-line-no">564</span><span id="line-564">                pt1=lineutility.ExtendAlongLineDouble(pt2, pt1, dist-shift);</span>
-<span class="source-line-no">565</span><span id="line-565">                pt2=lineutility.ExtendAlongLineDouble(pt1, pt2, dist+shift);</span>
-<span class="source-line-no">566</span><span id="line-566">            }</span>
-<span class="source-line-no">567</span><span id="line-567">            p1.x=pt1.x;</span>
-<span class="source-line-no">568</span><span id="line-568">            p1.y=pt1.y;</span>
-<span class="source-line-no">569</span><span id="line-569">            p2.x=pt2.x;</span>
-<span class="source-line-no">570</span><span id="line-570">            p2.y=pt2.y;</span>
-<span class="source-line-no">571</span><span id="line-571">        }</span>
-<span class="source-line-no">572</span><span id="line-572">        catch (Exception exc) {</span>
-<span class="source-line-no">573</span><span id="line-573">               ErrorLogger.LogException(_className ,"shiftModifiersLeft",</span>
-<span class="source-line-no">574</span><span id="line-574">                    new RendererException("Failed inside shiftModifiersLeft", exc));</span>
-<span class="source-line-no">575</span><span id="line-575">        }</span>
-<span class="source-line-no">576</span><span id="line-576">    }</span>
-<span class="source-line-no">577</span><span id="line-577">    /**</span>
-<span class="source-line-no">578</span><span id="line-578">     * Overrides shape properties for symbols based on Mil-Std-2525</span>
-<span class="source-line-no">579</span><span id="line-579">     * @param tg</span>
-<span class="source-line-no">580</span><span id="line-580">     * @param shape</span>
-<span class="source-line-no">581</span><span id="line-581">     */</span>
-<span class="source-line-no">582</span><span id="line-582">    protected static void ResolveModifierShape(TGLight tg, Shape2 shape) {</span>
-<span class="source-line-no">583</span><span id="line-583">        try {</span>
-<span class="source-line-no">584</span><span id="line-584">            //shape style was set by CELineArray and takes precedence</span>
-<span class="source-line-no">585</span><span id="line-585">            //whenever it is set</span>
-<span class="source-line-no">586</span><span id="line-586">            int shapeStyle = shape.get_Style();</span>
-<span class="source-line-no">587</span><span id="line-587">            int lineStyle = tg.get_LineStyle();</span>
-<span class="source-line-no">588</span><span id="line-588">            int lineType = tg.get_LineType();</span>
-<span class="source-line-no">589</span><span id="line-589">            boolean hasFill=LinesWithFill(lineType);</span>
-<span class="source-line-no">590</span><span id="line-590">            int bolMETOC=clsMETOC.IsWeather(tg.get_SymbolId());</span>
-<span class="source-line-no">591</span><span id="line-591">            if(bolMETOC&gt;0)</span>
-<span class="source-line-no">592</span><span id="line-592">                return;</span>
-<span class="source-line-no">593</span><span id="line-593">            int fillStyle=0;</span>
-<span class="source-line-no">594</span><span id="line-594">            //for some of these the style must be dashed</span>
-<span class="source-line-no">595</span><span id="line-595">            switch (tg.get_LineType()) {</span>
-<span class="source-line-no">596</span><span id="line-596">                case TacticalLines.NFA:</span>
-<span class="source-line-no">597</span><span id="line-597">                case TacticalLines.NFA_CIRCULAR:</span>
-<span class="source-line-no">598</span><span id="line-598">                case TacticalLines.NFA_RECTANGULAR:</span>
-<span class="source-line-no">599</span><span id="line-599">                case TacticalLines.BIO:</span>
-<span class="source-line-no">600</span><span id="line-600">                case TacticalLines.NUC:</span>
-<span class="source-line-no">601</span><span id="line-601">                case TacticalLines.CHEM:</span>
-<span class="source-line-no">602</span><span id="line-602">                case TacticalLines.RAD:</span>
-<span class="source-line-no">603</span><span id="line-603">                case TacticalLines.WFZ:</span>
-<span class="source-line-no">604</span><span id="line-604">                //case TacticalLines.OBSAREA:</span>
-<span class="source-line-no">605</span><span id="line-605">                    fillStyle=3;</span>
-<span class="source-line-no">606</span><span id="line-606">                    if(tg.get_UseHatchFill())</span>
-<span class="source-line-no">607</span><span id="line-607">                        fillStyle=0;</span>
-<span class="source-line-no">608</span><span id="line-608">                    if (shape.getShapeType() == Shape2.SHAPE_TYPE_POLYLINE) {</span>
-<span class="source-line-no">609</span><span id="line-609">                        shape.set_Style(tg.get_LineStyle());</span>
-<span class="source-line-no">610</span><span id="line-610">                        shape.setLineColor(tg.get_LineColor());</span>
-<span class="source-line-no">611</span><span id="line-611">                        shape.set_Fillstyle(fillStyle /*GraphicProperties.FILL_TYPE_RIGHT_SLANTS*/);//was 3</span>
-<span class="source-line-no">612</span><span id="line-612">                        shape.setFillColor(tg.get_FillColor());</span>
-<span class="source-line-no">613</span><span id="line-613">                    }</span>
-<span class="source-line-no">614</span><span id="line-614">                    break;</span>
-<span class="source-line-no">615</span><span id="line-615">                case TacticalLines.OBSAREA:</span>
-<span class="source-line-no">616</span><span id="line-616">                    if (shape.getShapeType() == Shape2.SHAPE_TYPE_POLYLINE) {</span>
-<span class="source-line-no">617</span><span id="line-617">                        shape.set_Style(tg.get_LineStyle());</span>
-<span class="source-line-no">618</span><span id="line-618">                        shape.setLineColor(tg.get_LineColor());</span>
-<span class="source-line-no">619</span><span id="line-619">                        shape.set_Fillstyle(0 /*GraphicProperties.FILL_TYPE_RIGHT_SLANTS*/);</span>
-<span class="source-line-no">620</span><span id="line-620">                        shape.setFillColor(tg.get_FillColor());</span>
-<span class="source-line-no">621</span><span id="line-621">                    }</span>
-<span class="source-line-no">622</span><span id="line-622">                    break;</span>
-<span class="source-line-no">623</span><span id="line-623">                case TacticalLines.LAA:</span>
-<span class="source-line-no">624</span><span id="line-624">                    fillStyle=2;</span>
-<span class="source-line-no">625</span><span id="line-625">                    if(tg.get_UseHatchFill())</span>
-<span class="source-line-no">626</span><span id="line-626">                        fillStyle=0;</span>
-<span class="source-line-no">627</span><span id="line-627">                    if (shape.getShapeType() == Shape2.SHAPE_TYPE_POLYLINE) {</span>
-<span class="source-line-no">628</span><span id="line-628">                        shape.set_Style(tg.get_LineStyle());</span>
-<span class="source-line-no">629</span><span id="line-629">                        shape.setLineColor(tg.get_LineColor());</span>
-<span class="source-line-no">630</span><span id="line-630">                        shape.set_Fillstyle(fillStyle /*GraphicProperties.FILL_TYPE_LEFT_SLANTS*/);//was 2</span>
-<span class="source-line-no">631</span><span id="line-631">                        shape.setFillColor(tg.get_FillColor());</span>
-<span class="source-line-no">632</span><span id="line-632">                    }</span>
-<span class="source-line-no">633</span><span id="line-633">                    break;</span>
-<span class="source-line-no">634</span><span id="line-634">                case TacticalLines.DIRATKAIR:</span>
-<span class="source-line-no">635</span><span id="line-635">                case TacticalLines.ATDITCHC:</span>
-<span class="source-line-no">636</span><span id="line-636">                case TacticalLines.ATDITCHM:</span>
-<span class="source-line-no">637</span><span id="line-637">                case TacticalLines.SARA:</span>
-<span class="source-line-no">638</span><span id="line-638">                case TacticalLines.FOLSP:</span>
-<span class="source-line-no">639</span><span id="line-639">                case TacticalLines.FERRY:</span>
-<span class="source-line-no">640</span><span id="line-640">                case TacticalLines.MNFLDFIX:</span>
-<span class="source-line-no">641</span><span id="line-641">                case TacticalLines.TURN:</span>
-<span class="source-line-no">642</span><span id="line-642">                case TacticalLines.MNFLDDIS:</span>
-<span class="source-line-no">643</span><span id="line-643">                case TacticalLines.EASY:</span>
-<span class="source-line-no">644</span><span id="line-644">                case TacticalLines.BYDIF:</span>
-<span class="source-line-no">645</span><span id="line-645">                case TacticalLines.BYIMP:</span>
-<span class="source-line-no">646</span><span id="line-646">                    tg.set_lineCap(BasicStroke.CAP_BUTT);</span>
-<span class="source-line-no">647</span><span id="line-647">                    if (shape.getShapeType() == Shape2.SHAPE_TYPE_FILL) {</span>
-<span class="source-line-no">648</span><span id="line-648">                        shape.set_Fillstyle(1 /*GraphicProperties.FILL_TYPE_SOLID*/);</span>
-<span class="source-line-no">649</span><span id="line-649">                        shape.setFillColor(tg.get_LineColor());</span>
-<span class="source-line-no">650</span><span id="line-650">                    }</span>
-<span class="source-line-no">651</span><span id="line-651">                    if (shape.getShapeType() == Shape2.SHAPE_TYPE_POLYLINE) {</span>
-<span class="source-line-no">652</span><span id="line-652">                        shape.set_Style(tg.get_LineStyle());</span>
-<span class="source-line-no">653</span><span id="line-653">                        shape.setLineColor(tg.get_LineColor());</span>
-<span class="source-line-no">654</span><span id="line-654">                    }</span>
-<span class="source-line-no">655</span><span id="line-655">                    break;</span>
-<span class="source-line-no">656</span><span id="line-656">                case TacticalLines.CLUSTER:</span>
-<span class="source-line-no">657</span><span id="line-657">                case TacticalLines.CATK:</span>
-<span class="source-line-no">658</span><span id="line-658">                case TacticalLines.CATKBYFIRE:</span>
-<span class="source-line-no">659</span><span id="line-659">                case TacticalLines.PLD:</span>
-<span class="source-line-no">660</span><span id="line-660">                case TacticalLines.PLANNED:</span>
-<span class="source-line-no">661</span><span id="line-661">                case TacticalLines.CFL:</span>
-<span class="source-line-no">662</span><span id="line-662">                case TacticalLines.FORDSITE:</span>
-<span class="source-line-no">663</span><span id="line-663">                case TacticalLines.ACOUSTIC_AMB:</span>
-<span class="source-line-no">664</span><span id="line-664">                    //any shape for these symbols is dashed</span>
-<span class="source-line-no">665</span><span id="line-665">                    if (shape.getShapeType() == Shape2.SHAPE_TYPE_POLYLINE) {</span>
-<span class="source-line-no">666</span><span id="line-666">                        shape.set_Style(1 /*GraphicProperties.LINE_TYPE_DASHED*/);</span>
-<span class="source-line-no">667</span><span id="line-667">                        shape.setLineColor(tg.get_LineColor());</span>
-<span class="source-line-no">668</span><span id="line-668">                    }</span>
-<span class="source-line-no">669</span><span id="line-669">                    break;</span>
-<span class="source-line-no">670</span><span id="line-670">                case TacticalLines.PNO: //always dashed</span>
-<span class="source-line-no">671</span><span id="line-671">                    if (shape.getShapeType() == Shape2.SHAPE_TYPE_POLYLINE) {</span>
-<span class="source-line-no">672</span><span id="line-672">                        shape.set_Style(1 /*GraphicProperties.LINE_TYPE_DASHED*/);</span>
-<span class="source-line-no">673</span><span id="line-673">                        shape.setLineColor(tg.get_LineColor());</span>
-<span class="source-line-no">674</span><span id="line-674">                        shape.setFillColor(tg.get_FillColor());</span>
-<span class="source-line-no">675</span><span id="line-675">                        shape.set_Fillstyle(tg.get_FillStyle());</span>
-<span class="source-line-no">676</span><span id="line-676">                    }</span>
-<span class="source-line-no">677</span><span id="line-677">                    break;</span>
-<span class="source-line-no">678</span><span id="line-678">                case TacticalLines.FOLLA:</span>
-<span class="source-line-no">679</span><span id="line-679">                case TacticalLines.ESR1:</span>
-<span class="source-line-no">680</span><span id="line-680">                case TacticalLines.FORDIF:</span>
-<span class="source-line-no">681</span><span id="line-681">                    if (shape.getShapeType() == Shape2.SHAPE_TYPE_POLYLINE) {</span>
-<span class="source-line-no">682</span><span id="line-682">                        shape.setLineColor(tg.get_LineColor());</span>
-<span class="source-line-no">683</span><span id="line-683">                        if (shapeStyle != lineStyle) {</span>
-<span class="source-line-no">684</span><span id="line-684">                            if (shapeStyle != 1 /*GraphicProperties.LINE_TYPE_DASHED*/) {</span>
-<span class="source-line-no">685</span><span id="line-685">                                shape.set_Style(lineStyle);</span>
-<span class="source-line-no">686</span><span id="line-686">                            }</span>
-<span class="source-line-no">687</span><span id="line-687">                        }</span>
-<span class="source-line-no">688</span><span id="line-688">                    }</span>
-<span class="source-line-no">689</span><span id="line-689">                    break;</span>
-<span class="source-line-no">690</span><span id="line-690">                default:</span>
-<span class="source-line-no">691</span><span id="line-691">                    if (shape.getShapeType() == Shape2.SHAPE_TYPE_FILL) {</span>
-<span class="source-line-no">692</span><span id="line-692">                        shape.set_Fillstyle(tg.get_FillStyle());</span>
-<span class="source-line-no">693</span><span id="line-693">                        shape.setFillColor(tg.get_FillColor());</span>
-<span class="source-line-no">694</span><span id="line-694">                    }</span>
-<span class="source-line-no">695</span><span id="line-695">                    if (shape.getShapeType() == Shape2.SHAPE_TYPE_POLYLINE) {</span>
-<span class="source-line-no">696</span><span id="line-696">                        if (lineType != TacticalLines.LC) {</span>
-<span class="source-line-no">697</span><span id="line-697">                            shape.setLineColor(tg.get_LineColor());</span>
-<span class="source-line-no">698</span><span id="line-698">                        } else {</span>
-<span class="source-line-no">699</span><span id="line-699">                            SetLCColor(tg, shape);</span>
-<span class="source-line-no">700</span><span id="line-700">                        }</span>
-<span class="source-line-no">701</span><span id="line-701">                        shape.set_Style(lineStyle);</span>
-<span class="source-line-no">702</span><span id="line-702">                        if (hasFill || clsUtility.isClosedPolygon(lineType) || clsUtility.IsChange1Area(lineType))</span>
-<span class="source-line-no">703</span><span id="line-703">                        {</span>
-<span class="source-line-no">704</span><span id="line-704">                            switch(lineType)</span>
-<span class="source-line-no">705</span><span id="line-705">                            {</span>
-<span class="source-line-no">706</span><span id="line-706">                                case TacticalLines.RANGE_FAN:</span>
-<span class="source-line-no">707</span><span id="line-707">                                case TacticalLines.RANGE_FAN_SECTOR:</span>
-<span class="source-line-no">708</span><span id="line-708">                                case TacticalLines.RADAR_SEARCH:</span>
-<span class="source-line-no">709</span><span id="line-709">                                    shape.setFillColor(null);</span>
-<span class="source-line-no">710</span><span id="line-710">                                    break;</span>
-<span class="source-line-no">711</span><span id="line-711">                                default:</span>
-<span class="source-line-no">712</span><span id="line-712">                                    shape.set_Fillstyle(tg.get_FillStyle());</span>
-<span class="source-line-no">713</span><span id="line-713">                                    shape.setFillColor(tg.get_FillColor());</span>
-<span class="source-line-no">714</span><span id="line-714">                                    break;</span>
-<span class="source-line-no">715</span><span id="line-715">                            }</span>
-<span class="source-line-no">716</span><span id="line-716">                        }</span>
-<span class="source-line-no">717</span><span id="line-717">                    }</span>
-<span class="source-line-no">718</span><span id="line-718">                    break;</span>
-<span class="source-line-no">719</span><span id="line-719">            }</span>
-<span class="source-line-no">720</span><span id="line-720"></span>
-<span class="source-line-no">721</span><span id="line-721">        } catch (Exception exc) {</span>
-<span class="source-line-no">722</span><span id="line-722">               ErrorLogger.LogException(_className ,"ResolveModifierShape",</span>
-<span class="source-line-no">723</span><span id="line-723">                    new RendererException("Failed inside ResolveModifierShape", exc));</span>
-<span class="source-line-no">724</span><span id="line-724">        }</span>
-<span class="source-line-no">725</span><span id="line-725">    }</span>
-<span class="source-line-no">726</span><span id="line-726">    public static Color GetOpaqueColor(Color color)</span>
-<span class="source-line-no">727</span><span id="line-727">    {</span>
-<span class="source-line-no">728</span><span id="line-728">        int r=color.getRed();</span>
-<span class="source-line-no">729</span><span id="line-729">        int g=color.getGreen();</span>
-<span class="source-line-no">730</span><span id="line-730">        int b=color.getBlue();</span>
-<span class="source-line-no">731</span><span id="line-731">        return new Color(r,g,b);</span>
-<span class="source-line-no">732</span><span id="line-732">    }</span>
-<span class="source-line-no">733</span><span id="line-733">    /**</span>
-<span class="source-line-no">734</span><span id="line-734">     * These lines allow fill</span>
-<span class="source-line-no">735</span><span id="line-735">     * @param linetype</span>
-<span class="source-line-no">736</span><span id="line-736">     * @return</span>
-<span class="source-line-no">737</span><span id="line-737">     */</span>
-<span class="source-line-no">738</span><span id="line-738">    public static boolean LinesWithFill(int linetype)</span>
-<span class="source-line-no">739</span><span id="line-739">    {</span>
-<span class="source-line-no">740</span><span id="line-740">        boolean result=false;</span>
-<span class="source-line-no">741</span><span id="line-741">        try</span>
-<span class="source-line-no">742</span><span id="line-742">        {</span>
-<span class="source-line-no">743</span><span id="line-743">            switch(linetype)</span>
-<span class="source-line-no">744</span><span id="line-744">            {</span>
-<span class="source-line-no">745</span><span id="line-745">                case TacticalLines.PAA_RECTANGULAR:</span>
-<span class="source-line-no">746</span><span id="line-746">                case TacticalLines.RECTANGULAR_TARGET:</span>
-<span class="source-line-no">747</span><span id="line-747">                case TacticalLines.CFL:</span>
+<span class="source-line-no">218</span><span id="line-218">            case TacticalLines.EASY:</span>
+<span class="source-line-no">219</span><span id="line-219">            case TacticalLines.BYDIF:</span>
+<span class="source-line-no">220</span><span id="line-220">            case TacticalLines.BYIMP:</span>
+<span class="source-line-no">221</span><span id="line-221">            case TacticalLines.FORDSITE:</span>
+<span class="source-line-no">222</span><span id="line-222">            case TacticalLines.FORDIF:</span>
+<span class="source-line-no">223</span><span id="line-223">            //METOCs</span>
+<span class="source-line-no">224</span><span id="line-224">            case TacticalLines.IFR:</span>
+<span class="source-line-no">225</span><span id="line-225">            case TacticalLines.MVFR:</span>
+<span class="source-line-no">226</span><span id="line-226">            case TacticalLines.TURBULENCE:</span>
+<span class="source-line-no">227</span><span id="line-227">            case TacticalLines.ICING:</span>
+<span class="source-line-no">228</span><span id="line-228">            case TacticalLines.NON_CONVECTIVE:</span>
+<span class="source-line-no">229</span><span id="line-229">            case TacticalLines.CONVECTIVE:</span>
+<span class="source-line-no">230</span><span id="line-230">            case TacticalLines.FROZEN:</span>
+<span class="source-line-no">231</span><span id="line-231">            case TacticalLines.THUNDERSTORMS:</span>
+<span class="source-line-no">232</span><span id="line-232">            case TacticalLines.FOG:</span>
+<span class="source-line-no">233</span><span id="line-233">            case TacticalLines.SAND:</span>
+<span class="source-line-no">234</span><span id="line-234">            case TacticalLines.FREEFORM:</span>
+<span class="source-line-no">235</span><span id="line-235">            case TacticalLines.DEPTH_AREA:</span>
+<span class="source-line-no">236</span><span id="line-236">            case TacticalLines.ISLAND:</span>
+<span class="source-line-no">237</span><span id="line-237">            case TacticalLines.BEACH:</span>
+<span class="source-line-no">238</span><span id="line-238">            case TacticalLines.WATER:</span>
+<span class="source-line-no">239</span><span id="line-239">            case TacticalLines.FISH_TRAPS:</span>
+<span class="source-line-no">240</span><span id="line-240">            case TacticalLines.SWEPT_AREA:</span>
+<span class="source-line-no">241</span><span id="line-241">            case TacticalLines.OIL_RIG_FIELD:</span>
+<span class="source-line-no">242</span><span id="line-242">            case TacticalLines.FOUL_GROUND:</span>
+<span class="source-line-no">243</span><span id="line-243">            case TacticalLines.KELP:</span>
+<span class="source-line-no">244</span><span id="line-244">            case TacticalLines.BEACH_SLOPE_MODERATE:</span>
+<span class="source-line-no">245</span><span id="line-245">            case TacticalLines.BEACH_SLOPE_STEEP:</span>
+<span class="source-line-no">246</span><span id="line-246">            case TacticalLines.ANCHORAGE_AREA:</span>
+<span class="source-line-no">247</span><span id="line-247">            case TacticalLines.TRAINING_AREA:</span>
+<span class="source-line-no">248</span><span id="line-248">            case TacticalLines.FORESHORE_AREA:</span>
+<span class="source-line-no">249</span><span id="line-249">            case TacticalLines.DRYDOCK:</span>
+<span class="source-line-no">250</span><span id="line-250">            case TacticalLines.LOADING_FACILITY_AREA:</span>
+<span class="source-line-no">251</span><span id="line-251">            case TacticalLines.PERCHES:</span>
+<span class="source-line-no">252</span><span id="line-252">            case TacticalLines.UNDERWATER_HAZARD:</span>
+<span class="source-line-no">253</span><span id="line-253">            case TacticalLines.DISCOLORED_WATER:</span>
+<span class="source-line-no">254</span><span id="line-254">            case TacticalLines.BEACH_SLOPE_FLAT:</span>
+<span class="source-line-no">255</span><span id="line-255">            case TacticalLines.BEACH_SLOPE_GENTLE:</span>
+<span class="source-line-no">256</span><span id="line-256">            case TacticalLines.MARITIME_AREA:</span>
+<span class="source-line-no">257</span><span id="line-257">            case TacticalLines.OPERATOR_DEFINED:</span>
+<span class="source-line-no">258</span><span id="line-258">            case TacticalLines.SUBMERGED_CRIB:</span>
+<span class="source-line-no">259</span><span id="line-259">            case TacticalLines.VDR_LEVEL_12:</span>
+<span class="source-line-no">260</span><span id="line-260">            case TacticalLines.VDR_LEVEL_23:</span>
+<span class="source-line-no">261</span><span id="line-261">            case TacticalLines.VDR_LEVEL_34:</span>
+<span class="source-line-no">262</span><span id="line-262">            case TacticalLines.VDR_LEVEL_45:</span>
+<span class="source-line-no">263</span><span id="line-263">            case TacticalLines.VDR_LEVEL_56:</span>
+<span class="source-line-no">264</span><span id="line-264">            case TacticalLines.VDR_LEVEL_67:</span>
+<span class="source-line-no">265</span><span id="line-265">            case TacticalLines.VDR_LEVEL_78:</span>
+<span class="source-line-no">266</span><span id="line-266">            case TacticalLines.VDR_LEVEL_89:</span>
+<span class="source-line-no">267</span><span id="line-267">            case TacticalLines.VDR_LEVEL_910:</span>
+<span class="source-line-no">268</span><span id="line-268">            case TacticalLines.SOLID_ROCK:</span>
+<span class="source-line-no">269</span><span id="line-269">            case TacticalLines.CLAY:</span>
+<span class="source-line-no">270</span><span id="line-270">            case TacticalLines.VERY_COARSE_SAND:</span>
+<span class="source-line-no">271</span><span id="line-271">            case TacticalLines.COARSE_SAND:</span>
+<span class="source-line-no">272</span><span id="line-272">            case TacticalLines.MEDIUM_SAND:</span>
+<span class="source-line-no">273</span><span id="line-273">            case TacticalLines.FINE_SAND:</span>
+<span class="source-line-no">274</span><span id="line-274">            case TacticalLines.VERY_FINE_SAND:</span>
+<span class="source-line-no">275</span><span id="line-275">            case TacticalLines.VERY_FINE_SILT:</span>
+<span class="source-line-no">276</span><span id="line-276">            case TacticalLines.FINE_SILT:</span>
+<span class="source-line-no">277</span><span id="line-277">            case TacticalLines.MEDIUM_SILT:</span>
+<span class="source-line-no">278</span><span id="line-278">            case TacticalLines.COARSE_SILT:</span>
+<span class="source-line-no">279</span><span id="line-279">            case TacticalLines.BOULDERS:</span>
+<span class="source-line-no">280</span><span id="line-280">            case TacticalLines.OYSTER_SHELLS:</span>
+<span class="source-line-no">281</span><span id="line-281">            case TacticalLines.PEBBLES:</span>
+<span class="source-line-no">282</span><span id="line-282">            case TacticalLines.SAND_AND_SHELLS:</span>
+<span class="source-line-no">283</span><span id="line-283">            case TacticalLines.BOTTOM_SEDIMENTS_LAND:</span>
+<span class="source-line-no">284</span><span id="line-284">            case TacticalLines.BOTTOM_SEDIMENTS_NO_DATA:</span>
+<span class="source-line-no">285</span><span id="line-285">            case TacticalLines.BOTTOM_ROUGHNESS_SMOOTH:</span>
+<span class="source-line-no">286</span><span id="line-286">            case TacticalLines.BOTTOM_ROUGHNESS_MODERATE:</span>
+<span class="source-line-no">287</span><span id="line-287">            case TacticalLines.BOTTOM_ROUGHNESS_ROUGH:</span>
+<span class="source-line-no">288</span><span id="line-288">            case TacticalLines.CLUTTER_LOW:</span>
+<span class="source-line-no">289</span><span id="line-289">            case TacticalLines.CLUTTER_MEDIUM:</span>
+<span class="source-line-no">290</span><span id="line-290">            case TacticalLines.CLUTTER_HIGH:</span>
+<span class="source-line-no">291</span><span id="line-291">            case TacticalLines.IMPACT_BURIAL_0:</span>
+<span class="source-line-no">292</span><span id="line-292">            case TacticalLines.IMPACT_BURIAL_10:</span>
+<span class="source-line-no">293</span><span id="line-293">            case TacticalLines.IMPACT_BURIAL_20:</span>
+<span class="source-line-no">294</span><span id="line-294">            case TacticalLines.IMPACT_BURIAL_75:</span>
+<span class="source-line-no">295</span><span id="line-295">            case TacticalLines.IMPACT_BURIAL_100:</span>
+<span class="source-line-no">296</span><span id="line-296">            case TacticalLines.BOTTOM_CATEGORY_A:</span>
+<span class="source-line-no">297</span><span id="line-297">            case TacticalLines.BOTTOM_CATEGORY_B:</span>
+<span class="source-line-no">298</span><span id="line-298">            case TacticalLines.BOTTOM_CATEGORY_C:</span>
+<span class="source-line-no">299</span><span id="line-299">            case TacticalLines.BOTTOM_TYPE_A1:</span>
+<span class="source-line-no">300</span><span id="line-300">            case TacticalLines.BOTTOM_TYPE_A2:</span>
+<span class="source-line-no">301</span><span id="line-301">            case TacticalLines.BOTTOM_TYPE_A3:</span>
+<span class="source-line-no">302</span><span id="line-302">            case TacticalLines.BOTTOM_TYPE_B1:</span>
+<span class="source-line-no">303</span><span id="line-303">            case TacticalLines.BOTTOM_TYPE_B2:</span>
+<span class="source-line-no">304</span><span id="line-304">            case TacticalLines.BOTTOM_TYPE_B3:</span>
+<span class="source-line-no">305</span><span id="line-305">            case TacticalLines.BOTTOM_TYPE_C1:</span>
+<span class="source-line-no">306</span><span id="line-306">            case TacticalLines.BOTTOM_TYPE_C2:</span>
+<span class="source-line-no">307</span><span id="line-307">            case TacticalLines.BOTTOM_TYPE_C3:</span>
+<span class="source-line-no">308</span><span id="line-308">                result = 3;</span>
+<span class="source-line-no">309</span><span id="line-309">                break;</span>
+<span class="source-line-no">310</span><span id="line-310">            case TacticalLines.MRR:</span>
+<span class="source-line-no">311</span><span id="line-311">            case TacticalLines.SL:</span>
+<span class="source-line-no">312</span><span id="line-312">            case TacticalLines.TC:</span>
+<span class="source-line-no">313</span><span id="line-313">            case TacticalLines.SC:</span>
+<span class="source-line-no">314</span><span id="line-314">            case TacticalLines.LLTR:</span>
+<span class="source-line-no">315</span><span id="line-315">            case TacticalLines.DIRATKAIR:</span>
+<span class="source-line-no">316</span><span id="line-316">            case TacticalLines.ABATIS:</span>
+<span class="source-line-no">317</span><span id="line-317">            case TacticalLines.CLUSTER:</span>
+<span class="source-line-no">318</span><span id="line-318">            case TacticalLines.MNFLDFIX:</span>
+<span class="source-line-no">319</span><span id="line-319">            case TacticalLines.FERRY:</span>
+<span class="source-line-no">320</span><span id="line-320">            case TacticalLines.MFLANE:</span>
+<span class="source-line-no">321</span><span id="line-321">            case TacticalLines.RAFT:</span>
+<span class="source-line-no">322</span><span id="line-322">            case TacticalLines.FOXHOLE:</span>
+<span class="source-line-no">323</span><span id="line-323">            case TacticalLines.LINTGT:</span>
+<span class="source-line-no">324</span><span id="line-324">            case TacticalLines.LINTGTS:</span>
+<span class="source-line-no">325</span><span id="line-325">            case TacticalLines.FPF:</span>
+<span class="source-line-no">326</span><span id="line-326">            case TacticalLines.CONVOY:</span>
+<span class="source-line-no">327</span><span id="line-327">            case TacticalLines.HCONVOY:</span>
+<span class="source-line-no">328</span><span id="line-328">                result = 2;</span>
+<span class="source-line-no">329</span><span id="line-329">                break;</span>
+<span class="source-line-no">330</span><span id="line-330">            default:</span>
+<span class="source-line-no">331</span><span id="line-331">                result = 2;</span>
+<span class="source-line-no">332</span><span id="line-332">                break;</span>
+<span class="source-line-no">333</span><span id="line-333">        }</span>
+<span class="source-line-no">334</span><span id="line-334">        if (isClosedPolygon(lineType)) {</span>
+<span class="source-line-no">335</span><span id="line-335">            result = 3;</span>
+<span class="source-line-no">336</span><span id="line-336">        }</span>
+<span class="source-line-no">337</span><span id="line-337">        //add code for change 1 areas</span>
+<span class="source-line-no">338</span><span id="line-338">        return result;</span>
+<span class="source-line-no">339</span><span id="line-339">    }</span>
+<span class="source-line-no">340</span><span id="line-340">    /**</span>
+<span class="source-line-no">341</span><span id="line-341">     * @param linetype line type</span>
+<span class="source-line-no">342</span><span id="line-342">     * @return true if the line is a closed area</span>
+<span class="source-line-no">343</span><span id="line-343">     */</span>
+<span class="source-line-no">344</span><span id="line-344">    public static boolean isClosedPolygon(int linetype) {</span>
+<span class="source-line-no">345</span><span id="line-345">        boolean result = false;</span>
+<span class="source-line-no">346</span><span id="line-346">        switch (linetype) {</span>
+<span class="source-line-no">347</span><span id="line-347">            case TacticalLines.AT:</span>
+<span class="source-line-no">348</span><span id="line-348">            case TacticalLines.DEPICT:</span>
+<span class="source-line-no">349</span><span id="line-349">            case TacticalLines.DZ:</span>
+<span class="source-line-no">350</span><span id="line-350">            case TacticalLines.MINED:</span>
+<span class="source-line-no">351</span><span id="line-351">            case TacticalLines.FENCED:</span>
+<span class="source-line-no">352</span><span id="line-352">            case TacticalLines.UXO:</span>
+<span class="source-line-no">353</span><span id="line-353">            case TacticalLines.ROZ:</span>
+<span class="source-line-no">354</span><span id="line-354">            case TacticalLines.AARROZ:</span>
+<span class="source-line-no">355</span><span id="line-355">            case TacticalLines.UAROZ:</span>
+<span class="source-line-no">356</span><span id="line-356">            case TacticalLines.WEZ:</span>
+<span class="source-line-no">357</span><span id="line-357">            case TacticalLines.FEZ:</span>
+<span class="source-line-no">358</span><span id="line-358">            case TacticalLines.JEZ:</span>
+<span class="source-line-no">359</span><span id="line-359">            case TacticalLines.FAADZ:</span>
+<span class="source-line-no">360</span><span id="line-360">            case TacticalLines.HIDACZ:</span>
+<span class="source-line-no">361</span><span id="line-361">            case TacticalLines.MEZ:</span>
+<span class="source-line-no">362</span><span id="line-362">            case TacticalLines.LOMEZ:</span>
+<span class="source-line-no">363</span><span id="line-363">            case TacticalLines.HIMEZ:</span>
+<span class="source-line-no">364</span><span id="line-364">            case TacticalLines.WFZ:</span>
+<span class="source-line-no">365</span><span id="line-365">            case TacticalLines.PNO:</span>
+<span class="source-line-no">366</span><span id="line-366">            case TacticalLines.BATTLE:</span>
+<span class="source-line-no">367</span><span id="line-367">            case TacticalLines.EA:</span>
+<span class="source-line-no">368</span><span id="line-368">            case TacticalLines.EZ:</span>
+<span class="source-line-no">369</span><span id="line-369">            case TacticalLines.LZ:</span>
+<span class="source-line-no">370</span><span id="line-370">            case TacticalLines.PZ:</span>
+<span class="source-line-no">371</span><span id="line-371">            case TacticalLines.GENERAL:</span>
+<span class="source-line-no">372</span><span id="line-372">            case TacticalLines.JTAA:</span>
+<span class="source-line-no">373</span><span id="line-373">            case TacticalLines.SAA:</span>
+<span class="source-line-no">374</span><span id="line-374">            case TacticalLines.SGAA:</span>
+<span class="source-line-no">375</span><span id="line-375">            case TacticalLines.ASSAULT:</span>
+<span class="source-line-no">376</span><span id="line-376">            case TacticalLines.ATKPOS:</span>
+<span class="source-line-no">377</span><span id="line-377">            case TacticalLines.OBJ:</span>
+<span class="source-line-no">378</span><span id="line-378">            case TacticalLines.AO:</span>
+<span class="source-line-no">379</span><span id="line-379">            case TacticalLines.AIRHEAD:</span>
+<span class="source-line-no">380</span><span id="line-380">            case TacticalLines.NAI:</span>
+<span class="source-line-no">381</span><span id="line-381">            case TacticalLines.TAI:</span>
+<span class="source-line-no">382</span><span id="line-382">            case TacticalLines.BASE_CAMP_REVD:</span>
+<span class="source-line-no">383</span><span id="line-383">            case TacticalLines.BASE_CAMP:</span>
+<span class="source-line-no">384</span><span id="line-384">            case TacticalLines.GUERILLA_BASE_REVD:</span>
+<span class="source-line-no">385</span><span id="line-385">            case TacticalLines.GUERILLA_BASE:</span>
+<span class="source-line-no">386</span><span id="line-386">            case TacticalLines.GENERIC_AREA:</span>
+<span class="source-line-no">387</span><span id="line-387">            case TacticalLines.OBSFAREA:</span>
+<span class="source-line-no">388</span><span id="line-388">            case TacticalLines.OBSAREA:</span>
+<span class="source-line-no">389</span><span id="line-389">            case TacticalLines.ZONE:</span>
+<span class="source-line-no">390</span><span id="line-390">            case TacticalLines.STRONG:</span>
+<span class="source-line-no">391</span><span id="line-391">            case TacticalLines.DRCL:</span>
+<span class="source-line-no">392</span><span id="line-392">            case TacticalLines.FSA:</span>
+<span class="source-line-no">393</span><span id="line-393">            case TacticalLines.ACA:</span>
+<span class="source-line-no">394</span><span id="line-394">            case TacticalLines.ASSY:</span>
+<span class="source-line-no">395</span><span id="line-395">            case TacticalLines.BSA:</span>
+<span class="source-line-no">396</span><span id="line-396">            case TacticalLines.NFA:</span>
+<span class="source-line-no">397</span><span id="line-397">            case TacticalLines.RFA:</span>
+<span class="source-line-no">398</span><span id="line-398">            case TacticalLines.FARP:</span>
+<span class="source-line-no">399</span><span id="line-399">            case TacticalLines.AIRFIELD:</span>
+<span class="source-line-no">400</span><span id="line-400">            case TacticalLines.LAA:</span>
+<span class="source-line-no">401</span><span id="line-401">            case TacticalLines.BOMB:</span>
+<span class="source-line-no">402</span><span id="line-402">            case TacticalLines.FFA:</span>
+<span class="source-line-no">403</span><span id="line-403">            case TacticalLines.SMOKE:</span>
+<span class="source-line-no">404</span><span id="line-404">            case TacticalLines.PAA:</span>
+<span class="source-line-no">405</span><span id="line-405">            case TacticalLines.ENCIRCLE:</span>
+<span class="source-line-no">406</span><span id="line-406">            case TacticalLines.DHA_REVD:</span>
+<span class="source-line-no">407</span><span id="line-407">            case TacticalLines.DHA:</span>
+<span class="source-line-no">408</span><span id="line-408">            case TacticalLines.EPW:</span>
+<span class="source-line-no">409</span><span id="line-409">            case TacticalLines.RHA:</span>
+<span class="source-line-no">410</span><span id="line-410">            case TacticalLines.DSA:</span>
+<span class="source-line-no">411</span><span id="line-411">            case TacticalLines.CSA:</span>
+<span class="source-line-no">412</span><span id="line-412">            case TacticalLines.RSA:</span>
+<span class="source-line-no">413</span><span id="line-413">            case TacticalLines.FORT_REVD:</span>
+<span class="source-line-no">414</span><span id="line-414">            case TacticalLines.FORT:</span>
+<span class="source-line-no">415</span><span id="line-415">            case TacticalLines.PEN:</span>
+<span class="source-line-no">416</span><span id="line-416">            case TacticalLines.BIO:</span>
+<span class="source-line-no">417</span><span id="line-417">            case TacticalLines.NUC:</span>
+<span class="source-line-no">418</span><span id="line-418">            case TacticalLines.RAD:</span>
+<span class="source-line-no">419</span><span id="line-419">            case TacticalLines.CHEM:</span>
+<span class="source-line-no">420</span><span id="line-420">            case TacticalLines.SERIES:</span>
+<span class="source-line-no">421</span><span id="line-421">            case TacticalLines.ATI:</span>
+<span class="source-line-no">422</span><span id="line-422">            case TacticalLines.TBA:</span>
+<span class="source-line-no">423</span><span id="line-423">            case TacticalLines.TVAR:</span>
+<span class="source-line-no">424</span><span id="line-424">            case TacticalLines.CFFZ:</span>
+<span class="source-line-no">425</span><span id="line-425">            case TacticalLines.CENSOR:</span>
+<span class="source-line-no">426</span><span id="line-426">            case TacticalLines.SENSOR:</span>
+<span class="source-line-no">427</span><span id="line-427">            case TacticalLines.ZOR:</span>
+<span class="source-line-no">428</span><span id="line-428">            case TacticalLines.DA:</span>
+<span class="source-line-no">429</span><span id="line-429">            case TacticalLines.CFZ:</span>
+<span class="source-line-no">430</span><span id="line-430">            case TacticalLines.KILLBOXBLUE:</span>
+<span class="source-line-no">431</span><span id="line-431">            case TacticalLines.KILLBOXPURPLE:</span>
+<span class="source-line-no">432</span><span id="line-432">            //METOCs</span>
+<span class="source-line-no">433</span><span id="line-433">            case TacticalLines.IFR:</span>
+<span class="source-line-no">434</span><span id="line-434">            case TacticalLines.MVFR:</span>
+<span class="source-line-no">435</span><span id="line-435">            case TacticalLines.TURBULENCE:</span>
+<span class="source-line-no">436</span><span id="line-436">            case TacticalLines.ICING:</span>
+<span class="source-line-no">437</span><span id="line-437">            case TacticalLines.NON_CONVECTIVE:</span>
+<span class="source-line-no">438</span><span id="line-438">            case TacticalLines.CONVECTIVE:</span>
+<span class="source-line-no">439</span><span id="line-439">            case TacticalLines.FROZEN:</span>
+<span class="source-line-no">440</span><span id="line-440">            case TacticalLines.THUNDERSTORMS:</span>
+<span class="source-line-no">441</span><span id="line-441">            case TacticalLines.FOG:</span>
+<span class="source-line-no">442</span><span id="line-442">            case TacticalLines.SAND:</span>
+<span class="source-line-no">443</span><span id="line-443">            case TacticalLines.FREEFORM:</span>
+<span class="source-line-no">444</span><span id="line-444">            case TacticalLines.DEPTH_AREA:</span>
+<span class="source-line-no">445</span><span id="line-445">            case TacticalLines.ISLAND:</span>
+<span class="source-line-no">446</span><span id="line-446">            case TacticalLines.BEACH:</span>
+<span class="source-line-no">447</span><span id="line-447">            case TacticalLines.WATER:</span>
+<span class="source-line-no">448</span><span id="line-448">            case TacticalLines.FISH_TRAPS:</span>
+<span class="source-line-no">449</span><span id="line-449">            case TacticalLines.SWEPT_AREA:</span>
+<span class="source-line-no">450</span><span id="line-450">            case TacticalLines.OIL_RIG_FIELD:</span>
+<span class="source-line-no">451</span><span id="line-451">            case TacticalLines.FOUL_GROUND:</span>
+<span class="source-line-no">452</span><span id="line-452">            case TacticalLines.KELP:</span>
+<span class="source-line-no">453</span><span id="line-453">            case TacticalLines.BEACH_SLOPE_MODERATE:</span>
+<span class="source-line-no">454</span><span id="line-454">            case TacticalLines.BEACH_SLOPE_STEEP:</span>
+<span class="source-line-no">455</span><span id="line-455">            case TacticalLines.ANCHORAGE_AREA:</span>
+<span class="source-line-no">456</span><span id="line-456">            case TacticalLines.TRAINING_AREA:</span>
+<span class="source-line-no">457</span><span id="line-457">            case TacticalLines.FORESHORE_AREA:</span>
+<span class="source-line-no">458</span><span id="line-458">            case TacticalLines.DRYDOCK:</span>
+<span class="source-line-no">459</span><span id="line-459">            case TacticalLines.LOADING_FACILITY_AREA:</span>
+<span class="source-line-no">460</span><span id="line-460">            case TacticalLines.PERCHES:</span>
+<span class="source-line-no">461</span><span id="line-461">            case TacticalLines.UNDERWATER_HAZARD:</span>
+<span class="source-line-no">462</span><span id="line-462">            case TacticalLines.DISCOLORED_WATER:</span>
+<span class="source-line-no">463</span><span id="line-463">            case TacticalLines.BEACH_SLOPE_FLAT:</span>
+<span class="source-line-no">464</span><span id="line-464">            case TacticalLines.BEACH_SLOPE_GENTLE:</span>
+<span class="source-line-no">465</span><span id="line-465">            case TacticalLines.MARITIME_AREA:</span>
+<span class="source-line-no">466</span><span id="line-466">            case TacticalLines.OPERATOR_DEFINED:</span>
+<span class="source-line-no">467</span><span id="line-467">            case TacticalLines.SUBMERGED_CRIB:</span>
+<span class="source-line-no">468</span><span id="line-468">            case TacticalLines.VDR_LEVEL_12:</span>
+<span class="source-line-no">469</span><span id="line-469">            case TacticalLines.VDR_LEVEL_23:</span>
+<span class="source-line-no">470</span><span id="line-470">            case TacticalLines.VDR_LEVEL_34:</span>
+<span class="source-line-no">471</span><span id="line-471">            case TacticalLines.VDR_LEVEL_45:</span>
+<span class="source-line-no">472</span><span id="line-472">            case TacticalLines.VDR_LEVEL_56:</span>
+<span class="source-line-no">473</span><span id="line-473">            case TacticalLines.VDR_LEVEL_67:</span>
+<span class="source-line-no">474</span><span id="line-474">            case TacticalLines.VDR_LEVEL_78:</span>
+<span class="source-line-no">475</span><span id="line-475">            case TacticalLines.VDR_LEVEL_89:</span>
+<span class="source-line-no">476</span><span id="line-476">            case TacticalLines.VDR_LEVEL_910:</span>
+<span class="source-line-no">477</span><span id="line-477">            case TacticalLines.SOLID_ROCK:</span>
+<span class="source-line-no">478</span><span id="line-478">            case TacticalLines.CLAY:</span>
+<span class="source-line-no">479</span><span id="line-479">            case TacticalLines.VERY_COARSE_SAND:</span>
+<span class="source-line-no">480</span><span id="line-480">            case TacticalLines.COARSE_SAND:</span>
+<span class="source-line-no">481</span><span id="line-481">            case TacticalLines.MEDIUM_SAND:</span>
+<span class="source-line-no">482</span><span id="line-482">            case TacticalLines.FINE_SAND:</span>
+<span class="source-line-no">483</span><span id="line-483">            case TacticalLines.VERY_FINE_SAND:</span>
+<span class="source-line-no">484</span><span id="line-484">            case TacticalLines.VERY_FINE_SILT:</span>
+<span class="source-line-no">485</span><span id="line-485">            case TacticalLines.FINE_SILT:</span>
+<span class="source-line-no">486</span><span id="line-486">            case TacticalLines.MEDIUM_SILT:</span>
+<span class="source-line-no">487</span><span id="line-487">            case TacticalLines.COARSE_SILT:</span>
+<span class="source-line-no">488</span><span id="line-488">            case TacticalLines.BOULDERS:</span>
+<span class="source-line-no">489</span><span id="line-489">            case TacticalLines.OYSTER_SHELLS:</span>
+<span class="source-line-no">490</span><span id="line-490">            case TacticalLines.PEBBLES:</span>
+<span class="source-line-no">491</span><span id="line-491">            case TacticalLines.SAND_AND_SHELLS:</span>
+<span class="source-line-no">492</span><span id="line-492">            case TacticalLines.BOTTOM_SEDIMENTS_LAND:</span>
+<span class="source-line-no">493</span><span id="line-493">            case TacticalLines.BOTTOM_SEDIMENTS_NO_DATA:</span>
+<span class="source-line-no">494</span><span id="line-494">            case TacticalLines.BOTTOM_ROUGHNESS_SMOOTH:</span>
+<span class="source-line-no">495</span><span id="line-495">            case TacticalLines.BOTTOM_ROUGHNESS_MODERATE:</span>
+<span class="source-line-no">496</span><span id="line-496">            case TacticalLines.BOTTOM_ROUGHNESS_ROUGH:</span>
+<span class="source-line-no">497</span><span id="line-497">            case TacticalLines.CLUTTER_LOW:</span>
+<span class="source-line-no">498</span><span id="line-498">            case TacticalLines.CLUTTER_MEDIUM:</span>
+<span class="source-line-no">499</span><span id="line-499">            case TacticalLines.CLUTTER_HIGH:</span>
+<span class="source-line-no">500</span><span id="line-500">            case TacticalLines.IMPACT_BURIAL_0:</span>
+<span class="source-line-no">501</span><span id="line-501">            case TacticalLines.IMPACT_BURIAL_10:</span>
+<span class="source-line-no">502</span><span id="line-502">            case TacticalLines.IMPACT_BURIAL_20:</span>
+<span class="source-line-no">503</span><span id="line-503">            case TacticalLines.IMPACT_BURIAL_75:</span>
+<span class="source-line-no">504</span><span id="line-504">            case TacticalLines.IMPACT_BURIAL_100:</span>
+<span class="source-line-no">505</span><span id="line-505">            case TacticalLines.BOTTOM_CATEGORY_A:</span>
+<span class="source-line-no">506</span><span id="line-506">            case TacticalLines.BOTTOM_CATEGORY_B:</span>
+<span class="source-line-no">507</span><span id="line-507">            case TacticalLines.BOTTOM_CATEGORY_C:</span>
+<span class="source-line-no">508</span><span id="line-508">            case TacticalLines.BOTTOM_TYPE_A1:</span>
+<span class="source-line-no">509</span><span id="line-509">            case TacticalLines.BOTTOM_TYPE_A2:</span>
+<span class="source-line-no">510</span><span id="line-510">            case TacticalLines.BOTTOM_TYPE_A3:</span>
+<span class="source-line-no">511</span><span id="line-511">            case TacticalLines.BOTTOM_TYPE_B1:</span>
+<span class="source-line-no">512</span><span id="line-512">            case TacticalLines.BOTTOM_TYPE_B2:</span>
+<span class="source-line-no">513</span><span id="line-513">            case TacticalLines.BOTTOM_TYPE_B3:</span>
+<span class="source-line-no">514</span><span id="line-514">            case TacticalLines.BOTTOM_TYPE_C1:</span>
+<span class="source-line-no">515</span><span id="line-515">            case TacticalLines.BOTTOM_TYPE_C2:</span>
+<span class="source-line-no">516</span><span id="line-516">            case TacticalLines.BOTTOM_TYPE_C3:</span>
+<span class="source-line-no">517</span><span id="line-517">            case TacticalLines.TGMF:</span>
+<span class="source-line-no">518</span><span id="line-518">                result = true;</span>
+<span class="source-line-no">519</span><span id="line-519">                break;</span>
+<span class="source-line-no">520</span><span id="line-520">            default:</span>
+<span class="source-line-no">521</span><span id="line-521">                break;</span>
+<span class="source-line-no">522</span><span id="line-522">        }</span>
+<span class="source-line-no">523</span><span id="line-523">        return result;</span>
+<span class="source-line-no">524</span><span id="line-524">    }</span>
+<span class="source-line-no">525</span><span id="line-525"></span>
+<span class="source-line-no">526</span><span id="line-526">    /**</span>
+<span class="source-line-no">527</span><span id="line-527">     * Closes the polygon for areas</span>
+<span class="source-line-no">528</span><span id="line-528">     * @param Pixels the client points</span>
+<span class="source-line-no">529</span><span id="line-529">     */</span>
+<span class="source-line-no">530</span><span id="line-530">    public static void ClosePolygon(ArrayList&lt;POINT2&gt; Pixels) {</span>
+<span class="source-line-no">531</span><span id="line-531">        try {</span>
+<span class="source-line-no">532</span><span id="line-532">            POINT2 pt0 = Pixels.get(0);</span>
+<span class="source-line-no">533</span><span id="line-533">            POINT2 pt1 = Pixels.get(Pixels.size() - 1);</span>
+<span class="source-line-no">534</span><span id="line-534">            if (pt0.x != pt1.x || pt0.y != pt1.y) {</span>
+<span class="source-line-no">535</span><span id="line-535">                Pixels.add(new POINT2(pt0.x, pt0.y));</span>
+<span class="source-line-no">536</span><span id="line-536">            }</span>
+<span class="source-line-no">537</span><span id="line-537">        } catch (Exception exc) {</span>
+<span class="source-line-no">538</span><span id="line-538">               ErrorLogger.LogException(_className ,"ClosePolygon",</span>
+<span class="source-line-no">539</span><span id="line-539">                    new RendererException("Failed inside ClosePolygon", exc));</span>
+<span class="source-line-no">540</span><span id="line-540">        }</span>
+<span class="source-line-no">541</span><span id="line-541">    }</span>
+<span class="source-line-no">542</span><span id="line-542">    /**</span>
+<span class="source-line-no">543</span><span id="line-543">     * for change 1 symbol the W/w1 modifiers run too close to the symbol outline</span>
+<span class="source-line-no">544</span><span id="line-544">     * so it shifts the line along the line away from the edge</span>
+<span class="source-line-no">545</span><span id="line-545">     * @param p1</span>
+<span class="source-line-no">546</span><span id="line-546">     * @param p2</span>
+<span class="source-line-no">547</span><span id="line-547">     * @param shift</span>
+<span class="source-line-no">548</span><span id="line-548">     */</span>
+<span class="source-line-no">549</span><span id="line-549">    protected static void shiftModifiersLeft(POINT2 p1, POINT2 p2, double shift)</span>
+<span class="source-line-no">550</span><span id="line-550">    {</span>
+<span class="source-line-no">551</span><span id="line-551">        try</span>
+<span class="source-line-no">552</span><span id="line-552">        {</span>
+<span class="source-line-no">553</span><span id="line-553">            POINT2 pt1=new POINT2(p1);</span>
+<span class="source-line-no">554</span><span id="line-554">            POINT2 pt2=new POINT2(p2);</span>
+<span class="source-line-no">555</span><span id="line-555">            double dist=lineutility.CalcDistanceDouble(pt1, pt2);</span>
+<span class="source-line-no">556</span><span id="line-556">            if(pt1.x&lt;pt2.x || (pt1.x==pt2.x &amp;&amp; pt1.y&lt;pt2.y))</span>
+<span class="source-line-no">557</span><span id="line-557">            {</span>
+<span class="source-line-no">558</span><span id="line-558">                pt1=lineutility.ExtendAlongLineDouble(pt2, pt1, dist+shift);</span>
+<span class="source-line-no">559</span><span id="line-559">                pt2=lineutility.ExtendAlongLineDouble(pt1, pt2, dist-shift);</span>
+<span class="source-line-no">560</span><span id="line-560">            }</span>
+<span class="source-line-no">561</span><span id="line-561">            else</span>
+<span class="source-line-no">562</span><span id="line-562">            {</span>
+<span class="source-line-no">563</span><span id="line-563">                pt1=lineutility.ExtendAlongLineDouble(pt2, pt1, dist-shift);</span>
+<span class="source-line-no">564</span><span id="line-564">                pt2=lineutility.ExtendAlongLineDouble(pt1, pt2, dist+shift);</span>
+<span class="source-line-no">565</span><span id="line-565">            }</span>
+<span class="source-line-no">566</span><span id="line-566">            p1.x=pt1.x;</span>
+<span class="source-line-no">567</span><span id="line-567">            p1.y=pt1.y;</span>
+<span class="source-line-no">568</span><span id="line-568">            p2.x=pt2.x;</span>
+<span class="source-line-no">569</span><span id="line-569">            p2.y=pt2.y;</span>
+<span class="source-line-no">570</span><span id="line-570">        }</span>
+<span class="source-line-no">571</span><span id="line-571">        catch (Exception exc) {</span>
+<span class="source-line-no">572</span><span id="line-572">               ErrorLogger.LogException(_className ,"shiftModifiersLeft",</span>
+<span class="source-line-no">573</span><span id="line-573">                    new RendererException("Failed inside shiftModifiersLeft", exc));</span>
+<span class="source-line-no">574</span><span id="line-574">        }</span>
+<span class="source-line-no">575</span><span id="line-575">    }</span>
+<span class="source-line-no">576</span><span id="line-576">    /**</span>
+<span class="source-line-no">577</span><span id="line-577">     * Overrides shape properties for symbols based on Mil-Std-2525</span>
+<span class="source-line-no">578</span><span id="line-578">     * @param tg</span>
+<span class="source-line-no">579</span><span id="line-579">     * @param shape</span>
+<span class="source-line-no">580</span><span id="line-580">     */</span>
+<span class="source-line-no">581</span><span id="line-581">    protected static void ResolveModifierShape(TGLight tg, Shape2 shape) {</span>
+<span class="source-line-no">582</span><span id="line-582">        try {</span>
+<span class="source-line-no">583</span><span id="line-583">            //shape style was set by CELineArray and takes precedence</span>
+<span class="source-line-no">584</span><span id="line-584">            //whenever it is set</span>
+<span class="source-line-no">585</span><span id="line-585">            int shapeStyle = shape.get_Style();</span>
+<span class="source-line-no">586</span><span id="line-586">            int lineStyle = tg.get_LineStyle();</span>
+<span class="source-line-no">587</span><span id="line-587">            int lineType = tg.get_LineType();</span>
+<span class="source-line-no">588</span><span id="line-588">            boolean hasFill=LinesWithFill(lineType);</span>
+<span class="source-line-no">589</span><span id="line-589">            int bolMETOC=clsMETOC.IsWeather(tg.get_SymbolId());</span>
+<span class="source-line-no">590</span><span id="line-590">            if(bolMETOC&gt;0)</span>
+<span class="source-line-no">591</span><span id="line-591">                return;</span>
+<span class="source-line-no">592</span><span id="line-592">            int fillStyle=0;</span>
+<span class="source-line-no">593</span><span id="line-593">            //for some of these the style must be dashed</span>
+<span class="source-line-no">594</span><span id="line-594">            switch (tg.get_LineType()) {</span>
+<span class="source-line-no">595</span><span id="line-595">                case TacticalLines.NFA:</span>
+<span class="source-line-no">596</span><span id="line-596">                case TacticalLines.NFA_CIRCULAR:</span>
+<span class="source-line-no">597</span><span id="line-597">                case TacticalLines.NFA_RECTANGULAR:</span>
+<span class="source-line-no">598</span><span id="line-598">                case TacticalLines.BIO:</span>
+<span class="source-line-no">599</span><span id="line-599">                case TacticalLines.NUC:</span>
+<span class="source-line-no">600</span><span id="line-600">                case TacticalLines.CHEM:</span>
+<span class="source-line-no">601</span><span id="line-601">                case TacticalLines.RAD:</span>
+<span class="source-line-no">602</span><span id="line-602">                case TacticalLines.WFZ:</span>
+<span class="source-line-no">603</span><span id="line-603">                //case TacticalLines.OBSAREA:</span>
+<span class="source-line-no">604</span><span id="line-604">                    fillStyle=3;</span>
+<span class="source-line-no">605</span><span id="line-605">                    if(tg.get_UseHatchFill())</span>
+<span class="source-line-no">606</span><span id="line-606">                        fillStyle=0;</span>
+<span class="source-line-no">607</span><span id="line-607">                    if (shape.getShapeType() == Shape2.SHAPE_TYPE_POLYLINE) {</span>
+<span class="source-line-no">608</span><span id="line-608">                        shape.set_Style(tg.get_LineStyle());</span>
+<span class="source-line-no">609</span><span id="line-609">                        shape.setLineColor(tg.get_LineColor());</span>
+<span class="source-line-no">610</span><span id="line-610">                        shape.set_Fillstyle(fillStyle /*GraphicProperties.FILL_TYPE_RIGHT_SLANTS*/);//was 3</span>
+<span class="source-line-no">611</span><span id="line-611">                        shape.setFillColor(tg.get_FillColor());</span>
+<span class="source-line-no">612</span><span id="line-612">                    }</span>
+<span class="source-line-no">613</span><span id="line-613">                    break;</span>
+<span class="source-line-no">614</span><span id="line-614">                case TacticalLines.OBSAREA:</span>
+<span class="source-line-no">615</span><span id="line-615">                    if (shape.getShapeType() == Shape2.SHAPE_TYPE_POLYLINE) {</span>
+<span class="source-line-no">616</span><span id="line-616">                        shape.set_Style(tg.get_LineStyle());</span>
+<span class="source-line-no">617</span><span id="line-617">                        shape.setLineColor(tg.get_LineColor());</span>
+<span class="source-line-no">618</span><span id="line-618">                        shape.set_Fillstyle(0 /*GraphicProperties.FILL_TYPE_RIGHT_SLANTS*/);</span>
+<span class="source-line-no">619</span><span id="line-619">                        shape.setFillColor(tg.get_FillColor());</span>
+<span class="source-line-no">620</span><span id="line-620">                    }</span>
+<span class="source-line-no">621</span><span id="line-621">                    break;</span>
+<span class="source-line-no">622</span><span id="line-622">                case TacticalLines.LAA:</span>
+<span class="source-line-no">623</span><span id="line-623">                    fillStyle=2;</span>
+<span class="source-line-no">624</span><span id="line-624">                    if(tg.get_UseHatchFill())</span>
+<span class="source-line-no">625</span><span id="line-625">                        fillStyle=0;</span>
+<span class="source-line-no">626</span><span id="line-626">                    if (shape.getShapeType() == Shape2.SHAPE_TYPE_POLYLINE) {</span>
+<span class="source-line-no">627</span><span id="line-627">                        shape.set_Style(tg.get_LineStyle());</span>
+<span class="source-line-no">628</span><span id="line-628">                        shape.setLineColor(tg.get_LineColor());</span>
+<span class="source-line-no">629</span><span id="line-629">                        shape.set_Fillstyle(fillStyle /*GraphicProperties.FILL_TYPE_LEFT_SLANTS*/);//was 2</span>
+<span class="source-line-no">630</span><span id="line-630">                        shape.setFillColor(tg.get_FillColor());</span>
+<span class="source-line-no">631</span><span id="line-631">                    }</span>
+<span class="source-line-no">632</span><span id="line-632">                    break;</span>
+<span class="source-line-no">633</span><span id="line-633">                case TacticalLines.DIRATKAIR:</span>
+<span class="source-line-no">634</span><span id="line-634">                case TacticalLines.ATDITCHC:</span>
+<span class="source-line-no">635</span><span id="line-635">                case TacticalLines.ATDITCHM:</span>
+<span class="source-line-no">636</span><span id="line-636">                case TacticalLines.SARA:</span>
+<span class="source-line-no">637</span><span id="line-637">                case TacticalLines.FOLSP:</span>
+<span class="source-line-no">638</span><span id="line-638">                case TacticalLines.FERRY:</span>
+<span class="source-line-no">639</span><span id="line-639">                case TacticalLines.MNFLDFIX:</span>
+<span class="source-line-no">640</span><span id="line-640">                case TacticalLines.TURN:</span>
+<span class="source-line-no">641</span><span id="line-641">                case TacticalLines.MNFLDDIS:</span>
+<span class="source-line-no">642</span><span id="line-642">                case TacticalLines.EASY:</span>
+<span class="source-line-no">643</span><span id="line-643">                case TacticalLines.BYDIF:</span>
+<span class="source-line-no">644</span><span id="line-644">                case TacticalLines.BYIMP:</span>
+<span class="source-line-no">645</span><span id="line-645">                    tg.set_lineCap(BasicStroke.CAP_BUTT);</span>
+<span class="source-line-no">646</span><span id="line-646">                    if (shape.getShapeType() == Shape2.SHAPE_TYPE_FILL) {</span>
+<span class="source-line-no">647</span><span id="line-647">                        shape.set_Fillstyle(1 /*GraphicProperties.FILL_TYPE_SOLID*/);</span>
+<span class="source-line-no">648</span><span id="line-648">                        shape.setFillColor(tg.get_LineColor());</span>
+<span class="source-line-no">649</span><span id="line-649">                    }</span>
+<span class="source-line-no">650</span><span id="line-650">                    if (shape.getShapeType() == Shape2.SHAPE_TYPE_POLYLINE) {</span>
+<span class="source-line-no">651</span><span id="line-651">                        shape.set_Style(tg.get_LineStyle());</span>
+<span class="source-line-no">652</span><span id="line-652">                        shape.setLineColor(tg.get_LineColor());</span>
+<span class="source-line-no">653</span><span id="line-653">                    }</span>
+<span class="source-line-no">654</span><span id="line-654">                    break;</span>
+<span class="source-line-no">655</span><span id="line-655">                case TacticalLines.CLUSTER:</span>
+<span class="source-line-no">656</span><span id="line-656">                case TacticalLines.CATK:</span>
+<span class="source-line-no">657</span><span id="line-657">                case TacticalLines.CATKBYFIRE:</span>
+<span class="source-line-no">658</span><span id="line-658">                case TacticalLines.PLD:</span>
+<span class="source-line-no">659</span><span id="line-659">                case TacticalLines.PLANNED:</span>
+<span class="source-line-no">660</span><span id="line-660">                case TacticalLines.CFL:</span>
+<span class="source-line-no">661</span><span id="line-661">                case TacticalLines.FORDSITE:</span>
+<span class="source-line-no">662</span><span id="line-662">                case TacticalLines.ACOUSTIC_AMB:</span>
+<span class="source-line-no">663</span><span id="line-663">                    //any shape for these symbols is dashed</span>
+<span class="source-line-no">664</span><span id="line-664">                    if (shape.getShapeType() == Shape2.SHAPE_TYPE_POLYLINE) {</span>
+<span class="source-line-no">665</span><span id="line-665">                        shape.set_Style(1 /*GraphicProperties.LINE_TYPE_DASHED*/);</span>
+<span class="source-line-no">666</span><span id="line-666">                        shape.setLineColor(tg.get_LineColor());</span>
+<span class="source-line-no">667</span><span id="line-667">                    }</span>
+<span class="source-line-no">668</span><span id="line-668">                    break;</span>
+<span class="source-line-no">669</span><span id="line-669">                case TacticalLines.PNO: //always dashed</span>
+<span class="source-line-no">670</span><span id="line-670">                    if (shape.getShapeType() == Shape2.SHAPE_TYPE_POLYLINE) {</span>
+<span class="source-line-no">671</span><span id="line-671">                        shape.set_Style(1 /*GraphicProperties.LINE_TYPE_DASHED*/);</span>
+<span class="source-line-no">672</span><span id="line-672">                        shape.setLineColor(tg.get_LineColor());</span>
+<span class="source-line-no">673</span><span id="line-673">                        shape.setFillColor(tg.get_FillColor());</span>
+<span class="source-line-no">674</span><span id="line-674">                        shape.set_Fillstyle(tg.get_FillStyle());</span>
+<span class="source-line-no">675</span><span id="line-675">                    }</span>
+<span class="source-line-no">676</span><span id="line-676">                    break;</span>
+<span class="source-line-no">677</span><span id="line-677">                case TacticalLines.FOLLA:</span>
+<span class="source-line-no">678</span><span id="line-678">                case TacticalLines.ESR1:</span>
+<span class="source-line-no">679</span><span id="line-679">                case TacticalLines.FORDIF:</span>
+<span class="source-line-no">680</span><span id="line-680">                    if (shape.getShapeType() == Shape2.SHAPE_TYPE_POLYLINE) {</span>
+<span class="source-line-no">681</span><span id="line-681">                        shape.setLineColor(tg.get_LineColor());</span>
+<span class="source-line-no">682</span><span id="line-682">                        if (shapeStyle != lineStyle) {</span>
+<span class="source-line-no">683</span><span id="line-683">                            if (shapeStyle != 1 /*GraphicProperties.LINE_TYPE_DASHED*/) {</span>
+<span class="source-line-no">684</span><span id="line-684">                                shape.set_Style(lineStyle);</span>
+<span class="source-line-no">685</span><span id="line-685">                            }</span>
+<span class="source-line-no">686</span><span id="line-686">                        }</span>
+<span class="source-line-no">687</span><span id="line-687">                    }</span>
+<span class="source-line-no">688</span><span id="line-688">                    break;</span>
+<span class="source-line-no">689</span><span id="line-689">                default:</span>
+<span class="source-line-no">690</span><span id="line-690">                    if (shape.getShapeType() == Shape2.SHAPE_TYPE_FILL) {</span>
+<span class="source-line-no">691</span><span id="line-691">                        shape.set_Fillstyle(tg.get_FillStyle());</span>
+<span class="source-line-no">692</span><span id="line-692">                        shape.setFillColor(tg.get_FillColor());</span>
+<span class="source-line-no">693</span><span id="line-693">                    }</span>
+<span class="source-line-no">694</span><span id="line-694">                    if (shape.getShapeType() == Shape2.SHAPE_TYPE_POLYLINE) {</span>
+<span class="source-line-no">695</span><span id="line-695">                        if (lineType != TacticalLines.LC) {</span>
+<span class="source-line-no">696</span><span id="line-696">                            shape.setLineColor(tg.get_LineColor());</span>
+<span class="source-line-no">697</span><span id="line-697">                        } else {</span>
+<span class="source-line-no">698</span><span id="line-698">                            SetLCColor(tg, shape);</span>
+<span class="source-line-no">699</span><span id="line-699">                        }</span>
+<span class="source-line-no">700</span><span id="line-700">                        shape.set_Style(lineStyle);</span>
+<span class="source-line-no">701</span><span id="line-701">                        if (hasFill || clsUtility.isClosedPolygon(lineType) || clsUtility.IsChange1Area(lineType))</span>
+<span class="source-line-no">702</span><span id="line-702">                        {</span>
+<span class="source-line-no">703</span><span id="line-703">                            switch(lineType)</span>
+<span class="source-line-no">704</span><span id="line-704">                            {</span>
+<span class="source-line-no">705</span><span id="line-705">                                case TacticalLines.RANGE_FAN:</span>
+<span class="source-line-no">706</span><span id="line-706">                                case TacticalLines.RANGE_FAN_SECTOR:</span>
+<span class="source-line-no">707</span><span id="line-707">                                case TacticalLines.RADAR_SEARCH:</span>
+<span class="source-line-no">708</span><span id="line-708">                                    shape.setFillColor(null);</span>
+<span class="source-line-no">709</span><span id="line-709">                                    break;</span>
+<span class="source-line-no">710</span><span id="line-710">                                default:</span>
+<span class="source-line-no">711</span><span id="line-711">                                    shape.set_Fillstyle(tg.get_FillStyle());</span>
+<span class="source-line-no">712</span><span id="line-712">                                    shape.setFillColor(tg.get_FillColor());</span>
+<span class="source-line-no">713</span><span id="line-713">                                    break;</span>
+<span class="source-line-no">714</span><span id="line-714">                            }</span>
+<span class="source-line-no">715</span><span id="line-715">                        }</span>
+<span class="source-line-no">716</span><span id="line-716">                    }</span>
+<span class="source-line-no">717</span><span id="line-717">                    break;</span>
+<span class="source-line-no">718</span><span id="line-718">            }</span>
+<span class="source-line-no">719</span><span id="line-719"></span>
+<span class="source-line-no">720</span><span id="line-720">        } catch (Exception exc) {</span>
+<span class="source-line-no">721</span><span id="line-721">               ErrorLogger.LogException(_className ,"ResolveModifierShape",</span>
+<span class="source-line-no">722</span><span id="line-722">                    new RendererException("Failed inside ResolveModifierShape", exc));</span>
+<span class="source-line-no">723</span><span id="line-723">        }</span>
+<span class="source-line-no">724</span><span id="line-724">    }</span>
+<span class="source-line-no">725</span><span id="line-725">    public static Color GetOpaqueColor(Color color)</span>
+<span class="source-line-no">726</span><span id="line-726">    {</span>
+<span class="source-line-no">727</span><span id="line-727">        int r=color.getRed();</span>
+<span class="source-line-no">728</span><span id="line-728">        int g=color.getGreen();</span>
+<span class="source-line-no">729</span><span id="line-729">        int b=color.getBlue();</span>
+<span class="source-line-no">730</span><span id="line-730">        return new Color(r,g,b);</span>
+<span class="source-line-no">731</span><span id="line-731">    }</span>
+<span class="source-line-no">732</span><span id="line-732">    /**</span>
+<span class="source-line-no">733</span><span id="line-733">     * These lines allow fill</span>
+<span class="source-line-no">734</span><span id="line-734">     * @param linetype</span>
+<span class="source-line-no">735</span><span id="line-735">     * @return</span>
+<span class="source-line-no">736</span><span id="line-736">     */</span>
+<span class="source-line-no">737</span><span id="line-737">    public static boolean LinesWithFill(int linetype)</span>
+<span class="source-line-no">738</span><span id="line-738">    {</span>
+<span class="source-line-no">739</span><span id="line-739">        boolean result=false;</span>
+<span class="source-line-no">740</span><span id="line-740">        try</span>
+<span class="source-line-no">741</span><span id="line-741">        {</span>
+<span class="source-line-no">742</span><span id="line-742">            switch(linetype)</span>
+<span class="source-line-no">743</span><span id="line-743">            {</span>
+<span class="source-line-no">744</span><span id="line-744">                case TacticalLines.PAA_RECTANGULAR:</span>
+<span class="source-line-no">745</span><span id="line-745">                case TacticalLines.RECTANGULAR_TARGET:</span>
+<span class="source-line-no">746</span><span id="line-746">                case TacticalLines.CFL:</span>
+<span class="source-line-no">747</span><span id="line-747">                case TacticalLines.TRIP:</span>
 <span class="source-line-no">748</span><span id="line-748">                case TacticalLines.DIRATKAIR:</span>
 <span class="source-line-no">749</span><span id="line-749">                case TacticalLines.BOUNDARY:</span>
 <span class="source-line-no">750</span><span id="line-750">                case TacticalLines.ISOLATE:</span>
@@ -2065,12 +2065,12 @@
 <span class="source-line-no">2052</span><span id="line-2052">     */</span>
 <span class="source-line-no">2053</span><span id="line-2053">    public static void SegmentLCPoints(TGLight tg, IPointConversion converter) {</span>
 <span class="source-line-no">2054</span><span id="line-2054">        try {</span>
-<span class="source-line-no">2055</span><span id="line-2055">            if (tg.get_LineType() != TacticalLines.LC &amp;&amp; tg.get_LineType() != TacticalLines.LC_HOSTILE)</span>
+<span class="source-line-no">2055</span><span id="line-2055">            if (tg.get_LineType() != TacticalLines.LC)</span>
 <span class="source-line-no">2056</span><span id="line-2056">                return;</span>
 <span class="source-line-no">2057</span><span id="line-2057"></span>
 <span class="source-line-no">2058</span><span id="line-2058">            ArrayList&lt;POINT2&gt; points = tg.get_Pixels();</span>
 <span class="source-line-no">2059</span><span id="line-2059"></span>
-<span class="source-line-no">2060</span><span id="line-2060">            double LCChannelWith = arraysupport.getScaledSize(40, tg.get_LineThickness());</span>
+<span class="source-line-no">2060</span><span id="line-2060">            double LCChannelWith = arraysupport.getScaledSize(40, tg.get_LineThickness(), tg.get_patternScale());</span>
 <span class="source-line-no">2061</span><span id="line-2061"></span>
 <span class="source-line-no">2062</span><span id="line-2062">            for (int i = 0; i &lt; points.size() - 2; i++) {</span>
 <span class="source-line-no">2063</span><span id="line-2063">                POINT2 ptA = new POINT2(points.get(i).x, points.get(i).y);</span>
@@ -2155,16 +2155,16 @@
 <span class="source-line-no">2142</span><span id="line-2142">                case TacticalLines.DOUBLEC:</span>
 <span class="source-line-no">2143</span><span id="line-2143">                case TacticalLines.TRIPLE:</span>
 <span class="source-line-no">2144</span><span id="line-2144">                case TacticalLines.STRONG:</span>
-<span class="source-line-no">2145</span><span id="line-2145">                    glyphSize= arraysupport.getScaledSize(30, tg.get_LineThickness());</span>
+<span class="source-line-no">2145</span><span id="line-2145">                    glyphSize= arraysupport.getScaledSize(30, tg.get_LineThickness(), tg.get_patternScale());</span>
 <span class="source-line-no">2146</span><span id="line-2146">                    break;</span>
 <span class="source-line-no">2147</span><span id="line-2147">                case TacticalLines.UNSP:</span>
 <span class="source-line-no">2148</span><span id="line-2148">                case TacticalLines.LINE:</span>
 <span class="source-line-no">2149</span><span id="line-2149">                case TacticalLines.ATWALL:</span>
 <span class="source-line-no">2150</span><span id="line-2150">                case TacticalLines.SFENCE:</span>
-<span class="source-line-no">2151</span><span id="line-2151">                    glyphSize=arraysupport.getScaledSize(40, tg.get_LineThickness());</span>
+<span class="source-line-no">2151</span><span id="line-2151">                    glyphSize=arraysupport.getScaledSize(40, tg.get_LineThickness(), tg.get_patternScale());</span>
 <span class="source-line-no">2152</span><span id="line-2152">                    break;</span>
 <span class="source-line-no">2153</span><span id="line-2153">                case TacticalLines.DFENCE:</span>
-<span class="source-line-no">2154</span><span id="line-2154">                    glyphSize=arraysupport.getScaledSize(50, tg.get_LineThickness());</span>
+<span class="source-line-no">2154</span><span id="line-2154">                    glyphSize=arraysupport.getScaledSize(50, tg.get_LineThickness(), tg.get_patternScale());</span>
 <span class="source-line-no">2155</span><span id="line-2155">                    break;</span>
 <span class="source-line-no">2156</span><span id="line-2156">                default:</span>
 <span class="source-line-no">2157</span><span id="line-2157">                    return;</span>

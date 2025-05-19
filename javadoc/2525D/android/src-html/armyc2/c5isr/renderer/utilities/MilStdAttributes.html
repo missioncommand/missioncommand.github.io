@@ -157,157 +157,164 @@
 <span class="source-line-no">144</span><span id="line-144">    public static final String EngagementBarColor = "ENGAGEMENTBARCOLOR";</span>
 <span class="source-line-no">145</span><span id="line-145"></span>
 <span class="source-line-no">146</span><span id="line-146">    /**</span>
-<span class="source-line-no">147</span><span id="line-147">     * No Longer relevant</span>
-<span class="source-line-no">148</span><span id="line-148">     * @return {@link ArrayList}</span>
-<span class="source-line-no">149</span><span id="line-149">     * @deprecated see {@link #GetAttributesList(String)}</span>
+<span class="source-line-no">147</span><span id="line-147">     * Multipoint features and patterns scale with line width ({@link MilStdAttributes#LineWidth}).</span>
+<span class="source-line-no">148</span><span id="line-148">     * {@code PatternScale} is the ratio of how much to increase features and patterns by with line width.</span>
+<span class="source-line-no">149</span><span id="line-149">     * default value is {@link RendererSettings#getPatternScale()}</span>
 <span class="source-line-no">150</span><span id="line-150">     */</span>
-<span class="source-line-no">151</span><span id="line-151">    public static ArrayList&lt;String&gt; GetModifierList()</span>
-<span class="source-line-no">152</span><span id="line-152">    {</span>
-<span class="source-line-no">153</span><span id="line-153">        ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();</span>
-<span class="source-line-no">154</span><span id="line-154"></span>
-<span class="source-line-no">155</span><span id="line-155">        list.add(LineColor);</span>
-<span class="source-line-no">156</span><span id="line-156">        list.add(FillColor);</span>
-<span class="source-line-no">157</span><span id="line-157">        //list.add(IconColor);</span>
-<span class="source-line-no">158</span><span id="line-158">        //list.add(FontSize);</span>
-<span class="source-line-no">159</span><span id="line-159">        list.add(PixelSize);</span>
-<span class="source-line-no">160</span><span id="line-160">        list.add(KeepUnitRatio);</span>
-<span class="source-line-no">161</span><span id="line-161">        list.add(Alpha);</span>
-<span class="source-line-no">162</span><span id="line-162">        list.add(OutlineSymbol);</span>
-<span class="source-line-no">163</span><span id="line-163">        list.add(OutlineColor);</span>
-<span class="source-line-no">164</span><span id="line-164">        //list.add(OutlineWidth);</span>
-<span class="source-line-no">165</span><span id="line-165">        list.add(DrawAsIcon);</span>
-<span class="source-line-no">166</span><span id="line-166">        list.add(HideOptionalLabels);</span>
-<span class="source-line-no">167</span><span id="line-167">        list.add(DistanceUnits);</span>
-<span class="source-line-no">168</span><span id="line-168">        list.add(AltitudeUnits);</span>
-<span class="source-line-no">169</span><span id="line-169">        list.add(EngagementBarColor);</span>
-<span class="source-line-no">170</span><span id="line-170"></span>
-<span class="source-line-no">171</span><span id="line-171">        return list;</span>
-<span class="source-line-no">172</span><span id="line-172">    }</span>
-<span class="source-line-no">173</span><span id="line-173"></span>
-<span class="source-line-no">174</span><span id="line-174">    public static ArrayList&lt;String&gt; GetAttributesList(String symbolID)</span>
-<span class="source-line-no">175</span><span id="line-175">    {</span>
-<span class="source-line-no">176</span><span id="line-176">        ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="source-line-no">151</span><span id="line-151">    public static final String PatternScale = "PATTERNSCALE";</span>
+<span class="source-line-no">152</span><span id="line-152"></span>
+<span class="source-line-no">153</span><span id="line-153">    /**</span>
+<span class="source-line-no">154</span><span id="line-154">     * No Longer relevant</span>
+<span class="source-line-no">155</span><span id="line-155">     * @return {@link ArrayList}</span>
+<span class="source-line-no">156</span><span id="line-156">     * @deprecated see {@link #GetAttributesList(String)}</span>
+<span class="source-line-no">157</span><span id="line-157">     */</span>
+<span class="source-line-no">158</span><span id="line-158">    public static ArrayList&lt;String&gt; GetModifierList()</span>
+<span class="source-line-no">159</span><span id="line-159">    {</span>
+<span class="source-line-no">160</span><span id="line-160">        ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="source-line-no">161</span><span id="line-161"></span>
+<span class="source-line-no">162</span><span id="line-162">        list.add(LineColor);</span>
+<span class="source-line-no">163</span><span id="line-163">        list.add(FillColor);</span>
+<span class="source-line-no">164</span><span id="line-164">        //list.add(IconColor);</span>
+<span class="source-line-no">165</span><span id="line-165">        //list.add(FontSize);</span>
+<span class="source-line-no">166</span><span id="line-166">        list.add(PixelSize);</span>
+<span class="source-line-no">167</span><span id="line-167">        list.add(KeepUnitRatio);</span>
+<span class="source-line-no">168</span><span id="line-168">        list.add(Alpha);</span>
+<span class="source-line-no">169</span><span id="line-169">        list.add(OutlineSymbol);</span>
+<span class="source-line-no">170</span><span id="line-170">        list.add(OutlineColor);</span>
+<span class="source-line-no">171</span><span id="line-171">        //list.add(OutlineWidth);</span>
+<span class="source-line-no">172</span><span id="line-172">        list.add(DrawAsIcon);</span>
+<span class="source-line-no">173</span><span id="line-173">        list.add(HideOptionalLabels);</span>
+<span class="source-line-no">174</span><span id="line-174">        list.add(DistanceUnits);</span>
+<span class="source-line-no">175</span><span id="line-175">        list.add(AltitudeUnits);</span>
+<span class="source-line-no">176</span><span id="line-176">        list.add(EngagementBarColor);</span>
 <span class="source-line-no">177</span><span id="line-177"></span>
-<span class="source-line-no">178</span><span id="line-178">        list.add(LineColor);</span>
-<span class="source-line-no">179</span><span id="line-179">        list.add(FillColor);</span>
-<span class="source-line-no">180</span><span id="line-180">        //list.add(IconColor);</span>
-<span class="source-line-no">181</span><span id="line-181">        list.add(PixelSize);</span>
-<span class="source-line-no">182</span><span id="line-182"></span>
-<span class="source-line-no">183</span><span id="line-183">        if(SymbolUtilities.isMultiPoint(symbolID)==false) {</span>
-<span class="source-line-no">184</span><span id="line-184">            list.add(KeepUnitRatio);</span>
-<span class="source-line-no">185</span><span id="line-185">            list.add(OutlineSymbol);</span>
-<span class="source-line-no">186</span><span id="line-186">            list.add(OutlineColor);</span>
-<span class="source-line-no">187</span><span id="line-187">            list.add(DrawAsIcon);</span>
-<span class="source-line-no">188</span><span id="line-188">            if(SymbolUtilities.hasModifier(symbolID,Modifiers.AO_ENGAGEMENT_BAR))</span>
-<span class="source-line-no">189</span><span id="line-189">                list.add(EngagementBarColor);</span>
-<span class="source-line-no">190</span><span id="line-190">        }</span>
-<span class="source-line-no">191</span><span id="line-191">        else</span>
-<span class="source-line-no">192</span><span id="line-192">        {</span>
-<span class="source-line-no">193</span><span id="line-193">            list.add(LineWidth);</span>
-<span class="source-line-no">194</span><span id="line-194">            list.add(HideOptionalLabels);</span>
-<span class="source-line-no">195</span><span id="line-195">            list.add(DistanceUnits);</span>
-<span class="source-line-no">196</span><span id="line-196">            list.add(AltitudeUnits);</span>
+<span class="source-line-no">178</span><span id="line-178">        return list;</span>
+<span class="source-line-no">179</span><span id="line-179">    }</span>
+<span class="source-line-no">180</span><span id="line-180"></span>
+<span class="source-line-no">181</span><span id="line-181">    public static ArrayList&lt;String&gt; GetAttributesList(String symbolID)</span>
+<span class="source-line-no">182</span><span id="line-182">    {</span>
+<span class="source-line-no">183</span><span id="line-183">        ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="source-line-no">184</span><span id="line-184"></span>
+<span class="source-line-no">185</span><span id="line-185">        list.add(LineColor);</span>
+<span class="source-line-no">186</span><span id="line-186">        list.add(FillColor);</span>
+<span class="source-line-no">187</span><span id="line-187">        //list.add(IconColor);</span>
+<span class="source-line-no">188</span><span id="line-188">        list.add(PixelSize);</span>
+<span class="source-line-no">189</span><span id="line-189"></span>
+<span class="source-line-no">190</span><span id="line-190">        if(SymbolUtilities.isMultiPoint(symbolID)==false) {</span>
+<span class="source-line-no">191</span><span id="line-191">            list.add(KeepUnitRatio);</span>
+<span class="source-line-no">192</span><span id="line-192">            list.add(OutlineSymbol);</span>
+<span class="source-line-no">193</span><span id="line-193">            list.add(OutlineColor);</span>
+<span class="source-line-no">194</span><span id="line-194">            list.add(DrawAsIcon);</span>
+<span class="source-line-no">195</span><span id="line-195">            if(SymbolUtilities.hasModifier(symbolID,Modifiers.AO_ENGAGEMENT_BAR))</span>
+<span class="source-line-no">196</span><span id="line-196">                list.add(EngagementBarColor);</span>
 <span class="source-line-no">197</span><span id="line-197">        }</span>
-<span class="source-line-no">198</span><span id="line-198">        list.add(Alpha);</span>
-<span class="source-line-no">199</span><span id="line-199"></span>
-<span class="source-line-no">200</span><span id="line-200">        return list;</span>
-<span class="source-line-no">201</span><span id="line-201">    }</span>
-<span class="source-line-no">202</span><span id="line-202"></span>
-<span class="source-line-no">203</span><span id="line-203">    /**</span>
-<span class="source-line-no">204</span><span id="line-204">     * @param attribute constant like MilStdAttributes.LineColor</span>
-<span class="source-line-no">205</span><span id="line-205">     * @return attribute name based on attribute constants</span>
-<span class="source-line-no">206</span><span id="line-206">     */</span>
-<span class="source-line-no">207</span><span id="line-207">    public static String getAttributeName(String attribute) {</span>
-<span class="source-line-no">208</span><span id="line-208">        switch (attribute) {</span>
-<span class="source-line-no">209</span><span id="line-209">            case LineColor:</span>
-<span class="source-line-no">210</span><span id="line-210">                return "Line Color";</span>
-<span class="source-line-no">211</span><span id="line-211">            case FillColor:</span>
-<span class="source-line-no">212</span><span id="line-212">                return "Fill Color";</span>
-<span class="source-line-no">213</span><span id="line-213">            case PixelSize:</span>
-<span class="source-line-no">214</span><span id="line-214">                return "Pixel Size";</span>
-<span class="source-line-no">215</span><span id="line-215">            case KeepUnitRatio:</span>
-<span class="source-line-no">216</span><span id="line-216">                return "Keep Unit Ratio";</span>
-<span class="source-line-no">217</span><span id="line-217">            case Alpha:</span>
-<span class="source-line-no">218</span><span id="line-218">                return "Alpha";</span>
-<span class="source-line-no">219</span><span id="line-219">            case OutlineSymbol:</span>
-<span class="source-line-no">220</span><span id="line-220">                return "Outline Symbol";</span>
-<span class="source-line-no">221</span><span id="line-221">            case OutlineColor:</span>
-<span class="source-line-no">222</span><span id="line-222">                return "Outline Color";</span>
-<span class="source-line-no">223</span><span id="line-223">            case DrawAsIcon:</span>
-<span class="source-line-no">224</span><span id="line-224">                return "Draw as Icon";</span>
-<span class="source-line-no">225</span><span id="line-225">            case LineWidth:</span>
-<span class="source-line-no">226</span><span id="line-226">                return "Line Width";</span>
-<span class="source-line-no">227</span><span id="line-227">            case TextColor:</span>
-<span class="source-line-no">228</span><span id="line-228">                return "Text Color";</span>
-<span class="source-line-no">229</span><span id="line-229">            case TextBackgroundColor:</span>
-<span class="source-line-no">230</span><span id="line-230">                return "Text Background Color";</span>
-<span class="source-line-no">231</span><span id="line-231">            case UseDashArray:</span>
-<span class="source-line-no">232</span><span id="line-232">                return "Use Dash Array";</span>
-<span class="source-line-no">233</span><span id="line-233">            case AltitudeMode:</span>
-<span class="source-line-no">234</span><span id="line-234">                return "Altitude Mode";</span>
-<span class="source-line-no">235</span><span id="line-235">            case HideOptionalLabels:</span>
-<span class="source-line-no">236</span><span id="line-236">                return "Hide Optional Labels";</span>
-<span class="source-line-no">237</span><span id="line-237">            case UsePatternFill:</span>
-<span class="source-line-no">238</span><span id="line-238">                return "Use Pattern Fill";</span>
-<span class="source-line-no">239</span><span id="line-239">            case PatternFillType:</span>
-<span class="source-line-no">240</span><span id="line-240">                return "Pattern Fill Type";</span>
-<span class="source-line-no">241</span><span id="line-241">            case DistanceUnits:</span>
-<span class="source-line-no">242</span><span id="line-242">                return "Distance Units";</span>
-<span class="source-line-no">243</span><span id="line-243">            case AltitudeUnits:</span>
-<span class="source-line-no">244</span><span id="line-244">                return "Altitude Units";</span>
-<span class="source-line-no">245</span><span id="line-245">            default:</span>
-<span class="source-line-no">246</span><span id="line-246">                return "unrecognized attribute";</span>
-<span class="source-line-no">247</span><span id="line-247">        }</span>
-<span class="source-line-no">248</span><span id="line-248">    }</span>
-<span class="source-line-no">249</span><span id="line-249"></span>
-<span class="source-line-no">250</span><span id="line-250">    /**</span>
-<span class="source-line-no">251</span><span id="line-251">     * Takes a string representation of an attribute and returns the appropriate int key value</span>
-<span class="source-line-no">252</span><span id="line-252">     * @param attribute "LINECOLOR" will return MilStdAtttributes.LineColor</span>
-<span class="source-line-no">253</span><span id="line-253">     * @return {@link Integer} value representing Attribute constant.</span>
-<span class="source-line-no">254</span><span id="line-254">     */</span>
-<span class="source-line-no">255</span><span id="line-255">    public static String getAttributeKey(String attribute) {</span>
-<span class="source-line-no">256</span><span id="line-256">        switch (attribute.toUpperCase()) {</span>
-<span class="source-line-no">257</span><span id="line-257">            case "LINECOLOR":</span>
-<span class="source-line-no">258</span><span id="line-258">                return LineColor;</span>
-<span class="source-line-no">259</span><span id="line-259">            case "FILLCOLOR":</span>
-<span class="source-line-no">260</span><span id="line-260">                return FillColor;</span>
-<span class="source-line-no">261</span><span id="line-261">            case "PIXELSIZE":</span>
-<span class="source-line-no">262</span><span id="line-262">                return PixelSize;</span>
-<span class="source-line-no">263</span><span id="line-263">            case "KEEPUNITRATIO":</span>
-<span class="source-line-no">264</span><span id="line-264">                return KeepUnitRatio;</span>
-<span class="source-line-no">265</span><span id="line-265">            case "ALPHA":</span>
-<span class="source-line-no">266</span><span id="line-266">                return Alpha;</span>
-<span class="source-line-no">267</span><span id="line-267">            case "OUTLINESYMBOL":</span>
-<span class="source-line-no">268</span><span id="line-268">                return OutlineSymbol;</span>
-<span class="source-line-no">269</span><span id="line-269">            case "OUTLINECOLOR":</span>
-<span class="source-line-no">270</span><span id="line-270">                return OutlineColor;</span>
-<span class="source-line-no">271</span><span id="line-271">            case "DRAWASICON":</span>
-<span class="source-line-no">272</span><span id="line-272">                return DrawAsIcon;</span>
-<span class="source-line-no">273</span><span id="line-273">            case "LINEWIDTH":</span>
-<span class="source-line-no">274</span><span id="line-274">                return LineWidth;</span>
-<span class="source-line-no">275</span><span id="line-275">            case "TEXTCOLOR":</span>
-<span class="source-line-no">276</span><span id="line-276">                return TextColor;</span>
-<span class="source-line-no">277</span><span id="line-277">            case "TEXTBACKGROUNDCOLOR":</span>
-<span class="source-line-no">278</span><span id="line-278">                return TextBackgroundColor;</span>
-<span class="source-line-no">279</span><span id="line-279">            case "USEDASHARRAY":</span>
-<span class="source-line-no">280</span><span id="line-280">                return UseDashArray;</span>
-<span class="source-line-no">281</span><span id="line-281">            case "ALTITUDEMODE":</span>
-<span class="source-line-no">282</span><span id="line-282">                return AltitudeMode;</span>
-<span class="source-line-no">283</span><span id="line-283">            case "HIDEOPTIONALLABELS":</span>
-<span class="source-line-no">284</span><span id="line-284">                return HideOptionalLabels;</span>
-<span class="source-line-no">285</span><span id="line-285">            case "USEPATTERNFILL":</span>
-<span class="source-line-no">286</span><span id="line-286">                return UsePatternFill;</span>
-<span class="source-line-no">287</span><span id="line-287">            case "PATTERNFILLTYPE":</span>
-<span class="source-line-no">288</span><span id="line-288">                return PatternFillType;</span>
-<span class="source-line-no">289</span><span id="line-289">            case "DISTANCEUNITS":</span>
-<span class="source-line-no">290</span><span id="line-290">                return DistanceUnits;</span>
-<span class="source-line-no">291</span><span id="line-291">            case "ALTITUDEUNITS":</span>
-<span class="source-line-no">292</span><span id="line-292">                return AltitudeUnits;</span>
-<span class="source-line-no">293</span><span id="line-293">            default:</span>
-<span class="source-line-no">294</span><span id="line-294">                return null;</span>
-<span class="source-line-no">295</span><span id="line-295">        }</span>
-<span class="source-line-no">296</span><span id="line-296">    }</span>
-<span class="source-line-no">297</span><span id="line-297">}</span>
+<span class="source-line-no">198</span><span id="line-198">        else</span>
+<span class="source-line-no">199</span><span id="line-199">        {</span>
+<span class="source-line-no">200</span><span id="line-200">            list.add(LineWidth);</span>
+<span class="source-line-no">201</span><span id="line-201">            list.add(HideOptionalLabels);</span>
+<span class="source-line-no">202</span><span id="line-202">            list.add(DistanceUnits);</span>
+<span class="source-line-no">203</span><span id="line-203">            list.add(AltitudeUnits);</span>
+<span class="source-line-no">204</span><span id="line-204">        }</span>
+<span class="source-line-no">205</span><span id="line-205">        list.add(Alpha);</span>
+<span class="source-line-no">206</span><span id="line-206"></span>
+<span class="source-line-no">207</span><span id="line-207">        return list;</span>
+<span class="source-line-no">208</span><span id="line-208">    }</span>
+<span class="source-line-no">209</span><span id="line-209"></span>
+<span class="source-line-no">210</span><span id="line-210">    /**</span>
+<span class="source-line-no">211</span><span id="line-211">     * @param attribute constant like MilStdAttributes.LineColor</span>
+<span class="source-line-no">212</span><span id="line-212">     * @return attribute name based on attribute constants</span>
+<span class="source-line-no">213</span><span id="line-213">     */</span>
+<span class="source-line-no">214</span><span id="line-214">    public static String getAttributeName(String attribute) {</span>
+<span class="source-line-no">215</span><span id="line-215">        switch (attribute) {</span>
+<span class="source-line-no">216</span><span id="line-216">            case LineColor:</span>
+<span class="source-line-no">217</span><span id="line-217">                return "Line Color";</span>
+<span class="source-line-no">218</span><span id="line-218">            case FillColor:</span>
+<span class="source-line-no">219</span><span id="line-219">                return "Fill Color";</span>
+<span class="source-line-no">220</span><span id="line-220">            case PixelSize:</span>
+<span class="source-line-no">221</span><span id="line-221">                return "Pixel Size";</span>
+<span class="source-line-no">222</span><span id="line-222">            case KeepUnitRatio:</span>
+<span class="source-line-no">223</span><span id="line-223">                return "Keep Unit Ratio";</span>
+<span class="source-line-no">224</span><span id="line-224">            case Alpha:</span>
+<span class="source-line-no">225</span><span id="line-225">                return "Alpha";</span>
+<span class="source-line-no">226</span><span id="line-226">            case OutlineSymbol:</span>
+<span class="source-line-no">227</span><span id="line-227">                return "Outline Symbol";</span>
+<span class="source-line-no">228</span><span id="line-228">            case OutlineColor:</span>
+<span class="source-line-no">229</span><span id="line-229">                return "Outline Color";</span>
+<span class="source-line-no">230</span><span id="line-230">            case DrawAsIcon:</span>
+<span class="source-line-no">231</span><span id="line-231">                return "Draw as Icon";</span>
+<span class="source-line-no">232</span><span id="line-232">            case LineWidth:</span>
+<span class="source-line-no">233</span><span id="line-233">                return "Line Width";</span>
+<span class="source-line-no">234</span><span id="line-234">            case TextColor:</span>
+<span class="source-line-no">235</span><span id="line-235">                return "Text Color";</span>
+<span class="source-line-no">236</span><span id="line-236">            case TextBackgroundColor:</span>
+<span class="source-line-no">237</span><span id="line-237">                return "Text Background Color";</span>
+<span class="source-line-no">238</span><span id="line-238">            case UseDashArray:</span>
+<span class="source-line-no">239</span><span id="line-239">                return "Use Dash Array";</span>
+<span class="source-line-no">240</span><span id="line-240">            case AltitudeMode:</span>
+<span class="source-line-no">241</span><span id="line-241">                return "Altitude Mode";</span>
+<span class="source-line-no">242</span><span id="line-242">            case HideOptionalLabels:</span>
+<span class="source-line-no">243</span><span id="line-243">                return "Hide Optional Labels";</span>
+<span class="source-line-no">244</span><span id="line-244">            case UsePatternFill:</span>
+<span class="source-line-no">245</span><span id="line-245">                return "Use Pattern Fill";</span>
+<span class="source-line-no">246</span><span id="line-246">            case PatternFillType:</span>
+<span class="source-line-no">247</span><span id="line-247">                return "Pattern Fill Type";</span>
+<span class="source-line-no">248</span><span id="line-248">            case DistanceUnits:</span>
+<span class="source-line-no">249</span><span id="line-249">                return "Distance Units";</span>
+<span class="source-line-no">250</span><span id="line-250">            case AltitudeUnits:</span>
+<span class="source-line-no">251</span><span id="line-251">                return "Altitude Units";</span>
+<span class="source-line-no">252</span><span id="line-252">            default:</span>
+<span class="source-line-no">253</span><span id="line-253">                return "unrecognized attribute";</span>
+<span class="source-line-no">254</span><span id="line-254">        }</span>
+<span class="source-line-no">255</span><span id="line-255">    }</span>
+<span class="source-line-no">256</span><span id="line-256"></span>
+<span class="source-line-no">257</span><span id="line-257">    /**</span>
+<span class="source-line-no">258</span><span id="line-258">     * Takes a string representation of an attribute and returns the appropriate int key value</span>
+<span class="source-line-no">259</span><span id="line-259">     * @param attribute "LINECOLOR" will return MilStdAtttributes.LineColor</span>
+<span class="source-line-no">260</span><span id="line-260">     * @return {@link Integer} value representing Attribute constant.</span>
+<span class="source-line-no">261</span><span id="line-261">     */</span>
+<span class="source-line-no">262</span><span id="line-262">    public static String getAttributeKey(String attribute) {</span>
+<span class="source-line-no">263</span><span id="line-263">        switch (attribute.toUpperCase()) {</span>
+<span class="source-line-no">264</span><span id="line-264">            case "LINECOLOR":</span>
+<span class="source-line-no">265</span><span id="line-265">                return LineColor;</span>
+<span class="source-line-no">266</span><span id="line-266">            case "FILLCOLOR":</span>
+<span class="source-line-no">267</span><span id="line-267">                return FillColor;</span>
+<span class="source-line-no">268</span><span id="line-268">            case "PIXELSIZE":</span>
+<span class="source-line-no">269</span><span id="line-269">                return PixelSize;</span>
+<span class="source-line-no">270</span><span id="line-270">            case "KEEPUNITRATIO":</span>
+<span class="source-line-no">271</span><span id="line-271">                return KeepUnitRatio;</span>
+<span class="source-line-no">272</span><span id="line-272">            case "ALPHA":</span>
+<span class="source-line-no">273</span><span id="line-273">                return Alpha;</span>
+<span class="source-line-no">274</span><span id="line-274">            case "OUTLINESYMBOL":</span>
+<span class="source-line-no">275</span><span id="line-275">                return OutlineSymbol;</span>
+<span class="source-line-no">276</span><span id="line-276">            case "OUTLINECOLOR":</span>
+<span class="source-line-no">277</span><span id="line-277">                return OutlineColor;</span>
+<span class="source-line-no">278</span><span id="line-278">            case "DRAWASICON":</span>
+<span class="source-line-no">279</span><span id="line-279">                return DrawAsIcon;</span>
+<span class="source-line-no">280</span><span id="line-280">            case "LINEWIDTH":</span>
+<span class="source-line-no">281</span><span id="line-281">                return LineWidth;</span>
+<span class="source-line-no">282</span><span id="line-282">            case "TEXTCOLOR":</span>
+<span class="source-line-no">283</span><span id="line-283">                return TextColor;</span>
+<span class="source-line-no">284</span><span id="line-284">            case "TEXTBACKGROUNDCOLOR":</span>
+<span class="source-line-no">285</span><span id="line-285">                return TextBackgroundColor;</span>
+<span class="source-line-no">286</span><span id="line-286">            case "USEDASHARRAY":</span>
+<span class="source-line-no">287</span><span id="line-287">                return UseDashArray;</span>
+<span class="source-line-no">288</span><span id="line-288">            case "ALTITUDEMODE":</span>
+<span class="source-line-no">289</span><span id="line-289">                return AltitudeMode;</span>
+<span class="source-line-no">290</span><span id="line-290">            case "HIDEOPTIONALLABELS":</span>
+<span class="source-line-no">291</span><span id="line-291">                return HideOptionalLabels;</span>
+<span class="source-line-no">292</span><span id="line-292">            case "USEPATTERNFILL":</span>
+<span class="source-line-no">293</span><span id="line-293">                return UsePatternFill;</span>
+<span class="source-line-no">294</span><span id="line-294">            case "PATTERNFILLTYPE":</span>
+<span class="source-line-no">295</span><span id="line-295">                return PatternFillType;</span>
+<span class="source-line-no">296</span><span id="line-296">            case "DISTANCEUNITS":</span>
+<span class="source-line-no">297</span><span id="line-297">                return DistanceUnits;</span>
+<span class="source-line-no">298</span><span id="line-298">            case "ALTITUDEUNITS":</span>
+<span class="source-line-no">299</span><span id="line-299">                return AltitudeUnits;</span>
+<span class="source-line-no">300</span><span id="line-300">            default:</span>
+<span class="source-line-no">301</span><span id="line-301">                return null;</span>
+<span class="source-line-no">302</span><span id="line-302">        }</span>
+<span class="source-line-no">303</span><span id="line-303">    }</span>
+<span class="source-line-no">304</span><span id="line-304">}</span>
 
 
 

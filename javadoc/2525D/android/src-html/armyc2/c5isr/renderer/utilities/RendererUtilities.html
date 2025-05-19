@@ -481,37 +481,41 @@
 <span class="source-line-no">468</span><span id="line-468">        SVGInfo retVal= icon;</span>
 <span class="source-line-no">469</span><span id="line-469">        //safe square inside octagon:  &lt;rect x="220" y="310" width="170" height="170"/&gt;</span>
 <span class="source-line-no">470</span><span id="line-470">        double maxSize = 170;</span>
-<span class="source-line-no">471</span><span id="line-471">        RectF bbox =  icon.getBbox();</span>
-<span class="source-line-no">472</span><span id="line-472">        double length = Math.max(bbox.width(),bbox.height());</span>
-<span class="source-line-no">473</span><span id="line-473">        if(length &lt; 100 &amp;&amp; length &gt; 0 &amp;&amp;</span>
-<span class="source-line-no">474</span><span id="line-474">                SymbolID.getCommonModifier1(symbolID)==0 &amp;&amp;</span>
-<span class="source-line-no">475</span><span id="line-475">                SymbolID.getCommonModifier2(symbolID)==0 &amp;&amp;</span>
-<span class="source-line-no">476</span><span id="line-476">                SymbolID.getModifier1(symbolID)==0 &amp;&amp;</span>
-<span class="source-line-no">477</span><span id="line-477">                SymbolID.getModifier2(symbolID)==0)//if largest side smaller than 100 and there are no section mods, make it bigger</span>
-<span class="source-line-no">478</span><span id="line-478">        {</span>
-<span class="source-line-no">479</span><span id="line-479">            double ratio = maxSize / length;</span>
-<span class="source-line-no">480</span><span id="line-480">            double transx = ((bbox.left + (bbox.width()/2)) * ratio) - (bbox.left + (bbox.width()/2));</span>
-<span class="source-line-no">481</span><span id="line-481">            double transy = ((bbox.top + (bbox.height()/2)) * ratio) - (bbox.top + (bbox.height()/2));</span>
-<span class="source-line-no">482</span><span id="line-482">            String transform = " transform=\"translate(-" + transx + ",-" + transy + ") scale(" + ratio + " " + ratio + ")\"&gt;";</span>
-<span class="source-line-no">483</span><span id="line-483">            String svg = icon.getSVG();</span>
-<span class="source-line-no">484</span><span id="line-484">            svg = svg.replaceFirst("&gt;",transform);</span>
-<span class="source-line-no">485</span><span id="line-485">            RectF newBbox = RectUtilities.makeRectF((float)(bbox.left - transx),(float)(bbox.top - transy),(float)(bbox.width() * ratio), (float) (bbox.height() * ratio));</span>
-<span class="source-line-no">486</span><span id="line-486">            retVal = new SVGInfo(icon.getID(),newBbox,svg);</span>
-<span class="source-line-no">487</span><span id="line-487">        }</span>
-<span class="source-line-no">488</span><span id="line-488">        return retVal;</span>
-<span class="source-line-no">489</span><span id="line-489">    }</span>
-<span class="source-line-no">490</span><span id="line-490"></span>
-<span class="source-line-no">491</span><span id="line-491">    public static int getDistanceBetweenPoints(Point pt1, Point pt2)</span>
-<span class="source-line-no">492</span><span id="line-492">    {</span>
-<span class="source-line-no">493</span><span id="line-493">        int distance = (int)(Math.sqrt(Math.pow((pt2.x - pt1.x) ,2) + Math.pow((pt2.y - pt1.y) ,2)));</span>
-<span class="source-line-no">494</span><span id="line-494">        return distance;</span>
-<span class="source-line-no">495</span><span id="line-495">    }</span>
-<span class="source-line-no">496</span><span id="line-496"></span>
-<span class="source-line-no">497</span><span id="line-497">    // Overloaded method to return non-outline symbols as normal.</span>
-<span class="source-line-no">498</span><span id="line-498">    public static String setSVGSPCMColors(String symbolID, String svg, Color strokeColor, Color fillColor) {</span>
-<span class="source-line-no">499</span><span id="line-499">        return setSVGSPCMColors(symbolID, svg, strokeColor, fillColor, false);</span>
-<span class="source-line-no">500</span><span id="line-500">    }</span>
-<span class="source-line-no">501</span><span id="line-501">}</span>
+<span class="source-line-no">471</span><span id="line-471">        RectF bbox = null;</span>
+<span class="source-line-no">472</span><span id="line-472">        if(icon != null)</span>
+<span class="source-line-no">473</span><span id="line-473">            bbox = icon.getBbox();</span>
+<span class="source-line-no">474</span><span id="line-474">        double length = 0;</span>
+<span class="source-line-no">475</span><span id="line-475">        if(bbox != null)</span>
+<span class="source-line-no">476</span><span id="line-476">            length = Math.max(bbox.width(),bbox.height());</span>
+<span class="source-line-no">477</span><span id="line-477">        if(length &lt; 100 &amp;&amp; length &gt; 0 &amp;&amp;</span>
+<span class="source-line-no">478</span><span id="line-478">                SymbolID.getCommonModifier1(symbolID)==0 &amp;&amp;</span>
+<span class="source-line-no">479</span><span id="line-479">                SymbolID.getCommonModifier2(symbolID)==0 &amp;&amp;</span>
+<span class="source-line-no">480</span><span id="line-480">                SymbolID.getModifier1(symbolID)==0 &amp;&amp;</span>
+<span class="source-line-no">481</span><span id="line-481">                SymbolID.getModifier2(symbolID)==0)//if largest side smaller than 100 and there are no section mods, make it bigger</span>
+<span class="source-line-no">482</span><span id="line-482">        {</span>
+<span class="source-line-no">483</span><span id="line-483">            double ratio = maxSize / length;</span>
+<span class="source-line-no">484</span><span id="line-484">            double transx = ((bbox.left + (bbox.width()/2)) * ratio) - (bbox.left + (bbox.width()/2));</span>
+<span class="source-line-no">485</span><span id="line-485">            double transy = ((bbox.top + (bbox.height()/2)) * ratio) - (bbox.top + (bbox.height()/2));</span>
+<span class="source-line-no">486</span><span id="line-486">            String transform = " transform=\"translate(-" + transx + ",-" + transy + ") scale(" + ratio + " " + ratio + ")\"&gt;";</span>
+<span class="source-line-no">487</span><span id="line-487">            String svg = icon.getSVG();</span>
+<span class="source-line-no">488</span><span id="line-488">            svg = svg.replaceFirst("&gt;",transform);</span>
+<span class="source-line-no">489</span><span id="line-489">            RectF newBbox = RectUtilities.makeRectF((float)(bbox.left - transx),(float)(bbox.top - transy),(float)(bbox.width() * ratio), (float) (bbox.height() * ratio));</span>
+<span class="source-line-no">490</span><span id="line-490">            retVal = new SVGInfo(icon.getID(),newBbox,svg);</span>
+<span class="source-line-no">491</span><span id="line-491">        }</span>
+<span class="source-line-no">492</span><span id="line-492">        return retVal;</span>
+<span class="source-line-no">493</span><span id="line-493">    }</span>
+<span class="source-line-no">494</span><span id="line-494"></span>
+<span class="source-line-no">495</span><span id="line-495">    public static int getDistanceBetweenPoints(Point pt1, Point pt2)</span>
+<span class="source-line-no">496</span><span id="line-496">    {</span>
+<span class="source-line-no">497</span><span id="line-497">        int distance = (int)(Math.sqrt(Math.pow((pt2.x - pt1.x) ,2) + Math.pow((pt2.y - pt1.y) ,2)));</span>
+<span class="source-line-no">498</span><span id="line-498">        return distance;</span>
+<span class="source-line-no">499</span><span id="line-499">    }</span>
+<span class="source-line-no">500</span><span id="line-500"></span>
+<span class="source-line-no">501</span><span id="line-501">    // Overloaded method to return non-outline symbols as normal.</span>
+<span class="source-line-no">502</span><span id="line-502">    public static String setSVGSPCMColors(String symbolID, String svg, Color strokeColor, Color fillColor) {</span>
+<span class="source-line-no">503</span><span id="line-503">        return setSVGSPCMColors(symbolID, svg, strokeColor, fillColor, false);</span>
+<span class="source-line-no">504</span><span id="line-504">    }</span>
+<span class="source-line-no">505</span><span id="line-505">}</span>
 
 
 
