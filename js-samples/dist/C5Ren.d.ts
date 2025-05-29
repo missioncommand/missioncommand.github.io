@@ -3577,6 +3577,40 @@ export declare class SVGInfo {
 	getSVG(): string;
 	toString(): string;
 }
+export declare class SVGLookup {
+	private static _instance;
+	private static _initCalled;
+	private static _isReady;
+	private static _SVGLookupD;
+	private static _SVGLookupE;
+	private static svgd;
+	private static svge;
+	private static svgdJSON;
+	private static svgeJSON;
+	static setData(urls: string[]): Promise<void>;
+	private constructor();
+	static getInstance(): SVGLookup;
+	private init;
+	isReady(): boolean;
+	private populateLookup;
+	/**
+	 *
+	 * @param id
+	 * @return
+	 */
+	getSVGLInfo(id: string, version: number): SVGInfo | null;
+	getSVGOctagon(): SVGInfo | null;
+	static getFrameID(symbolID: string): string;
+	static getMainIconID(symbolID: string): string;
+	private static getPostFixForIcon;
+	static getMod1ID(symbolID: string): string;
+	static getMod2ID(symbolID: string): string;
+	static getEchelonAmplifier(symbolID: string): string;
+	static getHQTFFD(symbolID: string): string;
+	static getOCA(symbolID: string, useSlash: boolean): string | null;
+	static getAllKeys(): Array<string>;
+	addCustomSymbol(svgInfo: SVGInfo, version: number): boolean;
+}
 export interface SymbolDimensionInfo {
 	/**
 	 * The x value the image should be centered on or the "anchor point".
@@ -3913,6 +3947,11 @@ export declare class SymbolUtilities {
 	 * @return
 	 */
 	static getUnitRatioWidth(symbolID: string): double;
+	/**
+	* @param linetype the line type
+	* @return true if the line is a basic shape
+	*/
+	static isBasicShape(linetype: int): boolean;
 }
 export interface SettingsEventListener {
 	SettingsEventChanged(type: string): void;
@@ -5677,6 +5716,97 @@ export declare class MilStdSymbol {
 	setPatternScale(scale: double): void;
 	getPatternScale(): double;
 }
+export declare class BasicShapes {
+	/**
+	 * Anchor Points: This symbol requires at least two anchor points, points 1
+	 * and 2, to define the line. Additional points can be defined to extend the
+	 * line.
+	 * <p>
+	 * Size/Shape: The first and last anchor points determine the length of the
+	 * line.
+	 * <p>
+	 * Orientation: Orientation is determined by the order in which the anchor points are entered.
+	 * <p>
+	 * Modifiers: T
+	 *
+	 * @see DrawRules.LINE1
+	 */
+	static readonly LINE = 10000000;
+	/**
+	 * Anchor Points: This symbol requires at least three anchor points to
+	 * define the boundary of the area. Add as many points as necessary to
+	 * accurately reflect the area’s size and shape.
+	 * <p>
+	 * Size/Shape: Determined by the anchor points. The information fields
+	 * should be moveable and scalable as a block within the area.
+	 * <p>
+	 * Modifiers: T
+	 *
+	 * @see DrawRules.AREA1
+	 */
+	static readonly AREA = 11000000;
+	/**
+	 * Anchor Points: This symbol requires one anchor point. This anchor point
+	 * represents the center of an ellipse and, therefore, the geographic
+	 * location of that ellipse.
+	 * <p>
+	 * Size/Shape: The size and shape of this symbol is determined by three
+	 * additional numeric values; A major axis radius, a minor axis radius, and
+	 * a rotation angle. The radii should be expressed in the appropriate map
+	 * distance units.
+	 * <p>
+	 * Orientation: The orientation of this symbol is determined by the rotation
+	 * angle provided, where 0 degrees is east/west and a positive rotation
+	 * angle rotates the ellipse in a counter-clockwise direction.
+	 * <p>
+	 * Modifiers: AM, AN, T
+	 *
+	 * @see DrawRules.ELLIPSE1
+	 */
+	static readonly ELLIPSE = 13000001;
+	/**
+	 * Anchor Points: This symbol requires one (1) anchor point and a radius.
+	 * Point 1 defines the center point of the symbol.
+	 * <p>
+	 * Size/Shape: Size: The radius defines the size.
+	 * <p>
+	 * Orientation: Not applicable
+	 * <p>
+	 * Modifiers: AM, T
+	 *
+	 * @see DrawRules.CIRCULAR1
+	 */
+	static readonly CIRCLE = 13000002;
+	/**
+	 * Anchor Points: This symbol requires one (1) anchor point to define the
+	 * center of the area.
+	 * <p>
+	 * Size/Shape: Size is determined by the anchor point, the length (in meters)
+	 * and width (in meters).
+	 * <p>
+	 * Orientation: The orientation of this symbol is determined by the rotation
+	 * angle provided, where 0 degrees is east/west and a positive rotation
+	 * angle rotates the ellipse in a clockwise direction.
+	 * <p>
+	 * Modifiers: AM, AN, T
+	 *
+	 * @see DrawRules.RECTANGULAR2
+	 */
+	static readonly RECTANGLE = 14000001;
+	/**
+	 * Anchor Points: This symbol requires one anchor point. The center point
+	 * defines/is the center of the symbol.
+	 * <p>
+	 * Size/Shape: Line width defines the size of the point. The radius defines the size of the outline.
+	 * <p>
+	 * Orientation: Not applicable
+	 * <p>
+	 * Modifiers: AM, T
+	 *
+	 * @see DrawRules.POINT2
+	 */
+	static readonly POINT = 15000002;
+}
 /**
  * Interface for Point Conversion objects.  Recommend using the functions
  * that take and return Point2D objects.
@@ -6001,6 +6131,7 @@ declare class Modifier2 {
 	 * @return
 	 */
 	private static getShapePoints;
+	private static removeDecimal;
 }
 declare class TGLight {
 	LatLongs: Array<POINT2>;
@@ -6204,6 +6335,15 @@ export declare class clsRenderer {
 	private static setClientCoords;
 	private static getClientCoords;
 	/**
+ * Build a tactical graphic object from the client MilStdSymbol
+ *
+ * @param milStd MilstdSymbol object
+ * @param converter geographic to pixels converter
+ * @param lineType {@link BasicShapes}
+ * @return tactical graphic
+ */
+	static createTGLightFromMilStdSymbolBasicShape(milStd: MilStdSymbol, converter: IPointConversion, lineType: int): TGLight;
+	/**
 	 * Create MilStdSymbol from tactical graphic
 	 *
 	 * @deprecated
@@ -6298,6 +6438,7 @@ export declare class clsRenderer {
 	 * @param hatch
 	 */
 	static render_Shape(milStd: MilStdSymbol, ipc: IPointConversion, clipArea: Point2D[] | Rectangle | Rectangle2D, shapeType: int, lineColor: Color, fillColor: Color, hatch: int): void;
+	private static resolvePostClippedShapes;
 	/**
 	 * set the clip rectangle as an arraylist or a Rectangle2D depending on the
 	 * object
@@ -6633,6 +6774,99 @@ export declare class WebRenderer {
 	 * @return MilStdSymbol
 	 */
 	static RenderMultiPointAsMilStdSymbol(id: string, name: string, description: string, symbolCode: string, controlPoints: string, altitudeMode: string, scale: double, bbox: string, modifiers: Map<string, string>, attributes: Map<string, string>): MilStdSymbol;
+	/**
+	 * Renders all MilStd 2525 multi-point symbols, creating MilStdSymbol that contains the
+	 * information needed to draw the symbol on the map.
+	 * DOES NOT support RADARC, CAKE, TRACK etc...
+	 * ArrayList&lt;Point2D&gt; milStdSymbol.getSymbolShapes[index].getPolylines()
+	 * and
+	 * ShapeInfo = milStdSymbol.getModifierShapes[index].
+	 *
+	 *
+	 * @param id
+	 *            A unique identifier used to identify the symbol by Google map.
+	 *            The id will be the folder name that contains the graphic.
+	 * @param name
+	 *            a string used to display to the user as the name of the
+	 *            graphic being created.
+	 * @param description
+	 *            a brief description about the graphic being made and what it
+	 *            represents.
+	 * @param basicShapeType
+	 *             {@link BasicShapes}
+	 * @param controlPoints
+	 *            The vertices of the graphics that make up the graphic. Passed
+	 *            in the format of a string, using decimal degrees separating
+	 *            lat and lon by a comma, separating coordinates by a space. The
+	 *            following format shall be used "x1,y1[,z1] [xn,yn[,zn]]..."
+	 * @param altitudeMode
+	 *            Indicates whether the symbol should interpret altitudes as
+	 *            above sea level or above ground level. Options are
+	 *            "clampToGround", "relativeToGround" (from surface of earth),
+	 *            "absolute" (sea level), "relativeToSeaFloor" (from the bottom
+	 *            of major bodies of water).
+	 * @param scale
+	 *            A number corresponding to how many meters one meter of our map
+	 *            represents. A value "50000" would mean 1:50K which means for
+	 *            every meter of our map it represents 50000 meters of real
+	 *            world distance.
+	 * @param bbox
+	 *            The viewable area of the map. Passed in the format of a string
+	 *            "lowerLeftX,lowerLeftY,upperRightX,upperRightY." Not required
+	 *            but can speed up rendering in some cases. example:
+	 *            "-50.4,23.6,-42.2,24.2"
+	 * @param modifiers
+	 *            Used like:
+	 *            modifiers.set(Modifiers.T_UNIQUE_DESIGNATION_1, "T");
+	 *            Or
+	 *            modifiers.set(Modifiers.AM_DISTANCE, "1000,2000,3000");
+	 * @param attributes
+	 * 			  Used like:
+	 *            attributes.set(MilStdAttributes.LineWidth, "3");
+	 *            Or
+	 *            attributes.set(MilStdAttributes.LineColor, "#00FF00");
+	 * @return MilStdSymbol
+	 */
+	static RenderBasicShapeAsMilStdSymbol(id: string, name: string, description: string, basicShapeType: int, controlPoints: string, altitudeMode: string, scale: double, bbox: string, modifiers: Map<string, string>, attributes: Map<string, string>): MilStdSymbol;
+	/**
+ * Renders all multi-point symbols, creating KML that can be used to draw
+ * it on a Google map.  Multipoint symbols cannot be draw the same
+ * at different scales. For instance, graphics with arrow heads will need to
+ * redraw arrowheads when you zoom in on it.  Similarly, graphics like a
+ * Forward Line of Troops drawn with half circles can improve performance if
+ * clipped when the parts of the graphic that aren't on the screen.  To help
+ * readjust graphics and increase performance, this function requires the
+ * scale and bounding box to help calculate the new locations.
+ * @param id A unique identifier used to identify the symbol by Google map.
+ * The id will be the folder name that contains the graphic.
+ * @param name a string used to display to the user as the name of the
+ * graphic being created.
+ * @param description a brief description about the graphic being made and
+ * what it represents.
+ * @param basicShapeType {@link BasicShapes}
+ * @param controlPoints The vertices of the graphics that make up the
+ * graphic.  Passed in the format of a string, using decimal degrees
+ * separating lat and lon by a comma, separating coordinates by a space.
+ * The following format shall be used "x1,y1[,z1] [xn,yn[,zn]]..."
+ * @param altitudeMode Indicates whether the symbol should interpret
+ * altitudes as above sea level or above ground level. Options are
+ * "clampToGround", "relativeToGround" (from surface of earth), "absolute"
+ * (sea level), "relativeToSeaFloor" (from the bottom of major bodies of
+ * water).
+ * @param scale A number corresponding to how many meters one meter of our
+ * map represents. A value "50000" would mean 1:50K which means for every
+ * meter of our map it represents 50000 meters of real world distance.
+ * @param bbox The viewable area of the map.  Passed in the format of a
+ * string "lowerLeftX,lowerLeftY,upperRightX,upperRightY." Not required
+ * but can speed up rendering in some cases.
+ * example: "-50.4,23.6,-42.2,24.2"
+ * @param modifiers {@link Map}, keyed using constants from Modifiers.
+ * Pass in comma delimited String for modifiers with multiple values like AM, AN &amp; X
+ * @param attributes {@link Map}, keyed using constants from MilStdAttributes.
+ * @param format An enumeration: 2 for GeoJSON.
+ * @return A JSON string representation of the graphic.
+ */
+	static RenderBasicShape(id: string, name: string, description: string, basicShapeType: int, controlPoints: string, altitudeMode: string, scale: double, bbox: string, modifiers: Map<string, string>, attributes: Map<string, string>, format: int): string;
 	/**
 	 * Given a symbol code meant for a single point symbol, returns the
 	 * anchor point at which to display that image based off the image returned
