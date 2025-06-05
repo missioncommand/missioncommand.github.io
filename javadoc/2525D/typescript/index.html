@@ -5,14 +5,19 @@
 <a href="https://missioncommand.github.io/javadoc/2525D/typescript/index.html" target="_blank" class="external">JavaDocs</a></p>
 <p>The old 2525C renderer has been retired but the libraries and usage information are still available here:<br>
 <a href="https://github.com/missioncommand/mil-sym-ts/wiki/2525C-Renderer-Overview" target="_blank" class="external">2525C Renderer Overview</a></p>
-<p>Usage:</p>
-<p>Renderer must be initialized first.</p>
-<p>C5Ren.initialize(location):Promise</p>
-<p>If no value passed, it assumes assets are in the same location.
-If library and its json asset files are at the location &quot;127.0.0.1:8080/renderer/C5Ren.js&quot;
-Call like: C5Ren.initialize(&quot;/renderer/&quot;);</p>
-<p>If you or your process renamed the &quot;manifest.json&quot; file, call like: C5Ren.initialize(&quot;/renderer/[new manifest.json file name]&quot;);</p>
-<p>When the promise resolves, files are loaded and initialized and the renderer is ready to go.</p>
+<p>Notes:</p>
+<p>Starting with version 2.2.0, support for running in NodeJS was added.<br>
+The node release will be the baseline version on <a href="https://www.npmjs.com/package/@armyc2.c5isr.renderer/mil-sym-ts?activeTab=versions" target="_blank" class="external">npmjs.com</a><br>
+The web version of the release will have the 'WEB' tag with the same version number.</p>
+<p>The Node version depends on <a href="https://www.npmjs.com/package/canvas" target="_blank" class="external">node-canvas</a>.</p>
+<pre><code><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-0">install</span><span class="hl-1"> </span><span class="hl-0">canvas</span><span class="hl-1">  </span>
+</code><button>Copy</button></pre>
+
+<p>The Web version leverage the canvas in the browser.</p>
+<p>Compilation Step:</p>
+<pre><code><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-0">run</span><span class="hl-1"> </span><span class="hl-0">clean</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-0">run</span><span class="hl-1"> </span><span class="hl-0">build</span><br/><span class="hl-2">//Node Build</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-0">run</span><span class="hl-1"> </span><span class="hl-0">bundleWPN</span><br/><span class="hl-2">//Web Build</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-0">run</span><span class="hl-1"> </span><span class="hl-0">bundleWPW</span><br/><span class="hl-2">//generate DTS file</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-0">run</span><span class="hl-1"> </span><span class="hl-0">bundleDTS</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-0">run</span><span class="hl-1"> </span><span class="hl-0">pack</span>
+</code><button>Copy</button></pre>
+
 <p>The following classes are exported by the module:</p>
 <p>Point<br>
 Point2D<br>
