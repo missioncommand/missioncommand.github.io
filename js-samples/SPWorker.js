@@ -48,7 +48,7 @@ importScripts('dist/C5Ren.js');
 let path = "/js-samples/dist/";
 //let path = self.location;
 
-C5Ren.initialize(path);//self.location
+//C5Ren.initialize(path);//self.location
 
 	
 convertToMap = function(obj)

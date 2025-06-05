@@ -3458,6 +3458,7 @@ export declare class GENCLookup {
 	private static _GENCLookup;
 	private static genc;
 	static setData(url: string): Promise<void>;
+	static setDataObject(): void;
 	private constructor();
 	static getInstance(): GENCLookup;
 	isReady(): boolean;
@@ -3542,6 +3543,7 @@ export declare class MSLookup {
 	private static msdJSON;
 	private static mseJSON;
 	static setData(urls: string[]): Promise<void>;
+	static setDataObject(): void;
 	private constructor();
 	static getInstance(): MSLookup;
 	private init;
@@ -3588,6 +3590,7 @@ export declare class SVGLookup {
 	private static svgdJSON;
 	private static svgeJSON;
 	static setData(urls: string[]): Promise<void>;
+	static setDataObject(): void;
 	private constructor();
 	static getInstance(): SVGLookup;
 	private init;
@@ -4575,6 +4578,9 @@ export declare class SymbolID {
 	 */
 	static readonly Version_APP6Dch2: number;
 	static readonly Version_2525E: number;
+	static readonly Version_APP6Ech1: number;
+	static readonly Version_2525Ech1: number;
+	static readonly Version_APP6Ech2: number;
 	static readonly StandardIdentity_Context_Reality: number;
 	static readonly StandardIdentity_Context_Exercise: number;
 	static readonly StandardIdentity_Context_Simulation: number;
@@ -6484,7 +6490,7 @@ export declare class clsRenderer {
 }
 export declare class RendererUtilities {
 	private static readonly OUTLINE_SCALING_FACTOR;
-	static imgToBase64String(img: OffscreenCanvas): Promise<string>;
+	static imgToBase64String(img: OffscreenCanvas | any): Promise<string>;
 	private static pastIdealOutlineColors;
 	/**
 	 *
@@ -6522,9 +6528,9 @@ export declare class RendererUtilities {
 	 * @param {OffscreenCanvasRenderingContext2D}
 	 * @returns {Object} {width:Number,height:Number,descent:Number,fullHeight:Number}
 	 */
-	static measureText(fontName: string, fontSize: int, fontStyle: string, text: string, context: OffscreenCanvasRenderingContext2D | null): Rectangle2D;
-	static measureText(font: string, text: string, context: OffscreenCanvasRenderingContext2D | null): Rectangle2D;
-	static measureText(text: string, context: OffscreenCanvasRenderingContext2D): Rectangle2D;
+	static measureText(fontName: string, fontSize: int, fontStyle: string, text: string, context: OffscreenCanvasRenderingContext2D | any | null): Rectangle2D;
+	static measureText(font: string, text: string, context: OffscreenCanvasRenderingContext2D | any | null): Rectangle2D;
+	static measureText(text: string, context: OffscreenCanvasRenderingContext2D | any): Rectangle2D;
 	/**
 	 *
 	 * @param hexValue - String representing hex value (formatted "0xRRGGBB"
@@ -6936,6 +6942,7 @@ export declare class WebRenderer {
  * Additionally, if your build process hashes the manifest.json file, you should include the new name like "/dist/manifest.[hash].json"
  */
 export declare function initialize(location?: string): Promise<any>;
+export declare function init(location?: string): Promise<void>;
 /**
  * Returns true if renderer files are loaded and initialized.
  * @returns boolean
