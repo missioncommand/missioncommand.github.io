@@ -3457,8 +3457,12 @@ export declare class GENCLookup {
 	private static _isReady;
 	private static _GENCLookup;
 	private static genc;
+	/**
+	 *
+	 * @param url
+	 * @deprecated
+	 */
 	static setData(url: string): Promise<void>;
-	static setDataObject(): void;
 	private constructor();
 	static getInstance(): GENCLookup;
 	isReady(): boolean;
@@ -3542,8 +3546,12 @@ export declare class MSLookup {
 	private _IDListE;
 	private static msdJSON;
 	private static mseJSON;
+	/**
+	 *
+	 * @param urls
+	 * @deprecated
+	 */
 	static setData(urls: string[]): Promise<void>;
-	static setDataObject(): void;
 	private constructor();
 	static getInstance(): MSLookup;
 	private init;
@@ -3589,8 +3597,12 @@ export declare class SVGLookup {
 	private static svge;
 	private static svgdJSON;
 	private static svgeJSON;
+	/**
+	 *
+	 * @param urls
+	 * @deprecated
+	 */
 	static setData(urls: string[]): Promise<void>;
-	static setDataObject(): void;
 	private constructor();
 	static getInstance(): SVGLookup;
 	private init;
@@ -6940,8 +6952,14 @@ export declare class WebRenderer {
  * in the location of the file that imported it, not where it actually exists and then it can't find the asset files.  If location is not
  * set, the renderer assumes the json asset files are in the same location as where the C5Ren script is being run.
  * Additionally, if your build process hashes the manifest.json file, you should include the new name like "/dist/manifest.[hash].json"
+ * @deprecated
  */
 export declare function initialize(location?: string): Promise<any>;
+/**
+ *
+ * @param location
+ * @deprecated
+ */
 export declare function init(location?: string): Promise<void>;
 /**
  * Returns true if renderer files are loaded and initialized.

@@ -1,6 +1,6 @@
 {
-  "name": "@armyc2.c5isr.renderer/mil-sym-ts",
-  "version": "2.1.8",
+  "name": "@armyc2.c5isr.renderer/mil-sym-ts-web",
+  "version": "2.2.1",
   "description": "MIL-STD-2525 D/E symbol rendering TypeScript library",
   "main": "C5Ren.js",
   "types": "C5Ren.d.ts",
@@ -12,8 +12,5 @@
     "MIL-STD-2525",
     "rendering",
     "visualization"
-  ],
-  "dependencies": {
-    "canvas": "^3.1.0"
-  }
+  ]
 }
