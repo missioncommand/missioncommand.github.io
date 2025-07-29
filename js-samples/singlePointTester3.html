@@ -65,11 +65,11 @@
             modifiers.set(C5Ren.Modifiers.AD_PLATFORM_TYPE,"AD");
             modifiers.set(C5Ren.Modifiers.AE_EQUIPMENT_TEARDOWN_TIME,"AE");
             modifiers.set(C5Ren.Modifiers.AF_COMMON_IDENTIFIER,"AF");
-
+            modifiers.set(C5Ren.Modifiers.AJ_SPEED_LEADER,"700 KTS 045");
             modifiers.set(C5Ren.Modifiers.AO_ENGAGEMENT_BAR, "AO:AOA-AO");
             modifiers.set(C5Ren.Modifiers.AR_SPECIAL_DESIGNATOR, "AR");
             modifiers.set(C5Ren.Modifiers.AQ_GUARDED_UNIT, "AQ");
-            modifiers.set(C5Ren.Modifiers.AS_COUNTRY, "USA");
+            //modifiers.set(C5Ren.Modifiers.AS_COUNTRY, "USA");
             //*/
             //modifiers.set(C5Ren.Modifiers.CN_CPOF_NAME_LABEL,"~`"; //\"CPOF'D";//Z
 			
@@ -79,7 +79,7 @@
 			//modifiers.set(C5Ren.utilities.MilStdAttributes.FillColor,"#00FF00";
             //modifiers.set(C5Ren.utilities.MilStdAttributes.Alpha,50;
             
-            //modifiers.set(C5Ren.utilities.MilStdAttributes.LineColor,"#FF00FF";
+            //modifiers.set(C5Ren.utilities.MilStdAttributes.LineColor,"#FF00FF");
 			//modifiers.set(C5Ren.utilities.MilStdAttributes.FillColor,"#0000FF00");
             //modifiers.set(C5Ren.utilities.MilStdAttributes.Alpha,50;
 			
@@ -91,18 +91,26 @@
 
         function drawToCanvas(svg,x,y)
         {
-            var canvas = document.getElementById('preview');
-            var ctx = canvas.getContext('2d');
-            var data = svg;
-            var DOMURL = window.URL || window.webkitURL || window;
-            var img1 = new Image();
-            var svg = new Blob([data], {type: 'image/svg+xml'});
-            var url = DOMURL.createObjectURL(svg);
-            img1.onload = function() {
-                ctx.drawImage(img1, x, y);
-                DOMURL.revokeObjectURL(url);
+            try
+            {
+                var canvas = document.getElementById('preview');
+                var ctx = canvas.getContext('2d');
+                var data = svg;
+                var DOMURL = window.URL || window.webkitURL || window;
+                var img1 = new Image();
+                var svg = new Blob([data], {type: 'image/svg+xml'});
+                var url = DOMURL.createObjectURL(svg);
+                img1.onload = function() {
+                    ctx.drawImage(img1, x, y);
+                    DOMURL.revokeObjectURL(url);
+                }
+                img1.src = url;
             }
-            img1.src = url;
+            catch(exc)
+            {
+                console.log();
+            }
+
         }
 
         
@@ -112,7 +120,7 @@
             var keepUnitRatio = document.getElementById("cbKeepUnitRatio").checked;
             var showLabels = document.getElementById("cbLabels").checked;
 			var drawAsIcon = document.getElementById("cbDrawAsIcon").checked;
-			var scaleMainIcon = document.getElementById("cbScaleMainIcon").checked;
+            var scaleMainIcon = document.getElementById("cbScaleMainIcon").checked;
             
             var modifiers = new Map();
             
@@ -546,7 +554,7 @@
 			//console.log(testString);
             var msi = C5Ren.MilStdIconRenderer.getInstance();
 			var RendererSettings = C5Ren.RendererSettings.getInstance();
-
+            RendererSettings.setScaleMainIcon(true);
             //populate sybol list boxes
             var lbTG = document.getElementById("lbTG");
             var lbU = document.getElementById("lbU");
@@ -577,19 +585,23 @@
             RendererSettings.setOutlineSPControlMeasures(false);
             //RendererSettings.setOperationalConditionModifierType(RendererSettings.OperationalConditionModifierType_SLASH);
 
+            //lookup test
+            var msInfo = C5Ren.MSLookup.getInstance().getMSLInfo("110345000016140700000000000840");
+            var mods = msInfo.getModifiers();
+
 	}
 </script>
 </head>
    
 <BODY bgcolor="#5f95e9" onload="setup();">
-<select id="lbTG" size="10" style="width: 300px;" >
-    <option>Single Point Tactical</option>
-    <option>Populating Values...</option>
-</select>        
-<select id="lbU" size="10" style="width: 300px;" >
-    <option>Single Point Warfighting</option>
-    <option>Populating Values...</option>
-</select>     
+    <select id="lbTG" size="10" style="width: 300px;" >
+        <option>Single Point Tactical</option>
+        <option>Populating Values...</option>
+    </select>        
+    <select id="lbU" size="10" style="width: 300px;" >
+        <option>Single Point Warfighting</option>
+        <option>Populating Values...</option>
+    </select>       
 <br/>
 SVG Rendered to HTML5 Canvas:<br/>
 <canvas id="preview" width="650" height="300"></canvas>
@@ -606,6 +618,8 @@ Context: <select id = lbContext onchange="buildSymbolID();">
     <option>0-Reality</option>
     <option>1-Exercise</option>	
 	<option>2-Simulation</option>	
+    <option>3-Restricted</option>
+    <option>4-No-Strike</option>
 </select>
 Affiliation: <select id = lbAffiliation onchange="buildSymbolID();">
     <option>0-Pending</option>

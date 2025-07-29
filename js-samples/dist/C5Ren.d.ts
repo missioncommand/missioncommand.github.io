@@ -1592,12 +1592,22 @@ export declare class Modifiers {
 	 * <pre>
 	 * Lines - Unique Identifier or Primary Purpose
 	 * An amplifier that uniquely identifies a particular symbol or track number. Identifies acquisitions number when used with SIGINT symbology.
-	 * Format: Alphanumeric - {1,30}
-	 * Symbol Set: All
+	 * Format: Alphanumeric - Lines: {1,30}, Points: Alphanumeric - {1,7}
+	 * Symbol Set: 25
 	 * Remarks:
 	 * </pre>
 	 */
 	static readonly T1_UNIQUE_DESIGNATION_2: string;
+	/**
+	 * <pre>
+	 * Lines - Unique Identifier or Primary Purpose
+	 * An amplifier used to provide the designation of the Establishing Headquarters.
+	 * Format: Alphanumeric - {1,7}
+	 * Symbol Set: 25
+	 * Remarks: Used with Fire Support Control Measures only.
+	 * </pre>
+	 */
+	static readonly T2_UNIQUE_DESIGNATION_3: string;
 	/**
 	 * <pre>
 	 * Type
@@ -1772,9 +1782,10 @@ export declare class Modifiers {
 	 * An amplifier that depicts the speed and direction of movement of an object (see 5.3.7.13.3 and figure 18).
 	 * Format: Graphic
 	 * Symbol Set: 10, 15, 30, 35
-	 * Remarks:
-	 * Land units and equipment use the Direction of Movement and Speed amplifiers for this information.
-	 * Notes: Not implemented by the renderer
+	 * Remarks: Set as "[Speed] [unit of measure] [angle in degrees if 3 characters "045", and in mils if 4 characters "0150]" like [100 KPH 045]
+	 * Valid units of measure are: KPH, KPS, MPH, NMH, KTS
+	 * Notes: It is recommended users handle this amplifier within their map engine many maps always show icons in the upright position when the map
+	 * is rotated, invalidating the line that's render with the symbol.
 	 * </pre>
 	 */
 	static readonly AJ_SPEED_LEADER: string;
@@ -2394,6 +2405,21 @@ export declare class DrawRules {
 	 * Used by: 2525D,Dch1,E,Ech1
 	 */
 	static readonly AREA26: number;
+	/**
+	 * Anchor Points: This symbol requires three anchor points. Point 1 defines
+	 * the tip of the arrowhead. Point 2 defines the end of the straight-line
+	 * portion of the symbol. Point 3 defines the diameter and orientation of
+	 * the 180 degree circular arc.
+	 *
+	 * Size/Shape: Points 1 and 2 determine the length of the straight-line
+	 * portion of the symbol. Point 3 defines which side of the line the arc
+	 * is on and the diameter of the arc
+	 *
+	 * Orientation: Determined by the anchor points.
+	 *
+	 * Used by: Ech1
+	 */
+	static readonly AREA27: number;
 	/**
 	 * Anchor Points: This symbol requires one anchor point. The anchor point
 	 * defines/is the tip of the inverted cone.
@@ -3994,13 +4020,6 @@ export declare class RendererSettings {
 	 */
 	static readonly TextBackgroundMethod_OUTLINE: int;
 	/**
-	 * A different approach for outline which is quicker and seems to use
-	 * less memory.  Also, you may do well with a lower outline thickness setting
-	 * compared to the regular outlining approach.  Outline Width of 1 is
-	 * recommended.
-	 */
-	static readonly TextBackgroundMethod_OUTLINE_QUICK: int;
-	/**
 	 * Value from 0 to 255. The closer to 0 the lighter the text color has to be
 	 * to have the outline be black. Default value is 160.
 	 */
@@ -4147,7 +4166,6 @@ export declare class RendererSettings {
 	 * the outline will be this many pixels wide.
 	 *
 	 * @param width
-	 * @deprecated - controlled within the renderer
 	 */
 	/**
 	 * if RenderSettings.TextBackgroundMethod_OUTLINE is used,
@@ -4305,7 +4323,7 @@ export declare class RendererSettings {
 	 * Set a boolean indicating between the use of supply routes labels in all segments (false) or
 	 * to only set 2 labels one at the north and the other one at the south of the graphic (true).
 	 * @param TwoLabelOnly
-	 * @deprecated
+	 * @deprecated functionally disabled
 	 */
 	setTwoLabelOnly(TwoLabelOnly: boolean): void;
 	/**
@@ -4596,6 +4614,8 @@ export declare class SymbolID {
 	static readonly StandardIdentity_Context_Reality: number;
 	static readonly StandardIdentity_Context_Exercise: number;
 	static readonly StandardIdentity_Context_Simulation: number;
+	static readonly StandardIdentity_Context_Restricted_Target_Reality: number;
+	static readonly StandardIdentity_Context_No_Strike_Entity_Reality: number;
 	static readonly StandardIdentity_Affiliation_Pending: number;
 	static readonly StandardIdentity_Affiliation_Unknown: number;
 	static readonly StandardIdentity_Affiliation_AssumedFriend: number;
@@ -4847,10 +4867,10 @@ export declare class SymbolID {
 	/**
 	 * Set Sector 1 Modifier at positions 17-18.
 	 * @param symbolID 30 Character string
-	 * @param mod1 number
+	 * @param mod1 number 0-99 && 161-255 OR string "00" to "FF"
 	 * @return string
 	 */
-	static setModifier1(symbolID: string, mod1: number): string;
+	static setModifier1(symbolID: string, mod1: number | string): string;
 	/**
 	 * Get Common Sector 1 Modifier from position 21.
 	 * @param symbolID 30 Character string
@@ -4873,10 +4893,10 @@ export declare class SymbolID {
 	/**
 	 * Set Sector 2 Modifier at positions 17-18.
 	 * @param symbolID 30 Character string
-	 * @param mod1 number
+	 * @param mod2 number 0-255 or string "00" to "FF"
 	 * @return string
 	 */
-	static setModifier2(symbolID: string, mod1: number): string;
+	static setModifier2(symbolID: string, mod2: number | string): string;
 	/**
 	 * Get Common Sector 2 Modifier from position 22.
 	 * @param symbolID 30 Character string
@@ -6112,7 +6132,6 @@ declare class Modifier2 {
 	 * @param shapes the shape array
 	 */
 	static GetIntegralTextShapes(tg: TGLight, g2d: Graphics2D, shapes: Array<Shape2>): void;
-	private static switchDirection;
 	/**
 	 * Displays the modifiers to a Graphics2D from a BufferedImage
 	 *
@@ -6552,6 +6571,7 @@ export declare class RendererUtilities {
 	 * @return
 	 */
 	static getColorFromHexString(hexValue: string): Color | null;
+	static getRecommendedTextOutlineWidth(): number;
 	/**
 	 * For Renderer Use Only
 	 * Assumes a fresh SVG String from the SVGLookup with its default values
