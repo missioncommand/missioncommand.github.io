@@ -561,13 +561,13 @@
 <span class="source-line-no">548</span><span id="line-548">                            retColor = AffiliationColors.FriendlyUnitFillColor;//0x00ffff;      // Cyan</span>
 <span class="source-line-no">549</span><span id="line-549">                            break;</span>
 <span class="source-line-no">550</span><span id="line-550">                        case SymbolID.StandardIdentity_Affiliation_Hostile_Faker:</span>
-<span class="source-line-no">551</span><span id="line-551">                            retColor = AffiliationColors.HostileGraphicLineColor;//Color.RED;//0xff0000;        // Red</span>
+<span class="source-line-no">551</span><span id="line-551">                            retColor = AffiliationColors.HostileUnitFillColor;//Color.RED;//0xff0000;   // Red</span>
 <span class="source-line-no">552</span><span id="line-552">                            break;</span>
 <span class="source-line-no">553</span><span id="line-553">                        case SymbolID.StandardIdentity_Affiliation_Suspect_Joker:</span>
 <span class="source-line-no">554</span><span id="line-554">                            if(symStd &gt;= SymbolID.Version_2525E)</span>
-<span class="source-line-no">555</span><span id="line-555">                                retColor = AffiliationColors.SuspectGraphicLineColor;//255,188,1</span>
+<span class="source-line-no">555</span><span id="line-555">                                retColor = AffiliationColors.SuspectUnitFillColor;//255,188,1</span>
 <span class="source-line-no">556</span><span id="line-556">                            else</span>
-<span class="source-line-no">557</span><span id="line-557">                                retColor = AffiliationColors.HostileGraphicLineColor;//Color.RED;//0xff0000;    // Red</span>
+<span class="source-line-no">557</span><span id="line-557">                                retColor = AffiliationColors.HostileUnitFillColor;//Color.RED;//0xff0000;       // Red</span>
 <span class="source-line-no">558</span><span id="line-558">                            break;</span>
 <span class="source-line-no">559</span><span id="line-559">                        case SymbolID.StandardIdentity_Affiliation_Neutral:</span>
 <span class="source-line-no">560</span><span id="line-560">                            retColor = AffiliationColors.NeutralUnitFillColor;//0x7fff00;       // Light Green</span>
@@ -1589,228 +1589,234 @@
 <span class="source-line-no">1576</span><span id="line-1576">                switch (fs){</span>
 <span class="source-line-no">1577</span><span id="line-1577">                    case SymbolID.FrameShape_LandUnit:</span>
 <span class="source-line-no">1578</span><span id="line-1578">                    case SymbolID.FrameShape_LandInstallation:</span>
-<span class="source-line-no">1579</span><span id="line-1579">                    case SymbolID.FrameShape_LandEquipment_SeaSurface:</span>
-<span class="source-line-no">1580</span><span id="line-1580">                    case SymbolID.FrameShape_Activity_Event:</span>
-<span class="source-line-no">1581</span><span id="line-1581">                    case SymbolID.FrameShape_Cyberspace:</span>
-<span class="source-line-no">1582</span><span id="line-1582">                        rh = 1.44f;</span>
-<span class="source-line-no">1583</span><span id="line-1583">                        break;</span>
-<span class="source-line-no">1584</span><span id="line-1584">                    default:</span>
-<span class="source-line-no">1585</span><span id="line-1585">                        rh=1.3f;</span>
-<span class="source-line-no">1586</span><span id="line-1586">                }</span>
-<span class="source-line-no">1587</span><span id="line-1587">            }</span>
-<span class="source-line-no">1588</span><span id="line-1588">            else if(aff == SymbolID.StandardIdentity_Affiliation_Friend ||</span>
-<span class="source-line-no">1589</span><span id="line-1589">                    aff == SymbolID.StandardIdentity_Affiliation_AssumedFriend)</span>
-<span class="source-line-no">1590</span><span id="line-1590">            {</span>
-<span class="source-line-no">1591</span><span id="line-1591">                switch (fs){</span>
-<span class="source-line-no">1592</span><span id="line-1592">                    case SymbolID.FrameShape_LandUnit:</span>
-<span class="source-line-no">1593</span><span id="line-1593">                    case SymbolID.FrameShape_LandInstallation:</span>
-<span class="source-line-no">1594</span><span id="line-1594">                    case SymbolID.FrameShape_Activity_Event:</span>
-<span class="source-line-no">1595</span><span id="line-1595">                    case SymbolID.FrameShape_Cyberspace:</span>
-<span class="source-line-no">1596</span><span id="line-1596">                        rh = 1f;</span>
-<span class="source-line-no">1597</span><span id="line-1597">                        break;</span>
-<span class="source-line-no">1598</span><span id="line-1598">                    default:</span>
-<span class="source-line-no">1599</span><span id="line-1599">                        rh=1.2f;</span>
-<span class="source-line-no">1600</span><span id="line-1600">                }</span>
-<span class="source-line-no">1601</span><span id="line-1601">            }</span>
-<span class="source-line-no">1602</span><span id="line-1602">            else if(aff == SymbolID.StandardIdentity_Affiliation_Neutral)</span>
-<span class="source-line-no">1603</span><span id="line-1603">            {</span>
-<span class="source-line-no">1604</span><span id="line-1604">                switch (fs){</span>
-<span class="source-line-no">1605</span><span id="line-1605">                    case SymbolID.FrameShape_LandUnit:</span>
-<span class="source-line-no">1606</span><span id="line-1606">                    case SymbolID.FrameShape_LandInstallation:</span>
-<span class="source-line-no">1607</span><span id="line-1607">                    case SymbolID.FrameShape_LandEquipment_SeaSurface:</span>
-<span class="source-line-no">1608</span><span id="line-1608">                    case SymbolID.FrameShape_Activity_Event:</span>
-<span class="source-line-no">1609</span><span id="line-1609">                    case SymbolID.FrameShape_Cyberspace:</span>
-<span class="source-line-no">1610</span><span id="line-1610">                        rh = 1.1f;</span>
-<span class="source-line-no">1611</span><span id="line-1611">                        break;</span>
-<span class="source-line-no">1612</span><span id="line-1612">                    default:</span>
-<span class="source-line-no">1613</span><span id="line-1613">                        rh=1.2f;</span>
-<span class="source-line-no">1614</span><span id="line-1614">                }</span>
-<span class="source-line-no">1615</span><span id="line-1615">            }</span>
-<span class="source-line-no">1616</span><span id="line-1616">            else //UNKNOWN</span>
-<span class="source-line-no">1617</span><span id="line-1617">            {</span>
-<span class="source-line-no">1618</span><span id="line-1618">                switch (fs){</span>
-<span class="source-line-no">1619</span><span id="line-1619">                    case SymbolID.FrameShape_LandUnit:</span>
-<span class="source-line-no">1620</span><span id="line-1620">                    case SymbolID.FrameShape_LandInstallation:</span>
-<span class="source-line-no">1621</span><span id="line-1621">                    case SymbolID.FrameShape_LandEquipment_SeaSurface:</span>
-<span class="source-line-no">1622</span><span id="line-1622">                    case SymbolID.FrameShape_Activity_Event:</span>
-<span class="source-line-no">1623</span><span id="line-1623">                    case SymbolID.FrameShape_Cyberspace:</span>
-<span class="source-line-no">1624</span><span id="line-1624">                        rh = 1.44f;</span>
-<span class="source-line-no">1625</span><span id="line-1625">                        break;</span>
-<span class="source-line-no">1626</span><span id="line-1626">                    default:</span>
-<span class="source-line-no">1627</span><span id="line-1627">                        rh=1.3f;</span>
-<span class="source-line-no">1628</span><span id="line-1628">                }</span>
-<span class="source-line-no">1629</span><span id="line-1629">            }</span>
-<span class="source-line-no">1630</span><span id="line-1630"></span>
-<span class="source-line-no">1631</span><span id="line-1631"></span>
-<span class="source-line-no">1632</span><span id="line-1632">        }</span>
+<span class="source-line-no">1579</span><span id="line-1579">                    case SymbolID.FrameShape_LandEquipment:</span>
+<span class="source-line-no">1580</span><span id="line-1580">                    case SymbolID.FrameShape_SeaSurface:</span>
+<span class="source-line-no">1581</span><span id="line-1581">                    case SymbolID.FrameShape_Activity_Event:</span>
+<span class="source-line-no">1582</span><span id="line-1582">                    case SymbolID.FrameShape_Cyberspace:</span>
+<span class="source-line-no">1583</span><span id="line-1583">                        rh = 1.44f;</span>
+<span class="source-line-no">1584</span><span id="line-1584">                        break;</span>
+<span class="source-line-no">1585</span><span id="line-1585">                    default:</span>
+<span class="source-line-no">1586</span><span id="line-1586">                        rh=1.3f;</span>
+<span class="source-line-no">1587</span><span id="line-1587">                }</span>
+<span class="source-line-no">1588</span><span id="line-1588">            }</span>
+<span class="source-line-no">1589</span><span id="line-1589">            else if(aff == SymbolID.StandardIdentity_Affiliation_Friend ||</span>
+<span class="source-line-no">1590</span><span id="line-1590">                    aff == SymbolID.StandardIdentity_Affiliation_AssumedFriend)</span>
+<span class="source-line-no">1591</span><span id="line-1591">            {</span>
+<span class="source-line-no">1592</span><span id="line-1592">                switch (fs){</span>
+<span class="source-line-no">1593</span><span id="line-1593">                    case SymbolID.FrameShape_LandUnit:</span>
+<span class="source-line-no">1594</span><span id="line-1594">                    case SymbolID.FrameShape_LandInstallation:</span>
+<span class="source-line-no">1595</span><span id="line-1595">                    case SymbolID.FrameShape_Activity_Event:</span>
+<span class="source-line-no">1596</span><span id="line-1596">                    case SymbolID.FrameShape_Cyberspace:</span>
+<span class="source-line-no">1597</span><span id="line-1597">                        rh = 1f;</span>
+<span class="source-line-no">1598</span><span id="line-1598">                        break;</span>
+<span class="source-line-no">1599</span><span id="line-1599">                    default:</span>
+<span class="source-line-no">1600</span><span id="line-1600">                        rh=1.2f;</span>
+<span class="source-line-no">1601</span><span id="line-1601">                }</span>
+<span class="source-line-no">1602</span><span id="line-1602">            }</span>
+<span class="source-line-no">1603</span><span id="line-1603">            else if(aff == SymbolID.StandardIdentity_Affiliation_Neutral)</span>
+<span class="source-line-no">1604</span><span id="line-1604">            {</span>
+<span class="source-line-no">1605</span><span id="line-1605">                switch (fs){</span>
+<span class="source-line-no">1606</span><span id="line-1606">                    case SymbolID.FrameShape_LandUnit:</span>
+<span class="source-line-no">1607</span><span id="line-1607">                    case SymbolID.FrameShape_LandInstallation:</span>
+<span class="source-line-no">1608</span><span id="line-1608">                    case SymbolID.FrameShape_LandEquipment:</span>
+<span class="source-line-no">1609</span><span id="line-1609">                    case SymbolID.FrameShape_SeaSurface:</span>
+<span class="source-line-no">1610</span><span id="line-1610">                    case SymbolID.FrameShape_Activity_Event:</span>
+<span class="source-line-no">1611</span><span id="line-1611">                    case SymbolID.FrameShape_Cyberspace:</span>
+<span class="source-line-no">1612</span><span id="line-1612">                        rh = 1.1f;</span>
+<span class="source-line-no">1613</span><span id="line-1613">                        break;</span>
+<span class="source-line-no">1614</span><span id="line-1614">                    default:</span>
+<span class="source-line-no">1615</span><span id="line-1615">                        rh=1.2f;</span>
+<span class="source-line-no">1616</span><span id="line-1616">                }</span>
+<span class="source-line-no">1617</span><span id="line-1617">            }</span>
+<span class="source-line-no">1618</span><span id="line-1618">            else //UNKNOWN</span>
+<span class="source-line-no">1619</span><span id="line-1619">            {</span>
+<span class="source-line-no">1620</span><span id="line-1620">                switch (fs){</span>
+<span class="source-line-no">1621</span><span id="line-1621">                    case SymbolID.FrameShape_LandUnit:</span>
+<span class="source-line-no">1622</span><span id="line-1622">                    case SymbolID.FrameShape_LandInstallation:</span>
+<span class="source-line-no">1623</span><span id="line-1623">                    case SymbolID.FrameShape_LandEquipment:</span>
+<span class="source-line-no">1624</span><span id="line-1624">                    case SymbolID.FrameShape_SeaSurface:</span>
+<span class="source-line-no">1625</span><span id="line-1625">                    case SymbolID.FrameShape_Activity_Event:</span>
+<span class="source-line-no">1626</span><span id="line-1626">                    case SymbolID.FrameShape_Cyberspace:</span>
+<span class="source-line-no">1627</span><span id="line-1627">                        rh = 1.44f;</span>
+<span class="source-line-no">1628</span><span id="line-1628">                        break;</span>
+<span class="source-line-no">1629</span><span id="line-1629">                    default:</span>
+<span class="source-line-no">1630</span><span id="line-1630">                        rh=1.3f;</span>
+<span class="source-line-no">1631</span><span id="line-1631">                }</span>
+<span class="source-line-no">1632</span><span id="line-1632">            }</span>
 <span class="source-line-no">1633</span><span id="line-1633"></span>
-<span class="source-line-no">1634</span><span id="line-1634">        return rh;</span>
-<span class="source-line-no">1635</span><span id="line-1635">    }</span>
+<span class="source-line-no">1634</span><span id="line-1634"></span>
+<span class="source-line-no">1635</span><span id="line-1635">        }</span>
 <span class="source-line-no">1636</span><span id="line-1636"></span>
-<span class="source-line-no">1637</span><span id="line-1637">    /**</span>
-<span class="source-line-no">1638</span><span id="line-1638">     * Returns the width ratio for the unit specified by the symbol ID</span>
-<span class="source-line-no">1639</span><span id="line-1639">     * Based on Figure 4 in 2525E.</span>
-<span class="source-line-no">1640</span><span id="line-1640">     * @param symbolID 30 Character {@link String}</span>
-<span class="source-line-no">1641</span><span id="line-1641">     * @return {@link Float}</span>
-<span class="source-line-no">1642</span><span id="line-1642">     */</span>
-<span class="source-line-no">1643</span><span id="line-1643">    public static float getUnitRatioWidth(String symbolID)</span>
-<span class="source-line-no">1644</span><span id="line-1644">    {</span>
-<span class="source-line-no">1645</span><span id="line-1645">        int ver = SymbolID.getVersion(symbolID);</span>
-<span class="source-line-no">1646</span><span id="line-1646">        int aff = SymbolID.getAffiliation(symbolID);</span>
-<span class="source-line-no">1647</span><span id="line-1647"></span>
-<span class="source-line-no">1648</span><span id="line-1648">        float rw = 0;</span>
-<span class="source-line-no">1649</span><span id="line-1649"></span>
-<span class="source-line-no">1650</span><span id="line-1650">        if(ver &lt; SymbolID.Version_2525E)</span>
-<span class="source-line-no">1651</span><span id="line-1651">        {</span>
-<span class="source-line-no">1652</span><span id="line-1652">            int ss = SymbolID.getSymbolSet(symbolID);</span>
-<span class="source-line-no">1653</span><span id="line-1653"></span>
-<span class="source-line-no">1654</span><span id="line-1654">            if(aff == SymbolID.StandardIdentity_Affiliation_Hostile_Faker ||</span>
-<span class="source-line-no">1655</span><span id="line-1655">                    aff == SymbolID.StandardIdentity_Affiliation_Suspect_Joker)</span>
-<span class="source-line-no">1656</span><span id="line-1656">            {</span>
-<span class="source-line-no">1657</span><span id="line-1657">                switch (ss){</span>
-<span class="source-line-no">1658</span><span id="line-1658">                    case SymbolID.SymbolSet_LandCivilianUnit_Organization:</span>
-<span class="source-line-no">1659</span><span id="line-1659">                    case SymbolID.SymbolSet_LandUnit:</span>
-<span class="source-line-no">1660</span><span id="line-1660">                    case SymbolID.SymbolSet_LandInstallation:</span>
-<span class="source-line-no">1661</span><span id="line-1661">                    case SymbolID.SymbolSet_LandEquipment:</span>
-<span class="source-line-no">1662</span><span id="line-1662">                    case SymbolID.SymbolSet_SignalsIntelligence_Land:</span>
-<span class="source-line-no">1663</span><span id="line-1663">                    case SymbolID.SymbolSet_Activities:</span>
-<span class="source-line-no">1664</span><span id="line-1664">                    case SymbolID.SymbolSet_CyberSpace:</span>
-<span class="source-line-no">1665</span><span id="line-1665">                        rw = 1.44f;</span>
-<span class="source-line-no">1666</span><span id="line-1666">                        break;</span>
-<span class="source-line-no">1667</span><span id="line-1667">                    default:</span>
-<span class="source-line-no">1668</span><span id="line-1668">                        rw=1.1f;</span>
-<span class="source-line-no">1669</span><span id="line-1669">                }</span>
-<span class="source-line-no">1670</span><span id="line-1670">            }</span>
-<span class="source-line-no">1671</span><span id="line-1671">            else if(aff == SymbolID.StandardIdentity_Affiliation_Friend ||</span>
-<span class="source-line-no">1672</span><span id="line-1672">                    aff == SymbolID.StandardIdentity_Affiliation_AssumedFriend)</span>
-<span class="source-line-no">1673</span><span id="line-1673">            {</span>
-<span class="source-line-no">1674</span><span id="line-1674">                switch (ss){</span>
-<span class="source-line-no">1675</span><span id="line-1675">                    case SymbolID.SymbolSet_LandCivilianUnit_Organization:</span>
-<span class="source-line-no">1676</span><span id="line-1676">                    case SymbolID.SymbolSet_LandUnit:</span>
-<span class="source-line-no">1677</span><span id="line-1677">                    case SymbolID.SymbolSet_LandInstallation:</span>
-<span class="source-line-no">1678</span><span id="line-1678">                    case SymbolID.SymbolSet_Activities:</span>
-<span class="source-line-no">1679</span><span id="line-1679">                    case SymbolID.SymbolSet_CyberSpace:</span>
-<span class="source-line-no">1680</span><span id="line-1680">                        rw = 1.5f;</span>
-<span class="source-line-no">1681</span><span id="line-1681">                        break;</span>
-<span class="source-line-no">1682</span><span id="line-1682">                    case SymbolID.SymbolSet_LandEquipment:</span>
-<span class="source-line-no">1683</span><span id="line-1683">                    case SymbolID.SymbolSet_SignalsIntelligence_Land:</span>
-<span class="source-line-no">1684</span><span id="line-1684">                        rw = 1.2f;</span>
-<span class="source-line-no">1685</span><span id="line-1685">                        break;</span>
-<span class="source-line-no">1686</span><span id="line-1686">                    default:</span>
-<span class="source-line-no">1687</span><span id="line-1687">                        rw=1.1f;</span>
-<span class="source-line-no">1688</span><span id="line-1688">                }</span>
-<span class="source-line-no">1689</span><span id="line-1689">            }</span>
-<span class="source-line-no">1690</span><span id="line-1690">            else if(aff == SymbolID.StandardIdentity_Affiliation_Neutral)</span>
-<span class="source-line-no">1691</span><span id="line-1691">            {</span>
-<span class="source-line-no">1692</span><span id="line-1692">                rw = 1.1f;</span>
-<span class="source-line-no">1693</span><span id="line-1693">            }</span>
-<span class="source-line-no">1694</span><span id="line-1694">            else //UNKNOWN</span>
-<span class="source-line-no">1695</span><span id="line-1695">            {</span>
-<span class="source-line-no">1696</span><span id="line-1696">                switch (ss){</span>
-<span class="source-line-no">1697</span><span id="line-1697">                    case SymbolID.SymbolSet_LandCivilianUnit_Organization:</span>
-<span class="source-line-no">1698</span><span id="line-1698">                    case SymbolID.SymbolSet_LandUnit:</span>
-<span class="source-line-no">1699</span><span id="line-1699">                    case SymbolID.SymbolSet_LandInstallation:</span>
-<span class="source-line-no">1700</span><span id="line-1700">                    case SymbolID.SymbolSet_LandEquipment:</span>
-<span class="source-line-no">1701</span><span id="line-1701">                    case SymbolID.SymbolSet_SignalsIntelligence_Land:</span>
-<span class="source-line-no">1702</span><span id="line-1702">                    case SymbolID.SymbolSet_Activities:</span>
-<span class="source-line-no">1703</span><span id="line-1703">                    case SymbolID.SymbolSet_CyberSpace:</span>
-<span class="source-line-no">1704</span><span id="line-1704">                        rw = 1.44f;</span>
-<span class="source-line-no">1705</span><span id="line-1705">                        break;</span>
-<span class="source-line-no">1706</span><span id="line-1706">                    default:</span>
-<span class="source-line-no">1707</span><span id="line-1707">                        rw=1.5f;</span>
-<span class="source-line-no">1708</span><span id="line-1708">                }</span>
-<span class="source-line-no">1709</span><span id="line-1709">            }</span>
-<span class="source-line-no">1710</span><span id="line-1710">        }</span>
-<span class="source-line-no">1711</span><span id="line-1711">        else //2525E and above</span>
-<span class="source-line-no">1712</span><span id="line-1712">        {</span>
-<span class="source-line-no">1713</span><span id="line-1713">            String frameID = SVGLookup.getFrameID(symbolID);</span>
-<span class="source-line-no">1714</span><span id="line-1714">            if(frameID.length()==6)</span>
-<span class="source-line-no">1715</span><span id="line-1715">                aff = Integer.parseInt(frameID.substring(2,3));</span>
-<span class="source-line-no">1716</span><span id="line-1716">            else //"octagon"</span>
-<span class="source-line-no">1717</span><span id="line-1717">                return 1f;</span>
-<span class="source-line-no">1718</span><span id="line-1718">            char fs = (frameID.charAt(3));</span>
-<span class="source-line-no">1719</span><span id="line-1719"></span>
-<span class="source-line-no">1720</span><span id="line-1720">            if(aff == SymbolID.StandardIdentity_Affiliation_Hostile_Faker ||</span>
-<span class="source-line-no">1721</span><span id="line-1721">                    aff == SymbolID.StandardIdentity_Affiliation_Suspect_Joker)</span>
-<span class="source-line-no">1722</span><span id="line-1722">            {</span>
-<span class="source-line-no">1723</span><span id="line-1723">                switch (fs){</span>
-<span class="source-line-no">1724</span><span id="line-1724">                    case SymbolID.FrameShape_LandUnit:</span>
-<span class="source-line-no">1725</span><span id="line-1725">                    case SymbolID.FrameShape_LandInstallation:</span>
-<span class="source-line-no">1726</span><span id="line-1726">                    case SymbolID.FrameShape_LandEquipment_SeaSurface:</span>
-<span class="source-line-no">1727</span><span id="line-1727">                    case SymbolID.FrameShape_Activity_Event:</span>
-<span class="source-line-no">1728</span><span id="line-1728">                    case SymbolID.FrameShape_Cyberspace:</span>
-<span class="source-line-no">1729</span><span id="line-1729">                        rw = 1.44f;</span>
-<span class="source-line-no">1730</span><span id="line-1730">                        break;</span>
-<span class="source-line-no">1731</span><span id="line-1731">                    default:</span>
-<span class="source-line-no">1732</span><span id="line-1732">                        rw=1.1f;</span>
-<span class="source-line-no">1733</span><span id="line-1733">                }</span>
-<span class="source-line-no">1734</span><span id="line-1734">            }</span>
-<span class="source-line-no">1735</span><span id="line-1735">            else if(aff == SymbolID.StandardIdentity_Affiliation_Friend ||</span>
-<span class="source-line-no">1736</span><span id="line-1736">                    aff == SymbolID.StandardIdentity_Affiliation_AssumedFriend)</span>
-<span class="source-line-no">1737</span><span id="line-1737">            {</span>
-<span class="source-line-no">1738</span><span id="line-1738">                switch (fs){</span>
-<span class="source-line-no">1739</span><span id="line-1739">                    case SymbolID.FrameShape_LandUnit:</span>
-<span class="source-line-no">1740</span><span id="line-1740">                    case SymbolID.FrameShape_LandInstallation:</span>
-<span class="source-line-no">1741</span><span id="line-1741">                    case SymbolID.FrameShape_Activity_Event:</span>
-<span class="source-line-no">1742</span><span id="line-1742">                    case SymbolID.FrameShape_Cyberspace:</span>
-<span class="source-line-no">1743</span><span id="line-1743">                        rw = 1.5f;</span>
-<span class="source-line-no">1744</span><span id="line-1744">                        break;</span>
-<span class="source-line-no">1745</span><span id="line-1745">                    case SymbolID.FrameShape_LandEquipment_SeaSurface:</span>
-<span class="source-line-no">1746</span><span id="line-1746">                        rw = 1.2f;</span>
-<span class="source-line-no">1747</span><span id="line-1747">                        break;</span>
-<span class="source-line-no">1748</span><span id="line-1748">                    default:</span>
-<span class="source-line-no">1749</span><span id="line-1749">                        rw=1.1f;</span>
-<span class="source-line-no">1750</span><span id="line-1750">                }</span>
-<span class="source-line-no">1751</span><span id="line-1751">            }</span>
-<span class="source-line-no">1752</span><span id="line-1752">            else if(aff == SymbolID.StandardIdentity_Affiliation_Neutral)</span>
-<span class="source-line-no">1753</span><span id="line-1753">            {</span>
-<span class="source-line-no">1754</span><span id="line-1754">                rw = 1.1f;</span>
-<span class="source-line-no">1755</span><span id="line-1755">            }</span>
-<span class="source-line-no">1756</span><span id="line-1756">            else //UNKNOWN</span>
-<span class="source-line-no">1757</span><span id="line-1757">            {</span>
-<span class="source-line-no">1758</span><span id="line-1758">                switch (fs){</span>
-<span class="source-line-no">1759</span><span id="line-1759">                    case SymbolID.FrameShape_LandUnit:</span>
-<span class="source-line-no">1760</span><span id="line-1760">                    case SymbolID.FrameShape_LandInstallation:</span>
-<span class="source-line-no">1761</span><span id="line-1761">                    case SymbolID.FrameShape_LandEquipment_SeaSurface:</span>
-<span class="source-line-no">1762</span><span id="line-1762">                    case SymbolID.FrameShape_Activity_Event:</span>
-<span class="source-line-no">1763</span><span id="line-1763">                    case SymbolID.FrameShape_Cyberspace:</span>
-<span class="source-line-no">1764</span><span id="line-1764">                        rw = 1.44f;</span>
-<span class="source-line-no">1765</span><span id="line-1765">                        break;</span>
-<span class="source-line-no">1766</span><span id="line-1766">                    default:</span>
-<span class="source-line-no">1767</span><span id="line-1767">                        rw=1.5f;</span>
-<span class="source-line-no">1768</span><span id="line-1768">                }</span>
-<span class="source-line-no">1769</span><span id="line-1769">            }</span>
-<span class="source-line-no">1770</span><span id="line-1770">        }</span>
-<span class="source-line-no">1771</span><span id="line-1771"></span>
-<span class="source-line-no">1772</span><span id="line-1772">        return rw;</span>
-<span class="source-line-no">1773</span><span id="line-1773">    }</span>
-<span class="source-line-no">1774</span><span id="line-1774"></span>
-<span class="source-line-no">1775</span><span id="line-1775">    /**</span>
-<span class="source-line-no">1776</span><span id="line-1776">     * @param linetype the line type</span>
-<span class="source-line-no">1777</span><span id="line-1777">     * @return true if the line is a basic shape</span>
-<span class="source-line-no">1778</span><span id="line-1778">     */</span>
-<span class="source-line-no">1779</span><span id="line-1779">    public static boolean isBasicShape(int linetype) {</span>
-<span class="source-line-no">1780</span><span id="line-1780">        switch (linetype) {</span>
-<span class="source-line-no">1781</span><span id="line-1781">            case TacticalLines.BS_AREA:</span>
-<span class="source-line-no">1782</span><span id="line-1782">            case TacticalLines.BS_LINE:</span>
-<span class="source-line-no">1783</span><span id="line-1783">            case TacticalLines.BS_CROSS:</span>
-<span class="source-line-no">1784</span><span id="line-1784">            case TacticalLines.BS_ELLIPSE:</span>
-<span class="source-line-no">1785</span><span id="line-1785">            case TacticalLines.PBS_ELLIPSE:</span>
-<span class="source-line-no">1786</span><span id="line-1786">            case TacticalLines.PBS_CIRCLE:</span>
-<span class="source-line-no">1787</span><span id="line-1787">            case TacticalLines.PBS_SQUARE:</span>
-<span class="source-line-no">1788</span><span id="line-1788">            case TacticalLines.PBS_RECTANGLE:</span>
-<span class="source-line-no">1789</span><span id="line-1789">            case TacticalLines.BS_RECTANGLE:</span>
-<span class="source-line-no">1790</span><span id="line-1790">            case TacticalLines.BBS_AREA:</span>
-<span class="source-line-no">1791</span><span id="line-1791">            case TacticalLines.BBS_LINE:</span>
-<span class="source-line-no">1792</span><span id="line-1792">            case TacticalLines.BBS_POINT:</span>
-<span class="source-line-no">1793</span><span id="line-1793">            case TacticalLines.BBS_RECTANGLE:</span>
-<span class="source-line-no">1794</span><span id="line-1794">            case TacticalLines.BS_BBOX:</span>
-<span class="source-line-no">1795</span><span id="line-1795">                return true;</span>
-<span class="source-line-no">1796</span><span id="line-1796">            default:</span>
-<span class="source-line-no">1797</span><span id="line-1797">                return false;</span>
-<span class="source-line-no">1798</span><span id="line-1798">        }</span>
-<span class="source-line-no">1799</span><span id="line-1799">    }</span>
-<span class="source-line-no">1800</span><span id="line-1800">}</span>
+<span class="source-line-no">1637</span><span id="line-1637">        return rh;</span>
+<span class="source-line-no">1638</span><span id="line-1638">    }</span>
+<span class="source-line-no">1639</span><span id="line-1639"></span>
+<span class="source-line-no">1640</span><span id="line-1640">    /**</span>
+<span class="source-line-no">1641</span><span id="line-1641">     * Returns the width ratio for the unit specified by the symbol ID</span>
+<span class="source-line-no">1642</span><span id="line-1642">     * Based on Figure 4 in 2525E.</span>
+<span class="source-line-no">1643</span><span id="line-1643">     * @param symbolID 30 Character {@link String}</span>
+<span class="source-line-no">1644</span><span id="line-1644">     * @return {@link Float}</span>
+<span class="source-line-no">1645</span><span id="line-1645">     */</span>
+<span class="source-line-no">1646</span><span id="line-1646">    public static float getUnitRatioWidth(String symbolID)</span>
+<span class="source-line-no">1647</span><span id="line-1647">    {</span>
+<span class="source-line-no">1648</span><span id="line-1648">        int ver = SymbolID.getVersion(symbolID);</span>
+<span class="source-line-no">1649</span><span id="line-1649">        int aff = SymbolID.getAffiliation(symbolID);</span>
+<span class="source-line-no">1650</span><span id="line-1650"></span>
+<span class="source-line-no">1651</span><span id="line-1651">        float rw = 0;</span>
+<span class="source-line-no">1652</span><span id="line-1652"></span>
+<span class="source-line-no">1653</span><span id="line-1653">        if(ver &lt; SymbolID.Version_2525E)</span>
+<span class="source-line-no">1654</span><span id="line-1654">        {</span>
+<span class="source-line-no">1655</span><span id="line-1655">            int ss = SymbolID.getSymbolSet(symbolID);</span>
+<span class="source-line-no">1656</span><span id="line-1656"></span>
+<span class="source-line-no">1657</span><span id="line-1657">            if(aff == SymbolID.StandardIdentity_Affiliation_Hostile_Faker ||</span>
+<span class="source-line-no">1658</span><span id="line-1658">                    aff == SymbolID.StandardIdentity_Affiliation_Suspect_Joker)</span>
+<span class="source-line-no">1659</span><span id="line-1659">            {</span>
+<span class="source-line-no">1660</span><span id="line-1660">                switch (ss){</span>
+<span class="source-line-no">1661</span><span id="line-1661">                    case SymbolID.SymbolSet_LandCivilianUnit_Organization:</span>
+<span class="source-line-no">1662</span><span id="line-1662">                    case SymbolID.SymbolSet_LandUnit:</span>
+<span class="source-line-no">1663</span><span id="line-1663">                    case SymbolID.SymbolSet_LandInstallation:</span>
+<span class="source-line-no">1664</span><span id="line-1664">                    case SymbolID.SymbolSet_LandEquipment:</span>
+<span class="source-line-no">1665</span><span id="line-1665">                    case SymbolID.SymbolSet_SignalsIntelligence_Land:</span>
+<span class="source-line-no">1666</span><span id="line-1666">                    case SymbolID.SymbolSet_Activities:</span>
+<span class="source-line-no">1667</span><span id="line-1667">                    case SymbolID.SymbolSet_CyberSpace:</span>
+<span class="source-line-no">1668</span><span id="line-1668">                        rw = 1.44f;</span>
+<span class="source-line-no">1669</span><span id="line-1669">                        break;</span>
+<span class="source-line-no">1670</span><span id="line-1670">                    default:</span>
+<span class="source-line-no">1671</span><span id="line-1671">                        rw=1.1f;</span>
+<span class="source-line-no">1672</span><span id="line-1672">                }</span>
+<span class="source-line-no">1673</span><span id="line-1673">            }</span>
+<span class="source-line-no">1674</span><span id="line-1674">            else if(aff == SymbolID.StandardIdentity_Affiliation_Friend ||</span>
+<span class="source-line-no">1675</span><span id="line-1675">                    aff == SymbolID.StandardIdentity_Affiliation_AssumedFriend)</span>
+<span class="source-line-no">1676</span><span id="line-1676">            {</span>
+<span class="source-line-no">1677</span><span id="line-1677">                switch (ss){</span>
+<span class="source-line-no">1678</span><span id="line-1678">                    case SymbolID.SymbolSet_LandCivilianUnit_Organization:</span>
+<span class="source-line-no">1679</span><span id="line-1679">                    case SymbolID.SymbolSet_LandUnit:</span>
+<span class="source-line-no">1680</span><span id="line-1680">                    case SymbolID.SymbolSet_LandInstallation:</span>
+<span class="source-line-no">1681</span><span id="line-1681">                    case SymbolID.SymbolSet_Activities:</span>
+<span class="source-line-no">1682</span><span id="line-1682">                    case SymbolID.SymbolSet_CyberSpace:</span>
+<span class="source-line-no">1683</span><span id="line-1683">                        rw = 1.5f;</span>
+<span class="source-line-no">1684</span><span id="line-1684">                        break;</span>
+<span class="source-line-no">1685</span><span id="line-1685">                    case SymbolID.SymbolSet_LandEquipment:</span>
+<span class="source-line-no">1686</span><span id="line-1686">                    case SymbolID.SymbolSet_SignalsIntelligence_Land:</span>
+<span class="source-line-no">1687</span><span id="line-1687">                        rw = 1.2f;</span>
+<span class="source-line-no">1688</span><span id="line-1688">                        break;</span>
+<span class="source-line-no">1689</span><span id="line-1689">                    default:</span>
+<span class="source-line-no">1690</span><span id="line-1690">                        rw=1.1f;</span>
+<span class="source-line-no">1691</span><span id="line-1691">                }</span>
+<span class="source-line-no">1692</span><span id="line-1692">            }</span>
+<span class="source-line-no">1693</span><span id="line-1693">            else if(aff == SymbolID.StandardIdentity_Affiliation_Neutral)</span>
+<span class="source-line-no">1694</span><span id="line-1694">            {</span>
+<span class="source-line-no">1695</span><span id="line-1695">                rw = 1.1f;</span>
+<span class="source-line-no">1696</span><span id="line-1696">            }</span>
+<span class="source-line-no">1697</span><span id="line-1697">            else //UNKNOWN</span>
+<span class="source-line-no">1698</span><span id="line-1698">            {</span>
+<span class="source-line-no">1699</span><span id="line-1699">                switch (ss){</span>
+<span class="source-line-no">1700</span><span id="line-1700">                    case SymbolID.SymbolSet_LandCivilianUnit_Organization:</span>
+<span class="source-line-no">1701</span><span id="line-1701">                    case SymbolID.SymbolSet_LandUnit:</span>
+<span class="source-line-no">1702</span><span id="line-1702">                    case SymbolID.SymbolSet_LandInstallation:</span>
+<span class="source-line-no">1703</span><span id="line-1703">                    case SymbolID.SymbolSet_LandEquipment:</span>
+<span class="source-line-no">1704</span><span id="line-1704">                    case SymbolID.SymbolSet_SignalsIntelligence_Land:</span>
+<span class="source-line-no">1705</span><span id="line-1705">                    case SymbolID.SymbolSet_Activities:</span>
+<span class="source-line-no">1706</span><span id="line-1706">                    case SymbolID.SymbolSet_CyberSpace:</span>
+<span class="source-line-no">1707</span><span id="line-1707">                        rw = 1.44f;</span>
+<span class="source-line-no">1708</span><span id="line-1708">                        break;</span>
+<span class="source-line-no">1709</span><span id="line-1709">                    default:</span>
+<span class="source-line-no">1710</span><span id="line-1710">                        rw=1.5f;</span>
+<span class="source-line-no">1711</span><span id="line-1711">                }</span>
+<span class="source-line-no">1712</span><span id="line-1712">            }</span>
+<span class="source-line-no">1713</span><span id="line-1713">        }</span>
+<span class="source-line-no">1714</span><span id="line-1714">        else //2525E and above</span>
+<span class="source-line-no">1715</span><span id="line-1715">        {</span>
+<span class="source-line-no">1716</span><span id="line-1716">            String frameID = SVGLookup.getFrameID(symbolID);</span>
+<span class="source-line-no">1717</span><span id="line-1717">            if(frameID.length()==6)</span>
+<span class="source-line-no">1718</span><span id="line-1718">                aff = Integer.parseInt(frameID.substring(2,3));</span>
+<span class="source-line-no">1719</span><span id="line-1719">            else //"octagon"</span>
+<span class="source-line-no">1720</span><span id="line-1720">                return 1f;</span>
+<span class="source-line-no">1721</span><span id="line-1721">            char fs = (frameID.charAt(3));</span>
+<span class="source-line-no">1722</span><span id="line-1722"></span>
+<span class="source-line-no">1723</span><span id="line-1723">            if(aff == SymbolID.StandardIdentity_Affiliation_Hostile_Faker ||</span>
+<span class="source-line-no">1724</span><span id="line-1724">                    aff == SymbolID.StandardIdentity_Affiliation_Suspect_Joker)</span>
+<span class="source-line-no">1725</span><span id="line-1725">            {</span>
+<span class="source-line-no">1726</span><span id="line-1726">                switch (fs){</span>
+<span class="source-line-no">1727</span><span id="line-1727">                    case SymbolID.FrameShape_LandUnit:</span>
+<span class="source-line-no">1728</span><span id="line-1728">                    case SymbolID.FrameShape_LandInstallation:</span>
+<span class="source-line-no">1729</span><span id="line-1729">                    case SymbolID.FrameShape_LandEquipment:</span>
+<span class="source-line-no">1730</span><span id="line-1730">                    case SymbolID.FrameShape_SeaSurface:</span>
+<span class="source-line-no">1731</span><span id="line-1731">                    case SymbolID.FrameShape_Activity_Event:</span>
+<span class="source-line-no">1732</span><span id="line-1732">                    case SymbolID.FrameShape_Cyberspace:</span>
+<span class="source-line-no">1733</span><span id="line-1733">                        rw = 1.44f;</span>
+<span class="source-line-no">1734</span><span id="line-1734">                        break;</span>
+<span class="source-line-no">1735</span><span id="line-1735">                    default:</span>
+<span class="source-line-no">1736</span><span id="line-1736">                        rw=1.1f;</span>
+<span class="source-line-no">1737</span><span id="line-1737">                }</span>
+<span class="source-line-no">1738</span><span id="line-1738">            }</span>
+<span class="source-line-no">1739</span><span id="line-1739">            else if(aff == SymbolID.StandardIdentity_Affiliation_Friend ||</span>
+<span class="source-line-no">1740</span><span id="line-1740">                    aff == SymbolID.StandardIdentity_Affiliation_AssumedFriend)</span>
+<span class="source-line-no">1741</span><span id="line-1741">            {</span>
+<span class="source-line-no">1742</span><span id="line-1742">                switch (fs){</span>
+<span class="source-line-no">1743</span><span id="line-1743">                    case SymbolID.FrameShape_LandUnit:</span>
+<span class="source-line-no">1744</span><span id="line-1744">                    case SymbolID.FrameShape_LandInstallation:</span>
+<span class="source-line-no">1745</span><span id="line-1745">                    case SymbolID.FrameShape_Activity_Event:</span>
+<span class="source-line-no">1746</span><span id="line-1746">                    case SymbolID.FrameShape_Cyberspace:</span>
+<span class="source-line-no">1747</span><span id="line-1747">                        rw = 1.5f;</span>
+<span class="source-line-no">1748</span><span id="line-1748">                        break;</span>
+<span class="source-line-no">1749</span><span id="line-1749">                    case SymbolID.FrameShape_LandEquipment:</span>
+<span class="source-line-no">1750</span><span id="line-1750">                    case SymbolID.FrameShape_SeaSurface:</span>
+<span class="source-line-no">1751</span><span id="line-1751">                        rw = 1.2f;</span>
+<span class="source-line-no">1752</span><span id="line-1752">                        break;</span>
+<span class="source-line-no">1753</span><span id="line-1753">                    default:</span>
+<span class="source-line-no">1754</span><span id="line-1754">                        rw=1.1f;</span>
+<span class="source-line-no">1755</span><span id="line-1755">                }</span>
+<span class="source-line-no">1756</span><span id="line-1756">            }</span>
+<span class="source-line-no">1757</span><span id="line-1757">            else if(aff == SymbolID.StandardIdentity_Affiliation_Neutral)</span>
+<span class="source-line-no">1758</span><span id="line-1758">            {</span>
+<span class="source-line-no">1759</span><span id="line-1759">                rw = 1.1f;</span>
+<span class="source-line-no">1760</span><span id="line-1760">            }</span>
+<span class="source-line-no">1761</span><span id="line-1761">            else //UNKNOWN</span>
+<span class="source-line-no">1762</span><span id="line-1762">            {</span>
+<span class="source-line-no">1763</span><span id="line-1763">                switch (fs){</span>
+<span class="source-line-no">1764</span><span id="line-1764">                    case SymbolID.FrameShape_LandUnit:</span>
+<span class="source-line-no">1765</span><span id="line-1765">                    case SymbolID.FrameShape_LandInstallation:</span>
+<span class="source-line-no">1766</span><span id="line-1766">                    case SymbolID.FrameShape_LandEquipment:</span>
+<span class="source-line-no">1767</span><span id="line-1767">                    case SymbolID.FrameShape_SeaSurface:</span>
+<span class="source-line-no">1768</span><span id="line-1768">                    case SymbolID.FrameShape_Activity_Event:</span>
+<span class="source-line-no">1769</span><span id="line-1769">                    case SymbolID.FrameShape_Cyberspace:</span>
+<span class="source-line-no">1770</span><span id="line-1770">                        rw = 1.44f;</span>
+<span class="source-line-no">1771</span><span id="line-1771">                        break;</span>
+<span class="source-line-no">1772</span><span id="line-1772">                    default:</span>
+<span class="source-line-no">1773</span><span id="line-1773">                        rw=1.5f;</span>
+<span class="source-line-no">1774</span><span id="line-1774">                }</span>
+<span class="source-line-no">1775</span><span id="line-1775">            }</span>
+<span class="source-line-no">1776</span><span id="line-1776">        }</span>
+<span class="source-line-no">1777</span><span id="line-1777"></span>
+<span class="source-line-no">1778</span><span id="line-1778">        return rw;</span>
+<span class="source-line-no">1779</span><span id="line-1779">    }</span>
+<span class="source-line-no">1780</span><span id="line-1780"></span>
+<span class="source-line-no">1781</span><span id="line-1781">    /**</span>
+<span class="source-line-no">1782</span><span id="line-1782">     * @param linetype the line type</span>
+<span class="source-line-no">1783</span><span id="line-1783">     * @return true if the line is a basic shape</span>
+<span class="source-line-no">1784</span><span id="line-1784">     */</span>
+<span class="source-line-no">1785</span><span id="line-1785">    public static boolean isBasicShape(int linetype) {</span>
+<span class="source-line-no">1786</span><span id="line-1786">        switch (linetype) {</span>
+<span class="source-line-no">1787</span><span id="line-1787">            case TacticalLines.BS_AREA:</span>
+<span class="source-line-no">1788</span><span id="line-1788">            case TacticalLines.BS_LINE:</span>
+<span class="source-line-no">1789</span><span id="line-1789">            case TacticalLines.BS_CROSS:</span>
+<span class="source-line-no">1790</span><span id="line-1790">            case TacticalLines.BS_ELLIPSE:</span>
+<span class="source-line-no">1791</span><span id="line-1791">            case TacticalLines.PBS_ELLIPSE:</span>
+<span class="source-line-no">1792</span><span id="line-1792">            case TacticalLines.PBS_CIRCLE:</span>
+<span class="source-line-no">1793</span><span id="line-1793">            case TacticalLines.PBS_SQUARE:</span>
+<span class="source-line-no">1794</span><span id="line-1794">            case TacticalLines.PBS_RECTANGLE:</span>
+<span class="source-line-no">1795</span><span id="line-1795">            case TacticalLines.BS_RECTANGLE:</span>
+<span class="source-line-no">1796</span><span id="line-1796">            case TacticalLines.BBS_AREA:</span>
+<span class="source-line-no">1797</span><span id="line-1797">            case TacticalLines.BBS_LINE:</span>
+<span class="source-line-no">1798</span><span id="line-1798">            case TacticalLines.BBS_POINT:</span>
+<span class="source-line-no">1799</span><span id="line-1799">            case TacticalLines.BBS_RECTANGLE:</span>
+<span class="source-line-no">1800</span><span id="line-1800">            case TacticalLines.BS_BBOX:</span>
+<span class="source-line-no">1801</span><span id="line-1801">                return true;</span>
+<span class="source-line-no">1802</span><span id="line-1802">            default:</span>
+<span class="source-line-no">1803</span><span id="line-1803">                return false;</span>
+<span class="source-line-no">1804</span><span id="line-1804">        }</span>
+<span class="source-line-no">1805</span><span id="line-1805">    }</span>
+<span class="source-line-no">1806</span><span id="line-1806">}</span>
 
 
 

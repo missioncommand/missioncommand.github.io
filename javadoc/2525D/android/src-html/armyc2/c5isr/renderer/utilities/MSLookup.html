@@ -559,254 +559,258 @@
 <span class="source-line-no">546</span><span id="line-546">                    modifiers.add(Modifiers.X_ALTITUDE_DEPTH);</span>
 <span class="source-line-no">547</span><span id="line-547">                    modifiers.add(Modifiers.Z_SPEED);</span>
 <span class="source-line-no">548</span><span id="line-548">                    modifiers.add(Modifiers.AB_FEINT_DUMMY_INDICATOR);</span>
-<span class="source-line-no">549</span><span id="line-549">                    modifiers.add(Modifiers.AL_OPERATIONAL_CONDITION);</span>
-<span class="source-line-no">550</span><span id="line-550">                    modifiers.add(Modifiers.AO_ENGAGEMENT_BAR);</span>
-<span class="source-line-no">551</span><span id="line-551">                    modifiers.add(Modifiers.AS_COUNTRY);</span>
-<span class="source-line-no">552</span><span id="line-552">                    break;</span>
-<span class="source-line-no">553</span><span id="line-553">                case SymbolID.SymbolSet_Air:</span>
-<span class="source-line-no">554</span><span id="line-554">                case SymbolID.SymbolSet_AirMissile:</span>
-<span class="source-line-no">555</span><span id="line-555">                case SymbolID.SymbolSet_SignalsIntelligence_Air:</span>
-<span class="source-line-no">556</span><span id="line-556">                    modifiers.add(Modifiers.A_SYMBOL_ICON);</span>
-<span class="source-line-no">557</span><span id="line-557">                    modifiers.add(Modifiers.G_STAFF_COMMENTS);</span>
-<span class="source-line-no">558</span><span id="line-558">                    modifiers.add(Modifiers.H_ADDITIONAL_INFO_1);</span>
-<span class="source-line-no">559</span><span id="line-559">                    modifiers.add(Modifiers.P_IFF_SIF_AIS);//air only</span>
-<span class="source-line-no">560</span><span id="line-560">                    modifiers.add(Modifiers.Q_DIRECTION_OF_MOVEMENT);</span>
-<span class="source-line-no">561</span><span id="line-561">                    modifiers.add(Modifiers.T_UNIQUE_DESIGNATION_1);</span>
-<span class="source-line-no">562</span><span id="line-562">                    modifiers.add(Modifiers.V_EQUIP_TYPE);</span>
-<span class="source-line-no">563</span><span id="line-563">                    modifiers.add(Modifiers.X_ALTITUDE_DEPTH);</span>
-<span class="source-line-no">564</span><span id="line-564">                    modifiers.add(Modifiers.Z_SPEED);</span>
-<span class="source-line-no">565</span><span id="line-565">                    modifiers.add(Modifiers.AB_FEINT_DUMMY_INDICATOR);</span>
-<span class="source-line-no">566</span><span id="line-566">                    modifiers.add(Modifiers.AL_OPERATIONAL_CONDITION);</span>
-<span class="source-line-no">567</span><span id="line-567">                    modifiers.add(Modifiers.AO_ENGAGEMENT_BAR);</span>
-<span class="source-line-no">568</span><span id="line-568">                    modifiers.add(Modifiers.AS_COUNTRY);</span>
-<span class="source-line-no">569</span><span id="line-569">                    break;</span>
-<span class="source-line-no">570</span><span id="line-570">                case SymbolID.SymbolSet_SeaSurface:</span>
-<span class="source-line-no">571</span><span id="line-571">                case SymbolID.SymbolSet_SignalsIntelligence_SeaSurface:</span>
-<span class="source-line-no">572</span><span id="line-572">                    modifiers.add(Modifiers.A_SYMBOL_ICON);</span>
-<span class="source-line-no">573</span><span id="line-573">                    modifiers.add(Modifiers.G_STAFF_COMMENTS);</span>
-<span class="source-line-no">574</span><span id="line-574">                    modifiers.add(Modifiers.H_ADDITIONAL_INFO_1);</span>
-<span class="source-line-no">575</span><span id="line-575">                    modifiers.add(Modifiers.P_IFF_SIF_AIS);</span>
-<span class="source-line-no">576</span><span id="line-576">                    modifiers.add(Modifiers.Q_DIRECTION_OF_MOVEMENT);</span>
-<span class="source-line-no">577</span><span id="line-577">                    modifiers.add(Modifiers.T_UNIQUE_DESIGNATION_1);</span>
-<span class="source-line-no">578</span><span id="line-578">                    modifiers.add(Modifiers.V_EQUIP_TYPE);</span>
-<span class="source-line-no">579</span><span id="line-579">                    modifiers.add(Modifiers.Y_LOCATION);</span>
-<span class="source-line-no">580</span><span id="line-580">                    modifiers.add(Modifiers.Z_SPEED);</span>
-<span class="source-line-no">581</span><span id="line-581">                    modifiers.add(Modifiers.AB_FEINT_DUMMY_INDICATOR);</span>
-<span class="source-line-no">582</span><span id="line-582">                    modifiers.add(Modifiers.AL_OPERATIONAL_CONDITION);</span>
-<span class="source-line-no">583</span><span id="line-583">                    modifiers.add(Modifiers.AO_ENGAGEMENT_BAR);</span>
-<span class="source-line-no">584</span><span id="line-584">                    modifiers.add(Modifiers.AQ_GUARDED_UNIT);</span>
-<span class="source-line-no">585</span><span id="line-585">                    modifiers.add(Modifiers.AR_SPECIAL_DESIGNATOR);</span>
-<span class="source-line-no">586</span><span id="line-586">                    modifiers.add(Modifiers.AS_COUNTRY);</span>
-<span class="source-line-no">587</span><span id="line-587">                    break;</span>
-<span class="source-line-no">588</span><span id="line-588">                case SymbolID.SymbolSet_SeaSubsurface:</span>
-<span class="source-line-no">589</span><span id="line-589">                case SymbolID.SymbolSet_SignalsIntelligence_SeaSubsurface:</span>
-<span class="source-line-no">590</span><span id="line-590">                    modifiers.add(Modifiers.A_SYMBOL_ICON);</span>
-<span class="source-line-no">591</span><span id="line-591">                    modifiers.add(Modifiers.AG_AUX_EQUIP_INDICATOR);</span>
-<span class="source-line-no">592</span><span id="line-592">                    modifiers.add(Modifiers.AL_OPERATIONAL_CONDITION);</span>
-<span class="source-line-no">593</span><span id="line-593">                    modifiers.add(Modifiers.AO_ENGAGEMENT_BAR);</span>
-<span class="source-line-no">594</span><span id="line-594">                    modifiers.add(Modifiers.AR_SPECIAL_DESIGNATOR);</span>
-<span class="source-line-no">595</span><span id="line-595">                    modifiers.add(Modifiers.G_STAFF_COMMENTS);</span>
-<span class="source-line-no">596</span><span id="line-596">                    modifiers.add(Modifiers.H_ADDITIONAL_INFO_1);</span>
-<span class="source-line-no">597</span><span id="line-597">                    modifiers.add(Modifiers.Q_DIRECTION_OF_MOVEMENT);</span>
-<span class="source-line-no">598</span><span id="line-598">                    modifiers.add(Modifiers.T_UNIQUE_DESIGNATION_1);</span>
-<span class="source-line-no">599</span><span id="line-599">                    modifiers.add(Modifiers.V_EQUIP_TYPE);</span>
-<span class="source-line-no">600</span><span id="line-600">                    modifiers.add(Modifiers.X_ALTITUDE_DEPTH);</span>
-<span class="source-line-no">601</span><span id="line-601">                    modifiers.add(Modifiers.AB_FEINT_DUMMY_INDICATOR);</span>
-<span class="source-line-no">602</span><span id="line-602">                    modifiers.add(Modifiers.AS_COUNTRY);</span>
-<span class="source-line-no">603</span><span id="line-603">                    break;</span>
-<span class="source-line-no">604</span><span id="line-604">                case SymbolID.SymbolSet_Activities:</span>
-<span class="source-line-no">605</span><span id="line-605">                    modifiers.add(Modifiers.A_SYMBOL_ICON);</span>
-<span class="source-line-no">606</span><span id="line-606">                    modifiers.add(Modifiers.G_STAFF_COMMENTS);</span>
-<span class="source-line-no">607</span><span id="line-607">                    modifiers.add(Modifiers.H_ADDITIONAL_INFO_1);</span>
-<span class="source-line-no">608</span><span id="line-608">                    modifiers.add(Modifiers.J_EVALUATION_RATING);</span>
-<span class="source-line-no">609</span><span id="line-609">                    modifiers.add(Modifiers.Q_DIRECTION_OF_MOVEMENT);</span>
-<span class="source-line-no">610</span><span id="line-610">                    modifiers.add(Modifiers.W_DTG_1);</span>
-<span class="source-line-no">611</span><span id="line-611">                    modifiers.add(Modifiers.Y_LOCATION);</span>
-<span class="source-line-no">612</span><span id="line-612">                    modifiers.add(Modifiers.AB_FEINT_DUMMY_INDICATOR);</span>
-<span class="source-line-no">613</span><span id="line-613">                    modifiers.add(Modifiers.AS_COUNTRY);</span>
-<span class="source-line-no">614</span><span id="line-614">                    break;</span>
-<span class="source-line-no">615</span><span id="line-615">                case SymbolID.SymbolSet_CyberSpace:</span>
-<span class="source-line-no">616</span><span id="line-616">                    modifiers.add(Modifiers.A_SYMBOL_ICON);</span>
-<span class="source-line-no">617</span><span id="line-617">                    modifiers.add(Modifiers.B_ECHELON);</span>
-<span class="source-line-no">618</span><span id="line-618">                    modifiers.add(Modifiers.D_TASK_FORCE_INDICATOR);</span>
-<span class="source-line-no">619</span><span id="line-619">                    modifiers.add(Modifiers.F_REINFORCED_REDUCED);</span>
-<span class="source-line-no">620</span><span id="line-620">                    modifiers.add(Modifiers.G_STAFF_COMMENTS);</span>
-<span class="source-line-no">621</span><span id="line-621">                    modifiers.add(Modifiers.H_ADDITIONAL_INFO_1);</span>
-<span class="source-line-no">622</span><span id="line-622">                    modifiers.add(Modifiers.K_COMBAT_EFFECTIVENESS);</span>
-<span class="source-line-no">623</span><span id="line-623">                    modifiers.add(Modifiers.L_SIGNATURE_EQUIP);</span>
-<span class="source-line-no">624</span><span id="line-624">                    modifiers.add(Modifiers.M_HIGHER_FORMATION);</span>
-<span class="source-line-no">625</span><span id="line-625">                    modifiers.add(Modifiers.S_HQ_STAFF_INDICATOR);</span>
-<span class="source-line-no">626</span><span id="line-626">                    modifiers.add(Modifiers.T_UNIQUE_DESIGNATION_1);</span>
-<span class="source-line-no">627</span><span id="line-627">                    modifiers.add(Modifiers.V_EQUIP_TYPE);</span>
-<span class="source-line-no">628</span><span id="line-628">                    modifiers.add(Modifiers.W_DTG_1);</span>
-<span class="source-line-no">629</span><span id="line-629">                    modifiers.add(Modifiers.Y_LOCATION);</span>
-<span class="source-line-no">630</span><span id="line-630">                    modifiers.add(Modifiers.AO_ENGAGEMENT_BAR);</span>
-<span class="source-line-no">631</span><span id="line-631">                    modifiers.add(Modifiers.AS_COUNTRY);</span>
-<span class="source-line-no">632</span><span id="line-632">                    break;</span>
-<span class="source-line-no">633</span><span id="line-633">            /*case SymbolID.SymbolSet_SignalsIntelligence_Air:</span>
-<span class="source-line-no">634</span><span id="line-634">            case SymbolID.SymbolSet_SignalsIntelligence_Land:</span>
-<span class="source-line-no">635</span><span id="line-635">            case SymbolID.SymbolSet_SignalsIntelligence_SeaSurface:</span>
-<span class="source-line-no">636</span><span id="line-636">            case SymbolID.SymbolSet_SignalsIntelligence_SeaSubsurface:</span>
-<span class="source-line-no">637</span><span id="line-637">            case SymbolID.SymbolSet_SignalsIntelligence_Space:</span>
-<span class="source-line-no">638</span><span id="line-638">                modifiers.add(Modifiers.A_SYMBOL_ICON);</span>
-<span class="source-line-no">639</span><span id="line-639">                modifiers.add(Modifiers.D_TASK_FORCE_INDICATOR);</span>
-<span class="source-line-no">640</span><span id="line-640">                modifiers.add(Modifiers.G_STAFF_COMMENTS);</span>
-<span class="source-line-no">641</span><span id="line-641">                modifiers.add(Modifiers.H_ADDITIONAL_INFO_1);</span>
-<span class="source-line-no">642</span><span id="line-642">                modifiers.add(Modifiers.J_EVALUATION_RATING);</span>
-<span class="source-line-no">643</span><span id="line-643">                modifiers.add(Modifiers.M_HIGHER_FORMATION);</span>
-<span class="source-line-no">644</span><span id="line-644">                modifiers.add(Modifiers.R2_SIGNIT_MOBILITY_INDICATOR);</span>
-<span class="source-line-no">645</span><span id="line-645">                modifiers.add(Modifiers.T_UNIQUE_DESIGNATION_1);</span>
-<span class="source-line-no">646</span><span id="line-646">                modifiers.add(Modifiers.V_EQUIP_TYPE);</span>
-<span class="source-line-no">647</span><span id="line-647">                modifiers.add(Modifiers.W1_DTG_2);</span>
-<span class="source-line-no">648</span><span id="line-648">                modifiers.add(Modifiers.Y_LOCATION);</span>
-<span class="source-line-no">649</span><span id="line-649">                modifiers.add(Modifiers.AD_PLATFORM_TYPE);//like equipment</span>
-<span class="source-line-no">650</span><span id="line-650">                modifiers.add(Modifiers.AE_EQUIPMENT_TEARDOWN_TIME);//like equipment</span>
-<span class="source-line-no">651</span><span id="line-651">                modifiers.add(Modifiers.AF_COMMON_IDENTIFIER);//like equipment</span>
-<span class="source-line-no">652</span><span id="line-652">                break;*/</span>
-<span class="source-line-no">653</span><span id="line-653"></span>
-<span class="source-line-no">654</span><span id="line-654">                case SymbolID.SymbolSet_ControlMeasure:</span>
-<span class="source-line-no">655</span><span id="line-655">                    //values come from files during MSLookup load</span>
-<span class="source-line-no">656</span><span id="line-656">                    break;</span>
-<span class="source-line-no">657</span><span id="line-657">                case SymbolID.SymbolSet_Atmospheric:</span>
-<span class="source-line-no">658</span><span id="line-658">                    //Tropopause low, Tropopause high</span>
-<span class="source-line-no">659</span><span id="line-659">                    if ((ec.equals("110102")) || (ec.equals("110202")) ||</span>
-<span class="source-line-no">660</span><span id="line-660">                            (ec.equals("162200")))</span>
-<span class="source-line-no">661</span><span id="line-661">                        modifiers.add(Modifiers.X_ALTITUDE_DEPTH);</span>
-<span class="source-line-no">662</span><span id="line-662">                    else if (ec.equals("140200"))</span>
-<span class="source-line-no">663</span><span id="line-663">                        modifiers.add(Modifiers.AN_AZIMUTH);</span>
-<span class="source-line-no">664</span><span id="line-664">                    break;</span>
-<span class="source-line-no">665</span><span id="line-665">                case SymbolID.SymbolSet_MineWarfare:</span>
-<span class="source-line-no">666</span><span id="line-666">                case SymbolID.SymbolSet_Oceanographic:</span>
-<span class="source-line-no">667</span><span id="line-667">                case SymbolID.SymbolSet_MeteorologicalSpace:</span>
-<span class="source-line-no">668</span><span id="line-668">                default://no modifiers</span>
-<span class="source-line-no">669</span><span id="line-669"></span>
-<span class="source-line-no">670</span><span id="line-670">            }</span>
-<span class="source-line-no">671</span><span id="line-671">        }</span>
-<span class="source-line-no">672</span><span id="line-672"></span>
-<span class="source-line-no">673</span><span id="line-673">        if(ss == SymbolID.SymbolSet_SignalsIntelligence_Air ||</span>
-<span class="source-line-no">674</span><span id="line-674">                ss == SymbolID.SymbolSet_SignalsIntelligence_Land ||</span>
-<span class="source-line-no">675</span><span id="line-675">                ss == SymbolID.SymbolSet_SignalsIntelligence_SeaSurface ||</span>
-<span class="source-line-no">676</span><span id="line-676">                ss == SymbolID.SymbolSet_SignalsIntelligence_SeaSubsurface ||</span>
-<span class="source-line-no">677</span><span id="line-677">                ss == SymbolID.SymbolSet_SignalsIntelligence_Space)</span>
-<span class="source-line-no">678</span><span id="line-678">            modifiers.add(Modifiers.R2_SIGNIT_MOBILITY_INDICATOR);</span>
-<span class="source-line-no">679</span><span id="line-679"></span>
-<span class="source-line-no">680</span><span id="line-680">        return modifiers;</span>
-<span class="source-line-no">681</span><span id="line-681">    }</span>
-<span class="source-line-no">682</span><span id="line-682"></span>
-<span class="source-line-no">683</span><span id="line-683">    /**</span>
-<span class="source-line-no">684</span><span id="line-684">     *</span>
-<span class="source-line-no">685</span><span id="line-685">     * @param  symbolID Full 20-30 digits from the symbol code</span>
-<span class="source-line-no">686</span><span id="line-686">     * @return</span>
-<span class="source-line-no">687</span><span id="line-687">     */</span>
-<span class="source-line-no">688</span><span id="line-688">    public MSInfo getMSLInfo(String symbolID)</span>
-<span class="source-line-no">689</span><span id="line-689">    {</span>
-<span class="source-line-no">690</span><span id="line-690">        int length = symbolID.length();</span>
-<span class="source-line-no">691</span><span id="line-691"></span>
-<span class="source-line-no">692</span><span id="line-692">        if(length &gt;= 20 &amp;&amp; length &lt;= 30)</span>
-<span class="source-line-no">693</span><span id="line-693">        {</span>
-<span class="source-line-no">694</span><span id="line-694">            int version = SymbolID.getVersion(symbolID);</span>
-<span class="source-line-no">695</span><span id="line-695">            return getMSLInfo(SymbolUtilities.getBasicSymbolID(symbolID), version);</span>
-<span class="source-line-no">696</span><span id="line-696">        }</span>
-<span class="source-line-no">697</span><span id="line-697">        else</span>
-<span class="source-line-no">698</span><span id="line-698">            return null;</span>
-<span class="source-line-no">699</span><span id="line-699">    }</span>
-<span class="source-line-no">700</span><span id="line-700"></span>
-<span class="source-line-no">701</span><span id="line-701">    /**</span>
-<span class="source-line-no">702</span><span id="line-702">     *</span>
-<span class="source-line-no">703</span><span id="line-703">     * @param basicID id SymbolSet + Entity code like 50110100</span>
-<span class="source-line-no">704</span><span id="line-704">     * @param version like SymbolID.Version_2525Dch1</span>
-<span class="source-line-no">705</span><span id="line-705">     * @return</span>
-<span class="source-line-no">706</span><span id="line-706">     */</span>
-<span class="source-line-no">707</span><span id="line-707">    public MSInfo getMSLInfo(String basicID, int version)</span>
-<span class="source-line-no">708</span><span id="line-708">    {</span>
-<span class="source-line-no">709</span><span id="line-709">        int length = basicID.length();</span>
-<span class="source-line-no">710</span><span id="line-710">        if(length == 8)</span>
-<span class="source-line-no">711</span><span id="line-711">        {</span>
-<span class="source-line-no">712</span><span id="line-712">            if(version &gt;= SymbolID.Version_2525E)</span>
-<span class="source-line-no">713</span><span id="line-713">            {</span>
-<span class="source-line-no">714</span><span id="line-714">                if(_MSLookupE.containsKey(basicID))</span>
-<span class="source-line-no">715</span><span id="line-715">                    return _MSLookupE.get(basicID);</span>
-<span class="source-line-no">716</span><span id="line-716">                else</span>
-<span class="source-line-no">717</span><span id="line-717">                    return null;</span>
-<span class="source-line-no">718</span><span id="line-718">            }</span>
-<span class="source-line-no">719</span><span id="line-719">            else if (version == SymbolID.Version_2525D &amp;&amp; basicID.equals("25272100"))</span>
-<span class="source-line-no">720</span><span id="line-720">            {</span>
-<span class="source-line-no">721</span><span id="line-721">                // MSDZ can have extra point in D</span>
-<span class="source-line-no">722</span><span id="line-722">                return new MSInfo(SymbolID.Version_2525D, "25",</span>
-<span class="source-line-no">723</span><span id="line-723">                        "Protection Areas", "Minimum Safe Distance Zone", "",</span>
-<span class="source-line-no">724</span><span id="line-724">                        "272100", "Area", "Area14", new ArrayList&lt;&gt;());</span>
-<span class="source-line-no">725</span><span id="line-725">            }</span>
-<span class="source-line-no">726</span><span id="line-726">            else</span>
-<span class="source-line-no">727</span><span id="line-727">            {</span>
-<span class="source-line-no">728</span><span id="line-728">                if(_MSLookupD.containsKey(basicID))</span>
-<span class="source-line-no">729</span><span id="line-729">                    return _MSLookupD.get(basicID);</span>
-<span class="source-line-no">730</span><span id="line-730">                else</span>
-<span class="source-line-no">731</span><span id="line-731">                    return null;</span>
-<span class="source-line-no">732</span><span id="line-732">            }</span>
-<span class="source-line-no">733</span><span id="line-733">        }</span>
-<span class="source-line-no">734</span><span id="line-734">        else if(length &gt;= 20 &amp;&amp; length &lt;= 30)//probably got a full id instead of a basic ID.</span>
-<span class="source-line-no">735</span><span id="line-735">        {</span>
-<span class="source-line-no">736</span><span id="line-736">            return getMSLInfo(SymbolUtilities.getBasicSymbolID(basicID), version);</span>
+<span class="source-line-no">549</span><span id="line-549">                    modifiers.add(Modifiers.AJ_SPEED_LEADER);</span>
+<span class="source-line-no">550</span><span id="line-550">                    modifiers.add(Modifiers.AL_OPERATIONAL_CONDITION);</span>
+<span class="source-line-no">551</span><span id="line-551">                    modifiers.add(Modifiers.AO_ENGAGEMENT_BAR);</span>
+<span class="source-line-no">552</span><span id="line-552">                    modifiers.add(Modifiers.AS_COUNTRY);</span>
+<span class="source-line-no">553</span><span id="line-553">                    break;</span>
+<span class="source-line-no">554</span><span id="line-554">                case SymbolID.SymbolSet_Air:</span>
+<span class="source-line-no">555</span><span id="line-555">                case SymbolID.SymbolSet_AirMissile:</span>
+<span class="source-line-no">556</span><span id="line-556">                case SymbolID.SymbolSet_SignalsIntelligence_Air:</span>
+<span class="source-line-no">557</span><span id="line-557">                    modifiers.add(Modifiers.A_SYMBOL_ICON);</span>
+<span class="source-line-no">558</span><span id="line-558">                    modifiers.add(Modifiers.G_STAFF_COMMENTS);</span>
+<span class="source-line-no">559</span><span id="line-559">                    modifiers.add(Modifiers.H_ADDITIONAL_INFO_1);</span>
+<span class="source-line-no">560</span><span id="line-560">                    modifiers.add(Modifiers.P_IFF_SIF_AIS);//air only</span>
+<span class="source-line-no">561</span><span id="line-561">                    modifiers.add(Modifiers.Q_DIRECTION_OF_MOVEMENT);</span>
+<span class="source-line-no">562</span><span id="line-562">                    modifiers.add(Modifiers.T_UNIQUE_DESIGNATION_1);</span>
+<span class="source-line-no">563</span><span id="line-563">                    modifiers.add(Modifiers.V_EQUIP_TYPE);</span>
+<span class="source-line-no">564</span><span id="line-564">                    modifiers.add(Modifiers.X_ALTITUDE_DEPTH);</span>
+<span class="source-line-no">565</span><span id="line-565">                    modifiers.add(Modifiers.Z_SPEED);</span>
+<span class="source-line-no">566</span><span id="line-566">                    modifiers.add(Modifiers.AB_FEINT_DUMMY_INDICATOR);</span>
+<span class="source-line-no">567</span><span id="line-567">                    modifiers.add(Modifiers.AJ_SPEED_LEADER);</span>
+<span class="source-line-no">568</span><span id="line-568">                    modifiers.add(Modifiers.AL_OPERATIONAL_CONDITION);</span>
+<span class="source-line-no">569</span><span id="line-569">                    modifiers.add(Modifiers.AO_ENGAGEMENT_BAR);</span>
+<span class="source-line-no">570</span><span id="line-570">                    modifiers.add(Modifiers.AS_COUNTRY);</span>
+<span class="source-line-no">571</span><span id="line-571">                    break;</span>
+<span class="source-line-no">572</span><span id="line-572">                case SymbolID.SymbolSet_SeaSurface:</span>
+<span class="source-line-no">573</span><span id="line-573">                case SymbolID.SymbolSet_SignalsIntelligence_SeaSurface:</span>
+<span class="source-line-no">574</span><span id="line-574">                    modifiers.add(Modifiers.A_SYMBOL_ICON);</span>
+<span class="source-line-no">575</span><span id="line-575">                    modifiers.add(Modifiers.G_STAFF_COMMENTS);</span>
+<span class="source-line-no">576</span><span id="line-576">                    modifiers.add(Modifiers.H_ADDITIONAL_INFO_1);</span>
+<span class="source-line-no">577</span><span id="line-577">                    modifiers.add(Modifiers.P_IFF_SIF_AIS);</span>
+<span class="source-line-no">578</span><span id="line-578">                    modifiers.add(Modifiers.Q_DIRECTION_OF_MOVEMENT);</span>
+<span class="source-line-no">579</span><span id="line-579">                    modifiers.add(Modifiers.T_UNIQUE_DESIGNATION_1);</span>
+<span class="source-line-no">580</span><span id="line-580">                    modifiers.add(Modifiers.V_EQUIP_TYPE);</span>
+<span class="source-line-no">581</span><span id="line-581">                    modifiers.add(Modifiers.Y_LOCATION);</span>
+<span class="source-line-no">582</span><span id="line-582">                    modifiers.add(Modifiers.Z_SPEED);</span>
+<span class="source-line-no">583</span><span id="line-583">                    modifiers.add(Modifiers.AB_FEINT_DUMMY_INDICATOR);</span>
+<span class="source-line-no">584</span><span id="line-584">                    modifiers.add(Modifiers.AJ_SPEED_LEADER);</span>
+<span class="source-line-no">585</span><span id="line-585">                    modifiers.add(Modifiers.AL_OPERATIONAL_CONDITION);</span>
+<span class="source-line-no">586</span><span id="line-586">                    modifiers.add(Modifiers.AO_ENGAGEMENT_BAR);</span>
+<span class="source-line-no">587</span><span id="line-587">                    modifiers.add(Modifiers.AQ_GUARDED_UNIT);</span>
+<span class="source-line-no">588</span><span id="line-588">                    modifiers.add(Modifiers.AR_SPECIAL_DESIGNATOR);</span>
+<span class="source-line-no">589</span><span id="line-589">                    modifiers.add(Modifiers.AS_COUNTRY);</span>
+<span class="source-line-no">590</span><span id="line-590">                    break;</span>
+<span class="source-line-no">591</span><span id="line-591">                case SymbolID.SymbolSet_SeaSubsurface:</span>
+<span class="source-line-no">592</span><span id="line-592">                case SymbolID.SymbolSet_SignalsIntelligence_SeaSubsurface:</span>
+<span class="source-line-no">593</span><span id="line-593">                    modifiers.add(Modifiers.A_SYMBOL_ICON);</span>
+<span class="source-line-no">594</span><span id="line-594">                    modifiers.add(Modifiers.AG_AUX_EQUIP_INDICATOR);</span>
+<span class="source-line-no">595</span><span id="line-595">                    modifiers.add(Modifiers.AL_OPERATIONAL_CONDITION);</span>
+<span class="source-line-no">596</span><span id="line-596">                    modifiers.add(Modifiers.AO_ENGAGEMENT_BAR);</span>
+<span class="source-line-no">597</span><span id="line-597">                    modifiers.add(Modifiers.AR_SPECIAL_DESIGNATOR);</span>
+<span class="source-line-no">598</span><span id="line-598">                    modifiers.add(Modifiers.G_STAFF_COMMENTS);</span>
+<span class="source-line-no">599</span><span id="line-599">                    modifiers.add(Modifiers.H_ADDITIONAL_INFO_1);</span>
+<span class="source-line-no">600</span><span id="line-600">                    modifiers.add(Modifiers.Q_DIRECTION_OF_MOVEMENT);</span>
+<span class="source-line-no">601</span><span id="line-601">                    modifiers.add(Modifiers.T_UNIQUE_DESIGNATION_1);</span>
+<span class="source-line-no">602</span><span id="line-602">                    modifiers.add(Modifiers.V_EQUIP_TYPE);</span>
+<span class="source-line-no">603</span><span id="line-603">                    modifiers.add(Modifiers.X_ALTITUDE_DEPTH);</span>
+<span class="source-line-no">604</span><span id="line-604">                    modifiers.add(Modifiers.AB_FEINT_DUMMY_INDICATOR);</span>
+<span class="source-line-no">605</span><span id="line-605">                    modifiers.add(Modifiers.AJ_SPEED_LEADER);</span>
+<span class="source-line-no">606</span><span id="line-606">                    modifiers.add(Modifiers.AS_COUNTRY);</span>
+<span class="source-line-no">607</span><span id="line-607">                    break;</span>
+<span class="source-line-no">608</span><span id="line-608">                case SymbolID.SymbolSet_Activities:</span>
+<span class="source-line-no">609</span><span id="line-609">                    modifiers.add(Modifiers.A_SYMBOL_ICON);</span>
+<span class="source-line-no">610</span><span id="line-610">                    modifiers.add(Modifiers.G_STAFF_COMMENTS);</span>
+<span class="source-line-no">611</span><span id="line-611">                    modifiers.add(Modifiers.H_ADDITIONAL_INFO_1);</span>
+<span class="source-line-no">612</span><span id="line-612">                    modifiers.add(Modifiers.J_EVALUATION_RATING);</span>
+<span class="source-line-no">613</span><span id="line-613">                    modifiers.add(Modifiers.Q_DIRECTION_OF_MOVEMENT);</span>
+<span class="source-line-no">614</span><span id="line-614">                    modifiers.add(Modifiers.W_DTG_1);</span>
+<span class="source-line-no">615</span><span id="line-615">                    modifiers.add(Modifiers.Y_LOCATION);</span>
+<span class="source-line-no">616</span><span id="line-616">                    modifiers.add(Modifiers.AB_FEINT_DUMMY_INDICATOR);</span>
+<span class="source-line-no">617</span><span id="line-617">                    modifiers.add(Modifiers.AS_COUNTRY);</span>
+<span class="source-line-no">618</span><span id="line-618">                    break;</span>
+<span class="source-line-no">619</span><span id="line-619">                case SymbolID.SymbolSet_CyberSpace:</span>
+<span class="source-line-no">620</span><span id="line-620">                    modifiers.add(Modifiers.A_SYMBOL_ICON);</span>
+<span class="source-line-no">621</span><span id="line-621">                    modifiers.add(Modifiers.B_ECHELON);</span>
+<span class="source-line-no">622</span><span id="line-622">                    modifiers.add(Modifiers.D_TASK_FORCE_INDICATOR);</span>
+<span class="source-line-no">623</span><span id="line-623">                    modifiers.add(Modifiers.F_REINFORCED_REDUCED);</span>
+<span class="source-line-no">624</span><span id="line-624">                    modifiers.add(Modifiers.G_STAFF_COMMENTS);</span>
+<span class="source-line-no">625</span><span id="line-625">                    modifiers.add(Modifiers.H_ADDITIONAL_INFO_1);</span>
+<span class="source-line-no">626</span><span id="line-626">                    modifiers.add(Modifiers.K_COMBAT_EFFECTIVENESS);</span>
+<span class="source-line-no">627</span><span id="line-627">                    modifiers.add(Modifiers.L_SIGNATURE_EQUIP);</span>
+<span class="source-line-no">628</span><span id="line-628">                    modifiers.add(Modifiers.M_HIGHER_FORMATION);</span>
+<span class="source-line-no">629</span><span id="line-629">                    modifiers.add(Modifiers.S_HQ_STAFF_INDICATOR);</span>
+<span class="source-line-no">630</span><span id="line-630">                    modifiers.add(Modifiers.T_UNIQUE_DESIGNATION_1);</span>
+<span class="source-line-no">631</span><span id="line-631">                    modifiers.add(Modifiers.V_EQUIP_TYPE);</span>
+<span class="source-line-no">632</span><span id="line-632">                    modifiers.add(Modifiers.W_DTG_1);</span>
+<span class="source-line-no">633</span><span id="line-633">                    modifiers.add(Modifiers.Y_LOCATION);</span>
+<span class="source-line-no">634</span><span id="line-634">                    modifiers.add(Modifiers.AO_ENGAGEMENT_BAR);</span>
+<span class="source-line-no">635</span><span id="line-635">                    modifiers.add(Modifiers.AS_COUNTRY);</span>
+<span class="source-line-no">636</span><span id="line-636">                    break;</span>
+<span class="source-line-no">637</span><span id="line-637">            /*case SymbolID.SymbolSet_SignalsIntelligence_Air:</span>
+<span class="source-line-no">638</span><span id="line-638">            case SymbolID.SymbolSet_SignalsIntelligence_Land:</span>
+<span class="source-line-no">639</span><span id="line-639">            case SymbolID.SymbolSet_SignalsIntelligence_SeaSurface:</span>
+<span class="source-line-no">640</span><span id="line-640">            case SymbolID.SymbolSet_SignalsIntelligence_SeaSubsurface:</span>
+<span class="source-line-no">641</span><span id="line-641">            case SymbolID.SymbolSet_SignalsIntelligence_Space:</span>
+<span class="source-line-no">642</span><span id="line-642">                modifiers.add(Modifiers.A_SYMBOL_ICON);</span>
+<span class="source-line-no">643</span><span id="line-643">                modifiers.add(Modifiers.D_TASK_FORCE_INDICATOR);</span>
+<span class="source-line-no">644</span><span id="line-644">                modifiers.add(Modifiers.G_STAFF_COMMENTS);</span>
+<span class="source-line-no">645</span><span id="line-645">                modifiers.add(Modifiers.H_ADDITIONAL_INFO_1);</span>
+<span class="source-line-no">646</span><span id="line-646">                modifiers.add(Modifiers.J_EVALUATION_RATING);</span>
+<span class="source-line-no">647</span><span id="line-647">                modifiers.add(Modifiers.M_HIGHER_FORMATION);</span>
+<span class="source-line-no">648</span><span id="line-648">                modifiers.add(Modifiers.R2_SIGNIT_MOBILITY_INDICATOR);</span>
+<span class="source-line-no">649</span><span id="line-649">                modifiers.add(Modifiers.T_UNIQUE_DESIGNATION_1);</span>
+<span class="source-line-no">650</span><span id="line-650">                modifiers.add(Modifiers.V_EQUIP_TYPE);</span>
+<span class="source-line-no">651</span><span id="line-651">                modifiers.add(Modifiers.W1_DTG_2);</span>
+<span class="source-line-no">652</span><span id="line-652">                modifiers.add(Modifiers.Y_LOCATION);</span>
+<span class="source-line-no">653</span><span id="line-653">                modifiers.add(Modifiers.AD_PLATFORM_TYPE);//like equipment</span>
+<span class="source-line-no">654</span><span id="line-654">                modifiers.add(Modifiers.AE_EQUIPMENT_TEARDOWN_TIME);//like equipment</span>
+<span class="source-line-no">655</span><span id="line-655">                modifiers.add(Modifiers.AF_COMMON_IDENTIFIER);//like equipment</span>
+<span class="source-line-no">656</span><span id="line-656">                break;*/</span>
+<span class="source-line-no">657</span><span id="line-657"></span>
+<span class="source-line-no">658</span><span id="line-658">                case SymbolID.SymbolSet_ControlMeasure:</span>
+<span class="source-line-no">659</span><span id="line-659">                    //values come from files during MSLookup load</span>
+<span class="source-line-no">660</span><span id="line-660">                    break;</span>
+<span class="source-line-no">661</span><span id="line-661">                case SymbolID.SymbolSet_Atmospheric:</span>
+<span class="source-line-no">662</span><span id="line-662">                    //Tropopause low, Tropopause high</span>
+<span class="source-line-no">663</span><span id="line-663">                    if ((ec.equals("110102")) || (ec.equals("110202")) ||</span>
+<span class="source-line-no">664</span><span id="line-664">                            (ec.equals("162200")))</span>
+<span class="source-line-no">665</span><span id="line-665">                        modifiers.add(Modifiers.X_ALTITUDE_DEPTH);</span>
+<span class="source-line-no">666</span><span id="line-666">                    else if (ec.equals("140200"))</span>
+<span class="source-line-no">667</span><span id="line-667">                        modifiers.add(Modifiers.AN_AZIMUTH);</span>
+<span class="source-line-no">668</span><span id="line-668">                    break;</span>
+<span class="source-line-no">669</span><span id="line-669">                case SymbolID.SymbolSet_MineWarfare:</span>
+<span class="source-line-no">670</span><span id="line-670">                case SymbolID.SymbolSet_Oceanographic:</span>
+<span class="source-line-no">671</span><span id="line-671">                case SymbolID.SymbolSet_MeteorologicalSpace:</span>
+<span class="source-line-no">672</span><span id="line-672">                default://no modifiers</span>
+<span class="source-line-no">673</span><span id="line-673"></span>
+<span class="source-line-no">674</span><span id="line-674">            }</span>
+<span class="source-line-no">675</span><span id="line-675">        }</span>
+<span class="source-line-no">676</span><span id="line-676"></span>
+<span class="source-line-no">677</span><span id="line-677">        if(ss == SymbolID.SymbolSet_SignalsIntelligence_Air ||</span>
+<span class="source-line-no">678</span><span id="line-678">                ss == SymbolID.SymbolSet_SignalsIntelligence_Land ||</span>
+<span class="source-line-no">679</span><span id="line-679">                ss == SymbolID.SymbolSet_SignalsIntelligence_SeaSurface ||</span>
+<span class="source-line-no">680</span><span id="line-680">                ss == SymbolID.SymbolSet_SignalsIntelligence_SeaSubsurface ||</span>
+<span class="source-line-no">681</span><span id="line-681">                ss == SymbolID.SymbolSet_SignalsIntelligence_Space)</span>
+<span class="source-line-no">682</span><span id="line-682">            modifiers.add(Modifiers.R2_SIGNIT_MOBILITY_INDICATOR);</span>
+<span class="source-line-no">683</span><span id="line-683"></span>
+<span class="source-line-no">684</span><span id="line-684">        return modifiers;</span>
+<span class="source-line-no">685</span><span id="line-685">    }</span>
+<span class="source-line-no">686</span><span id="line-686"></span>
+<span class="source-line-no">687</span><span id="line-687">    /**</span>
+<span class="source-line-no">688</span><span id="line-688">     *</span>
+<span class="source-line-no">689</span><span id="line-689">     * @param  symbolID Full 20-30 digits from the symbol code</span>
+<span class="source-line-no">690</span><span id="line-690">     * @return</span>
+<span class="source-line-no">691</span><span id="line-691">     */</span>
+<span class="source-line-no">692</span><span id="line-692">    public MSInfo getMSLInfo(String symbolID)</span>
+<span class="source-line-no">693</span><span id="line-693">    {</span>
+<span class="source-line-no">694</span><span id="line-694">        int length = symbolID.length();</span>
+<span class="source-line-no">695</span><span id="line-695"></span>
+<span class="source-line-no">696</span><span id="line-696">        if(length &gt;= 20 &amp;&amp; length &lt;= 30)</span>
+<span class="source-line-no">697</span><span id="line-697">        {</span>
+<span class="source-line-no">698</span><span id="line-698">            int version = SymbolID.getVersion(symbolID);</span>
+<span class="source-line-no">699</span><span id="line-699">            return getMSLInfo(SymbolUtilities.getBasicSymbolID(symbolID), version);</span>
+<span class="source-line-no">700</span><span id="line-700">        }</span>
+<span class="source-line-no">701</span><span id="line-701">        else</span>
+<span class="source-line-no">702</span><span id="line-702">            return null;</span>
+<span class="source-line-no">703</span><span id="line-703">    }</span>
+<span class="source-line-no">704</span><span id="line-704"></span>
+<span class="source-line-no">705</span><span id="line-705">    /**</span>
+<span class="source-line-no">706</span><span id="line-706">     *</span>
+<span class="source-line-no">707</span><span id="line-707">     * @param basicID id SymbolSet + Entity code like 50110100</span>
+<span class="source-line-no">708</span><span id="line-708">     * @param version like SymbolID.Version_2525Dch1</span>
+<span class="source-line-no">709</span><span id="line-709">     * @return</span>
+<span class="source-line-no">710</span><span id="line-710">     */</span>
+<span class="source-line-no">711</span><span id="line-711">    public MSInfo getMSLInfo(String basicID, int version)</span>
+<span class="source-line-no">712</span><span id="line-712">    {</span>
+<span class="source-line-no">713</span><span id="line-713">        int length = basicID.length();</span>
+<span class="source-line-no">714</span><span id="line-714">        if(length == 8)</span>
+<span class="source-line-no">715</span><span id="line-715">        {</span>
+<span class="source-line-no">716</span><span id="line-716">            if(version &gt;= SymbolID.Version_2525E)</span>
+<span class="source-line-no">717</span><span id="line-717">            {</span>
+<span class="source-line-no">718</span><span id="line-718">                if(_MSLookupE.containsKey(basicID))</span>
+<span class="source-line-no">719</span><span id="line-719">                    return _MSLookupE.get(basicID);</span>
+<span class="source-line-no">720</span><span id="line-720">                else</span>
+<span class="source-line-no">721</span><span id="line-721">                    return null;</span>
+<span class="source-line-no">722</span><span id="line-722">            }</span>
+<span class="source-line-no">723</span><span id="line-723">            else if (version == SymbolID.Version_2525D &amp;&amp; basicID.equals("25272100"))</span>
+<span class="source-line-no">724</span><span id="line-724">            {</span>
+<span class="source-line-no">725</span><span id="line-725">                // MSDZ can have extra point in D</span>
+<span class="source-line-no">726</span><span id="line-726">                return new MSInfo(SymbolID.Version_2525D, "25",</span>
+<span class="source-line-no">727</span><span id="line-727">                        "Protection Areas", "Minimum Safe Distance Zone", "",</span>
+<span class="source-line-no">728</span><span id="line-728">                        "272100", "Area", "Area14", new ArrayList&lt;&gt;());</span>
+<span class="source-line-no">729</span><span id="line-729">            }</span>
+<span class="source-line-no">730</span><span id="line-730">            else</span>
+<span class="source-line-no">731</span><span id="line-731">            {</span>
+<span class="source-line-no">732</span><span id="line-732">                if(_MSLookupD.containsKey(basicID))</span>
+<span class="source-line-no">733</span><span id="line-733">                    return _MSLookupD.get(basicID);</span>
+<span class="source-line-no">734</span><span id="line-734">                else</span>
+<span class="source-line-no">735</span><span id="line-735">                    return null;</span>
+<span class="source-line-no">736</span><span id="line-736">            }</span>
 <span class="source-line-no">737</span><span id="line-737">        }</span>
-<span class="source-line-no">738</span><span id="line-738">        else</span>
-<span class="source-line-no">739</span><span id="line-739">            return null;</span>
-<span class="source-line-no">740</span><span id="line-740">    }</span>
-<span class="source-line-no">741</span><span id="line-741"></span>
-<span class="source-line-no">742</span><span id="line-742">    /**</span>
-<span class="source-line-no">743</span><span id="line-743">     * returns a list of all the keys in the order they are listed in the MilStd 2525D document.</span>
-<span class="source-line-no">744</span><span id="line-744">     * @return</span>
-<span class="source-line-no">745</span><span id="line-745">     */</span>
-<span class="source-line-no">746</span><span id="line-746">    public List&lt;String&gt; getIDList(int version)</span>
-<span class="source-line-no">747</span><span id="line-747">    {</span>
-<span class="source-line-no">748</span><span id="line-748">        if(version &lt; SymbolID.Version_2525E)</span>
-<span class="source-line-no">749</span><span id="line-749">            return _IDListD;</span>
-<span class="source-line-no">750</span><span id="line-750">        else if(version &gt;= SymbolID.Version_2525E)</span>
-<span class="source-line-no">751</span><span id="line-751">            return _IDListE;</span>
-<span class="source-line-no">752</span><span id="line-752">        else</span>
+<span class="source-line-no">738</span><span id="line-738">        else if(length &gt;= 20 &amp;&amp; length &lt;= 30)//probably got a full id instead of a basic ID.</span>
+<span class="source-line-no">739</span><span id="line-739">        {</span>
+<span class="source-line-no">740</span><span id="line-740">            return getMSLInfo(SymbolUtilities.getBasicSymbolID(basicID), version);</span>
+<span class="source-line-no">741</span><span id="line-741">        }</span>
+<span class="source-line-no">742</span><span id="line-742">        else</span>
+<span class="source-line-no">743</span><span id="line-743">            return null;</span>
+<span class="source-line-no">744</span><span id="line-744">    }</span>
+<span class="source-line-no">745</span><span id="line-745"></span>
+<span class="source-line-no">746</span><span id="line-746">    /**</span>
+<span class="source-line-no">747</span><span id="line-747">     * returns a list of all the keys in the order they are listed in the MilStd 2525D document.</span>
+<span class="source-line-no">748</span><span id="line-748">     * @return</span>
+<span class="source-line-no">749</span><span id="line-749">     */</span>
+<span class="source-line-no">750</span><span id="line-750">    public List&lt;String&gt; getIDList(int version)</span>
+<span class="source-line-no">751</span><span id="line-751">    {</span>
+<span class="source-line-no">752</span><span id="line-752">        if(version &lt; SymbolID.Version_2525E)</span>
 <span class="source-line-no">753</span><span id="line-753">            return _IDListD;</span>
-<span class="source-line-no">754</span><span id="line-754">    }</span>
-<span class="source-line-no">755</span><span id="line-755"></span>
-<span class="source-line-no">756</span><span id="line-756">    /*</span>
-<span class="source-line-no">757</span><span id="line-757">     * For use only by MilStdIconRenderer.addCustomSymbol()</span>
-<span class="source-line-no">758</span><span id="line-758">     * @param msInfo</span>
-<span class="source-line-no">759</span><span id="line-759">     * @return</span>
-<span class="source-line-no">760</span><span id="line-760">     */</span>
-<span class="source-line-no">761</span><span id="line-761">    public boolean addCustomSymbol(MSInfo msInfo)</span>
-<span class="source-line-no">762</span><span id="line-762">    {</span>
-<span class="source-line-no">763</span><span id="line-763">        boolean success = false;</span>
-<span class="source-line-no">764</span><span id="line-764">        try</span>
-<span class="source-line-no">765</span><span id="line-765">        {</span>
-<span class="source-line-no">766</span><span id="line-766">            int version = msInfo.getVersion();</span>
-<span class="source-line-no">767</span><span id="line-767">            if (version &lt; SymbolID.Version_2525E)</span>
-<span class="source-line-no">768</span><span id="line-768">            {</span>
-<span class="source-line-no">769</span><span id="line-769">                if(this._IDListD.indexOf(msInfo.getBasicSymbolID()) == -1)</span>
-<span class="source-line-no">770</span><span id="line-770">                {</span>
-<span class="source-line-no">771</span><span id="line-771">                    this._IDListD.add(msInfo.getBasicSymbolID());</span>
-<span class="source-line-no">772</span><span id="line-772">                    MSLookup._MSLookupD.put(msInfo.getBasicSymbolID(), msInfo);</span>
-<span class="source-line-no">773</span><span id="line-773">                    success = true;</span>
-<span class="source-line-no">774</span><span id="line-774">                }</span>
-<span class="source-line-no">775</span><span id="line-775">                else</span>
-<span class="source-line-no">776</span><span id="line-776">                    ErrorLogger.LogMessage("Symbol Set and Entity Code combination already exist: " + msInfo.getBasicSymbolID(), Level.INFO,false);</span>
-<span class="source-line-no">777</span><span id="line-777">            }</span>
-<span class="source-line-no">778</span><span id="line-778">            else if (version &gt;= SymbolID.Version_2525E)</span>
-<span class="source-line-no">779</span><span id="line-779">            {</span>
-<span class="source-line-no">780</span><span id="line-780">                if(this._IDListE.indexOf(msInfo.getBasicSymbolID()) == -1)</span>
-<span class="source-line-no">781</span><span id="line-781">                {</span>
-<span class="source-line-no">782</span><span id="line-782">                    this._IDListE.add(msInfo.getBasicSymbolID());</span>
-<span class="source-line-no">783</span><span id="line-783">                    MSLookup._MSLookupE.put(msInfo.getBasicSymbolID(), msInfo);</span>
-<span class="source-line-no">784</span><span id="line-784">                    success = true;</span>
-<span class="source-line-no">785</span><span id="line-785">                }</span>
-<span class="source-line-no">786</span><span id="line-786">                else</span>
-<span class="source-line-no">787</span><span id="line-787">                    ErrorLogger.LogMessage("Symbol Set and Entity Code combination already exist: " + msInfo.getBasicSymbolID(), Level.INFO,false);</span>
-<span class="source-line-no">788</span><span id="line-788">            }</span>
-<span class="source-line-no">789</span><span id="line-789">        }</span>
-<span class="source-line-no">790</span><span id="line-790">        catch(Exception e)</span>
-<span class="source-line-no">791</span><span id="line-791">        {</span>
-<span class="source-line-no">792</span><span id="line-792">            ErrorLogger.LogException("MSLookup", "addCustomSymbol",e);</span>
+<span class="source-line-no">754</span><span id="line-754">        else if(version &gt;= SymbolID.Version_2525E)</span>
+<span class="source-line-no">755</span><span id="line-755">            return _IDListE;</span>
+<span class="source-line-no">756</span><span id="line-756">        else</span>
+<span class="source-line-no">757</span><span id="line-757">            return _IDListD;</span>
+<span class="source-line-no">758</span><span id="line-758">    }</span>
+<span class="source-line-no">759</span><span id="line-759"></span>
+<span class="source-line-no">760</span><span id="line-760">    /*</span>
+<span class="source-line-no">761</span><span id="line-761">     * For use only by MilStdIconRenderer.addCustomSymbol()</span>
+<span class="source-line-no">762</span><span id="line-762">     * @param msInfo</span>
+<span class="source-line-no">763</span><span id="line-763">     * @return</span>
+<span class="source-line-no">764</span><span id="line-764">     */</span>
+<span class="source-line-no">765</span><span id="line-765">    public boolean addCustomSymbol(MSInfo msInfo)</span>
+<span class="source-line-no">766</span><span id="line-766">    {</span>
+<span class="source-line-no">767</span><span id="line-767">        boolean success = false;</span>
+<span class="source-line-no">768</span><span id="line-768">        try</span>
+<span class="source-line-no">769</span><span id="line-769">        {</span>
+<span class="source-line-no">770</span><span id="line-770">            int version = msInfo.getVersion();</span>
+<span class="source-line-no">771</span><span id="line-771">            if (version &lt; SymbolID.Version_2525E)</span>
+<span class="source-line-no">772</span><span id="line-772">            {</span>
+<span class="source-line-no">773</span><span id="line-773">                if(this._IDListD.indexOf(msInfo.getBasicSymbolID()) == -1)</span>
+<span class="source-line-no">774</span><span id="line-774">                {</span>
+<span class="source-line-no">775</span><span id="line-775">                    this._IDListD.add(msInfo.getBasicSymbolID());</span>
+<span class="source-line-no">776</span><span id="line-776">                    MSLookup._MSLookupD.put(msInfo.getBasicSymbolID(), msInfo);</span>
+<span class="source-line-no">777</span><span id="line-777">                    success = true;</span>
+<span class="source-line-no">778</span><span id="line-778">                }</span>
+<span class="source-line-no">779</span><span id="line-779">                else</span>
+<span class="source-line-no">780</span><span id="line-780">                    ErrorLogger.LogMessage("Symbol Set and Entity Code combination already exist: " + msInfo.getBasicSymbolID(), Level.INFO,false);</span>
+<span class="source-line-no">781</span><span id="line-781">            }</span>
+<span class="source-line-no">782</span><span id="line-782">            else if (version &gt;= SymbolID.Version_2525E)</span>
+<span class="source-line-no">783</span><span id="line-783">            {</span>
+<span class="source-line-no">784</span><span id="line-784">                if(this._IDListE.indexOf(msInfo.getBasicSymbolID()) == -1)</span>
+<span class="source-line-no">785</span><span id="line-785">                {</span>
+<span class="source-line-no">786</span><span id="line-786">                    this._IDListE.add(msInfo.getBasicSymbolID());</span>
+<span class="source-line-no">787</span><span id="line-787">                    MSLookup._MSLookupE.put(msInfo.getBasicSymbolID(), msInfo);</span>
+<span class="source-line-no">788</span><span id="line-788">                    success = true;</span>
+<span class="source-line-no">789</span><span id="line-789">                }</span>
+<span class="source-line-no">790</span><span id="line-790">                else</span>
+<span class="source-line-no">791</span><span id="line-791">                    ErrorLogger.LogMessage("Symbol Set and Entity Code combination already exist: " + msInfo.getBasicSymbolID(), Level.INFO,false);</span>
+<span class="source-line-no">792</span><span id="line-792">            }</span>
 <span class="source-line-no">793</span><span id="line-793">        }</span>
-<span class="source-line-no">794</span><span id="line-794">        return success;</span>
-<span class="source-line-no">795</span><span id="line-795">    }</span>
-<span class="source-line-no">796</span><span id="line-796">}</span>
+<span class="source-line-no">794</span><span id="line-794">        catch(Exception e)</span>
+<span class="source-line-no">795</span><span id="line-795">        {</span>
+<span class="source-line-no">796</span><span id="line-796">            ErrorLogger.LogException("MSLookup", "addCustomSymbol",e);</span>
+<span class="source-line-no">797</span><span id="line-797">        }</span>
+<span class="source-line-no">798</span><span id="line-798">        return success;</span>
+<span class="source-line-no">799</span><span id="line-799">    }</span>
+<span class="source-line-no">800</span><span id="line-800">}</span>
 
 
 

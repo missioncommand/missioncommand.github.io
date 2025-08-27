@@ -17,304 +17,346 @@
 <span class="source-line-no">004</span><span id="line-4"> */</span>
 <span class="source-line-no">005</span><span id="line-5">package armyc2.c5isr.renderer.utilities;</span>
 <span class="source-line-no">006</span><span id="line-6"></span>
-<span class="source-line-no">007</span><span id="line-7">import java.util.ArrayList;</span>
-<span class="source-line-no">008</span><span id="line-8">import java.util.Map;</span>
-<span class="source-line-no">009</span><span id="line-9"></span>
-<span class="source-line-no">010</span><span id="line-10">/**</span>
-<span class="source-line-no">011</span><span id="line-11"> * Symbol attribute constants to be used as keys in the Map when calling {@link armyc2.c5isr.renderer.MilStdIconRenderer#RenderIcon(String, Map, Map)}</span>
-<span class="source-line-no">012</span><span id="line-12"> * or {@link armyc2.c5isr.web.render.WebRenderer#RenderSymbol(String, String, String, String, String, String, double, String, Map, Map, int)}</span>
-<span class="source-line-no">013</span><span id="line-13"> */</span>
-<span class="source-line-no">014</span><span id="line-14">public class MilStdAttributes {</span>
-<span class="source-line-no">015</span><span id="line-15"></span>
-<span class="source-line-no">016</span><span id="line-16">    /**</span>
-<span class="source-line-no">017</span><span id="line-17">     * Line color of the symbol. hex value.</span>
-<span class="source-line-no">018</span><span id="line-18">     */</span>
-<span class="source-line-no">019</span><span id="line-19">    public static final String LineColor = "LINECOLOR";</span>
-<span class="source-line-no">020</span><span id="line-20"></span>
-<span class="source-line-no">021</span><span id="line-21">    /**</span>
-<span class="source-line-no">022</span><span id="line-22">     * Fill color of the symbol. hex value</span>
-<span class="source-line-no">023</span><span id="line-23">     */</span>
-<span class="source-line-no">024</span><span id="line-24">    public static final String FillColor = "FILLCOLOR";</span>
-<span class="source-line-no">025</span><span id="line-25"></span>
-<span class="source-line-no">026</span><span id="line-26">    /**</span>
-<span class="source-line-no">027</span><span id="line-27">     * Main color of internal icon.  Only relevant to framed symbols. hex value</span>
-<span class="source-line-no">028</span><span id="line-28">     */</span>
-<span class="source-line-no">029</span><span id="line-29">    public static final String IconColor = "ICONCOLOR";</span>
-<span class="source-line-no">030</span><span id="line-30"></span>
-<span class="source-line-no">031</span><span id="line-31"></span>
-<span class="source-line-no">032</span><span id="line-32">    /**</span>
-<span class="source-line-no">033</span><span id="line-33">     * size of the single point image</span>
-<span class="source-line-no">034</span><span id="line-34">     */</span>
-<span class="source-line-no">035</span><span id="line-35">    public static final String PixelSize = "PIXELSIZE";</span>
-<span class="source-line-no">036</span><span id="line-36"></span>
-<span class="source-line-no">037</span><span id="line-37"></span>
-<span class="source-line-no">038</span><span id="line-38">    /**</span>
-<span class="source-line-no">039</span><span id="line-39">     * defaults to true</span>
-<span class="source-line-no">040</span><span id="line-40">     */</span>
-<span class="source-line-no">041</span><span id="line-41">    public static final String KeepUnitRatio = "KEEPUNITRATIO";</span>
-<span class="source-line-no">042</span><span id="line-42"></span>
-<span class="source-line-no">043</span><span id="line-43">    /**</span>
-<span class="source-line-no">044</span><span id="line-44">     * transparency value of the symbol. values from 0.0 - 1.0</span>
-<span class="source-line-no">045</span><span id="line-45">     */</span>
-<span class="source-line-no">046</span><span id="line-46">    public static final String Alpha = "ALPHA";</span>
-<span class="source-line-no">047</span><span id="line-47"></span>
-<span class="source-line-no">048</span><span id="line-48">    /**</span>
-<span class="source-line-no">049</span><span id="line-49">     * outline the symbol, true/false</span>
-<span class="source-line-no">050</span><span id="line-50">     */</span>
-<span class="source-line-no">051</span><span id="line-51">    public static final String OutlineSymbol = "OUTLINESYMBOL";</span>
-<span class="source-line-no">052</span><span id="line-52"></span>
-<span class="source-line-no">053</span><span id="line-53">    /**</span>
-<span class="source-line-no">054</span><span id="line-54">     * specify and outline color rather than letting renderer picking</span>
-<span class="source-line-no">055</span><span id="line-55">     * the best contrast color. hex value</span>
-<span class="source-line-no">056</span><span id="line-56">     */</span>
-<span class="source-line-no">057</span><span id="line-57">    public static final String OutlineColor = "OUTLINECOLOR";</span>
-<span class="source-line-no">058</span><span id="line-58"></span>
-<span class="source-line-no">059</span><span id="line-59">    /*</span>
-<span class="source-line-no">060</span><span id="line-60">     * specifies thickness of the symbol outline</span>
-<span class="source-line-no">061</span><span id="line-61">     */</span>
-<span class="source-line-no">062</span><span id="line-62">    //public static final String OutlineWidth = 9;</span>
-<span class="source-line-no">063</span><span id="line-63"></span>
-<span class="source-line-no">064</span><span id="line-64">    /**</span>
-<span class="source-line-no">065</span><span id="line-65">     * just draws the core symbol</span>
-<span class="source-line-no">066</span><span id="line-66">     */</span>
-<span class="source-line-no">067</span><span id="line-67">    public static final String DrawAsIcon = "DRAWASICON";</span>
-<span class="source-line-no">068</span><span id="line-68"></span>
-<span class="source-line-no">069</span><span id="line-69">    /**</span>
-<span class="source-line-no">070</span><span id="line-70">     * Specifies the line width of the multipoint symbology</span>
-<span class="source-line-no">071</span><span id="line-71">     */</span>
-<span class="source-line-no">072</span><span id="line-72">    public static final String LineWidth = "LINEWIDTH";</span>
-<span class="source-line-no">073</span><span id="line-73"></span>
-<span class="source-line-no">074</span><span id="line-74">    /**</span>
-<span class="source-line-no">075</span><span id="line-75">     * Specifies the color for text labels</span>
-<span class="source-line-no">076</span><span id="line-76">     */</span>
-<span class="source-line-no">077</span><span id="line-77">    public static final String TextColor = "TEXTCOLOR";</span>
-<span class="source-line-no">078</span><span id="line-78"></span>
-<span class="source-line-no">079</span><span id="line-79">    /**</span>
-<span class="source-line-no">080</span><span id="line-80">     * Specifies the color for the text background (color outline or fill)</span>
-<span class="source-line-no">081</span><span id="line-81">     */</span>
-<span class="source-line-no">082</span><span id="line-82">    public static final String TextBackgroundColor = "TEXTBACKGROUNDCOLOR";</span>
-<span class="source-line-no">083</span><span id="line-83"></span>
-<span class="source-line-no">084</span><span id="line-84">    /**</span>
-<span class="source-line-no">085</span><span id="line-85">     * If false, the renderer will create a bunch of little lines to create</span>
-<span class="source-line-no">086</span><span id="line-86">     * the "dash" effect (expensive but necessary for KML).</span>
-<span class="source-line-no">087</span><span id="line-87">     * If true, it will be on the user to create the dash effect using the</span>
-<span class="source-line-no">088</span><span id="line-88">     * DashArray from the Stroke object from the ShapeInfo object.</span>
-<span class="source-line-no">089</span><span id="line-89">     */</span>
-<span class="source-line-no">090</span><span id="line-90">    public static final String UseDashArray = "USEDASHARRAY";</span>
-<span class="source-line-no">091</span><span id="line-91"></span>
-<span class="source-line-no">092</span><span id="line-92">    /**</span>
-<span class="source-line-no">093</span><span id="line-93">     * The mode that altitude labels will be displayed in, the default value is AMSL.</span>
-<span class="source-line-no">094</span><span id="line-94">     *</span>
-<span class="source-line-no">095</span><span id="line-95">     * This value acts as a label, appending whatever string that is passed in to the end of the altitude units.</span>
-<span class="source-line-no">096</span><span id="line-96">     * Currently only effective for multi-point graphics.</span>
-<span class="source-line-no">097</span><span id="line-97">     */</span>
-<span class="source-line-no">098</span><span id="line-98">    public static final String AltitudeMode = "ALTITUDEMODE";</span>
-<span class="source-line-no">099</span><span id="line-99"></span>
-<span class="source-line-no">100</span><span id="line-100">    /**</span>
-<span class="source-line-no">101</span><span id="line-101">     * At the moment, this refers to the optional range fan labels.</span>
-<span class="source-line-no">102</span><span id="line-102">     */</span>
-<span class="source-line-no">103</span><span id="line-103">    public static final String HideOptionalLabels = "HIDEOPTIONALLABELS";</span>
-<span class="source-line-no">104</span><span id="line-104"></span>
-<span class="source-line-no">105</span><span id="line-105">    /**</span>
-<span class="source-line-no">106</span><span id="line-106">     * For internal use</span>
-<span class="source-line-no">107</span><span id="line-107">     */</span>
-<span class="source-line-no">108</span><span id="line-108">    public static final String UsePatternFill = "USEPATTERNFILL";</span>
-<span class="source-line-no">109</span><span id="line-109"></span>
-<span class="source-line-no">110</span><span id="line-110">    /**</span>
-<span class="source-line-no">111</span><span id="line-111">     * For internal use</span>
-<span class="source-line-no">112</span><span id="line-112">     */</span>
-<span class="source-line-no">113</span><span id="line-113">    public static final String PatternFillType = "PATTERNFILLTYPE";</span>
-<span class="source-line-no">114</span><span id="line-114"></span>
-<span class="source-line-no">115</span><span id="line-115">    /**</span>
-<span class="source-line-no">116</span><span id="line-116">     * The conversion factor and the label that you want all distances to display in. The conversion factor</span>
-<span class="source-line-no">117</span><span id="line-117">     * is converting from meters. The default unit is meters.&lt;br&gt;&lt;br&gt;</span>
-<span class="source-line-no">118</span><span id="line-118">     *</span>
-<span class="source-line-no">119</span><span id="line-119">     * Must be in the form [conversionFactor],[label]. So for example converting to feet would be "3.28084,FT".</span>
-<span class="source-line-no">120</span><span id="line-120">     * The helper class {@link DistanceUnit} can be used.</span>
-<span class="source-line-no">121</span><span id="line-121">     */</span>
-<span class="source-line-no">122</span><span id="line-122">    public static final String DistanceUnits = "DISTANCEUNITS";</span>
-<span class="source-line-no">123</span><span id="line-123"></span>
-<span class="source-line-no">124</span><span id="line-124">    /**</span>
-<span class="source-line-no">125</span><span id="line-125">     * The conversion factor and the label that you want all distances to display in.</span>
-<span class="source-line-no">126</span><span id="line-126">     * Conventionally, the conversion factor is converting from meters by default,</span>
-<span class="source-line-no">127</span><span id="line-127">     * but other values could be passed, like "1,KM" to use an unaltered value in kilometers.&lt;br&gt;&lt;br&gt;</span>
-<span class="source-line-no">128</span><span id="line-128">     *</span>
-<span class="source-line-no">129</span><span id="line-129">     * Must be in the form [conversionFactor],[label]. So for example converting meters to feet would be "3.28084,FT".</span>
-<span class="source-line-no">130</span><span id="line-130">     * The helper class {@link DistanceUnit} can be used.</span>
-<span class="source-line-no">131</span><span id="line-131">     * Currently only effective for multi-point graphics.</span>
-<span class="source-line-no">132</span><span id="line-132">     */</span>
-<span class="source-line-no">133</span><span id="line-133">    public static final String AltitudeUnits = "ALTITUDEUNITS";</span>
-<span class="source-line-no">134</span><span id="line-134"></span>
-<span class="source-line-no">135</span><span id="line-135">    /**</span>
-<span class="source-line-no">136</span><span id="line-136">     * If the engagement/target amplifier bar is to be used to designate targets, non-targets, and</span>
-<span class="source-line-no">137</span><span id="line-137">     * pruned or expired targets, a different coloring schema shall be used. Hostile tracks which</span>
-<span class="source-line-no">138</span><span id="line-138">     * are deemed targets shall have a red bar (RGB: 255, 0, 0) to indicate target. For hostile</span>
-<span class="source-line-no">139</span><span id="line-139">     * tracks deemed to be non-targets, white (RGB: 255, 255, 255) should be used to indicate non</span>
-<span class="source-line-no">140</span><span id="line-140">     * target. Finally, for hostile tracks which have been pruned or have expired shall be colored</span>
-<span class="source-line-no">141</span><span id="line-141">     * orange (RGB: 255, 120, 0).</span>
-<span class="source-line-no">142</span><span id="line-142">     * This attribute expects a hex string for the color</span>
-<span class="source-line-no">143</span><span id="line-143">     */</span>
-<span class="source-line-no">144</span><span id="line-144">    public static final String EngagementBarColor = "ENGAGEMENTBARCOLOR";</span>
-<span class="source-line-no">145</span><span id="line-145"></span>
-<span class="source-line-no">146</span><span id="line-146">    /**</span>
-<span class="source-line-no">147</span><span id="line-147">     * Multipoint features and patterns scale with line width ({@link MilStdAttributes#LineWidth}).</span>
-<span class="source-line-no">148</span><span id="line-148">     * {@code PatternScale} is the ratio of how much to increase features and patterns by with line width.</span>
-<span class="source-line-no">149</span><span id="line-149">     * default value is {@link RendererSettings#getPatternScale()}</span>
-<span class="source-line-no">150</span><span id="line-150">     */</span>
-<span class="source-line-no">151</span><span id="line-151">    public static final String PatternScale = "PATTERNSCALE";</span>
-<span class="source-line-no">152</span><span id="line-152"></span>
-<span class="source-line-no">153</span><span id="line-153">    /**</span>
-<span class="source-line-no">154</span><span id="line-154">     * No Longer relevant</span>
-<span class="source-line-no">155</span><span id="line-155">     * @return {@link ArrayList}</span>
-<span class="source-line-no">156</span><span id="line-156">     * @deprecated see {@link #GetAttributesList(String)}</span>
-<span class="source-line-no">157</span><span id="line-157">     */</span>
-<span class="source-line-no">158</span><span id="line-158">    public static ArrayList&lt;String&gt; GetModifierList()</span>
-<span class="source-line-no">159</span><span id="line-159">    {</span>
-<span class="source-line-no">160</span><span id="line-160">        ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();</span>
-<span class="source-line-no">161</span><span id="line-161"></span>
-<span class="source-line-no">162</span><span id="line-162">        list.add(LineColor);</span>
-<span class="source-line-no">163</span><span id="line-163">        list.add(FillColor);</span>
-<span class="source-line-no">164</span><span id="line-164">        //list.add(IconColor);</span>
-<span class="source-line-no">165</span><span id="line-165">        //list.add(FontSize);</span>
-<span class="source-line-no">166</span><span id="line-166">        list.add(PixelSize);</span>
-<span class="source-line-no">167</span><span id="line-167">        list.add(KeepUnitRatio);</span>
-<span class="source-line-no">168</span><span id="line-168">        list.add(Alpha);</span>
-<span class="source-line-no">169</span><span id="line-169">        list.add(OutlineSymbol);</span>
-<span class="source-line-no">170</span><span id="line-170">        list.add(OutlineColor);</span>
-<span class="source-line-no">171</span><span id="line-171">        //list.add(OutlineWidth);</span>
-<span class="source-line-no">172</span><span id="line-172">        list.add(DrawAsIcon);</span>
-<span class="source-line-no">173</span><span id="line-173">        list.add(HideOptionalLabels);</span>
-<span class="source-line-no">174</span><span id="line-174">        list.add(DistanceUnits);</span>
-<span class="source-line-no">175</span><span id="line-175">        list.add(AltitudeUnits);</span>
-<span class="source-line-no">176</span><span id="line-176">        list.add(EngagementBarColor);</span>
-<span class="source-line-no">177</span><span id="line-177"></span>
-<span class="source-line-no">178</span><span id="line-178">        return list;</span>
-<span class="source-line-no">179</span><span id="line-179">    }</span>
-<span class="source-line-no">180</span><span id="line-180"></span>
-<span class="source-line-no">181</span><span id="line-181">    public static ArrayList&lt;String&gt; GetAttributesList(String symbolID)</span>
-<span class="source-line-no">182</span><span id="line-182">    {</span>
-<span class="source-line-no">183</span><span id="line-183">        ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();</span>
-<span class="source-line-no">184</span><span id="line-184"></span>
-<span class="source-line-no">185</span><span id="line-185">        list.add(LineColor);</span>
-<span class="source-line-no">186</span><span id="line-186">        list.add(FillColor);</span>
-<span class="source-line-no">187</span><span id="line-187">        //list.add(IconColor);</span>
+<span class="source-line-no">007</span><span id="line-7">import android.graphics.Typeface;</span>
+<span class="source-line-no">008</span><span id="line-8"></span>
+<span class="source-line-no">009</span><span id="line-9">import java.util.ArrayList;</span>
+<span class="source-line-no">010</span><span id="line-10">import java.util.Map;</span>
+<span class="source-line-no">011</span><span id="line-11"></span>
+<span class="source-line-no">012</span><span id="line-12">/**</span>
+<span class="source-line-no">013</span><span id="line-13"> * Symbol attribute constants to be used as keys in the Map when calling {@link armyc2.c5isr.renderer.MilStdIconRenderer#RenderIcon(String, Map, Map)}</span>
+<span class="source-line-no">014</span><span id="line-14"> * or {@link armyc2.c5isr.web.render.WebRenderer#RenderSymbol(String, String, String, String, String, String, double, String, Map, Map, int)}</span>
+<span class="source-line-no">015</span><span id="line-15"> */</span>
+<span class="source-line-no">016</span><span id="line-16">public class MilStdAttributes {</span>
+<span class="source-line-no">017</span><span id="line-17"></span>
+<span class="source-line-no">018</span><span id="line-18">    /**</span>
+<span class="source-line-no">019</span><span id="line-19">     * Line color of the symbol. hex value.</span>
+<span class="source-line-no">020</span><span id="line-20">     */</span>
+<span class="source-line-no">021</span><span id="line-21">    public static final String LineColor = "LINECOLOR";</span>
+<span class="source-line-no">022</span><span id="line-22"></span>
+<span class="source-line-no">023</span><span id="line-23">    /**</span>
+<span class="source-line-no">024</span><span id="line-24">     * Fill color of the symbol. hex value</span>
+<span class="source-line-no">025</span><span id="line-25">     */</span>
+<span class="source-line-no">026</span><span id="line-26">    public static final String FillColor = "FILLCOLOR";</span>
+<span class="source-line-no">027</span><span id="line-27"></span>
+<span class="source-line-no">028</span><span id="line-28">    /**</span>
+<span class="source-line-no">029</span><span id="line-29">     * Main color of internal icon.  Only relevant to framed symbols. hex value</span>
+<span class="source-line-no">030</span><span id="line-30">     */</span>
+<span class="source-line-no">031</span><span id="line-31">    public static final String IconColor = "ICONCOLOR";</span>
+<span class="source-line-no">032</span><span id="line-32"></span>
+<span class="source-line-no">033</span><span id="line-33"></span>
+<span class="source-line-no">034</span><span id="line-34">    /**</span>
+<span class="source-line-no">035</span><span id="line-35">     * size of the single point image</span>
+<span class="source-line-no">036</span><span id="line-36">     */</span>
+<span class="source-line-no">037</span><span id="line-37">    public static final String PixelSize = "PIXELSIZE";</span>
+<span class="source-line-no">038</span><span id="line-38"></span>
+<span class="source-line-no">039</span><span id="line-39"></span>
+<span class="source-line-no">040</span><span id="line-40">    /**</span>
+<span class="source-line-no">041</span><span id="line-41">     * defaults to true</span>
+<span class="source-line-no">042</span><span id="line-42">     */</span>
+<span class="source-line-no">043</span><span id="line-43">    public static final String KeepUnitRatio = "KEEPUNITRATIO";</span>
+<span class="source-line-no">044</span><span id="line-44"></span>
+<span class="source-line-no">045</span><span id="line-45">    /**</span>
+<span class="source-line-no">046</span><span id="line-46">     * transparency value of the symbol. values from 0.0 - 1.0</span>
+<span class="source-line-no">047</span><span id="line-47">     */</span>
+<span class="source-line-no">048</span><span id="line-48">    public static final String Alpha = "ALPHA";</span>
+<span class="source-line-no">049</span><span id="line-49"></span>
+<span class="source-line-no">050</span><span id="line-50">    /**</span>
+<span class="source-line-no">051</span><span id="line-51">     * outline the symbol, true/false</span>
+<span class="source-line-no">052</span><span id="line-52">     */</span>
+<span class="source-line-no">053</span><span id="line-53">    public static final String OutlineSymbol = "OUTLINESYMBOL";</span>
+<span class="source-line-no">054</span><span id="line-54"></span>
+<span class="source-line-no">055</span><span id="line-55">    /**</span>
+<span class="source-line-no">056</span><span id="line-56">     * specify and outline color rather than letting renderer picking</span>
+<span class="source-line-no">057</span><span id="line-57">     * the best contrast color. hex value</span>
+<span class="source-line-no">058</span><span id="line-58">     */</span>
+<span class="source-line-no">059</span><span id="line-59">    public static final String OutlineColor = "OUTLINECOLOR";</span>
+<span class="source-line-no">060</span><span id="line-60"></span>
+<span class="source-line-no">061</span><span id="line-61">    /*</span>
+<span class="source-line-no">062</span><span id="line-62">     * specifies thickness of the symbol outline</span>
+<span class="source-line-no">063</span><span id="line-63">     */</span>
+<span class="source-line-no">064</span><span id="line-64">    //public static final String OutlineWidth = 9;</span>
+<span class="source-line-no">065</span><span id="line-65"></span>
+<span class="source-line-no">066</span><span id="line-66">    /**</span>
+<span class="source-line-no">067</span><span id="line-67">     * just draws the core symbol</span>
+<span class="source-line-no">068</span><span id="line-68">     */</span>
+<span class="source-line-no">069</span><span id="line-69">    public static final String DrawAsIcon = "DRAWASICON";</span>
+<span class="source-line-no">070</span><span id="line-70"></span>
+<span class="source-line-no">071</span><span id="line-71">    /**</span>
+<span class="source-line-no">072</span><span id="line-72">     * Specifies the line width of the multipoint symbology</span>
+<span class="source-line-no">073</span><span id="line-73">     */</span>
+<span class="source-line-no">074</span><span id="line-74">    public static final String LineWidth = "LINEWIDTH";</span>
+<span class="source-line-no">075</span><span id="line-75"></span>
+<span class="source-line-no">076</span><span id="line-76">    /**</span>
+<span class="source-line-no">077</span><span id="line-77">     * Specifies the color for text labels</span>
+<span class="source-line-no">078</span><span id="line-78">     */</span>
+<span class="source-line-no">079</span><span id="line-79">    public static final String TextColor = "TEXTCOLOR";</span>
+<span class="source-line-no">080</span><span id="line-80"></span>
+<span class="source-line-no">081</span><span id="line-81">    /**</span>
+<span class="source-line-no">082</span><span id="line-82">     * Specifies the color for the text background (color outline or fill)</span>
+<span class="source-line-no">083</span><span id="line-83">     */</span>
+<span class="source-line-no">084</span><span id="line-84">    public static final String TextBackgroundColor = "TEXTBACKGROUNDCOLOR";</span>
+<span class="source-line-no">085</span><span id="line-85"></span>
+<span class="source-line-no">086</span><span id="line-86">    /**</span>
+<span class="source-line-no">087</span><span id="line-87">     * If false, the renderer will create a bunch of little lines to create</span>
+<span class="source-line-no">088</span><span id="line-88">     * the "dash" effect (expensive but necessary for KML).</span>
+<span class="source-line-no">089</span><span id="line-89">     * If true, it will be on the user to create the dash effect using the</span>
+<span class="source-line-no">090</span><span id="line-90">     * DashArray from the Stroke object from the ShapeInfo object.</span>
+<span class="source-line-no">091</span><span id="line-91">     */</span>
+<span class="source-line-no">092</span><span id="line-92">    public static final String UseDashArray = "USEDASHARRAY";</span>
+<span class="source-line-no">093</span><span id="line-93"></span>
+<span class="source-line-no">094</span><span id="line-94">    /**</span>
+<span class="source-line-no">095</span><span id="line-95">     * The mode that altitude labels will be displayed in, the default value is AMSL.</span>
+<span class="source-line-no">096</span><span id="line-96">     *</span>
+<span class="source-line-no">097</span><span id="line-97">     * This value acts as a label, appending whatever string that is passed in to the end of the altitude units.</span>
+<span class="source-line-no">098</span><span id="line-98">     * Currently only effective for multi-point graphics.</span>
+<span class="source-line-no">099</span><span id="line-99">     */</span>
+<span class="source-line-no">100</span><span id="line-100">    public static final String AltitudeMode = "ALTITUDEMODE";</span>
+<span class="source-line-no">101</span><span id="line-101"></span>
+<span class="source-line-no">102</span><span id="line-102">    /**</span>
+<span class="source-line-no">103</span><span id="line-103">     * At the moment, this refers to the optional range fan labels.</span>
+<span class="source-line-no">104</span><span id="line-104">     */</span>
+<span class="source-line-no">105</span><span id="line-105">    public static final String HideOptionalLabels = "HIDEOPTIONALLABELS";</span>
+<span class="source-line-no">106</span><span id="line-106"></span>
+<span class="source-line-no">107</span><span id="line-107">    /**</span>
+<span class="source-line-no">108</span><span id="line-108">     * For internal use</span>
+<span class="source-line-no">109</span><span id="line-109">     */</span>
+<span class="source-line-no">110</span><span id="line-110">    public static final String UsePatternFill = "USEPATTERNFILL";</span>
+<span class="source-line-no">111</span><span id="line-111"></span>
+<span class="source-line-no">112</span><span id="line-112">    /**</span>
+<span class="source-line-no">113</span><span id="line-113">     * For internal use</span>
+<span class="source-line-no">114</span><span id="line-114">     */</span>
+<span class="source-line-no">115</span><span id="line-115">    public static final String PatternFillType = "PATTERNFILLTYPE";</span>
+<span class="source-line-no">116</span><span id="line-116"></span>
+<span class="source-line-no">117</span><span id="line-117">    /**</span>
+<span class="source-line-no">118</span><span id="line-118">     * The conversion factor and the label that you want all distances to display in. The conversion factor</span>
+<span class="source-line-no">119</span><span id="line-119">     * is converting from meters. The default unit is meters.&lt;br&gt;&lt;br&gt;</span>
+<span class="source-line-no">120</span><span id="line-120">     *</span>
+<span class="source-line-no">121</span><span id="line-121">     * Must be in the form [conversionFactor],[label]. So for example converting to feet would be "3.28084,FT".</span>
+<span class="source-line-no">122</span><span id="line-122">     * The helper class {@link DistanceUnit} can be used.</span>
+<span class="source-line-no">123</span><span id="line-123">     */</span>
+<span class="source-line-no">124</span><span id="line-124">    public static final String DistanceUnits = "DISTANCEUNITS";</span>
+<span class="source-line-no">125</span><span id="line-125"></span>
+<span class="source-line-no">126</span><span id="line-126">    /**</span>
+<span class="source-line-no">127</span><span id="line-127">     * The conversion factor and the label that you want all distances to display in.</span>
+<span class="source-line-no">128</span><span id="line-128">     * Conventionally, the conversion factor is converting from meters by default,</span>
+<span class="source-line-no">129</span><span id="line-129">     * but other values could be passed, like "1,KM" to use an unaltered value in kilometers.&lt;br&gt;&lt;br&gt;</span>
+<span class="source-line-no">130</span><span id="line-130">     *</span>
+<span class="source-line-no">131</span><span id="line-131">     * Must be in the form [conversionFactor],[label]. So for example converting meters to feet would be "3.28084,FT".</span>
+<span class="source-line-no">132</span><span id="line-132">     * The helper class {@link DistanceUnit} can be used.</span>
+<span class="source-line-no">133</span><span id="line-133">     * Currently only effective for multi-point graphics.</span>
+<span class="source-line-no">134</span><span id="line-134">     */</span>
+<span class="source-line-no">135</span><span id="line-135">    public static final String AltitudeUnits = "ALTITUDEUNITS";</span>
+<span class="source-line-no">136</span><span id="line-136"></span>
+<span class="source-line-no">137</span><span id="line-137">    /**</span>
+<span class="source-line-no">138</span><span id="line-138">     * If the engagement/target amplifier bar is to be used to designate targets, non-targets, and</span>
+<span class="source-line-no">139</span><span id="line-139">     * pruned or expired targets, a different coloring schema shall be used. Hostile tracks which</span>
+<span class="source-line-no">140</span><span id="line-140">     * are deemed targets shall have a red bar (RGB: 255, 0, 0) to indicate target. For hostile</span>
+<span class="source-line-no">141</span><span id="line-141">     * tracks deemed to be non-targets, white (RGB: 255, 255, 255) should be used to indicate non</span>
+<span class="source-line-no">142</span><span id="line-142">     * target. Finally, for hostile tracks which have been pruned or have expired shall be colored</span>
+<span class="source-line-no">143</span><span id="line-143">     * orange (RGB: 255, 120, 0).</span>
+<span class="source-line-no">144</span><span id="line-144">     * This attribute expects a hex string for the color</span>
+<span class="source-line-no">145</span><span id="line-145">     */</span>
+<span class="source-line-no">146</span><span id="line-146">    public static final String EngagementBarColor = "ENGAGEMENTBARCOLOR";</span>
+<span class="source-line-no">147</span><span id="line-147"></span>
+<span class="source-line-no">148</span><span id="line-148">    /**</span>
+<span class="source-line-no">149</span><span id="line-149">     * Multipoint features and patterns scale with line width ({@link MilStdAttributes#LineWidth}).</span>
+<span class="source-line-no">150</span><span id="line-150">     * {@code PatternScale} is the ratio of how much to increase features and patterns by with line width.</span>
+<span class="source-line-no">151</span><span id="line-151">     * default value is {@link RendererSettings#getPatternScale()}</span>
+<span class="source-line-no">152</span><span id="line-152">     */</span>
+<span class="source-line-no">153</span><span id="line-153">    public static final String PatternScale = "PATTERNSCALE";</span>
+<span class="source-line-no">154</span><span id="line-154"></span>
+<span class="source-line-no">155</span><span id="line-155">    public static final String FontFamily = "FONTFAMILY";</span>
+<span class="source-line-no">156</span><span id="line-156">    /**</span>
+<span class="source-line-no">157</span><span id="line-157">     * Like Typeface.BOLD</span>
+<span class="source-line-no">158</span><span id="line-158">     */</span>
+<span class="source-line-no">159</span><span id="line-159">    public static final String FontStyle = "FONTSTYLE";</span>
+<span class="source-line-no">160</span><span id="line-160"></span>
+<span class="source-line-no">161</span><span id="line-161">    public static final String FontSize = "FONTSIZE";</span>
+<span class="source-line-no">162</span><span id="line-162"></span>
+<span class="source-line-no">163</span><span id="line-163">    /**</span>
+<span class="source-line-no">164</span><span id="line-164">     * Strict ("0") for always placing their labels in the specified location</span>
+<span class="source-line-no">165</span><span id="line-165">     * even if there's empty space from other labels that weren't populated</span>
+<span class="source-line-no">166</span><span id="line-166">     * Flexible ("1") to collapse label vertically to the center to eliminate</span>
+<span class="source-line-no">167</span><span id="line-167">     * empty space from labels that weren't populated.</span>
+<span class="source-line-no">168</span><span id="line-168">     * Does not apply to Control Measures or METOCS</span>
+<span class="source-line-no">169</span><span id="line-169">     * Set with values like:</span>
+<span class="source-line-no">170</span><span id="line-170">     * RendererSettings.ModifierPlacement_STRICT ("0")</span>
+<span class="source-line-no">171</span><span id="line-171">     * RendererSettings.ModifierPlacement_FLEXIBLE ("1")</span>
+<span class="source-line-no">172</span><span id="line-172">     */</span>
+<span class="source-line-no">173</span><span id="line-173">    public static final String ModifierPlacement = "MODIFIERPLACEMENT";</span>
+<span class="source-line-no">174</span><span id="line-174"></span>
+<span class="source-line-no">175</span><span id="line-175">    /**</span>
+<span class="source-line-no">176</span><span id="line-176">     * No Longer relevant</span>
+<span class="source-line-no">177</span><span id="line-177">     * @return {@link ArrayList}</span>
+<span class="source-line-no">178</span><span id="line-178">     * @deprecated see {@link #GetAttributesList(String)}</span>
+<span class="source-line-no">179</span><span id="line-179">     */</span>
+<span class="source-line-no">180</span><span id="line-180">    public static ArrayList&lt;String&gt; GetModifierList()</span>
+<span class="source-line-no">181</span><span id="line-181">    {</span>
+<span class="source-line-no">182</span><span id="line-182">        ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="source-line-no">183</span><span id="line-183"></span>
+<span class="source-line-no">184</span><span id="line-184">        list.add(LineColor);</span>
+<span class="source-line-no">185</span><span id="line-185">        list.add(FillColor);</span>
+<span class="source-line-no">186</span><span id="line-186">        //list.add(IconColor);</span>
+<span class="source-line-no">187</span><span id="line-187">        //list.add(FontSize);</span>
 <span class="source-line-no">188</span><span id="line-188">        list.add(PixelSize);</span>
-<span class="source-line-no">189</span><span id="line-189"></span>
-<span class="source-line-no">190</span><span id="line-190">        if(SymbolUtilities.isMultiPoint(symbolID)==false) {</span>
-<span class="source-line-no">191</span><span id="line-191">            list.add(KeepUnitRatio);</span>
-<span class="source-line-no">192</span><span id="line-192">            list.add(OutlineSymbol);</span>
-<span class="source-line-no">193</span><span id="line-193">            list.add(OutlineColor);</span>
-<span class="source-line-no">194</span><span id="line-194">            list.add(DrawAsIcon);</span>
-<span class="source-line-no">195</span><span id="line-195">            if(SymbolUtilities.hasModifier(symbolID,Modifiers.AO_ENGAGEMENT_BAR))</span>
-<span class="source-line-no">196</span><span id="line-196">                list.add(EngagementBarColor);</span>
-<span class="source-line-no">197</span><span id="line-197">        }</span>
-<span class="source-line-no">198</span><span id="line-198">        else</span>
-<span class="source-line-no">199</span><span id="line-199">        {</span>
-<span class="source-line-no">200</span><span id="line-200">            list.add(LineWidth);</span>
-<span class="source-line-no">201</span><span id="line-201">            list.add(HideOptionalLabels);</span>
-<span class="source-line-no">202</span><span id="line-202">            list.add(DistanceUnits);</span>
-<span class="source-line-no">203</span><span id="line-203">            list.add(AltitudeUnits);</span>
-<span class="source-line-no">204</span><span id="line-204">        }</span>
-<span class="source-line-no">205</span><span id="line-205">        list.add(Alpha);</span>
+<span class="source-line-no">189</span><span id="line-189">        list.add(KeepUnitRatio);</span>
+<span class="source-line-no">190</span><span id="line-190">        list.add(Alpha);</span>
+<span class="source-line-no">191</span><span id="line-191">        list.add(OutlineSymbol);</span>
+<span class="source-line-no">192</span><span id="line-192">        list.add(OutlineColor);</span>
+<span class="source-line-no">193</span><span id="line-193">        //list.add(OutlineWidth);</span>
+<span class="source-line-no">194</span><span id="line-194">        list.add(DrawAsIcon);</span>
+<span class="source-line-no">195</span><span id="line-195">        list.add(HideOptionalLabels);</span>
+<span class="source-line-no">196</span><span id="line-196">        list.add(DistanceUnits);</span>
+<span class="source-line-no">197</span><span id="line-197">        list.add(AltitudeUnits);</span>
+<span class="source-line-no">198</span><span id="line-198">        list.add(EngagementBarColor);</span>
+<span class="source-line-no">199</span><span id="line-199"></span>
+<span class="source-line-no">200</span><span id="line-200">        return list;</span>
+<span class="source-line-no">201</span><span id="line-201">    }</span>
+<span class="source-line-no">202</span><span id="line-202"></span>
+<span class="source-line-no">203</span><span id="line-203">    public static ArrayList&lt;String&gt; GetAttributesList(String symbolID)</span>
+<span class="source-line-no">204</span><span id="line-204">    {</span>
+<span class="source-line-no">205</span><span id="line-205">        ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();</span>
 <span class="source-line-no">206</span><span id="line-206"></span>
-<span class="source-line-no">207</span><span id="line-207">        return list;</span>
-<span class="source-line-no">208</span><span id="line-208">    }</span>
-<span class="source-line-no">209</span><span id="line-209"></span>
-<span class="source-line-no">210</span><span id="line-210">    /**</span>
-<span class="source-line-no">211</span><span id="line-211">     * @param attribute constant like MilStdAttributes.LineColor</span>
-<span class="source-line-no">212</span><span id="line-212">     * @return attribute name based on attribute constants</span>
-<span class="source-line-no">213</span><span id="line-213">     */</span>
-<span class="source-line-no">214</span><span id="line-214">    public static String getAttributeName(String attribute) {</span>
-<span class="source-line-no">215</span><span id="line-215">        switch (attribute) {</span>
-<span class="source-line-no">216</span><span id="line-216">            case LineColor:</span>
-<span class="source-line-no">217</span><span id="line-217">                return "Line Color";</span>
-<span class="source-line-no">218</span><span id="line-218">            case FillColor:</span>
-<span class="source-line-no">219</span><span id="line-219">                return "Fill Color";</span>
-<span class="source-line-no">220</span><span id="line-220">            case PixelSize:</span>
-<span class="source-line-no">221</span><span id="line-221">                return "Pixel Size";</span>
-<span class="source-line-no">222</span><span id="line-222">            case KeepUnitRatio:</span>
-<span class="source-line-no">223</span><span id="line-223">                return "Keep Unit Ratio";</span>
-<span class="source-line-no">224</span><span id="line-224">            case Alpha:</span>
-<span class="source-line-no">225</span><span id="line-225">                return "Alpha";</span>
-<span class="source-line-no">226</span><span id="line-226">            case OutlineSymbol:</span>
-<span class="source-line-no">227</span><span id="line-227">                return "Outline Symbol";</span>
-<span class="source-line-no">228</span><span id="line-228">            case OutlineColor:</span>
-<span class="source-line-no">229</span><span id="line-229">                return "Outline Color";</span>
-<span class="source-line-no">230</span><span id="line-230">            case DrawAsIcon:</span>
-<span class="source-line-no">231</span><span id="line-231">                return "Draw as Icon";</span>
-<span class="source-line-no">232</span><span id="line-232">            case LineWidth:</span>
-<span class="source-line-no">233</span><span id="line-233">                return "Line Width";</span>
-<span class="source-line-no">234</span><span id="line-234">            case TextColor:</span>
-<span class="source-line-no">235</span><span id="line-235">                return "Text Color";</span>
-<span class="source-line-no">236</span><span id="line-236">            case TextBackgroundColor:</span>
-<span class="source-line-no">237</span><span id="line-237">                return "Text Background Color";</span>
-<span class="source-line-no">238</span><span id="line-238">            case UseDashArray:</span>
-<span class="source-line-no">239</span><span id="line-239">                return "Use Dash Array";</span>
-<span class="source-line-no">240</span><span id="line-240">            case AltitudeMode:</span>
-<span class="source-line-no">241</span><span id="line-241">                return "Altitude Mode";</span>
-<span class="source-line-no">242</span><span id="line-242">            case HideOptionalLabels:</span>
-<span class="source-line-no">243</span><span id="line-243">                return "Hide Optional Labels";</span>
-<span class="source-line-no">244</span><span id="line-244">            case UsePatternFill:</span>
-<span class="source-line-no">245</span><span id="line-245">                return "Use Pattern Fill";</span>
-<span class="source-line-no">246</span><span id="line-246">            case PatternFillType:</span>
-<span class="source-line-no">247</span><span id="line-247">                return "Pattern Fill Type";</span>
-<span class="source-line-no">248</span><span id="line-248">            case DistanceUnits:</span>
-<span class="source-line-no">249</span><span id="line-249">                return "Distance Units";</span>
-<span class="source-line-no">250</span><span id="line-250">            case AltitudeUnits:</span>
-<span class="source-line-no">251</span><span id="line-251">                return "Altitude Units";</span>
-<span class="source-line-no">252</span><span id="line-252">            default:</span>
-<span class="source-line-no">253</span><span id="line-253">                return "unrecognized attribute";</span>
-<span class="source-line-no">254</span><span id="line-254">        }</span>
-<span class="source-line-no">255</span><span id="line-255">    }</span>
-<span class="source-line-no">256</span><span id="line-256"></span>
-<span class="source-line-no">257</span><span id="line-257">    /**</span>
-<span class="source-line-no">258</span><span id="line-258">     * Takes a string representation of an attribute and returns the appropriate int key value</span>
-<span class="source-line-no">259</span><span id="line-259">     * @param attribute "LINECOLOR" will return MilStdAtttributes.LineColor</span>
-<span class="source-line-no">260</span><span id="line-260">     * @return {@link Integer} value representing Attribute constant.</span>
-<span class="source-line-no">261</span><span id="line-261">     */</span>
-<span class="source-line-no">262</span><span id="line-262">    public static String getAttributeKey(String attribute) {</span>
-<span class="source-line-no">263</span><span id="line-263">        switch (attribute.toUpperCase()) {</span>
-<span class="source-line-no">264</span><span id="line-264">            case "LINECOLOR":</span>
-<span class="source-line-no">265</span><span id="line-265">                return LineColor;</span>
-<span class="source-line-no">266</span><span id="line-266">            case "FILLCOLOR":</span>
-<span class="source-line-no">267</span><span id="line-267">                return FillColor;</span>
-<span class="source-line-no">268</span><span id="line-268">            case "PIXELSIZE":</span>
-<span class="source-line-no">269</span><span id="line-269">                return PixelSize;</span>
-<span class="source-line-no">270</span><span id="line-270">            case "KEEPUNITRATIO":</span>
-<span class="source-line-no">271</span><span id="line-271">                return KeepUnitRatio;</span>
-<span class="source-line-no">272</span><span id="line-272">            case "ALPHA":</span>
-<span class="source-line-no">273</span><span id="line-273">                return Alpha;</span>
-<span class="source-line-no">274</span><span id="line-274">            case "OUTLINESYMBOL":</span>
-<span class="source-line-no">275</span><span id="line-275">                return OutlineSymbol;</span>
-<span class="source-line-no">276</span><span id="line-276">            case "OUTLINECOLOR":</span>
-<span class="source-line-no">277</span><span id="line-277">                return OutlineColor;</span>
-<span class="source-line-no">278</span><span id="line-278">            case "DRAWASICON":</span>
-<span class="source-line-no">279</span><span id="line-279">                return DrawAsIcon;</span>
-<span class="source-line-no">280</span><span id="line-280">            case "LINEWIDTH":</span>
-<span class="source-line-no">281</span><span id="line-281">                return LineWidth;</span>
-<span class="source-line-no">282</span><span id="line-282">            case "TEXTCOLOR":</span>
-<span class="source-line-no">283</span><span id="line-283">                return TextColor;</span>
-<span class="source-line-no">284</span><span id="line-284">            case "TEXTBACKGROUNDCOLOR":</span>
-<span class="source-line-no">285</span><span id="line-285">                return TextBackgroundColor;</span>
-<span class="source-line-no">286</span><span id="line-286">            case "USEDASHARRAY":</span>
-<span class="source-line-no">287</span><span id="line-287">                return UseDashArray;</span>
-<span class="source-line-no">288</span><span id="line-288">            case "ALTITUDEMODE":</span>
-<span class="source-line-no">289</span><span id="line-289">                return AltitudeMode;</span>
-<span class="source-line-no">290</span><span id="line-290">            case "HIDEOPTIONALLABELS":</span>
-<span class="source-line-no">291</span><span id="line-291">                return HideOptionalLabels;</span>
-<span class="source-line-no">292</span><span id="line-292">            case "USEPATTERNFILL":</span>
-<span class="source-line-no">293</span><span id="line-293">                return UsePatternFill;</span>
-<span class="source-line-no">294</span><span id="line-294">            case "PATTERNFILLTYPE":</span>
-<span class="source-line-no">295</span><span id="line-295">                return PatternFillType;</span>
-<span class="source-line-no">296</span><span id="line-296">            case "DISTANCEUNITS":</span>
-<span class="source-line-no">297</span><span id="line-297">                return DistanceUnits;</span>
-<span class="source-line-no">298</span><span id="line-298">            case "ALTITUDEUNITS":</span>
-<span class="source-line-no">299</span><span id="line-299">                return AltitudeUnits;</span>
-<span class="source-line-no">300</span><span id="line-300">            default:</span>
-<span class="source-line-no">301</span><span id="line-301">                return null;</span>
-<span class="source-line-no">302</span><span id="line-302">        }</span>
-<span class="source-line-no">303</span><span id="line-303">    }</span>
-<span class="source-line-no">304</span><span id="line-304">}</span>
+<span class="source-line-no">207</span><span id="line-207">        list.add(LineColor);</span>
+<span class="source-line-no">208</span><span id="line-208">        list.add(FillColor);</span>
+<span class="source-line-no">209</span><span id="line-209">        //list.add(IconColor);</span>
+<span class="source-line-no">210</span><span id="line-210">        list.add(PixelSize);</span>
+<span class="source-line-no">211</span><span id="line-211"></span>
+<span class="source-line-no">212</span><span id="line-212">        if(!SymbolUtilities.isMultiPoint(symbolID)) {</span>
+<span class="source-line-no">213</span><span id="line-213">            list.add(KeepUnitRatio);</span>
+<span class="source-line-no">214</span><span id="line-214">            list.add(OutlineSymbol);</span>
+<span class="source-line-no">215</span><span id="line-215">            list.add(OutlineColor);</span>
+<span class="source-line-no">216</span><span id="line-216">            list.add(DrawAsIcon);</span>
+<span class="source-line-no">217</span><span id="line-217">            if(SymbolUtilities.hasModifier(symbolID,Modifiers.AO_ENGAGEMENT_BAR))</span>
+<span class="source-line-no">218</span><span id="line-218">                list.add(EngagementBarColor);</span>
+<span class="source-line-no">219</span><span id="line-219">            list.add(FontFamily);</span>
+<span class="source-line-no">220</span><span id="line-220">            list.add(FontStyle);</span>
+<span class="source-line-no">221</span><span id="line-221">            list.add(FontSize);</span>
+<span class="source-line-no">222</span><span id="line-222">            list.add(ModifierPlacement);</span>
+<span class="source-line-no">223</span><span id="line-223">        }</span>
+<span class="source-line-no">224</span><span id="line-224">        else</span>
+<span class="source-line-no">225</span><span id="line-225">        {</span>
+<span class="source-line-no">226</span><span id="line-226">            list.add(LineWidth);</span>
+<span class="source-line-no">227</span><span id="line-227">            list.add(HideOptionalLabels);</span>
+<span class="source-line-no">228</span><span id="line-228">            list.add(DistanceUnits);</span>
+<span class="source-line-no">229</span><span id="line-229">            list.add(AltitudeUnits);</span>
+<span class="source-line-no">230</span><span id="line-230">        }</span>
+<span class="source-line-no">231</span><span id="line-231">        list.add(Alpha);</span>
+<span class="source-line-no">232</span><span id="line-232"></span>
+<span class="source-line-no">233</span><span id="line-233">        return list;</span>
+<span class="source-line-no">234</span><span id="line-234">    }</span>
+<span class="source-line-no">235</span><span id="line-235"></span>
+<span class="source-line-no">236</span><span id="line-236">    /**</span>
+<span class="source-line-no">237</span><span id="line-237">     * @param attribute constant like MilStdAttributes.LineColor</span>
+<span class="source-line-no">238</span><span id="line-238">     * @return attribute name based on attribute constants</span>
+<span class="source-line-no">239</span><span id="line-239">     */</span>
+<span class="source-line-no">240</span><span id="line-240">    public static String getAttributeName(String attribute) {</span>
+<span class="source-line-no">241</span><span id="line-241">        switch (attribute) {</span>
+<span class="source-line-no">242</span><span id="line-242">            case LineColor:</span>
+<span class="source-line-no">243</span><span id="line-243">                return "Line Color";</span>
+<span class="source-line-no">244</span><span id="line-244">            case FillColor:</span>
+<span class="source-line-no">245</span><span id="line-245">                return "Fill Color";</span>
+<span class="source-line-no">246</span><span id="line-246">            case PixelSize:</span>
+<span class="source-line-no">247</span><span id="line-247">                return "Pixel Size";</span>
+<span class="source-line-no">248</span><span id="line-248">            case KeepUnitRatio:</span>
+<span class="source-line-no">249</span><span id="line-249">                return "Keep Unit Ratio";</span>
+<span class="source-line-no">250</span><span id="line-250">            case Alpha:</span>
+<span class="source-line-no">251</span><span id="line-251">                return "Alpha";</span>
+<span class="source-line-no">252</span><span id="line-252">            case OutlineSymbol:</span>
+<span class="source-line-no">253</span><span id="line-253">                return "Outline Symbol";</span>
+<span class="source-line-no">254</span><span id="line-254">            case OutlineColor:</span>
+<span class="source-line-no">255</span><span id="line-255">                return "Outline Color";</span>
+<span class="source-line-no">256</span><span id="line-256">            case DrawAsIcon:</span>
+<span class="source-line-no">257</span><span id="line-257">                return "Draw as Icon";</span>
+<span class="source-line-no">258</span><span id="line-258">            case LineWidth:</span>
+<span class="source-line-no">259</span><span id="line-259">                return "Line Width";</span>
+<span class="source-line-no">260</span><span id="line-260">            case TextColor:</span>
+<span class="source-line-no">261</span><span id="line-261">                return "Text Color";</span>
+<span class="source-line-no">262</span><span id="line-262">            case TextBackgroundColor:</span>
+<span class="source-line-no">263</span><span id="line-263">                return "Text Background Color";</span>
+<span class="source-line-no">264</span><span id="line-264">            case UseDashArray:</span>
+<span class="source-line-no">265</span><span id="line-265">                return "Use Dash Array";</span>
+<span class="source-line-no">266</span><span id="line-266">            case AltitudeMode:</span>
+<span class="source-line-no">267</span><span id="line-267">                return "Altitude Mode";</span>
+<span class="source-line-no">268</span><span id="line-268">            case HideOptionalLabels:</span>
+<span class="source-line-no">269</span><span id="line-269">                return "Hide Optional Labels";</span>
+<span class="source-line-no">270</span><span id="line-270">            case UsePatternFill:</span>
+<span class="source-line-no">271</span><span id="line-271">                return "Use Pattern Fill";</span>
+<span class="source-line-no">272</span><span id="line-272">            case PatternFillType:</span>
+<span class="source-line-no">273</span><span id="line-273">                return "Pattern Fill Type";</span>
+<span class="source-line-no">274</span><span id="line-274">            case DistanceUnits:</span>
+<span class="source-line-no">275</span><span id="line-275">                return "Distance Units";</span>
+<span class="source-line-no">276</span><span id="line-276">            case AltitudeUnits:</span>
+<span class="source-line-no">277</span><span id="line-277">                return "Altitude Units";</span>
+<span class="source-line-no">278</span><span id="line-278">            case FontFamily:</span>
+<span class="source-line-no">279</span><span id="line-279">                return "Font Family";</span>
+<span class="source-line-no">280</span><span id="line-280">            case FontStyle:</span>
+<span class="source-line-no">281</span><span id="line-281">                return "Font Style";</span>
+<span class="source-line-no">282</span><span id="line-282">            case FontSize:</span>
+<span class="source-line-no">283</span><span id="line-283">                return "Font Size";</span>
+<span class="source-line-no">284</span><span id="line-284">            case ModifierPlacement:</span>
+<span class="source-line-no">285</span><span id="line-285">                return "Modifier Placement";</span>
+<span class="source-line-no">286</span><span id="line-286">            default:</span>
+<span class="source-line-no">287</span><span id="line-287">                return "unrecognized attribute";</span>
+<span class="source-line-no">288</span><span id="line-288">        }</span>
+<span class="source-line-no">289</span><span id="line-289">    }</span>
+<span class="source-line-no">290</span><span id="line-290"></span>
+<span class="source-line-no">291</span><span id="line-291">    /**</span>
+<span class="source-line-no">292</span><span id="line-292">     * Takes a string representation of an attribute and returns the appropriate int key value</span>
+<span class="source-line-no">293</span><span id="line-293">     * @param attribute "LINECOLOR" will return MilStdAtttributes.LineColor</span>
+<span class="source-line-no">294</span><span id="line-294">     * @return {@link Integer} value representing Attribute constant.</span>
+<span class="source-line-no">295</span><span id="line-295">     */</span>
+<span class="source-line-no">296</span><span id="line-296">    public static String getAttributeKey(String attribute) {</span>
+<span class="source-line-no">297</span><span id="line-297">        switch (attribute.toUpperCase()) {</span>
+<span class="source-line-no">298</span><span id="line-298">            case "LINECOLOR":</span>
+<span class="source-line-no">299</span><span id="line-299">                return LineColor;</span>
+<span class="source-line-no">300</span><span id="line-300">            case "FILLCOLOR":</span>
+<span class="source-line-no">301</span><span id="line-301">                return FillColor;</span>
+<span class="source-line-no">302</span><span id="line-302">            case "PIXELSIZE":</span>
+<span class="source-line-no">303</span><span id="line-303">                return PixelSize;</span>
+<span class="source-line-no">304</span><span id="line-304">            case "KEEPUNITRATIO":</span>
+<span class="source-line-no">305</span><span id="line-305">                return KeepUnitRatio;</span>
+<span class="source-line-no">306</span><span id="line-306">            case "ALPHA":</span>
+<span class="source-line-no">307</span><span id="line-307">                return Alpha;</span>
+<span class="source-line-no">308</span><span id="line-308">            case "OUTLINESYMBOL":</span>
+<span class="source-line-no">309</span><span id="line-309">                return OutlineSymbol;</span>
+<span class="source-line-no">310</span><span id="line-310">            case "OUTLINECOLOR":</span>
+<span class="source-line-no">311</span><span id="line-311">                return OutlineColor;</span>
+<span class="source-line-no">312</span><span id="line-312">            case "DRAWASICON":</span>
+<span class="source-line-no">313</span><span id="line-313">                return DrawAsIcon;</span>
+<span class="source-line-no">314</span><span id="line-314">            case "LINEWIDTH":</span>
+<span class="source-line-no">315</span><span id="line-315">                return LineWidth;</span>
+<span class="source-line-no">316</span><span id="line-316">            case "TEXTCOLOR":</span>
+<span class="source-line-no">317</span><span id="line-317">                return TextColor;</span>
+<span class="source-line-no">318</span><span id="line-318">            case "TEXTBACKGROUNDCOLOR":</span>
+<span class="source-line-no">319</span><span id="line-319">                return TextBackgroundColor;</span>
+<span class="source-line-no">320</span><span id="line-320">            case "USEDASHARRAY":</span>
+<span class="source-line-no">321</span><span id="line-321">                return UseDashArray;</span>
+<span class="source-line-no">322</span><span id="line-322">            case "ALTITUDEMODE":</span>
+<span class="source-line-no">323</span><span id="line-323">                return AltitudeMode;</span>
+<span class="source-line-no">324</span><span id="line-324">            case "HIDEOPTIONALLABELS":</span>
+<span class="source-line-no">325</span><span id="line-325">                return HideOptionalLabels;</span>
+<span class="source-line-no">326</span><span id="line-326">            case "USEPATTERNFILL":</span>
+<span class="source-line-no">327</span><span id="line-327">                return UsePatternFill;</span>
+<span class="source-line-no">328</span><span id="line-328">            case "PATTERNFILLTYPE":</span>
+<span class="source-line-no">329</span><span id="line-329">                return PatternFillType;</span>
+<span class="source-line-no">330</span><span id="line-330">            case "DISTANCEUNITS":</span>
+<span class="source-line-no">331</span><span id="line-331">                return DistanceUnits;</span>
+<span class="source-line-no">332</span><span id="line-332">            case "ALTITUDEUNITS":</span>
+<span class="source-line-no">333</span><span id="line-333">                return AltitudeUnits;</span>
+<span class="source-line-no">334</span><span id="line-334">            case "FONTFAMILY":</span>
+<span class="source-line-no">335</span><span id="line-335">                return FontFamily;</span>
+<span class="source-line-no">336</span><span id="line-336">            case "FONTSTYLE":</span>
+<span class="source-line-no">337</span><span id="line-337">                return FontStyle;</span>
+<span class="source-line-no">338</span><span id="line-338">            case "FONTSIZE":</span>
+<span class="source-line-no">339</span><span id="line-339">                return FontSize;</span>
+<span class="source-line-no">340</span><span id="line-340">            case "MODIFIERPLACEMENT":</span>
+<span class="source-line-no">341</span><span id="line-341">                return ModifierPlacement;</span>
+<span class="source-line-no">342</span><span id="line-342">            default:</span>
+<span class="source-line-no">343</span><span id="line-343">                return null;</span>
+<span class="source-line-no">344</span><span id="line-344">        }</span>
+<span class="source-line-no">345</span><span id="line-345">    }</span>
+<span class="source-line-no">346</span><span id="line-346">}</span>
 
 
 
