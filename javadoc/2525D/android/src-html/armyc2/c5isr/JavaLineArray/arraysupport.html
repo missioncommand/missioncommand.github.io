@@ -2943,8 +2943,8 @@
 <span class="source-line-no">2930</span><span id="line-2930">                case TacticalLines.ASR_ONEWAY:</span>
 <span class="source-line-no">2931</span><span id="line-2931">                case TacticalLines.ASR_TWOWAY:</span>
 <span class="source-line-no">2932</span><span id="line-2932">                case TacticalLines.ASR_ALT:</span>
-<span class="source-line-no">2933</span><span id="line-2933">                case TacticalLines.ROUTE_ONEWAY:</span>
-<span class="source-line-no">2934</span><span id="line-2934">                case TacticalLines.ROUTE_ALT:</span>
+<span class="source-line-no">2933</span><span id="line-2933">                case TacticalLines.TRAFFIC_ROUTE_ONEWAY:</span>
+<span class="source-line-no">2934</span><span id="line-2934">                case TacticalLines.TRAFFIC_ROUTE_ALT:</span>
 <span class="source-line-no">2935</span><span id="line-2935">                    nCounter = (int) vblSaveCounter;</span>
 <span class="source-line-no">2936</span><span id="line-2936">                    pLinePoints[vblSaveCounter - 1].style = 5;</span>
 <span class="source-line-no">2937</span><span id="line-2937">                    for (j = 0; j &lt; vblSaveCounter - 1; j++) {</span>
@@ -2979,7 +2979,7 @@
 <span class="source-line-no">2966</span><span id="line-2966">                            nCounter++;</span>
 <span class="source-line-no">2967</span><span id="line-2967">                        }</span>
 <span class="source-line-no">2968</span><span id="line-2968"></span>
-<span class="source-line-no">2969</span><span id="line-2969">                        if (lineType == TacticalLines.MSR_ALT || lineType == TacticalLines.ASR_ALT || lineType == TacticalLines.ROUTE_ALT) {</span>
+<span class="source-line-no">2969</span><span id="line-2969">                        if (lineType == TacticalLines.MSR_ALT || lineType == TacticalLines.ASR_ALT || lineType == TacticalLines.TRAFFIC_ROUTE_ALT) {</span>
 <span class="source-line-no">2970</span><span id="line-2970">                            lineutility.GetArrowHead4Double(pt3, pt2, (int) d, (int) d,</span>
 <span class="source-line-no">2971</span><span id="line-2971">                                    pArrowPoints, 0);</span>
 <span class="source-line-no">2972</span><span id="line-2972"></span>

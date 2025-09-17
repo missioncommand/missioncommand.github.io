@@ -65,7 +65,7 @@
 <span class="source-line-no">052</span><span id="line-52">        try</span>
 <span class="source-line-no">053</span><span id="line-53">        {</span>
 <span class="source-line-no">054</span><span id="line-54">            int linetype=tg.get_LineType();</span>
-<span class="source-line-no">055</span><span id="line-55">            if(linetype != TacticalLines.MSR &amp;&amp; linetype != TacticalLines.ASR &amp;&amp; linetype != TacticalLines.ROUTE)</span>
+<span class="source-line-no">055</span><span id="line-55">            if(linetype != TacticalLines.MSR &amp;&amp; linetype != TacticalLines.ASR &amp;&amp; linetype != TacticalLines.TRAFFIC_ROUTE)</span>
 <span class="source-line-no">056</span><span id="line-56">                return;</span>
 <span class="source-line-no">057</span><span id="line-57"></span>
 <span class="source-line-no">058</span><span id="line-58">            HashMap&lt;Integer,Color&gt; hmap= clsUtility.getMSRSegmentColors(tg);</span>
@@ -317,7 +317,7 @@
 <span class="source-line-no">304</span><span id="line-304">                </span>
 <span class="source-line-no">305</span><span id="line-305">                if (CELineArray.CIsChannel(lineType) == 0)</span>
 <span class="source-line-no">306</span><span id="line-306">                {</span>
-<span class="source-line-no">307</span><span id="line-307">                    if(lineType==TacticalLines.ASR || lineType==TacticalLines.MSR || lineType==TacticalLines.ROUTE)</span>
+<span class="source-line-no">307</span><span id="line-307">                    if(lineType==TacticalLines.ASR || lineType==TacticalLines.MSR || lineType==TacticalLines.TRAFFIC_ROUTE)</span>
 <span class="source-line-no">308</span><span id="line-308">                    {</span>
 <span class="source-line-no">309</span><span id="line-309">                        getMSRShapes(tg,shapes);</span>
 <span class="source-line-no">310</span><span id="line-310">                    }</span>
@@ -334,7 +334,7 @@
 <span class="source-line-no">321</span><span id="line-321">            //set CELineArray.shapes properties</span>
 <span class="source-line-no">322</span><span id="line-322">            if(bolMeTOC&lt;=0)</span>
 <span class="source-line-no">323</span><span id="line-323">            {</span>
-<span class="source-line-no">324</span><span id="line-324">                if(lineType!=TacticalLines.ASR &amp;&amp; lineType!=TacticalLines.MSR &amp;&amp; lineType!=TacticalLines.ROUTE)</span>
+<span class="source-line-no">324</span><span id="line-324">                if(lineType!=TacticalLines.ASR &amp;&amp; lineType!=TacticalLines.MSR &amp;&amp; lineType!=TacticalLines.TRAFFIC_ROUTE)</span>
 <span class="source-line-no">325</span><span id="line-325">                    clsUtility.SetShapeProperties(tg,shapes,bi);</span>
 <span class="source-line-no">326</span><span id="line-326">            }</span>
 <span class="source-line-no">327</span><span id="line-327"></span>
