@@ -648,8 +648,8 @@ export declare class Rectangle2D {
 	isEmpty(): boolean;
 	setRect(r: Rectangle2D): void;
 	setRect(x1: double, y1: double, width1: double, height1: double): void;
-	grow(size: int): any;
-	grow(h: int, v: int): any;
+	grow(size: int): void;
+	grow(h: int, v: int): void;
 	stroke(context: OffscreenCanvasRenderingContext2D): void;
 	fill(context: OffscreenCanvasRenderingContext2D): void;
 	clone(): Rectangle2D;
@@ -1009,6 +1009,7 @@ export declare class LogLevel {
 	constructor(name: string, value: number);
 	intValue(): number;
 	getName(): string;
+	toString(): string;
 }
 /**
  * Error Logging class for Renderer
@@ -1310,6 +1311,26 @@ export declare class MilStdAttributes {
 	 * default value is {@link RendererSettings#getPatternScale()}
 	 */
 	static readonly PatternScale: string;
+	/**
+	 * like "arial"
+	 */
+	static readonly FontFamily: string;
+	/**
+	 * Like Font.BOLD
+	 */
+	static readonly FontStyle: string;
+	static readonly FontSize: string;
+	/**
+	 * Strict ("0") for always placing their labels in the specified location
+	 * even if there's empty space from other labels that weren't populated
+	 * Flexible ("1") to collapse label vertically to the center to eliminate
+	 * empty space from labels that weren't populated.
+	 * Does not apply to Control Measures or METOCS
+	 * Set with values like:
+	 * RendererSettings.ModifierPlacement_STRICT ("0")
+	 * RendererSettings.ModifierPlacement_FLEXIBLE ("1")
+	 */
+	static readonly ModifierPlacement: string;
 	/**
 	 * No Longer relevant
 	 * @return
@@ -3603,6 +3624,45 @@ export declare class MSLookup {
 	getIDList(version: number): Array<string>;
 	addCustomSymbol(msInfo: MSInfo): boolean;
 }
+/**
+ *
+ */
+export declare class SectorModUtils {
+	private static _instance;
+	private static _initCalled;
+	private static _isReady;
+	private static _sectorMods;
+	private static _sectorModLists;
+	private static smd;
+	private static sme;
+	/**
+	 *
+	 * @param url
+	 * @deprecated
+	 */
+	static setData(url: string): Promise<void>;
+	private constructor();
+	static getInstance(): SectorModUtils;
+	isReady(): boolean;
+	private init;
+	private loadData;
+	/**
+	 *
+	 * @param version like SymbolID.Version_2525Dch1 or SymbolID.Version_2525Ech1  Only tracks sector mods for these 2 versions.
+	 * @param symbolSet  like SymbolID.SymbolSet_Air; use 0 for Common Modifiers as they are not tied to a symbol set.
+	 * @param location 1 for top, 2 for bottom
+	 * @return and ArrayList of String[] like ["00","Unspecified"],["01","Attack/Strike"]
+	 */
+	getSectorModList(version: number, symbolSet: number, location: number): Array<string[]>;
+	/**
+	 *
+	 * @param version like SymbolID.Version_2525Dch1 or SymbolID.Version_2525Ech1  Only tracks sector mods for these 2 versions.
+	 * @param symbolSet  like SymbolID.SymbolSet_Air; use 0 for Common Modifiers as they are not tied to a symbol set.
+	 * @param location 1 for top, 2 for bottom
+	 * @param code like "01" or "100"
+	 */
+	getName(version: number, symbolSet: number, location: number, code: string): string;
+}
 export declare class SVGInfo {
 	private _ID;
 	private _Bbox;
@@ -4044,6 +4104,22 @@ export declare class RendererSettings {
 	 * end of the staff
 	 */
 	private static _CenterOnHQStaff;
+	/**
+	 * Text modifiers/amplifiers are placed where they belong even if there's empty space
+	 * from other modifiers that weren't populated
+	 */
+	static ModifierPlacement_STRICT: number;
+	/**
+	 * Text modifiers/amplifiers will collapse vertically towards the center to eliminate
+	 * empty space from modifiers that weren't populated.
+	 */
+	static ModifierPlacement_FLEXIBLE: number;
+	/**
+	 * Same as flexible but the modifier letter is put at the beginning of the value string
+	 * to prevent confusion from modifiers not being in their strict location.
+	 * if P (IFF/SIF) is set to "2:1234", it would be rendered as "P:2:1234"
+	 */
+	private static _ModifierPlacementApproach;
 	static OperationalConditionModifierType_SLASH: int;
 	static OperationalConditionModifierType_BAR: int;
 	private static _OCMType;
@@ -4067,6 +4143,7 @@ export declare class RendererSettings {
 	private _TwoLabelOnly;
 	private _scaleMainIconWithoutSectorMods;
 	private _patternScale;
+	private _overscanScale;
 	private _friendlyUnitFillColor;
 	private _hostileUnitFillColor;
 	private _neutralUnitFillColor;
@@ -4297,6 +4374,19 @@ export declare class RendererSettings {
 	 */
 	getMPLabelFont(): Font;
 	getKMLLabelScale(): float;
+	getSPModifierPlacement(): number;
+	/**
+	 * Strict (0) for always placing their labels in the specified location
+	 * even if there's empty space from other labels that weren't populated
+	 * Flexible (1) to collapse label vertically to the center to eliminate
+	 * empty space from labels that weren't populated.
+	 * Does not apply to Control Measures or METOCS
+	 * Set with values like:
+	 * RendererSettings.ModifierPlacement_STRICT (0)
+	 * RendererSettings.ModifierPlacement_FLEXIBLE (1)
+	 * @param modifierPlacementApproach
+	 */
+	setSPModifierPlacement(modifierPlacementApproach: number): void;
 	/**
 	 * the font name to be used for modifier labels
 	 * @return name of the label font
@@ -4345,6 +4435,15 @@ export declare class RendererSettings {
 	 */
 	setPatternScale(patternScale: double): void;
 	getPatternScale(): double;
+	/**
+	 * Optionally expand multipoint rendering outside bounding box by a scale factor.
+	 * Useful when panning map before rendering with updated bounding box.
+	 * Only referenced when bounding box is a valid rectangle.
+	 * For example, setting overscanScale to 3 would render all shapes within range 3 * the width and 3 * the height of the bounding box
+	 * @param overscanScale default is 1 and minimum is 1
+	 */
+	setOverscanScale(overscanScale: double): void;
+	getOverscanScale(): double;
 	/**
 	 * get the preferred fill affiliation color for units.
 	 *
@@ -4641,11 +4740,30 @@ export declare class SymbolID {
 	static readonly SymbolSet_Atmospheric: number;
 	static readonly SymbolSet_Oceanographic: number;
 	static readonly SymbolSet_MeteorologicalSpace: number;
+	/**
+	 * in 2525E+, there is only SymbolSet_SignalsIntelligence and the frame shape position is required to be populated.
+	 * Valid frames are space, air, land, land equipment, sea surface, sea subsurface and cyberspace.
+	 */
 	static readonly SymbolSet_SignalsIntelligence: number;
+	/**
+	 * 2525D/Dch1 only
+	 */
 	static readonly SymbolSet_SignalsIntelligence_Space: number;
+	/**
+	 * 2525D/Dch1 only
+	 */
 	static readonly SymbolSet_SignalsIntelligence_Air: number;
+	/**
+	 * 2525D/Dch1 only
+	 */
 	static readonly SymbolSet_SignalsIntelligence_Land: number;
+	/**
+	 * 2525D/Dch1 only
+	 */
 	static readonly SymbolSet_SignalsIntelligence_SeaSurface: number;
+	/**
+	 * 2525D/Dch1 only
+	 */
 	static readonly SymbolSet_SignalsIntelligence_SeaSubsurface: number;
 	static readonly SymbolSet_CyberSpace: number;
 	static readonly SymbolSet_InvalidSymbol: number;
@@ -4702,12 +4820,13 @@ export declare class SymbolID {
 	static readonly FrameShape_Space: string;
 	static readonly FrameShape_Air: string;
 	static readonly FrameShape_LandUnit: string;
-	static readonly FrameShape_LandEquipment_SeaSurface: string;
+	static readonly FrameShape_LandEquipment: string;
 	static readonly FrameShape_LandInstallation: string;
 	static readonly FrameShape_DismountedIndividuals: string;
 	static readonly FrameShape_SeaSubsurface: string;
 	static readonly FrameShape_Activity_Event: string;
 	static readonly FrameShape_Cyberspace: string;
+	static readonly FrameShape_SeaSurface: string;
 	/**
 	 * Attempts to resolve a bad symbol ID into a value that can be found in {@link MSLookup}.
 	 * If it fails, it will return the symbol code for a invalid symbol which is displayed as
@@ -4960,6 +5079,13 @@ export declare class SymbolID {
 	 * @return string (1 character)
 	 */
 	static getDefaultFrameShape(symbolID: string): string;
+	/**
+	 *
+	 * @param symbolID
+	 * @param frameShape like SymbolID.FrameShape_LandEquipment
+	 * @return
+	 */
+	static setFrameShape(symbolID: string, frameShape: string): string;
 	/**
 	 * Gets the Frame Shape override from position 23.
 	 * @param symbolID 30 Character string
@@ -5604,7 +5730,7 @@ export declare class MilStdSymbol {
 	 * @param index {@link Integer} array location
 	 * @return {@link Double}
 	 */
-	getModifier_AM_AN_X(modifier: string, index: int): string | null;
+	getModifier_AM_AN_X(modifier: string, index: int): number | null;
 	setModifier_AM_AN_X(modifier: string, value: number, index: int): void;
 	getModifiers_AM_AN_X(modifier: string): Array<number> | null;
 	setModifiers_AM_AN_X(modifier: string, modifiers: Array<number>): void;
@@ -5844,6 +5970,62 @@ export declare class BasicShapes {
 	 * @see DrawRules.POINT2
 	 */
 	static readonly POINT = 15000002;
+}
+export declare class Basic3DShapes {
+	/**
+	 * Anchor Points: This shape requires one anchor point
+	 *
+	 * Modifiers: radius ({@link Modifiers.AM_DISTANCE}), and min and max altitude ({@link Modifiers.X_ALTITUDE_DEPTH}).
+	 *
+	 * @see DrawRules.CIRCULAR1
+	 */
+	static readonly CYLINDER = 13000002;
+	/**
+	 * Anchor Points: This shape requires two anchor points
+	 *
+	 * Modifiers: width ({@link Modifiers.AM_DISTANCE}), and min and max altitude ({@link Modifiers.X_ALTITUDE_DEPTH}).
+	 */
+	static readonly ORBIT = 16000001;
+	/**
+	 * Anchor Points: This shape requires at least two anchor points
+	 *
+	 * Modifiers: width ({@link Modifiers.AM_DISTANCE}), and min and max altitude ({@link Modifiers.X_ALTITUDE_DEPTH}).
+	 */
+	static readonly ROUTE = 16000002;
+	/**
+	 * Anchor Points: This shape requires at least three anchor points
+	 *
+	 * Modifiers: min and max altitude ({@link Modifiers.X_ALTITUDE_DEPTH}).
+	 */
+	static readonly POLYGON = 11000000;
+	/**
+	 * Anchor Points: This shape requires one anchor point
+	 *
+	 * Modifiers: min radius and max radius ({@link Modifiers.AM_DISTANCE}), left and right azimuth ({@link Modifiers.AN_AZIMUTH}), and min and max altitude ({@link Modifiers.X_ALTITUDE_DEPTH}).
+	 */
+	static readonly RADARC = 16000003;
+	/**
+	 * Anchor Points: This shape requires at least three anchor points
+	 *
+	 * Modifiers: radius ({@link Modifiers.AM_DISTANCE}), left and right azimuth ({@link Modifiers.AN_AZIMUTH}), and min and max altitude ({@link Modifiers.X_ALTITUDE_DEPTH}).
+	 */
+	static readonly POLYARC = 16000004;
+	/**
+	 * A collection of radarcs
+	 *
+	 * Anchor Points: This shape requires one anchor point
+	 *
+	 * Modifiers (for each radarc): min radius and max radius ({@link Modifiers.AM_DISTANCE}), left and right azimuth ({@link Modifiers.AN_AZIMUTH}), and min and max altitude ({@link Modifiers.X_ALTITUDE_DEPTH}).
+	 */
+	static readonly CAKE = 16000005;
+	/**
+	 * A collection of routes
+	 *
+	 * Anchor Points: This shape requires at least two anchor points
+	 *
+	 * Modifiers (for each segment): left and right width ({@link Modifiers.AM_DISTANCE}), and min and max altitude ({@link Modifiers.X_ALTITUDE_DEPTH}).
+	 */
+	static readonly TRACK = 16000006;
 }
 /**
  * Interface for Point Conversion objects.  Recommend using the functions
@@ -6596,7 +6778,18 @@ export declare class RendererUtilities {
 	 */
 	static setSVGSPCMColors(symbolID: string, svg: string, strokeColor: Color, fillColor: Color, isOutline: boolean): string;
 	static findWidestStrokeWidth(svg: string): float;
+	static findInstIndIndex(svg: string): number;
 	static getDistanceBetweenPoints(pt1: Point2D, pt2: Point2D): int;
+	/**
+	 * A starting point for calculating map scale.
+	 * The User may prefer a different calculation depending on how their maps works.
+	 * @param mapPixelWidth Width of your map in pixels
+	 * @param eastLon East Longitude of your map
+	 * @param westLon West Longitude of your map
+	 * @param dpi Dots Per Inch of your device.  If not included, will use default renderer value.
+	 * @return Map scale value to use in the RenderSymbol function {@link armyc2.c5isr.web.render.WebRenderer#RenderSymbol(String, String, String, String, String, String, double, String, Map, Map, int)}
+	 */
+	static calculateMapScale(mapPixelWidth: number, eastLon: number, westLon: number, dpi?: number): number;
 	static scaleIcon(symbolID: string, icon: SVGInfo): SVGInfo;
 	static getData(path: string): Promise<any>;
 }
@@ -6689,7 +6882,7 @@ export declare class WebRenderer {
 	 * @param hexColor
 	 */
 	/**
-	 * Renders all multi-point symbols, creating KML that can be used to draw
+	 * Renders all multi-point symbols, creating KML, GeoJSON or SVG that can be used to draw
 	 * it on a Google map.  Multipoint symbols cannot be draw the same
 	 * at different scales. For instance, graphics with arrow heads will need to
 	 * redraw arrowheads when you zoom in on it.  Similarly, graphics like a
@@ -6724,12 +6917,12 @@ export declare class WebRenderer {
 	 * @param modifiers {@link Map}, keyed using constants from Modifiers.
 	 * Pass in comma delimited String for modifiers with multiple values like AM, AN &amp; X
 	 * @param attributes {@link Map}, keyed using constants from MilStdAttributes.
-	 * @param format An enumeration: 2 for GeoJSON.
-	 * @return A JSON string representation of the graphic.
+	 * @param format {@link OUTPUT_FORMAT_KML}, {@link OUTPUT_FORMAT_GEOJSON} or {@link OUTPUT_FORMAT_GEOSVG}
+	 * @return A KML, GeoJSON or SVG string representation of the graphic.
 	 */
 	static RenderSymbol(id: string, name: string, description: string, symbolCode: string, controlPoints: string, altitudeMode: string, scale: double, bbox: string, modifiers: Map<string, string>, attributes: Map<string, string>, format: int): string;
 	/**
-	 * Renders all multi-point symbols, creating KML or JSON for the user to
+	 * Renders all multi-point symbols, creating KML, GeoJSON or SVG for the user to
 	 * parse and render as they like.
 	 * This function requires the bounding box to help calculate the new
 	 * locations.
@@ -6753,10 +6946,45 @@ export declare class WebRenderer {
 	 * @param modifiers {@link Map}, keyed using constants from Modifiers.
 	 * Pass in comma delimited String for modifiers with multiple values like AM, AN &amp; X
 	 * @param attributes {@link Map}, keyed using constants from MilStdAttributes.
-	 * @param format An enumeration: 2 for GeoJSON.
-	 * @return A JSON (1) or KML (0) string representation of the graphic.
+	 * @param format {@link OUTPUT_FORMAT_KML}, {@link OUTPUT_FORMAT_GEOJSON} or {@link OUTPUT_FORMAT_GEOSVG}
+	 * @return A KML, GeoJSON or SVG string representation of the graphic.
 	 */
 	static RenderSymbol2D(id: string, name: string, description: string, symbolCode: string, controlPoints: string, pixelWidth: int, pixelHeight: int, bbox: string, modifiers: Map<string, string>, attributes: Map<string, string>, format: int): string;
+	/**
+	 * Renders all 3d multi-point symbols, creating KML or GeoJSON that can be
+	 * used to draw it on a Google map.
+	 * 3D version of {@link RenderSymbol()}
+	 * @param id A unique identifier used to identify the symbol by Google map.
+	 * The id will be the folder name that contains the graphic.
+	 * @param name a string used to display to the user as the name of the
+	 * graphic being created.
+	 * @param description a brief description about the graphic being made and
+	 * what it represents.
+	 * @param symbolCode A 20-30 digit symbolID corresponding to one of the
+	 * graphics in the MIL-STD-2525D
+	 * @param controlPoints The 2D vertices of the graphics that make up the
+	 * graphic.  Passed in the format of a string, using decimal degrees
+	 * separating lat and lon by a comma, separating coordinates by a space.
+	 * The following format shall be used "x1,y1[,z1] [xn,yn[,zn]]..."
+	 * @param altitudeMode Indicates whether the symbol should interpret
+	 * altitudes as above sea level or above ground level. Options are
+	 * "clampToGround", "relativeToGround" (from surface of earth), "absolute"
+	 * (sea level), "relativeToSeaFloor" (from the bottom of major bodies of
+	 * water).
+	 * @param scale A number corresponding to how many meters one meter of our
+	 * map represents. A value "50000" would mean 1:50K which means for every
+	 * meter of our map it represents 50000 meters of real world distance.
+	 * @param bbox The viewable area of the map.  Passed in the format of a
+	 * string "lowerLeftX,lowerLeftY,upperRightX,upperRightY." Not required
+	 * but can speed up rendering in some cases.
+	 * example: "-50.4,23.6,-42.2,24.2"
+	 * @param modifiers {@link Map}, keyed using constants from Modifiers.
+	 * Pass in comma delimited String for modifiers with multiple values like AM, AN &amp; X
+	 * @param attributes {@link Map}, keyed using constants from MilStdAttributes.
+	 * @param format {@link OUTPUT_FORMAT_KML} or {@link OUTPUT_FORMAT_GEOJSON}
+	 * @return A KML or GeoJSON string representation of the graphic.
+	 */
+	static RenderMilStd3dSymbol(id: string, name: string, description: string, symbolCode: string, controlPoints: string, altitudeMode: string, scale: double, bbox: string, modifiers: Map<string, string>, attributes: Map<string, string>, format: int): string;
 	/**
 	 * Renders all MilStd 2525 multi-point symbols, creating MilStdSymbol that contains the
 	 * information needed to draw the symbol on the map.
@@ -6784,11 +7012,7 @@ export declare class WebRenderer {
 	 *            lat and lon by a comma, separating coordinates by a space. The
 	 *            following format shall be used "x1,y1[,z1] [xn,yn[,zn]]..."
 	 * @param altitudeMode
-	 *            Indicates whether the symbol should interpret altitudes as
-	 *            above sea level or above ground level. Options are
-	 *            "clampToGround", "relativeToGround" (from surface of earth),
-	 *            "absolute" (sea level), "relativeToSeaFloor" (from the bottom
-	 *            of major bodies of water).
+	 *            ignored
 	 * @param scale
 	 *            A number corresponding to how many meters one meter of our map
 	 *            represents. A value "50000" would mean 1:50K which means for
@@ -6813,9 +7037,6 @@ export declare class WebRenderer {
 	 */
 	static RenderMultiPointAsMilStdSymbol(id: string, name: string, description: string, symbolCode: string, controlPoints: string, altitudeMode: string, scale: double, bbox: string, modifiers: Map<string, string>, attributes: Map<string, string>): MilStdSymbol;
 	/**
-	 * Renders all MilStd 2525 multi-point symbols, creating MilStdSymbol that contains the
-	 * information needed to draw the symbol on the map.
-	 * DOES NOT support RADARC, CAKE, TRACK etc...
 	 * ArrayList&lt;Point2D&gt; milStdSymbol.getSymbolShapes[index].getPolylines()
 	 * and
 	 * ShapeInfo = milStdSymbol.getModifierShapes[index].
@@ -6838,11 +7059,7 @@ export declare class WebRenderer {
 	 *            lat and lon by a comma, separating coordinates by a space. The
 	 *            following format shall be used "x1,y1[,z1] [xn,yn[,zn]]..."
 	 * @param altitudeMode
-	 *            Indicates whether the symbol should interpret altitudes as
-	 *            above sea level or above ground level. Options are
-	 *            "clampToGround", "relativeToGround" (from surface of earth),
-	 *            "absolute" (sea level), "relativeToSeaFloor" (from the bottom
-	 *            of major bodies of water).
+	 *            Ignored
 	 * @param scale
 	 *            A number corresponding to how many meters one meter of our map
 	 *            represents. A value "50000" would mean 1:50K which means for
@@ -6867,44 +7084,67 @@ export declare class WebRenderer {
 	 */
 	static RenderBasicShapeAsMilStdSymbol(id: string, name: string, description: string, basicShapeType: int, controlPoints: string, altitudeMode: string, scale: double, bbox: string, modifiers: Map<string, string>, attributes: Map<string, string>): MilStdSymbol;
 	/**
- * Renders all multi-point symbols, creating KML that can be used to draw
- * it on a Google map.  Multipoint symbols cannot be draw the same
- * at different scales. For instance, graphics with arrow heads will need to
- * redraw arrowheads when you zoom in on it.  Similarly, graphics like a
- * Forward Line of Troops drawn with half circles can improve performance if
- * clipped when the parts of the graphic that aren't on the screen.  To help
- * readjust graphics and increase performance, this function requires the
- * scale and bounding box to help calculate the new locations.
- * @param id A unique identifier used to identify the symbol by Google map.
- * The id will be the folder name that contains the graphic.
- * @param name a string used to display to the user as the name of the
- * graphic being created.
- * @param description a brief description about the graphic being made and
- * what it represents.
- * @param basicShapeType {@link BasicShapes}
- * @param controlPoints The vertices of the graphics that make up the
- * graphic.  Passed in the format of a string, using decimal degrees
- * separating lat and lon by a comma, separating coordinates by a space.
- * The following format shall be used "x1,y1[,z1] [xn,yn[,zn]]..."
- * @param altitudeMode Indicates whether the symbol should interpret
- * altitudes as above sea level or above ground level. Options are
- * "clampToGround", "relativeToGround" (from surface of earth), "absolute"
- * (sea level), "relativeToSeaFloor" (from the bottom of major bodies of
- * water).
- * @param scale A number corresponding to how many meters one meter of our
- * map represents. A value "50000" would mean 1:50K which means for every
- * meter of our map it represents 50000 meters of real world distance.
- * @param bbox The viewable area of the map.  Passed in the format of a
- * string "lowerLeftX,lowerLeftY,upperRightX,upperRightY." Not required
- * but can speed up rendering in some cases.
- * example: "-50.4,23.6,-42.2,24.2"
- * @param modifiers {@link Map}, keyed using constants from Modifiers.
- * Pass in comma delimited String for modifiers with multiple values like AM, AN &amp; X
- * @param attributes {@link Map}, keyed using constants from MilStdAttributes.
- * @param format An enumeration: 2 for GeoJSON.
- * @return A JSON string representation of the graphic.
- */
+	 * Renders basic shapes, creating KML, GeoJSON or SVG that can be used to draw
+	 * it on a Google map.
+	 * @param id A unique identifier used to identify the symbol by Google map.
+	 * The id will be the folder name that contains the graphic.
+	 * @param name a string used to display to the user as the name of the
+	 * graphic being created.
+	 * @param description a brief description about the graphic being made and
+	 * what it represents.
+	 * @param basicShapeType {@link BasicShapes}
+	 * @param controlPoints The vertices of the graphics that make up the
+	 * graphic.  Passed in the format of a string, using decimal degrees
+	 * separating lat and lon by a comma, separating coordinates by a space.
+	 * The following format shall be used "x1,y1[,z1] [xn,yn[,zn]]..."
+	 * @param altitudeMode ignored
+	 * @param scale A number corresponding to how many meters one meter of our
+	 * map represents. A value "50000" would mean 1:50K which means for every
+	 * meter of our map it represents 50000 meters of real world distance.
+	 * @param bbox The viewable area of the map.  Passed in the format of a
+	 * string "lowerLeftX,lowerLeftY,upperRightX,upperRightY." Not required
+	 * but can speed up rendering in some cases.
+	 * example: "-50.4,23.6,-42.2,24.2"
+	 * @param modifiers {@link Map}, keyed using constants from Modifiers.
+	 * Pass in comma delimited String for modifiers with multiple values like AM, AN &amp; X
+	 * @param attributes {@link Map}, keyed using constants from MilStdAttributes.
+	 * @param format {@link OUTPUT_FORMAT_KML}, {@link OUTPUT_FORMAT_GEOJSON} or {@link OUTPUT_FORMAT_GEOSVG}
+	 * @return A KML, GeoJSON or SVG string representation of the graphic.
+	 */
 	static RenderBasicShape(id: string, name: string, description: string, basicShapeType: int, controlPoints: string, altitudeMode: string, scale: double, bbox: string, modifiers: Map<string, string>, attributes: Map<string, string>, format: int): string;
+	/**
+	 * Renders basic 3D shapes, creating KML or GeoJSON that can be used to draw
+	 * it on a Google map.
+	 * @param id A unique identifier used to identify the symbol by Google map.
+	 * The id will be the folder name that contains the graphic.
+	 * @param name a string used to display to the user as the name of the
+	 * graphic being created.
+	 * @param description a brief description about the graphic being made and
+	 * what it represents.
+	 * @param basicShapeType {@link Basic3DShapes}
+	 * @param controlPoints The vertices of the graphics that make up the
+	 * graphic.  Passed in the format of a string, using decimal degrees
+	 * separating lat and lon by a comma, separating coordinates by a space.
+	 * The following format shall be used "x1,y1[,z1] [xn,yn[,zn]]..."
+	 * @param altitudeMode Indicates whether the symbol should interpret
+	 * altitudes as above sea level or above ground level. Options are
+	 * "clampToGround", "relativeToGround" (from surface of earth), "absolute"
+	 * (sea level), "relativeToSeaFloor" (from the bottom of major bodies of
+	 * water).
+	 * @param scale A number corresponding to how many meters one meter of our
+	 * map represents. A value "50000" would mean 1:50K which means for every
+	 * meter of our map it represents 50000 meters of real world distance.
+	 * @param bbox The viewable area of the map.  Passed in the format of a
+	 * string "lowerLeftX,lowerLeftY,upperRightX,upperRightY." Not required
+	 * but can speed up rendering in some cases.
+	 * example: "-50.4,23.6,-42.2,24.2"
+	 * @param modifiers {@link Map}, keyed using constants from Modifiers.
+	 * Pass in comma delimited String for modifiers with multiple values like AM, AN &amp; X
+	 * @param attributes {@link Map}, keyed using constants from MilStdAttributes.
+	 * @param format {@link OUTPUT_FORMAT_KML}, {@link OUTPUT_FORMAT_GEOJSON}
+	 * @return A KML or GeoJSON string representation of the graphic.
+	 */
+	static RenderBasic3DShape(id: string, name: string, description: string, basicShapeType: int, controlPoints: string, altitudeMode: string, scale: double, bbox: string, modifiers: Map<string, string>, attributes: Map<string, string>, format: int): string;
 	/**
 	 * Given a symbol code meant for a single point symbol, returns the
 	 * anchor point at which to display that image based off the image returned
