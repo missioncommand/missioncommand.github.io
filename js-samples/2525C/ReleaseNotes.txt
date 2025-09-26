@@ -1,0 +1,17 @@
+Version 0.3.44
+-fixed label bug with screen/guard
+-replaced DOM canvas with OffscreenCanvas in most places
+
+Version 0.3.43
+-isClipped added to KML output
+-Feature to adjust bbox by a scale to extend the clipping area for symbols via RendererSettings
+    /**
+     * Optionally expand multipoint rendering outside bounding box by a scale factor.
+     * Useful when panning map before rendering with updated bounding box.
+     * Only referenced when bounding box is a valid rectangle.
+     * For example, setting overscanScale to 3 would render all shapes within range 3 * the width and 3 * the height of the bounding box
+     * @param overscanScale default is 1 and minimum is 1
+     */
+    setOverscanScale: function(overscanScale) {
+        _overscanScale = Math.max(overscanScale, 1);
+    },
