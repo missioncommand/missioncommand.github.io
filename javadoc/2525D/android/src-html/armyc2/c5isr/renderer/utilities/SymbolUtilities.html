@@ -1163,8 +1163,8 @@
 <span class="source-line-no">1150</span><span id="line-1150">     * @return {@link Point} representing the point in the image that is the anchor point of the symbol.</span>
 <span class="source-line-no">1151</span><span id="line-1151">     */</span>
 <span class="source-line-no">1152</span><span id="line-1152">    public static Point getCMSymbolAnchorPoint(String symbolID, RectF bounds) {</span>
-<span class="source-line-no">1153</span><span id="line-1153">        float centerX = bounds.width() / 2f;</span>
-<span class="source-line-no">1154</span><span id="line-1154">        float centerY = bounds.height() / 2f;</span>
+<span class="source-line-no">1153</span><span id="line-1153">        float centerX = (bounds.width() / 2f) - 1;//-1 because width might be 37 but the points are only 0 - 36</span>
+<span class="source-line-no">1154</span><span id="line-1154">        float centerY = (bounds.height() / 2f) - 1;</span>
 <span class="source-line-no">1155</span><span id="line-1155"></span>
 <span class="source-line-no">1156</span><span id="line-1156">        int ss = SymbolID.getSymbolSet(symbolID);</span>
 <span class="source-line-no">1157</span><span id="line-1157">        int ec = SymbolID.getEntityCode(symbolID);</span>
@@ -1180,7 +1180,7 @@
 <span class="source-line-no">1167</span><span id="line-1167">                case DrawRules.POINT5://entry point 2105</span>
 <span class="source-line-no">1168</span><span id="line-1168">                case DrawRules.POINT6://ground zero 2107</span>
 <span class="source-line-no">1169</span><span id="line-1169">                case DrawRules.POINT7://missile detection point 2111</span>
-<span class="source-line-no">1170</span><span id="line-1170">                    centerY = bounds.height();</span>
+<span class="source-line-no">1170</span><span id="line-1170">                    centerY = bounds.height()-1;</span>
 <span class="source-line-no">1171</span><span id="line-1171">                    break;</span>
 <span class="source-line-no">1172</span><span id="line-1172">                case DrawRules.POINT4://drop point 2104 //almost bottom and center</span>
 <span class="source-line-no">1173</span><span id="line-1173">                    centerY = (bounds.height() * 0.80f);</span>
@@ -1210,619 +1210,628 @@
 <span class="source-line-no">1197</span><span id="line-1197">                        centerY = (bounds.height() * 0.7f);</span>
 <span class="source-line-no">1198</span><span id="line-1198">                    else if (ec == 212500)//Electromagnetic - Magnetic Anomaly Detections (MAD)</span>
 <span class="source-line-no">1199</span><span id="line-1199">                        centerY = (bounds.height() * 0.4f);</span>
-<span class="source-line-no">1200</span><span id="line-1200">                    break;</span>
-<span class="source-line-no">1201</span><span id="line-1201">                default:</span>
-<span class="source-line-no">1202</span><span id="line-1202">            }</span>
-<span class="source-line-no">1203</span><span id="line-1203"></span>
-<span class="source-line-no">1204</span><span id="line-1204">            switch (ec)</span>
-<span class="source-line-no">1205</span><span id="line-1205">            //have to adjust center X as some graphics have integrated text outside the symbol</span>
-<span class="source-line-no">1206</span><span id="line-1206">            {</span>
-<span class="source-line-no">1207</span><span id="line-1207">                case 180400: //Pickup Point (PUP)</span>
-<span class="source-line-no">1208</span><span id="line-1208">                    centerX = bounds.width() * 0.3341f;</span>
-<span class="source-line-no">1209</span><span id="line-1209">                    break;</span>
-<span class="source-line-no">1210</span><span id="line-1210">                case 240900: //Fire Support Station</span>
-<span class="source-line-no">1211</span><span id="line-1211">                    centerX = bounds.width() * 0.38f;</span>
+<span class="source-line-no">1200</span><span id="line-1200">                    else if (ec/100 == 2135) {//2525E sonobuoys</span>
+<span class="source-line-no">1201</span><span id="line-1201">                        centerY = (bounds.height() * 0.75f);</span>
+<span class="source-line-no">1202</span><span id="line-1202">                    }</span>
+<span class="source-line-no">1203</span><span id="line-1203">                    break;</span>
+<span class="source-line-no">1204</span><span id="line-1204">                default:</span>
+<span class="source-line-no">1205</span><span id="line-1205">            }</span>
+<span class="source-line-no">1206</span><span id="line-1206"></span>
+<span class="source-line-no">1207</span><span id="line-1207">            switch (ec)</span>
+<span class="source-line-no">1208</span><span id="line-1208">            //have to adjust center X as some graphics have integrated text outside the symbol</span>
+<span class="source-line-no">1209</span><span id="line-1209">            {</span>
+<span class="source-line-no">1210</span><span id="line-1210">                case 180400: //Pickup Point (PUP)</span>
+<span class="source-line-no">1211</span><span id="line-1211">                    centerX = bounds.width() * 0.3341f;</span>
 <span class="source-line-no">1212</span><span id="line-1212">                    break;</span>
-<span class="source-line-no">1213</span><span id="line-1213">                case 280201: //Antipersonnel Mine with Directional Effects</span>
-<span class="source-line-no">1214</span><span id="line-1214">                    centerX = bounds.width() * 0.43f;</span>
+<span class="source-line-no">1213</span><span id="line-1213">                case 240900: //Fire Support Station</span>
+<span class="source-line-no">1214</span><span id="line-1214">                    centerX = bounds.width() * 0.38f;</span>
 <span class="source-line-no">1215</span><span id="line-1215">                    break;</span>
-<span class="source-line-no">1216</span><span id="line-1216">            }</span>
-<span class="source-line-no">1217</span><span id="line-1217">        }</span>
-<span class="source-line-no">1218</span><span id="line-1218"></span>
-<span class="source-line-no">1219</span><span id="line-1219">        return new Point(Math.round(centerX), Math.round(centerY));</span>
-<span class="source-line-no">1220</span><span id="line-1220">    }</span>
-<span class="source-line-no">1221</span><span id="line-1221"></span>
-<span class="source-line-no">1222</span><span id="line-1222">    /**</span>
-<span class="source-line-no">1223</span><span id="line-1223">     * Returns true if the symbol is an installation</span>
-<span class="source-line-no">1224</span><span id="line-1224">     * @param symbolID 30 Character {@link String}</span>
-<span class="source-line-no">1225</span><span id="line-1225">     * @return {@link Boolean}</span>
-<span class="source-line-no">1226</span><span id="line-1226">     */</span>
-<span class="source-line-no">1227</span><span id="line-1227">    public static Boolean isInstallation(String symbolID)</span>
-<span class="source-line-no">1228</span><span id="line-1228">    {</span>
-<span class="source-line-no">1229</span><span id="line-1229">        int ss = SymbolID.getSymbolSet(symbolID);</span>
-<span class="source-line-no">1230</span><span id="line-1230">        int entity = SymbolID.getEntity(symbolID);</span>
-<span class="source-line-no">1231</span><span id="line-1231">        if(ss == SymbolID.SymbolSet_LandInstallation &amp;&amp; entity == 11)</span>
-<span class="source-line-no">1232</span><span id="line-1232">            return true;</span>
-<span class="source-line-no">1233</span><span id="line-1233">        else</span>
-<span class="source-line-no">1234</span><span id="line-1234">            return false;</span>
-<span class="source-line-no">1235</span><span id="line-1235">    }</span>
-<span class="source-line-no">1236</span><span id="line-1236"></span>
-<span class="source-line-no">1237</span><span id="line-1237">    /**</span>
-<span class="source-line-no">1238</span><span id="line-1238">     * Returns true if the symbol is from an air based symbol set</span>
-<span class="source-line-no">1239</span><span id="line-1239">     * @param symbolID 30 Character {@link String}</span>
-<span class="source-line-no">1240</span><span id="line-1240">     * @return {@link Boolean}</span>
-<span class="source-line-no">1241</span><span id="line-1241">     */</span>
-<span class="source-line-no">1242</span><span id="line-1242">    public static Boolean isAir(String symbolID)</span>
-<span class="source-line-no">1243</span><span id="line-1243">    {</span>
-<span class="source-line-no">1244</span><span id="line-1244">        int ss = SymbolID.getSymbolSet(symbolID);</span>
-<span class="source-line-no">1245</span><span id="line-1245">        int entity = SymbolID.getEntity(symbolID);</span>
-<span class="source-line-no">1246</span><span id="line-1246">        if(ss == SymbolID.SymbolSet_Air ||</span>
-<span class="source-line-no">1247</span><span id="line-1247">                ss == SymbolID.SymbolSet_AirMissile ||</span>
-<span class="source-line-no">1248</span><span id="line-1248">                ss == SymbolID.SymbolSet_SignalsIntelligence_Air)</span>
-<span class="source-line-no">1249</span><span id="line-1249">            return true;</span>
-<span class="source-line-no">1250</span><span id="line-1250">        else</span>
-<span class="source-line-no">1251</span><span id="line-1251">            return false;</span>
-<span class="source-line-no">1252</span><span id="line-1252">    }</span>
-<span class="source-line-no">1253</span><span id="line-1253"></span>
-<span class="source-line-no">1254</span><span id="line-1254">    /**</span>
-<span class="source-line-no">1255</span><span id="line-1255">     * Returns true if the symbol is from a space based symbol set</span>
-<span class="source-line-no">1256</span><span id="line-1256">     * @param symbolID 30 Character {@link String}</span>
-<span class="source-line-no">1257</span><span id="line-1257">     * @return {@link Boolean}</span>
-<span class="source-line-no">1258</span><span id="line-1258">     */</span>
-<span class="source-line-no">1259</span><span id="line-1259">    public static Boolean isSpace(String symbolID)</span>
-<span class="source-line-no">1260</span><span id="line-1260">    {</span>
-<span class="source-line-no">1261</span><span id="line-1261">        int ss = SymbolID.getSymbolSet(symbolID);</span>
-<span class="source-line-no">1262</span><span id="line-1262">        int entity = SymbolID.getEntity(symbolID);</span>
-<span class="source-line-no">1263</span><span id="line-1263">        if(ss == SymbolID.SymbolSet_Space ||</span>
-<span class="source-line-no">1264</span><span id="line-1264">                ss == SymbolID.SymbolSet_SpaceMissile ||</span>
-<span class="source-line-no">1265</span><span id="line-1265">                ss == SymbolID.SymbolSet_SignalsIntelligence_Space)</span>
-<span class="source-line-no">1266</span><span id="line-1266">            return true;</span>
-<span class="source-line-no">1267</span><span id="line-1267">        else</span>
-<span class="source-line-no">1268</span><span id="line-1268">            return false;</span>
-<span class="source-line-no">1269</span><span id="line-1269">    }</span>
-<span class="source-line-no">1270</span><span id="line-1270"></span>
-<span class="source-line-no">1271</span><span id="line-1271">    /**</span>
-<span class="source-line-no">1272</span><span id="line-1272">     * Returns true if the symbol is from a land based symbol set</span>
-<span class="source-line-no">1273</span><span id="line-1273">     * @param symbolID 30 Character {@link String}</span>
-<span class="source-line-no">1274</span><span id="line-1274">     * @return {@link Boolean}</span>
-<span class="source-line-no">1275</span><span id="line-1275">     */</span>
-<span class="source-line-no">1276</span><span id="line-1276">    public static Boolean isLand(String symbolID)</span>
-<span class="source-line-no">1277</span><span id="line-1277">    {</span>
-<span class="source-line-no">1278</span><span id="line-1278">        int ss = SymbolID.getSymbolSet(symbolID);</span>
-<span class="source-line-no">1279</span><span id="line-1279">        int entity = SymbolID.getEntity(symbolID);</span>
-<span class="source-line-no">1280</span><span id="line-1280">        if(ss == SymbolID.SymbolSet_LandUnit ||</span>
-<span class="source-line-no">1281</span><span id="line-1281">                ss == SymbolID.SymbolSet_LandCivilianUnit_Organization ||</span>
-<span class="source-line-no">1282</span><span id="line-1282">                ss == SymbolID.SymbolSet_LandEquipment ||</span>
-<span class="source-line-no">1283</span><span id="line-1283">                ss == SymbolID.SymbolSet_LandInstallation ||</span>
-<span class="source-line-no">1284</span><span id="line-1284">                ss == SymbolID.SymbolSet_SignalsIntelligence_Land)</span>
-<span class="source-line-no">1285</span><span id="line-1285">            return true;</span>
-<span class="source-line-no">1286</span><span id="line-1286">        else</span>
-<span class="source-line-no">1287</span><span id="line-1287">            return false;</span>
-<span class="source-line-no">1288</span><span id="line-1288">    }</span>
-<span class="source-line-no">1289</span><span id="line-1289"></span>
-<span class="source-line-no">1290</span><span id="line-1290">    /**</span>
-<span class="source-line-no">1291</span><span id="line-1291">     * Returns true if the symbol ID has the task for indicator</span>
-<span class="source-line-no">1292</span><span id="line-1292">     * @param symbolID 30 Character {@link String}</span>
-<span class="source-line-no">1293</span><span id="line-1293">     * @return {@link Boolean}</span>
-<span class="source-line-no">1294</span><span id="line-1294">     */</span>
-<span class="source-line-no">1295</span><span id="line-1295">    public static Boolean isTaskForce(String symbolID)</span>
-<span class="source-line-no">1296</span><span id="line-1296">    {</span>
-<span class="source-line-no">1297</span><span id="line-1297">        int hqtfd = SymbolID.getHQTFD(symbolID);</span>
-<span class="source-line-no">1298</span><span id="line-1298">        if((hqtfd == SymbolID.HQTFD_TaskForce ||</span>
-<span class="source-line-no">1299</span><span id="line-1299">                hqtfd == SymbolID.HQTFD_TaskForce_Headquarters ||</span>
-<span class="source-line-no">1300</span><span id="line-1300">                hqtfd == SymbolID.HQTFD_FeintDummy_TaskForce ||</span>
-<span class="source-line-no">1301</span><span id="line-1301">                hqtfd == SymbolID.HQTFD_FeintDummy_TaskForce_Headquarters) &amp;&amp;</span>
-<span class="source-line-no">1302</span><span id="line-1302">                SymbolUtilities.canSymbolHaveModifier(symbolID, Modifiers.B_ECHELON))</span>
-<span class="source-line-no">1303</span><span id="line-1303">            return true;</span>
-<span class="source-line-no">1304</span><span id="line-1304">        else</span>
-<span class="source-line-no">1305</span><span id="line-1305">            return false;</span>
-<span class="source-line-no">1306</span><span id="line-1306">    }</span>
-<span class="source-line-no">1307</span><span id="line-1307"></span>
-<span class="source-line-no">1308</span><span id="line-1308">    /**</span>
-<span class="source-line-no">1309</span><span id="line-1309">     * Returns true if the symbol ID indicates the context is Reality</span>
-<span class="source-line-no">1310</span><span id="line-1310">     * @param symbolID 30 Character {@link String}</span>
-<span class="source-line-no">1311</span><span id="line-1311">     * @return {@link Boolean}</span>
-<span class="source-line-no">1312</span><span id="line-1312">     */</span>
-<span class="source-line-no">1313</span><span id="line-1313">    public static Boolean isReality(String symbolID)</span>
-<span class="source-line-no">1314</span><span id="line-1314">    {</span>
-<span class="source-line-no">1315</span><span id="line-1315">        int c = SymbolID.getContext(symbolID);</span>
-<span class="source-line-no">1316</span><span id="line-1316">        if(c == SymbolID.StandardIdentity_Context_Reality ||</span>
-<span class="source-line-no">1317</span><span id="line-1317">                c == 3 || c == 4)</span>
-<span class="source-line-no">1318</span><span id="line-1318">            return true;</span>
-<span class="source-line-no">1319</span><span id="line-1319">        else</span>
-<span class="source-line-no">1320</span><span id="line-1320">            return false;</span>
-<span class="source-line-no">1321</span><span id="line-1321">    }</span>
-<span class="source-line-no">1322</span><span id="line-1322"></span>
-<span class="source-line-no">1323</span><span id="line-1323">    /**</span>
-<span class="source-line-no">1324</span><span id="line-1324">     * Returns true if the symbol ID indicates the context is Exercise</span>
-<span class="source-line-no">1325</span><span id="line-1325">     * @param symbolID 30 Character {@link String}</span>
-<span class="source-line-no">1326</span><span id="line-1326">     * @return {@link Boolean}</span>
-<span class="source-line-no">1327</span><span id="line-1327">     */</span>
-<span class="source-line-no">1328</span><span id="line-1328">    public static Boolean isExercise(String symbolID)</span>
-<span class="source-line-no">1329</span><span id="line-1329">    {</span>
-<span class="source-line-no">1330</span><span id="line-1330">        int c = SymbolID.getContext(symbolID);</span>
-<span class="source-line-no">1331</span><span id="line-1331">        if(c == SymbolID.StandardIdentity_Context_Exercise ||</span>
-<span class="source-line-no">1332</span><span id="line-1332">                c == 5 || c == 6)</span>
-<span class="source-line-no">1333</span><span id="line-1333">            return true;</span>
-<span class="source-line-no">1334</span><span id="line-1334">        else</span>
-<span class="source-line-no">1335</span><span id="line-1335">            return false;</span>
-<span class="source-line-no">1336</span><span id="line-1336">    }</span>
-<span class="source-line-no">1337</span><span id="line-1337"></span>
-<span class="source-line-no">1338</span><span id="line-1338">    /**</span>
-<span class="source-line-no">1339</span><span id="line-1339">     * Returns true if the symbol ID indicates the context is Simulation</span>
-<span class="source-line-no">1340</span><span id="line-1340">     * @param symbolID 30 Character {@link String}</span>
-<span class="source-line-no">1341</span><span id="line-1341">     * @return {@link Boolean}</span>
-<span class="source-line-no">1342</span><span id="line-1342">     */</span>
-<span class="source-line-no">1343</span><span id="line-1343">    public static Boolean isSimulation(String symbolID)</span>
-<span class="source-line-no">1344</span><span id="line-1344">    {</span>
-<span class="source-line-no">1345</span><span id="line-1345">        int c = SymbolID.getContext(symbolID);</span>
-<span class="source-line-no">1346</span><span id="line-1346">        if(c == SymbolID.StandardIdentity_Context_Simulation ||</span>
-<span class="source-line-no">1347</span><span id="line-1347">                c == 7 || c == 8)</span>
-<span class="source-line-no">1348</span><span id="line-1348">            return true;</span>
-<span class="source-line-no">1349</span><span id="line-1349">        else</span>
-<span class="source-line-no">1350</span><span id="line-1350">            return false;</span>
-<span class="source-line-no">1351</span><span id="line-1351">    }</span>
-<span class="source-line-no">1352</span><span id="line-1352"></span>
-<span class="source-line-no">1353</span><span id="line-1353"></span>
-<span class="source-line-no">1354</span><span id="line-1354">    /**</span>
-<span class="source-line-no">1355</span><span id="line-1355">     * Reads the Symbol ID string and returns the text that represents the echelon</span>
-<span class="source-line-no">1356</span><span id="line-1356">     * code.</span>
-<span class="source-line-no">1357</span><span id="line-1357">     * @param echelon {@link Integer} from positions 9-10 in the symbol ID</span>
-<span class="source-line-no">1358</span><span id="line-1358">     * See {@link SymbolID#getAmplifierDescriptor(String)}</span>
-<span class="source-line-no">1359</span><span id="line-1359">     * @return {@link String} (23 (Army) would be "XXXX")</span>
-<span class="source-line-no">1360</span><span id="line-1360">     */</span>
-<span class="source-line-no">1361</span><span id="line-1361">    public static String getEchelonText(int echelon)</span>
-<span class="source-line-no">1362</span><span id="line-1362">    {</span>
-<span class="source-line-no">1363</span><span id="line-1363">        char[] dots = new char[3];</span>
-<span class="source-line-no">1364</span><span id="line-1364">        dots[0] = (char)8226;</span>
-<span class="source-line-no">1365</span><span id="line-1365">        dots[1] = (char)8226;</span>
-<span class="source-line-no">1366</span><span id="line-1366">        dots[2] = (char)8226;</span>
-<span class="source-line-no">1367</span><span id="line-1367">        String dot = new String(dots);</span>
-<span class="source-line-no">1368</span><span id="line-1368">        String text = null;</span>
-<span class="source-line-no">1369</span><span id="line-1369">        if(echelon == SymbolID.Echelon_Team_Crew)</span>
-<span class="source-line-no">1370</span><span id="line-1370">        {</span>
-<span class="source-line-no">1371</span><span id="line-1371">            text = (char) 216 + "";</span>
-<span class="source-line-no">1372</span><span id="line-1372">        }</span>
-<span class="source-line-no">1373</span><span id="line-1373">        else if(echelon == SymbolID.Echelon_Squad)</span>
-<span class="source-line-no">1374</span><span id="line-1374">        {</span>
-<span class="source-line-no">1375</span><span id="line-1375">            text = dot.substring(0, 1);</span>
-<span class="source-line-no">1376</span><span id="line-1376">        }</span>
-<span class="source-line-no">1377</span><span id="line-1377">        else if(echelon == SymbolID.Echelon_Section)</span>
-<span class="source-line-no">1378</span><span id="line-1378">        {</span>
-<span class="source-line-no">1379</span><span id="line-1379">            text = dot.substring(0, 2);</span>
-<span class="source-line-no">1380</span><span id="line-1380">        }</span>
-<span class="source-line-no">1381</span><span id="line-1381">        else if(echelon == SymbolID.Echelon_Platoon_Detachment)</span>
-<span class="source-line-no">1382</span><span id="line-1382">        {</span>
-<span class="source-line-no">1383</span><span id="line-1383">            text = dot;</span>
-<span class="source-line-no">1384</span><span id="line-1384">        }</span>
-<span class="source-line-no">1385</span><span id="line-1385">        else if(echelon == SymbolID.Echelon_Company_Battery_Troop)</span>
-<span class="source-line-no">1386</span><span id="line-1386">        {</span>
-<span class="source-line-no">1387</span><span id="line-1387">            text = "I";</span>
-<span class="source-line-no">1388</span><span id="line-1388">        }</span>
-<span class="source-line-no">1389</span><span id="line-1389">        else if(echelon == SymbolID.Echelon_Battalion_Squadron)</span>
-<span class="source-line-no">1390</span><span id="line-1390">        {</span>
-<span class="source-line-no">1391</span><span id="line-1391">            text = "II";</span>
-<span class="source-line-no">1392</span><span id="line-1392">        }</span>
-<span class="source-line-no">1393</span><span id="line-1393">        else if(echelon == SymbolID.Echelon_Regiment_Group)</span>
-<span class="source-line-no">1394</span><span id="line-1394">        {</span>
-<span class="source-line-no">1395</span><span id="line-1395">            text = "III";</span>
-<span class="source-line-no">1396</span><span id="line-1396">        }</span>
-<span class="source-line-no">1397</span><span id="line-1397">        else if(echelon == SymbolID.Echelon_Brigade)</span>
-<span class="source-line-no">1398</span><span id="line-1398">        {</span>
-<span class="source-line-no">1399</span><span id="line-1399">            text = "X";</span>
-<span class="source-line-no">1400</span><span id="line-1400">        }</span>
-<span class="source-line-no">1401</span><span id="line-1401">        else if(echelon == SymbolID.Echelon_Division)</span>
-<span class="source-line-no">1402</span><span id="line-1402">        {</span>
-<span class="source-line-no">1403</span><span id="line-1403">            text = "XX";</span>
-<span class="source-line-no">1404</span><span id="line-1404">        }</span>
-<span class="source-line-no">1405</span><span id="line-1405">        else if(echelon == SymbolID.Echelon_Corps_MEF)</span>
-<span class="source-line-no">1406</span><span id="line-1406">        {</span>
-<span class="source-line-no">1407</span><span id="line-1407">            text = "XXX";</span>
-<span class="source-line-no">1408</span><span id="line-1408">        }</span>
-<span class="source-line-no">1409</span><span id="line-1409">        else if(echelon == SymbolID.Echelon_Army)</span>
-<span class="source-line-no">1410</span><span id="line-1410">        {</span>
-<span class="source-line-no">1411</span><span id="line-1411">            text = "XXXX";</span>
-<span class="source-line-no">1412</span><span id="line-1412">        }</span>
-<span class="source-line-no">1413</span><span id="line-1413">        else if(echelon == SymbolID.Echelon_ArmyGroup_Front)</span>
-<span class="source-line-no">1414</span><span id="line-1414">        {</span>
-<span class="source-line-no">1415</span><span id="line-1415">            text = "XXXXX";</span>
-<span class="source-line-no">1416</span><span id="line-1416">        }</span>
-<span class="source-line-no">1417</span><span id="line-1417">        else if(echelon == SymbolID.Echelon_Region_Theater)</span>
-<span class="source-line-no">1418</span><span id="line-1418">        {</span>
-<span class="source-line-no">1419</span><span id="line-1419">            text = "XXXXXX";</span>
-<span class="source-line-no">1420</span><span id="line-1420">        }</span>
-<span class="source-line-no">1421</span><span id="line-1421">        else if(echelon == SymbolID.Echelon_Region_Command)</span>
-<span class="source-line-no">1422</span><span id="line-1422">        {</span>
-<span class="source-line-no">1423</span><span id="line-1423">            text = "++";</span>
-<span class="source-line-no">1424</span><span id="line-1424">        }</span>
-<span class="source-line-no">1425</span><span id="line-1425">        return text;</span>
-<span class="source-line-no">1426</span><span id="line-1426">    }</span>
-<span class="source-line-no">1427</span><span id="line-1427"></span>
-<span class="source-line-no">1428</span><span id="line-1428">    /**</span>
-<span class="source-line-no">1429</span><span id="line-1429">     * Returns the Standard Identity Modifier based on the Symbol ID</span>
-<span class="source-line-no">1430</span><span id="line-1430">     * @param symbolID 30 Character {@link String}</span>
-<span class="source-line-no">1431</span><span id="line-1431">     * @return {@link String}</span>
-<span class="source-line-no">1432</span><span id="line-1432">     */</span>
-<span class="source-line-no">1433</span><span id="line-1433">    public static String getStandardIdentityModifier(String symbolID)</span>
-<span class="source-line-no">1434</span><span id="line-1434">    {</span>
-<span class="source-line-no">1435</span><span id="line-1435">        String textChar = null;</span>
-<span class="source-line-no">1436</span><span id="line-1436">        int si = SymbolID.getStandardIdentity(symbolID);</span>
-<span class="source-line-no">1437</span><span id="line-1437">        int context = SymbolID.getContext(symbolID);</span>
-<span class="source-line-no">1438</span><span id="line-1438">        int affiliation = SymbolID.getAffiliation(symbolID);</span>
-<span class="source-line-no">1439</span><span id="line-1439"></span>
-<span class="source-line-no">1440</span><span id="line-1440">        if(context == SymbolID.StandardIdentity_Context_Simulation)//Simulation</span>
-<span class="source-line-no">1441</span><span id="line-1441">            textChar = "S";</span>
-<span class="source-line-no">1442</span><span id="line-1442">        else if(context == SymbolID.StandardIdentity_Context_Exercise)</span>
-<span class="source-line-no">1443</span><span id="line-1443">        {</span>
-<span class="source-line-no">1444</span><span id="line-1444">            if(affiliation == SymbolID.StandardIdentity_Affiliation_Suspect_Joker)//exercise Joker</span>
-<span class="source-line-no">1445</span><span id="line-1445">                textChar = "J";</span>
-<span class="source-line-no">1446</span><span id="line-1446">            else if(affiliation == SymbolID.StandardIdentity_Affiliation_Hostile_Faker)//exercise faker</span>
-<span class="source-line-no">1447</span><span id="line-1447">                textChar = "K";</span>
-<span class="source-line-no">1448</span><span id="line-1448">            else if(context == SymbolID.StandardIdentity_Context_Exercise)//exercise</span>
-<span class="source-line-no">1449</span><span id="line-1449">                textChar = "X";</span>
-<span class="source-line-no">1450</span><span id="line-1450">        }</span>
-<span class="source-line-no">1451</span><span id="line-1451"></span>
-<span class="source-line-no">1452</span><span id="line-1452">        return textChar;</span>
-<span class="source-line-no">1453</span><span id="line-1453">    }</span>
-<span class="source-line-no">1454</span><span id="line-1454"></span>
-<span class="source-line-no">1455</span><span id="line-1455">    /**</span>
-<span class="source-line-no">1456</span><span id="line-1456">     *</span>
-<span class="source-line-no">1457</span><span id="line-1457">     * @param symbolID</span>
-<span class="source-line-no">1458</span><span id="line-1458">     * @return</span>
-<span class="source-line-no">1459</span><span id="line-1459">     */</span>
-<span class="source-line-no">1460</span><span id="line-1460">    public static boolean hasRectangleFrame(String symbolID)</span>
-<span class="source-line-no">1461</span><span id="line-1461">    {</span>
-<span class="source-line-no">1462</span><span id="line-1462">        int affiliation = SymbolID.getAffiliation(symbolID);</span>
-<span class="source-line-no">1463</span><span id="line-1463">        int ss = SymbolID.getSymbolSet(symbolID);</span>
-<span class="source-line-no">1464</span><span id="line-1464">        if(ss != SymbolID.SymbolSet_ControlMeasure)</span>
-<span class="source-line-no">1465</span><span id="line-1465">        {</span>
-<span class="source-line-no">1466</span><span id="line-1466">            if (affiliation == SymbolID.StandardIdentity_Affiliation_Friend</span>
-<span class="source-line-no">1467</span><span id="line-1467">                    || affiliation == SymbolID.StandardIdentity_Affiliation_AssumedFriend</span>
-<span class="source-line-no">1468</span><span id="line-1468">                    || (SymbolID.getContext(symbolID)==SymbolID.StandardIdentity_Context_Exercise &amp;&amp;</span>
-<span class="source-line-no">1469</span><span id="line-1469">                    (affiliation == SymbolID.StandardIdentity_Affiliation_Hostile_Faker</span>
-<span class="source-line-no">1470</span><span id="line-1470">                            || affiliation == SymbolID.StandardIdentity_Affiliation_Suspect_Joker)))</span>
-<span class="source-line-no">1471</span><span id="line-1471">            {</span>
-<span class="source-line-no">1472</span><span id="line-1472">                return true;</span>
-<span class="source-line-no">1473</span><span id="line-1473">            }</span>
-<span class="source-line-no">1474</span><span id="line-1474">            else</span>
-<span class="source-line-no">1475</span><span id="line-1475">                return false;</span>
-<span class="source-line-no">1476</span><span id="line-1476">        }</span>
-<span class="source-line-no">1477</span><span id="line-1477">        else</span>
-<span class="source-line-no">1478</span><span id="line-1478">            return false;</span>
-<span class="source-line-no">1479</span><span id="line-1479">    }</span>
-<span class="source-line-no">1480</span><span id="line-1480"></span>
-<span class="source-line-no">1481</span><span id="line-1481">    /**</span>
-<span class="source-line-no">1482</span><span id="line-1482">     * Returns the height ratio for the unit specified by the symbol ID</span>
-<span class="source-line-no">1483</span><span id="line-1483">     * Based on Figure 4 in 2525E.</span>
-<span class="source-line-no">1484</span><span id="line-1484">     * @param symbolID 30 Character {@link String}</span>
-<span class="source-line-no">1485</span><span id="line-1485">     * @return {@link Float}</span>
-<span class="source-line-no">1486</span><span id="line-1486">     */</span>
-<span class="source-line-no">1487</span><span id="line-1487">    public static float getUnitRatioHeight(String symbolID)</span>
-<span class="source-line-no">1488</span><span id="line-1488">    {</span>
-<span class="source-line-no">1489</span><span id="line-1489">        int ver = SymbolID.getVersion(symbolID);</span>
-<span class="source-line-no">1490</span><span id="line-1490">        int aff = SymbolID.getAffiliation(symbolID);</span>
-<span class="source-line-no">1491</span><span id="line-1491"></span>
-<span class="source-line-no">1492</span><span id="line-1492">        float rh = 0;</span>
-<span class="source-line-no">1493</span><span id="line-1493"></span>
-<span class="source-line-no">1494</span><span id="line-1494">        if(ver &lt; SymbolID.Version_2525E)</span>
-<span class="source-line-no">1495</span><span id="line-1495">        {</span>
-<span class="source-line-no">1496</span><span id="line-1496">            int ss = SymbolID.getSymbolSet(symbolID);</span>
-<span class="source-line-no">1497</span><span id="line-1497"></span>
-<span class="source-line-no">1498</span><span id="line-1498">            if(aff == SymbolID.StandardIdentity_Affiliation_Hostile_Faker ||</span>
-<span class="source-line-no">1499</span><span id="line-1499">                    aff == SymbolID.StandardIdentity_Affiliation_Suspect_Joker)</span>
-<span class="source-line-no">1500</span><span id="line-1500">            {</span>
-<span class="source-line-no">1501</span><span id="line-1501">                switch (ss){</span>
-<span class="source-line-no">1502</span><span id="line-1502">                    case SymbolID.SymbolSet_LandCivilianUnit_Organization:</span>
-<span class="source-line-no">1503</span><span id="line-1503">                    case SymbolID.SymbolSet_LandUnit:</span>
-<span class="source-line-no">1504</span><span id="line-1504">                    case SymbolID.SymbolSet_LandInstallation:</span>
-<span class="source-line-no">1505</span><span id="line-1505">                    case SymbolID.SymbolSet_LandEquipment:</span>
-<span class="source-line-no">1506</span><span id="line-1506">                    case SymbolID.SymbolSet_SignalsIntelligence_Land:</span>
-<span class="source-line-no">1507</span><span id="line-1507">                    case SymbolID.SymbolSet_Activities:</span>
-<span class="source-line-no">1508</span><span id="line-1508">                    case SymbolID.SymbolSet_CyberSpace:</span>
-<span class="source-line-no">1509</span><span id="line-1509">                        rh = 1.44f;</span>
-<span class="source-line-no">1510</span><span id="line-1510">                        break;</span>
-<span class="source-line-no">1511</span><span id="line-1511">                    default:</span>
-<span class="source-line-no">1512</span><span id="line-1512">                        rh=1.3f;</span>
-<span class="source-line-no">1513</span><span id="line-1513">                }</span>
-<span class="source-line-no">1514</span><span id="line-1514">            }</span>
-<span class="source-line-no">1515</span><span id="line-1515">            else if(aff == SymbolID.StandardIdentity_Affiliation_Friend ||</span>
-<span class="source-line-no">1516</span><span id="line-1516">                    aff == SymbolID.StandardIdentity_Affiliation_AssumedFriend)</span>
-<span class="source-line-no">1517</span><span id="line-1517">            {</span>
-<span class="source-line-no">1518</span><span id="line-1518">                switch (ss){</span>
-<span class="source-line-no">1519</span><span id="line-1519">                    case SymbolID.SymbolSet_LandCivilianUnit_Organization:</span>
-<span class="source-line-no">1520</span><span id="line-1520">                    case SymbolID.SymbolSet_LandUnit:</span>
-<span class="source-line-no">1521</span><span id="line-1521">                    case SymbolID.SymbolSet_LandInstallation:</span>
-<span class="source-line-no">1522</span><span id="line-1522">                    case SymbolID.SymbolSet_Activities:</span>
-<span class="source-line-no">1523</span><span id="line-1523">                    case SymbolID.SymbolSet_CyberSpace:</span>
-<span class="source-line-no">1524</span><span id="line-1524">                        rh = 1f;</span>
-<span class="source-line-no">1525</span><span id="line-1525">                        break;</span>
-<span class="source-line-no">1526</span><span id="line-1526">                    case SymbolID.SymbolSet_SignalsIntelligence_Land:</span>
-<span class="source-line-no">1527</span><span id="line-1527">                    default:</span>
-<span class="source-line-no">1528</span><span id="line-1528">                        rh=1.2f;</span>
-<span class="source-line-no">1529</span><span id="line-1529">                }</span>
-<span class="source-line-no">1530</span><span id="line-1530">            }</span>
-<span class="source-line-no">1531</span><span id="line-1531">            else if(aff == SymbolID.StandardIdentity_Affiliation_Neutral)</span>
-<span class="source-line-no">1532</span><span id="line-1532">            {</span>
-<span class="source-line-no">1533</span><span id="line-1533">                switch (ss){</span>
-<span class="source-line-no">1534</span><span id="line-1534">                    case SymbolID.SymbolSet_LandCivilianUnit_Organization:</span>
-<span class="source-line-no">1535</span><span id="line-1535">                    case SymbolID.SymbolSet_LandUnit:</span>
-<span class="source-line-no">1536</span><span id="line-1536">                    case SymbolID.SymbolSet_LandInstallation:</span>
-<span class="source-line-no">1537</span><span id="line-1537">                    case SymbolID.SymbolSet_LandEquipment:</span>
-<span class="source-line-no">1538</span><span id="line-1538">                    case SymbolID.SymbolSet_SignalsIntelligence_Land:</span>
-<span class="source-line-no">1539</span><span id="line-1539">                    case SymbolID.SymbolSet_Activities:</span>
-<span class="source-line-no">1540</span><span id="line-1540">                    case SymbolID.SymbolSet_CyberSpace:</span>
-<span class="source-line-no">1541</span><span id="line-1541">                        rh = 1.1f;</span>
-<span class="source-line-no">1542</span><span id="line-1542">                        break;</span>
-<span class="source-line-no">1543</span><span id="line-1543">                    default:</span>
-<span class="source-line-no">1544</span><span id="line-1544">                        rh=1.2f;</span>
-<span class="source-line-no">1545</span><span id="line-1545">                }</span>
-<span class="source-line-no">1546</span><span id="line-1546">            }</span>
-<span class="source-line-no">1547</span><span id="line-1547">            else //UNKNOWN</span>
-<span class="source-line-no">1548</span><span id="line-1548">            {</span>
-<span class="source-line-no">1549</span><span id="line-1549">                switch (ss){</span>
-<span class="source-line-no">1550</span><span id="line-1550">                    case SymbolID.SymbolSet_LandCivilianUnit_Organization:</span>
-<span class="source-line-no">1551</span><span id="line-1551">                    case SymbolID.SymbolSet_LandUnit:</span>
-<span class="source-line-no">1552</span><span id="line-1552">                    case SymbolID.SymbolSet_LandInstallation:</span>
-<span class="source-line-no">1553</span><span id="line-1553">                    case SymbolID.SymbolSet_LandEquipment:</span>
-<span class="source-line-no">1554</span><span id="line-1554">                    case SymbolID.SymbolSet_SignalsIntelligence_Land:</span>
-<span class="source-line-no">1555</span><span id="line-1555">                    case SymbolID.SymbolSet_Activities:</span>
-<span class="source-line-no">1556</span><span id="line-1556">                    case SymbolID.SymbolSet_CyberSpace:</span>
-<span class="source-line-no">1557</span><span id="line-1557">                        rh = 1.44f;</span>
-<span class="source-line-no">1558</span><span id="line-1558">                        break;</span>
-<span class="source-line-no">1559</span><span id="line-1559">                    default:</span>
-<span class="source-line-no">1560</span><span id="line-1560">                        rh=1.3f;</span>
-<span class="source-line-no">1561</span><span id="line-1561">                }</span>
-<span class="source-line-no">1562</span><span id="line-1562">            }</span>
-<span class="source-line-no">1563</span><span id="line-1563">        }</span>
-<span class="source-line-no">1564</span><span id="line-1564">        else //2525E and up</span>
-<span class="source-line-no">1565</span><span id="line-1565">        {</span>
-<span class="source-line-no">1566</span><span id="line-1566">            String frameID = SVGLookup.getFrameID(symbolID);</span>
-<span class="source-line-no">1567</span><span id="line-1567">            if(frameID.length()==6)</span>
-<span class="source-line-no">1568</span><span id="line-1568">                aff = Integer.parseInt(frameID.substring(2,3));</span>
-<span class="source-line-no">1569</span><span id="line-1569">            else //"octagon"</span>
-<span class="source-line-no">1570</span><span id="line-1570">                return 1f;</span>
-<span class="source-line-no">1571</span><span id="line-1571">            char fs = (frameID.charAt(3));</span>
-<span class="source-line-no">1572</span><span id="line-1572"></span>
-<span class="source-line-no">1573</span><span id="line-1573">            if(aff == SymbolID.StandardIdentity_Affiliation_Hostile_Faker ||</span>
-<span class="source-line-no">1574</span><span id="line-1574">                    aff == SymbolID.StandardIdentity_Affiliation_Suspect_Joker)</span>
-<span class="source-line-no">1575</span><span id="line-1575">            {</span>
-<span class="source-line-no">1576</span><span id="line-1576">                switch (fs){</span>
-<span class="source-line-no">1577</span><span id="line-1577">                    case SymbolID.FrameShape_LandUnit:</span>
-<span class="source-line-no">1578</span><span id="line-1578">                    case SymbolID.FrameShape_LandInstallation:</span>
-<span class="source-line-no">1579</span><span id="line-1579">                    case SymbolID.FrameShape_LandEquipment:</span>
-<span class="source-line-no">1580</span><span id="line-1580">                    case SymbolID.FrameShape_SeaSurface:</span>
-<span class="source-line-no">1581</span><span id="line-1581">                    case SymbolID.FrameShape_Activity_Event:</span>
-<span class="source-line-no">1582</span><span id="line-1582">                    case SymbolID.FrameShape_Cyberspace:</span>
-<span class="source-line-no">1583</span><span id="line-1583">                        rh = 1.44f;</span>
-<span class="source-line-no">1584</span><span id="line-1584">                        break;</span>
-<span class="source-line-no">1585</span><span id="line-1585">                    default:</span>
-<span class="source-line-no">1586</span><span id="line-1586">                        rh=1.3f;</span>
-<span class="source-line-no">1587</span><span id="line-1587">                }</span>
-<span class="source-line-no">1588</span><span id="line-1588">            }</span>
-<span class="source-line-no">1589</span><span id="line-1589">            else if(aff == SymbolID.StandardIdentity_Affiliation_Friend ||</span>
-<span class="source-line-no">1590</span><span id="line-1590">                    aff == SymbolID.StandardIdentity_Affiliation_AssumedFriend)</span>
-<span class="source-line-no">1591</span><span id="line-1591">            {</span>
-<span class="source-line-no">1592</span><span id="line-1592">                switch (fs){</span>
-<span class="source-line-no">1593</span><span id="line-1593">                    case SymbolID.FrameShape_LandUnit:</span>
-<span class="source-line-no">1594</span><span id="line-1594">                    case SymbolID.FrameShape_LandInstallation:</span>
-<span class="source-line-no">1595</span><span id="line-1595">                    case SymbolID.FrameShape_Activity_Event:</span>
-<span class="source-line-no">1596</span><span id="line-1596">                    case SymbolID.FrameShape_Cyberspace:</span>
-<span class="source-line-no">1597</span><span id="line-1597">                        rh = 1f;</span>
-<span class="source-line-no">1598</span><span id="line-1598">                        break;</span>
-<span class="source-line-no">1599</span><span id="line-1599">                    default:</span>
-<span class="source-line-no">1600</span><span id="line-1600">                        rh=1.2f;</span>
-<span class="source-line-no">1601</span><span id="line-1601">                }</span>
-<span class="source-line-no">1602</span><span id="line-1602">            }</span>
-<span class="source-line-no">1603</span><span id="line-1603">            else if(aff == SymbolID.StandardIdentity_Affiliation_Neutral)</span>
-<span class="source-line-no">1604</span><span id="line-1604">            {</span>
-<span class="source-line-no">1605</span><span id="line-1605">                switch (fs){</span>
-<span class="source-line-no">1606</span><span id="line-1606">                    case SymbolID.FrameShape_LandUnit:</span>
-<span class="source-line-no">1607</span><span id="line-1607">                    case SymbolID.FrameShape_LandInstallation:</span>
-<span class="source-line-no">1608</span><span id="line-1608">                    case SymbolID.FrameShape_LandEquipment:</span>
-<span class="source-line-no">1609</span><span id="line-1609">                    case SymbolID.FrameShape_SeaSurface:</span>
-<span class="source-line-no">1610</span><span id="line-1610">                    case SymbolID.FrameShape_Activity_Event:</span>
-<span class="source-line-no">1611</span><span id="line-1611">                    case SymbolID.FrameShape_Cyberspace:</span>
-<span class="source-line-no">1612</span><span id="line-1612">                        rh = 1.1f;</span>
-<span class="source-line-no">1613</span><span id="line-1613">                        break;</span>
-<span class="source-line-no">1614</span><span id="line-1614">                    default:</span>
-<span class="source-line-no">1615</span><span id="line-1615">                        rh=1.2f;</span>
-<span class="source-line-no">1616</span><span id="line-1616">                }</span>
-<span class="source-line-no">1617</span><span id="line-1617">            }</span>
-<span class="source-line-no">1618</span><span id="line-1618">            else //UNKNOWN</span>
-<span class="source-line-no">1619</span><span id="line-1619">            {</span>
-<span class="source-line-no">1620</span><span id="line-1620">                switch (fs){</span>
-<span class="source-line-no">1621</span><span id="line-1621">                    case SymbolID.FrameShape_LandUnit:</span>
-<span class="source-line-no">1622</span><span id="line-1622">                    case SymbolID.FrameShape_LandInstallation:</span>
-<span class="source-line-no">1623</span><span id="line-1623">                    case SymbolID.FrameShape_LandEquipment:</span>
-<span class="source-line-no">1624</span><span id="line-1624">                    case SymbolID.FrameShape_SeaSurface:</span>
-<span class="source-line-no">1625</span><span id="line-1625">                    case SymbolID.FrameShape_Activity_Event:</span>
-<span class="source-line-no">1626</span><span id="line-1626">                    case SymbolID.FrameShape_Cyberspace:</span>
-<span class="source-line-no">1627</span><span id="line-1627">                        rh = 1.44f;</span>
-<span class="source-line-no">1628</span><span id="line-1628">                        break;</span>
-<span class="source-line-no">1629</span><span id="line-1629">                    default:</span>
-<span class="source-line-no">1630</span><span id="line-1630">                        rh=1.3f;</span>
-<span class="source-line-no">1631</span><span id="line-1631">                }</span>
-<span class="source-line-no">1632</span><span id="line-1632">            }</span>
-<span class="source-line-no">1633</span><span id="line-1633"></span>
-<span class="source-line-no">1634</span><span id="line-1634"></span>
-<span class="source-line-no">1635</span><span id="line-1635">        }</span>
-<span class="source-line-no">1636</span><span id="line-1636"></span>
-<span class="source-line-no">1637</span><span id="line-1637">        return rh;</span>
-<span class="source-line-no">1638</span><span id="line-1638">    }</span>
-<span class="source-line-no">1639</span><span id="line-1639"></span>
-<span class="source-line-no">1640</span><span id="line-1640">    /**</span>
-<span class="source-line-no">1641</span><span id="line-1641">     * Returns the width ratio for the unit specified by the symbol ID</span>
-<span class="source-line-no">1642</span><span id="line-1642">     * Based on Figure 4 in 2525E.</span>
-<span class="source-line-no">1643</span><span id="line-1643">     * @param symbolID 30 Character {@link String}</span>
-<span class="source-line-no">1644</span><span id="line-1644">     * @return {@link Float}</span>
-<span class="source-line-no">1645</span><span id="line-1645">     */</span>
-<span class="source-line-no">1646</span><span id="line-1646">    public static float getUnitRatioWidth(String symbolID)</span>
-<span class="source-line-no">1647</span><span id="line-1647">    {</span>
-<span class="source-line-no">1648</span><span id="line-1648">        int ver = SymbolID.getVersion(symbolID);</span>
-<span class="source-line-no">1649</span><span id="line-1649">        int aff = SymbolID.getAffiliation(symbolID);</span>
-<span class="source-line-no">1650</span><span id="line-1650"></span>
-<span class="source-line-no">1651</span><span id="line-1651">        float rw = 0;</span>
-<span class="source-line-no">1652</span><span id="line-1652"></span>
-<span class="source-line-no">1653</span><span id="line-1653">        if(ver &lt; SymbolID.Version_2525E)</span>
-<span class="source-line-no">1654</span><span id="line-1654">        {</span>
-<span class="source-line-no">1655</span><span id="line-1655">            int ss = SymbolID.getSymbolSet(symbolID);</span>
-<span class="source-line-no">1656</span><span id="line-1656"></span>
-<span class="source-line-no">1657</span><span id="line-1657">            if(aff == SymbolID.StandardIdentity_Affiliation_Hostile_Faker ||</span>
-<span class="source-line-no">1658</span><span id="line-1658">                    aff == SymbolID.StandardIdentity_Affiliation_Suspect_Joker)</span>
-<span class="source-line-no">1659</span><span id="line-1659">            {</span>
-<span class="source-line-no">1660</span><span id="line-1660">                switch (ss){</span>
-<span class="source-line-no">1661</span><span id="line-1661">                    case SymbolID.SymbolSet_LandCivilianUnit_Organization:</span>
-<span class="source-line-no">1662</span><span id="line-1662">                    case SymbolID.SymbolSet_LandUnit:</span>
-<span class="source-line-no">1663</span><span id="line-1663">                    case SymbolID.SymbolSet_LandInstallation:</span>
-<span class="source-line-no">1664</span><span id="line-1664">                    case SymbolID.SymbolSet_LandEquipment:</span>
-<span class="source-line-no">1665</span><span id="line-1665">                    case SymbolID.SymbolSet_SignalsIntelligence_Land:</span>
-<span class="source-line-no">1666</span><span id="line-1666">                    case SymbolID.SymbolSet_Activities:</span>
-<span class="source-line-no">1667</span><span id="line-1667">                    case SymbolID.SymbolSet_CyberSpace:</span>
-<span class="source-line-no">1668</span><span id="line-1668">                        rw = 1.44f;</span>
-<span class="source-line-no">1669</span><span id="line-1669">                        break;</span>
-<span class="source-line-no">1670</span><span id="line-1670">                    default:</span>
-<span class="source-line-no">1671</span><span id="line-1671">                        rw=1.1f;</span>
-<span class="source-line-no">1672</span><span id="line-1672">                }</span>
-<span class="source-line-no">1673</span><span id="line-1673">            }</span>
-<span class="source-line-no">1674</span><span id="line-1674">            else if(aff == SymbolID.StandardIdentity_Affiliation_Friend ||</span>
-<span class="source-line-no">1675</span><span id="line-1675">                    aff == SymbolID.StandardIdentity_Affiliation_AssumedFriend)</span>
-<span class="source-line-no">1676</span><span id="line-1676">            {</span>
-<span class="source-line-no">1677</span><span id="line-1677">                switch (ss){</span>
-<span class="source-line-no">1678</span><span id="line-1678">                    case SymbolID.SymbolSet_LandCivilianUnit_Organization:</span>
-<span class="source-line-no">1679</span><span id="line-1679">                    case SymbolID.SymbolSet_LandUnit:</span>
-<span class="source-line-no">1680</span><span id="line-1680">                    case SymbolID.SymbolSet_LandInstallation:</span>
-<span class="source-line-no">1681</span><span id="line-1681">                    case SymbolID.SymbolSet_Activities:</span>
-<span class="source-line-no">1682</span><span id="line-1682">                    case SymbolID.SymbolSet_CyberSpace:</span>
-<span class="source-line-no">1683</span><span id="line-1683">                        rw = 1.5f;</span>
-<span class="source-line-no">1684</span><span id="line-1684">                        break;</span>
-<span class="source-line-no">1685</span><span id="line-1685">                    case SymbolID.SymbolSet_LandEquipment:</span>
-<span class="source-line-no">1686</span><span id="line-1686">                    case SymbolID.SymbolSet_SignalsIntelligence_Land:</span>
-<span class="source-line-no">1687</span><span id="line-1687">                        rw = 1.2f;</span>
-<span class="source-line-no">1688</span><span id="line-1688">                        break;</span>
-<span class="source-line-no">1689</span><span id="line-1689">                    default:</span>
-<span class="source-line-no">1690</span><span id="line-1690">                        rw=1.1f;</span>
-<span class="source-line-no">1691</span><span id="line-1691">                }</span>
-<span class="source-line-no">1692</span><span id="line-1692">            }</span>
-<span class="source-line-no">1693</span><span id="line-1693">            else if(aff == SymbolID.StandardIdentity_Affiliation_Neutral)</span>
-<span class="source-line-no">1694</span><span id="line-1694">            {</span>
-<span class="source-line-no">1695</span><span id="line-1695">                rw = 1.1f;</span>
-<span class="source-line-no">1696</span><span id="line-1696">            }</span>
-<span class="source-line-no">1697</span><span id="line-1697">            else //UNKNOWN</span>
-<span class="source-line-no">1698</span><span id="line-1698">            {</span>
-<span class="source-line-no">1699</span><span id="line-1699">                switch (ss){</span>
-<span class="source-line-no">1700</span><span id="line-1700">                    case SymbolID.SymbolSet_LandCivilianUnit_Organization:</span>
-<span class="source-line-no">1701</span><span id="line-1701">                    case SymbolID.SymbolSet_LandUnit:</span>
-<span class="source-line-no">1702</span><span id="line-1702">                    case SymbolID.SymbolSet_LandInstallation:</span>
-<span class="source-line-no">1703</span><span id="line-1703">                    case SymbolID.SymbolSet_LandEquipment:</span>
-<span class="source-line-no">1704</span><span id="line-1704">                    case SymbolID.SymbolSet_SignalsIntelligence_Land:</span>
-<span class="source-line-no">1705</span><span id="line-1705">                    case SymbolID.SymbolSet_Activities:</span>
-<span class="source-line-no">1706</span><span id="line-1706">                    case SymbolID.SymbolSet_CyberSpace:</span>
-<span class="source-line-no">1707</span><span id="line-1707">                        rw = 1.44f;</span>
-<span class="source-line-no">1708</span><span id="line-1708">                        break;</span>
-<span class="source-line-no">1709</span><span id="line-1709">                    default:</span>
-<span class="source-line-no">1710</span><span id="line-1710">                        rw=1.5f;</span>
-<span class="source-line-no">1711</span><span id="line-1711">                }</span>
-<span class="source-line-no">1712</span><span id="line-1712">            }</span>
-<span class="source-line-no">1713</span><span id="line-1713">        }</span>
-<span class="source-line-no">1714</span><span id="line-1714">        else //2525E and above</span>
-<span class="source-line-no">1715</span><span id="line-1715">        {</span>
-<span class="source-line-no">1716</span><span id="line-1716">            String frameID = SVGLookup.getFrameID(symbolID);</span>
-<span class="source-line-no">1717</span><span id="line-1717">            if(frameID.length()==6)</span>
-<span class="source-line-no">1718</span><span id="line-1718">                aff = Integer.parseInt(frameID.substring(2,3));</span>
-<span class="source-line-no">1719</span><span id="line-1719">            else //"octagon"</span>
-<span class="source-line-no">1720</span><span id="line-1720">                return 1f;</span>
-<span class="source-line-no">1721</span><span id="line-1721">            char fs = (frameID.charAt(3));</span>
-<span class="source-line-no">1722</span><span id="line-1722"></span>
-<span class="source-line-no">1723</span><span id="line-1723">            if(aff == SymbolID.StandardIdentity_Affiliation_Hostile_Faker ||</span>
-<span class="source-line-no">1724</span><span id="line-1724">                    aff == SymbolID.StandardIdentity_Affiliation_Suspect_Joker)</span>
-<span class="source-line-no">1725</span><span id="line-1725">            {</span>
-<span class="source-line-no">1726</span><span id="line-1726">                switch (fs){</span>
-<span class="source-line-no">1727</span><span id="line-1727">                    case SymbolID.FrameShape_LandUnit:</span>
-<span class="source-line-no">1728</span><span id="line-1728">                    case SymbolID.FrameShape_LandInstallation:</span>
-<span class="source-line-no">1729</span><span id="line-1729">                    case SymbolID.FrameShape_LandEquipment:</span>
-<span class="source-line-no">1730</span><span id="line-1730">                    case SymbolID.FrameShape_SeaSurface:</span>
-<span class="source-line-no">1731</span><span id="line-1731">                    case SymbolID.FrameShape_Activity_Event:</span>
-<span class="source-line-no">1732</span><span id="line-1732">                    case SymbolID.FrameShape_Cyberspace:</span>
-<span class="source-line-no">1733</span><span id="line-1733">                        rw = 1.44f;</span>
-<span class="source-line-no">1734</span><span id="line-1734">                        break;</span>
-<span class="source-line-no">1735</span><span id="line-1735">                    default:</span>
-<span class="source-line-no">1736</span><span id="line-1736">                        rw=1.1f;</span>
-<span class="source-line-no">1737</span><span id="line-1737">                }</span>
-<span class="source-line-no">1738</span><span id="line-1738">            }</span>
-<span class="source-line-no">1739</span><span id="line-1739">            else if(aff == SymbolID.StandardIdentity_Affiliation_Friend ||</span>
-<span class="source-line-no">1740</span><span id="line-1740">                    aff == SymbolID.StandardIdentity_Affiliation_AssumedFriend)</span>
-<span class="source-line-no">1741</span><span id="line-1741">            {</span>
-<span class="source-line-no">1742</span><span id="line-1742">                switch (fs){</span>
-<span class="source-line-no">1743</span><span id="line-1743">                    case SymbolID.FrameShape_LandUnit:</span>
-<span class="source-line-no">1744</span><span id="line-1744">                    case SymbolID.FrameShape_LandInstallation:</span>
-<span class="source-line-no">1745</span><span id="line-1745">                    case SymbolID.FrameShape_Activity_Event:</span>
-<span class="source-line-no">1746</span><span id="line-1746">                    case SymbolID.FrameShape_Cyberspace:</span>
-<span class="source-line-no">1747</span><span id="line-1747">                        rw = 1.5f;</span>
-<span class="source-line-no">1748</span><span id="line-1748">                        break;</span>
-<span class="source-line-no">1749</span><span id="line-1749">                    case SymbolID.FrameShape_LandEquipment:</span>
-<span class="source-line-no">1750</span><span id="line-1750">                    case SymbolID.FrameShape_SeaSurface:</span>
-<span class="source-line-no">1751</span><span id="line-1751">                        rw = 1.2f;</span>
-<span class="source-line-no">1752</span><span id="line-1752">                        break;</span>
-<span class="source-line-no">1753</span><span id="line-1753">                    default:</span>
-<span class="source-line-no">1754</span><span id="line-1754">                        rw=1.1f;</span>
-<span class="source-line-no">1755</span><span id="line-1755">                }</span>
-<span class="source-line-no">1756</span><span id="line-1756">            }</span>
-<span class="source-line-no">1757</span><span id="line-1757">            else if(aff == SymbolID.StandardIdentity_Affiliation_Neutral)</span>
-<span class="source-line-no">1758</span><span id="line-1758">            {</span>
-<span class="source-line-no">1759</span><span id="line-1759">                rw = 1.1f;</span>
-<span class="source-line-no">1760</span><span id="line-1760">            }</span>
-<span class="source-line-no">1761</span><span id="line-1761">            else //UNKNOWN</span>
-<span class="source-line-no">1762</span><span id="line-1762">            {</span>
-<span class="source-line-no">1763</span><span id="line-1763">                switch (fs){</span>
-<span class="source-line-no">1764</span><span id="line-1764">                    case SymbolID.FrameShape_LandUnit:</span>
-<span class="source-line-no">1765</span><span id="line-1765">                    case SymbolID.FrameShape_LandInstallation:</span>
-<span class="source-line-no">1766</span><span id="line-1766">                    case SymbolID.FrameShape_LandEquipment:</span>
-<span class="source-line-no">1767</span><span id="line-1767">                    case SymbolID.FrameShape_SeaSurface:</span>
-<span class="source-line-no">1768</span><span id="line-1768">                    case SymbolID.FrameShape_Activity_Event:</span>
-<span class="source-line-no">1769</span><span id="line-1769">                    case SymbolID.FrameShape_Cyberspace:</span>
-<span class="source-line-no">1770</span><span id="line-1770">                        rw = 1.44f;</span>
-<span class="source-line-no">1771</span><span id="line-1771">                        break;</span>
-<span class="source-line-no">1772</span><span id="line-1772">                    default:</span>
-<span class="source-line-no">1773</span><span id="line-1773">                        rw=1.5f;</span>
-<span class="source-line-no">1774</span><span id="line-1774">                }</span>
-<span class="source-line-no">1775</span><span id="line-1775">            }</span>
-<span class="source-line-no">1776</span><span id="line-1776">        }</span>
-<span class="source-line-no">1777</span><span id="line-1777"></span>
-<span class="source-line-no">1778</span><span id="line-1778">        return rw;</span>
-<span class="source-line-no">1779</span><span id="line-1779">    }</span>
-<span class="source-line-no">1780</span><span id="line-1780"></span>
-<span class="source-line-no">1781</span><span id="line-1781">    /**</span>
-<span class="source-line-no">1782</span><span id="line-1782">     * @param linetype the line type</span>
-<span class="source-line-no">1783</span><span id="line-1783">     * @return true if the line is a basic shape</span>
-<span class="source-line-no">1784</span><span id="line-1784">     */</span>
-<span class="source-line-no">1785</span><span id="line-1785">    public static boolean isBasicShape(int linetype) {</span>
-<span class="source-line-no">1786</span><span id="line-1786">        switch (linetype) {</span>
-<span class="source-line-no">1787</span><span id="line-1787">            case TacticalLines.BS_AREA:</span>
-<span class="source-line-no">1788</span><span id="line-1788">            case TacticalLines.BS_LINE:</span>
-<span class="source-line-no">1789</span><span id="line-1789">            case TacticalLines.BS_CROSS:</span>
-<span class="source-line-no">1790</span><span id="line-1790">            case TacticalLines.BS_ELLIPSE:</span>
-<span class="source-line-no">1791</span><span id="line-1791">            case TacticalLines.PBS_ELLIPSE:</span>
-<span class="source-line-no">1792</span><span id="line-1792">            case TacticalLines.PBS_CIRCLE:</span>
-<span class="source-line-no">1793</span><span id="line-1793">            case TacticalLines.PBS_SQUARE:</span>
-<span class="source-line-no">1794</span><span id="line-1794">            case TacticalLines.PBS_RECTANGLE:</span>
-<span class="source-line-no">1795</span><span id="line-1795">            case TacticalLines.BS_RECTANGLE:</span>
-<span class="source-line-no">1796</span><span id="line-1796">            case TacticalLines.BBS_AREA:</span>
-<span class="source-line-no">1797</span><span id="line-1797">            case TacticalLines.BBS_LINE:</span>
-<span class="source-line-no">1798</span><span id="line-1798">            case TacticalLines.BBS_POINT:</span>
-<span class="source-line-no">1799</span><span id="line-1799">            case TacticalLines.BBS_RECTANGLE:</span>
-<span class="source-line-no">1800</span><span id="line-1800">            case TacticalLines.BS_BBOX:</span>
-<span class="source-line-no">1801</span><span id="line-1801">            case TacticalLines.BS_ROUTE:</span>
-<span class="source-line-no">1802</span><span id="line-1802">            case TacticalLines.BS_TRACK:</span>
-<span class="source-line-no">1803</span><span id="line-1803">            case TacticalLines.BS_RADARC:</span>
-<span class="source-line-no">1804</span><span id="line-1804">            case TacticalLines.BS_CAKE:</span>
-<span class="source-line-no">1805</span><span id="line-1805">            case TacticalLines.BS_ORBIT:</span>
-<span class="source-line-no">1806</span><span id="line-1806">            case TacticalLines.BS_POLYARC:</span>
-<span class="source-line-no">1807</span><span id="line-1807">                return true;</span>
-<span class="source-line-no">1808</span><span id="line-1808">            default:</span>
-<span class="source-line-no">1809</span><span id="line-1809">                return false;</span>
-<span class="source-line-no">1810</span><span id="line-1810">        }</span>
-<span class="source-line-no">1811</span><span id="line-1811">    }</span>
-<span class="source-line-no">1812</span><span id="line-1812">}</span>
+<span class="source-line-no">1216</span><span id="line-1216">                case 280201: //Antipersonnel Mine with Directional Effects</span>
+<span class="source-line-no">1217</span><span id="line-1217">                    centerX = bounds.width() * 0.43f;</span>
+<span class="source-line-no">1218</span><span id="line-1218">                    break;</span>
+<span class="source-line-no">1219</span><span id="line-1219">                case 182300: //Orbit - Figure Eight</span>
+<span class="source-line-no">1220</span><span id="line-1220">                case 182400: //Orbit - Race Track</span>
+<span class="source-line-no">1221</span><span id="line-1221">                case 182500: //Orbit - Random Closed</span>
+<span class="source-line-no">1222</span><span id="line-1222">                    if(SymbolID.getVersion(symbolID) &gt;= SymbolID.Version_2525E)</span>
+<span class="source-line-no">1223</span><span id="line-1223">                        centerY = bounds.height() * 0.27f;</span>
+<span class="source-line-no">1224</span><span id="line-1224">                    break;</span>
+<span class="source-line-no">1225</span><span id="line-1225">            }</span>
+<span class="source-line-no">1226</span><span id="line-1226">        }</span>
+<span class="source-line-no">1227</span><span id="line-1227"></span>
+<span class="source-line-no">1228</span><span id="line-1228">        return new Point(Math.round(centerX), Math.round(centerY));</span>
+<span class="source-line-no">1229</span><span id="line-1229">    }</span>
+<span class="source-line-no">1230</span><span id="line-1230"></span>
+<span class="source-line-no">1231</span><span id="line-1231">    /**</span>
+<span class="source-line-no">1232</span><span id="line-1232">     * Returns true if the symbol is an installation</span>
+<span class="source-line-no">1233</span><span id="line-1233">     * @param symbolID 30 Character {@link String}</span>
+<span class="source-line-no">1234</span><span id="line-1234">     * @return {@link Boolean}</span>
+<span class="source-line-no">1235</span><span id="line-1235">     */</span>
+<span class="source-line-no">1236</span><span id="line-1236">    public static Boolean isInstallation(String symbolID)</span>
+<span class="source-line-no">1237</span><span id="line-1237">    {</span>
+<span class="source-line-no">1238</span><span id="line-1238">        int ss = SymbolID.getSymbolSet(symbolID);</span>
+<span class="source-line-no">1239</span><span id="line-1239">        int entity = SymbolID.getEntity(symbolID);</span>
+<span class="source-line-no">1240</span><span id="line-1240">        if(ss == SymbolID.SymbolSet_LandInstallation &amp;&amp; entity == 11)</span>
+<span class="source-line-no">1241</span><span id="line-1241">            return true;</span>
+<span class="source-line-no">1242</span><span id="line-1242">        else</span>
+<span class="source-line-no">1243</span><span id="line-1243">            return false;</span>
+<span class="source-line-no">1244</span><span id="line-1244">    }</span>
+<span class="source-line-no">1245</span><span id="line-1245"></span>
+<span class="source-line-no">1246</span><span id="line-1246">    /**</span>
+<span class="source-line-no">1247</span><span id="line-1247">     * Returns true if the symbol is from an air based symbol set</span>
+<span class="source-line-no">1248</span><span id="line-1248">     * @param symbolID 30 Character {@link String}</span>
+<span class="source-line-no">1249</span><span id="line-1249">     * @return {@link Boolean}</span>
+<span class="source-line-no">1250</span><span id="line-1250">     */</span>
+<span class="source-line-no">1251</span><span id="line-1251">    public static Boolean isAir(String symbolID)</span>
+<span class="source-line-no">1252</span><span id="line-1252">    {</span>
+<span class="source-line-no">1253</span><span id="line-1253">        int ss = SymbolID.getSymbolSet(symbolID);</span>
+<span class="source-line-no">1254</span><span id="line-1254">        int entity = SymbolID.getEntity(symbolID);</span>
+<span class="source-line-no">1255</span><span id="line-1255">        if(ss == SymbolID.SymbolSet_Air ||</span>
+<span class="source-line-no">1256</span><span id="line-1256">                ss == SymbolID.SymbolSet_AirMissile ||</span>
+<span class="source-line-no">1257</span><span id="line-1257">                ss == SymbolID.SymbolSet_SignalsIntelligence_Air)</span>
+<span class="source-line-no">1258</span><span id="line-1258">            return true;</span>
+<span class="source-line-no">1259</span><span id="line-1259">        else</span>
+<span class="source-line-no">1260</span><span id="line-1260">            return false;</span>
+<span class="source-line-no">1261</span><span id="line-1261">    }</span>
+<span class="source-line-no">1262</span><span id="line-1262"></span>
+<span class="source-line-no">1263</span><span id="line-1263">    /**</span>
+<span class="source-line-no">1264</span><span id="line-1264">     * Returns true if the symbol is from a space based symbol set</span>
+<span class="source-line-no">1265</span><span id="line-1265">     * @param symbolID 30 Character {@link String}</span>
+<span class="source-line-no">1266</span><span id="line-1266">     * @return {@link Boolean}</span>
+<span class="source-line-no">1267</span><span id="line-1267">     */</span>
+<span class="source-line-no">1268</span><span id="line-1268">    public static Boolean isSpace(String symbolID)</span>
+<span class="source-line-no">1269</span><span id="line-1269">    {</span>
+<span class="source-line-no">1270</span><span id="line-1270">        int ss = SymbolID.getSymbolSet(symbolID);</span>
+<span class="source-line-no">1271</span><span id="line-1271">        int entity = SymbolID.getEntity(symbolID);</span>
+<span class="source-line-no">1272</span><span id="line-1272">        if(ss == SymbolID.SymbolSet_Space ||</span>
+<span class="source-line-no">1273</span><span id="line-1273">                ss == SymbolID.SymbolSet_SpaceMissile ||</span>
+<span class="source-line-no">1274</span><span id="line-1274">                ss == SymbolID.SymbolSet_SignalsIntelligence_Space)</span>
+<span class="source-line-no">1275</span><span id="line-1275">            return true;</span>
+<span class="source-line-no">1276</span><span id="line-1276">        else</span>
+<span class="source-line-no">1277</span><span id="line-1277">            return false;</span>
+<span class="source-line-no">1278</span><span id="line-1278">    }</span>
+<span class="source-line-no">1279</span><span id="line-1279"></span>
+<span class="source-line-no">1280</span><span id="line-1280">    /**</span>
+<span class="source-line-no">1281</span><span id="line-1281">     * Returns true if the symbol is from a land based symbol set</span>
+<span class="source-line-no">1282</span><span id="line-1282">     * @param symbolID 30 Character {@link String}</span>
+<span class="source-line-no">1283</span><span id="line-1283">     * @return {@link Boolean}</span>
+<span class="source-line-no">1284</span><span id="line-1284">     */</span>
+<span class="source-line-no">1285</span><span id="line-1285">    public static Boolean isLand(String symbolID)</span>
+<span class="source-line-no">1286</span><span id="line-1286">    {</span>
+<span class="source-line-no">1287</span><span id="line-1287">        int ss = SymbolID.getSymbolSet(symbolID);</span>
+<span class="source-line-no">1288</span><span id="line-1288">        int entity = SymbolID.getEntity(symbolID);</span>
+<span class="source-line-no">1289</span><span id="line-1289">        if(ss == SymbolID.SymbolSet_LandUnit ||</span>
+<span class="source-line-no">1290</span><span id="line-1290">                ss == SymbolID.SymbolSet_LandCivilianUnit_Organization ||</span>
+<span class="source-line-no">1291</span><span id="line-1291">                ss == SymbolID.SymbolSet_LandEquipment ||</span>
+<span class="source-line-no">1292</span><span id="line-1292">                ss == SymbolID.SymbolSet_LandInstallation ||</span>
+<span class="source-line-no">1293</span><span id="line-1293">                ss == SymbolID.SymbolSet_SignalsIntelligence_Land)</span>
+<span class="source-line-no">1294</span><span id="line-1294">            return true;</span>
+<span class="source-line-no">1295</span><span id="line-1295">        else</span>
+<span class="source-line-no">1296</span><span id="line-1296">            return false;</span>
+<span class="source-line-no">1297</span><span id="line-1297">    }</span>
+<span class="source-line-no">1298</span><span id="line-1298"></span>
+<span class="source-line-no">1299</span><span id="line-1299">    /**</span>
+<span class="source-line-no">1300</span><span id="line-1300">     * Returns true if the symbol ID has the task for indicator</span>
+<span class="source-line-no">1301</span><span id="line-1301">     * @param symbolID 30 Character {@link String}</span>
+<span class="source-line-no">1302</span><span id="line-1302">     * @return {@link Boolean}</span>
+<span class="source-line-no">1303</span><span id="line-1303">     */</span>
+<span class="source-line-no">1304</span><span id="line-1304">    public static Boolean isTaskForce(String symbolID)</span>
+<span class="source-line-no">1305</span><span id="line-1305">    {</span>
+<span class="source-line-no">1306</span><span id="line-1306">        int hqtfd = SymbolID.getHQTFD(symbolID);</span>
+<span class="source-line-no">1307</span><span id="line-1307">        if((hqtfd == SymbolID.HQTFD_TaskForce ||</span>
+<span class="source-line-no">1308</span><span id="line-1308">                hqtfd == SymbolID.HQTFD_TaskForce_Headquarters ||</span>
+<span class="source-line-no">1309</span><span id="line-1309">                hqtfd == SymbolID.HQTFD_FeintDummy_TaskForce ||</span>
+<span class="source-line-no">1310</span><span id="line-1310">                hqtfd == SymbolID.HQTFD_FeintDummy_TaskForce_Headquarters) &amp;&amp;</span>
+<span class="source-line-no">1311</span><span id="line-1311">                SymbolUtilities.canSymbolHaveModifier(symbolID, Modifiers.B_ECHELON))</span>
+<span class="source-line-no">1312</span><span id="line-1312">            return true;</span>
+<span class="source-line-no">1313</span><span id="line-1313">        else</span>
+<span class="source-line-no">1314</span><span id="line-1314">            return false;</span>
+<span class="source-line-no">1315</span><span id="line-1315">    }</span>
+<span class="source-line-no">1316</span><span id="line-1316"></span>
+<span class="source-line-no">1317</span><span id="line-1317">    /**</span>
+<span class="source-line-no">1318</span><span id="line-1318">     * Returns true if the symbol ID indicates the context is Reality</span>
+<span class="source-line-no">1319</span><span id="line-1319">     * @param symbolID 30 Character {@link String}</span>
+<span class="source-line-no">1320</span><span id="line-1320">     * @return {@link Boolean}</span>
+<span class="source-line-no">1321</span><span id="line-1321">     */</span>
+<span class="source-line-no">1322</span><span id="line-1322">    public static Boolean isReality(String symbolID)</span>
+<span class="source-line-no">1323</span><span id="line-1323">    {</span>
+<span class="source-line-no">1324</span><span id="line-1324">        int c = SymbolID.getContext(symbolID);</span>
+<span class="source-line-no">1325</span><span id="line-1325">        if(c == SymbolID.StandardIdentity_Context_Reality ||</span>
+<span class="source-line-no">1326</span><span id="line-1326">                c == 3 || c == 4)</span>
+<span class="source-line-no">1327</span><span id="line-1327">            return true;</span>
+<span class="source-line-no">1328</span><span id="line-1328">        else</span>
+<span class="source-line-no">1329</span><span id="line-1329">            return false;</span>
+<span class="source-line-no">1330</span><span id="line-1330">    }</span>
+<span class="source-line-no">1331</span><span id="line-1331"></span>
+<span class="source-line-no">1332</span><span id="line-1332">    /**</span>
+<span class="source-line-no">1333</span><span id="line-1333">     * Returns true if the symbol ID indicates the context is Exercise</span>
+<span class="source-line-no">1334</span><span id="line-1334">     * @param symbolID 30 Character {@link String}</span>
+<span class="source-line-no">1335</span><span id="line-1335">     * @return {@link Boolean}</span>
+<span class="source-line-no">1336</span><span id="line-1336">     */</span>
+<span class="source-line-no">1337</span><span id="line-1337">    public static Boolean isExercise(String symbolID)</span>
+<span class="source-line-no">1338</span><span id="line-1338">    {</span>
+<span class="source-line-no">1339</span><span id="line-1339">        int c = SymbolID.getContext(symbolID);</span>
+<span class="source-line-no">1340</span><span id="line-1340">        if(c == SymbolID.StandardIdentity_Context_Exercise ||</span>
+<span class="source-line-no">1341</span><span id="line-1341">                c == 5 || c == 6)</span>
+<span class="source-line-no">1342</span><span id="line-1342">            return true;</span>
+<span class="source-line-no">1343</span><span id="line-1343">        else</span>
+<span class="source-line-no">1344</span><span id="line-1344">            return false;</span>
+<span class="source-line-no">1345</span><span id="line-1345">    }</span>
+<span class="source-line-no">1346</span><span id="line-1346"></span>
+<span class="source-line-no">1347</span><span id="line-1347">    /**</span>
+<span class="source-line-no">1348</span><span id="line-1348">     * Returns true if the symbol ID indicates the context is Simulation</span>
+<span class="source-line-no">1349</span><span id="line-1349">     * @param symbolID 30 Character {@link String}</span>
+<span class="source-line-no">1350</span><span id="line-1350">     * @return {@link Boolean}</span>
+<span class="source-line-no">1351</span><span id="line-1351">     */</span>
+<span class="source-line-no">1352</span><span id="line-1352">    public static Boolean isSimulation(String symbolID)</span>
+<span class="source-line-no">1353</span><span id="line-1353">    {</span>
+<span class="source-line-no">1354</span><span id="line-1354">        int c = SymbolID.getContext(symbolID);</span>
+<span class="source-line-no">1355</span><span id="line-1355">        if(c == SymbolID.StandardIdentity_Context_Simulation ||</span>
+<span class="source-line-no">1356</span><span id="line-1356">                c == 7 || c == 8)</span>
+<span class="source-line-no">1357</span><span id="line-1357">            return true;</span>
+<span class="source-line-no">1358</span><span id="line-1358">        else</span>
+<span class="source-line-no">1359</span><span id="line-1359">            return false;</span>
+<span class="source-line-no">1360</span><span id="line-1360">    }</span>
+<span class="source-line-no">1361</span><span id="line-1361"></span>
+<span class="source-line-no">1362</span><span id="line-1362"></span>
+<span class="source-line-no">1363</span><span id="line-1363">    /**</span>
+<span class="source-line-no">1364</span><span id="line-1364">     * Reads the Symbol ID string and returns the text that represents the echelon</span>
+<span class="source-line-no">1365</span><span id="line-1365">     * code.</span>
+<span class="source-line-no">1366</span><span id="line-1366">     * @param echelon {@link Integer} from positions 9-10 in the symbol ID</span>
+<span class="source-line-no">1367</span><span id="line-1367">     * See {@link SymbolID#getAmplifierDescriptor(String)}</span>
+<span class="source-line-no">1368</span><span id="line-1368">     * @return {@link String} (23 (Army) would be "XXXX")</span>
+<span class="source-line-no">1369</span><span id="line-1369">     */</span>
+<span class="source-line-no">1370</span><span id="line-1370">    public static String getEchelonText(int echelon)</span>
+<span class="source-line-no">1371</span><span id="line-1371">    {</span>
+<span class="source-line-no">1372</span><span id="line-1372">        char[] dots = new char[3];</span>
+<span class="source-line-no">1373</span><span id="line-1373">        dots[0] = (char)8226;</span>
+<span class="source-line-no">1374</span><span id="line-1374">        dots[1] = (char)8226;</span>
+<span class="source-line-no">1375</span><span id="line-1375">        dots[2] = (char)8226;</span>
+<span class="source-line-no">1376</span><span id="line-1376">        String dot = new String(dots);</span>
+<span class="source-line-no">1377</span><span id="line-1377">        String text = null;</span>
+<span class="source-line-no">1378</span><span id="line-1378">        if(echelon == SymbolID.Echelon_Team_Crew)</span>
+<span class="source-line-no">1379</span><span id="line-1379">        {</span>
+<span class="source-line-no">1380</span><span id="line-1380">            text = (char) 216 + "";</span>
+<span class="source-line-no">1381</span><span id="line-1381">        }</span>
+<span class="source-line-no">1382</span><span id="line-1382">        else if(echelon == SymbolID.Echelon_Squad)</span>
+<span class="source-line-no">1383</span><span id="line-1383">        {</span>
+<span class="source-line-no">1384</span><span id="line-1384">            text = dot.substring(0, 1);</span>
+<span class="source-line-no">1385</span><span id="line-1385">        }</span>
+<span class="source-line-no">1386</span><span id="line-1386">        else if(echelon == SymbolID.Echelon_Section)</span>
+<span class="source-line-no">1387</span><span id="line-1387">        {</span>
+<span class="source-line-no">1388</span><span id="line-1388">            text = dot.substring(0, 2);</span>
+<span class="source-line-no">1389</span><span id="line-1389">        }</span>
+<span class="source-line-no">1390</span><span id="line-1390">        else if(echelon == SymbolID.Echelon_Platoon_Detachment)</span>
+<span class="source-line-no">1391</span><span id="line-1391">        {</span>
+<span class="source-line-no">1392</span><span id="line-1392">            text = dot;</span>
+<span class="source-line-no">1393</span><span id="line-1393">        }</span>
+<span class="source-line-no">1394</span><span id="line-1394">        else if(echelon == SymbolID.Echelon_Company_Battery_Troop)</span>
+<span class="source-line-no">1395</span><span id="line-1395">        {</span>
+<span class="source-line-no">1396</span><span id="line-1396">            text = "I";</span>
+<span class="source-line-no">1397</span><span id="line-1397">        }</span>
+<span class="source-line-no">1398</span><span id="line-1398">        else if(echelon == SymbolID.Echelon_Battalion_Squadron)</span>
+<span class="source-line-no">1399</span><span id="line-1399">        {</span>
+<span class="source-line-no">1400</span><span id="line-1400">            text = "II";</span>
+<span class="source-line-no">1401</span><span id="line-1401">        }</span>
+<span class="source-line-no">1402</span><span id="line-1402">        else if(echelon == SymbolID.Echelon_Regiment_Group)</span>
+<span class="source-line-no">1403</span><span id="line-1403">        {</span>
+<span class="source-line-no">1404</span><span id="line-1404">            text = "III";</span>
+<span class="source-line-no">1405</span><span id="line-1405">        }</span>
+<span class="source-line-no">1406</span><span id="line-1406">        else if(echelon == SymbolID.Echelon_Brigade)</span>
+<span class="source-line-no">1407</span><span id="line-1407">        {</span>
+<span class="source-line-no">1408</span><span id="line-1408">            text = "X";</span>
+<span class="source-line-no">1409</span><span id="line-1409">        }</span>
+<span class="source-line-no">1410</span><span id="line-1410">        else if(echelon == SymbolID.Echelon_Division)</span>
+<span class="source-line-no">1411</span><span id="line-1411">        {</span>
+<span class="source-line-no">1412</span><span id="line-1412">            text = "XX";</span>
+<span class="source-line-no">1413</span><span id="line-1413">        }</span>
+<span class="source-line-no">1414</span><span id="line-1414">        else if(echelon == SymbolID.Echelon_Corps_MEF)</span>
+<span class="source-line-no">1415</span><span id="line-1415">        {</span>
+<span class="source-line-no">1416</span><span id="line-1416">            text = "XXX";</span>
+<span class="source-line-no">1417</span><span id="line-1417">        }</span>
+<span class="source-line-no">1418</span><span id="line-1418">        else if(echelon == SymbolID.Echelon_Army)</span>
+<span class="source-line-no">1419</span><span id="line-1419">        {</span>
+<span class="source-line-no">1420</span><span id="line-1420">            text = "XXXX";</span>
+<span class="source-line-no">1421</span><span id="line-1421">        }</span>
+<span class="source-line-no">1422</span><span id="line-1422">        else if(echelon == SymbolID.Echelon_ArmyGroup_Front)</span>
+<span class="source-line-no">1423</span><span id="line-1423">        {</span>
+<span class="source-line-no">1424</span><span id="line-1424">            text = "XXXXX";</span>
+<span class="source-line-no">1425</span><span id="line-1425">        }</span>
+<span class="source-line-no">1426</span><span id="line-1426">        else if(echelon == SymbolID.Echelon_Region_Theater)</span>
+<span class="source-line-no">1427</span><span id="line-1427">        {</span>
+<span class="source-line-no">1428</span><span id="line-1428">            text = "XXXXXX";</span>
+<span class="source-line-no">1429</span><span id="line-1429">        }</span>
+<span class="source-line-no">1430</span><span id="line-1430">        else if(echelon == SymbolID.Echelon_Region_Command)</span>
+<span class="source-line-no">1431</span><span id="line-1431">        {</span>
+<span class="source-line-no">1432</span><span id="line-1432">            text = "++";</span>
+<span class="source-line-no">1433</span><span id="line-1433">        }</span>
+<span class="source-line-no">1434</span><span id="line-1434">        return text;</span>
+<span class="source-line-no">1435</span><span id="line-1435">    }</span>
+<span class="source-line-no">1436</span><span id="line-1436"></span>
+<span class="source-line-no">1437</span><span id="line-1437">    /**</span>
+<span class="source-line-no">1438</span><span id="line-1438">     * Returns the Standard Identity Modifier based on the Symbol ID</span>
+<span class="source-line-no">1439</span><span id="line-1439">     * @param symbolID 30 Character {@link String}</span>
+<span class="source-line-no">1440</span><span id="line-1440">     * @return {@link String}</span>
+<span class="source-line-no">1441</span><span id="line-1441">     */</span>
+<span class="source-line-no">1442</span><span id="line-1442">    public static String getStandardIdentityModifier(String symbolID)</span>
+<span class="source-line-no">1443</span><span id="line-1443">    {</span>
+<span class="source-line-no">1444</span><span id="line-1444">        String textChar = null;</span>
+<span class="source-line-no">1445</span><span id="line-1445">        int si = SymbolID.getStandardIdentity(symbolID);</span>
+<span class="source-line-no">1446</span><span id="line-1446">        int context = SymbolID.getContext(symbolID);</span>
+<span class="source-line-no">1447</span><span id="line-1447">        int affiliation = SymbolID.getAffiliation(symbolID);</span>
+<span class="source-line-no">1448</span><span id="line-1448"></span>
+<span class="source-line-no">1449</span><span id="line-1449">        if(context == SymbolID.StandardIdentity_Context_Simulation)//Simulation</span>
+<span class="source-line-no">1450</span><span id="line-1450">            textChar = "S";</span>
+<span class="source-line-no">1451</span><span id="line-1451">        else if(context == SymbolID.StandardIdentity_Context_Exercise)</span>
+<span class="source-line-no">1452</span><span id="line-1452">        {</span>
+<span class="source-line-no">1453</span><span id="line-1453">            if(affiliation == SymbolID.StandardIdentity_Affiliation_Suspect_Joker)//exercise Joker</span>
+<span class="source-line-no">1454</span><span id="line-1454">                textChar = "J";</span>
+<span class="source-line-no">1455</span><span id="line-1455">            else if(affiliation == SymbolID.StandardIdentity_Affiliation_Hostile_Faker)//exercise faker</span>
+<span class="source-line-no">1456</span><span id="line-1456">                textChar = "K";</span>
+<span class="source-line-no">1457</span><span id="line-1457">            else if(context == SymbolID.StandardIdentity_Context_Exercise)//exercise</span>
+<span class="source-line-no">1458</span><span id="line-1458">                textChar = "X";</span>
+<span class="source-line-no">1459</span><span id="line-1459">        }</span>
+<span class="source-line-no">1460</span><span id="line-1460"></span>
+<span class="source-line-no">1461</span><span id="line-1461">        return textChar;</span>
+<span class="source-line-no">1462</span><span id="line-1462">    }</span>
+<span class="source-line-no">1463</span><span id="line-1463"></span>
+<span class="source-line-no">1464</span><span id="line-1464">    /**</span>
+<span class="source-line-no">1465</span><span id="line-1465">     *</span>
+<span class="source-line-no">1466</span><span id="line-1466">     * @param symbolID</span>
+<span class="source-line-no">1467</span><span id="line-1467">     * @return</span>
+<span class="source-line-no">1468</span><span id="line-1468">     */</span>
+<span class="source-line-no">1469</span><span id="line-1469">    public static boolean hasRectangleFrame(String symbolID)</span>
+<span class="source-line-no">1470</span><span id="line-1470">    {</span>
+<span class="source-line-no">1471</span><span id="line-1471">        int affiliation = SymbolID.getAffiliation(symbolID);</span>
+<span class="source-line-no">1472</span><span id="line-1472">        int ss = SymbolID.getSymbolSet(symbolID);</span>
+<span class="source-line-no">1473</span><span id="line-1473">        if(ss != SymbolID.SymbolSet_ControlMeasure)</span>
+<span class="source-line-no">1474</span><span id="line-1474">        {</span>
+<span class="source-line-no">1475</span><span id="line-1475">            if (affiliation == SymbolID.StandardIdentity_Affiliation_Friend</span>
+<span class="source-line-no">1476</span><span id="line-1476">                    || affiliation == SymbolID.StandardIdentity_Affiliation_AssumedFriend</span>
+<span class="source-line-no">1477</span><span id="line-1477">                    || (SymbolID.getContext(symbolID)==SymbolID.StandardIdentity_Context_Exercise &amp;&amp;</span>
+<span class="source-line-no">1478</span><span id="line-1478">                    (affiliation == SymbolID.StandardIdentity_Affiliation_Hostile_Faker</span>
+<span class="source-line-no">1479</span><span id="line-1479">                            || affiliation == SymbolID.StandardIdentity_Affiliation_Suspect_Joker)))</span>
+<span class="source-line-no">1480</span><span id="line-1480">            {</span>
+<span class="source-line-no">1481</span><span id="line-1481">                return true;</span>
+<span class="source-line-no">1482</span><span id="line-1482">            }</span>
+<span class="source-line-no">1483</span><span id="line-1483">            else</span>
+<span class="source-line-no">1484</span><span id="line-1484">                return false;</span>
+<span class="source-line-no">1485</span><span id="line-1485">        }</span>
+<span class="source-line-no">1486</span><span id="line-1486">        else</span>
+<span class="source-line-no">1487</span><span id="line-1487">            return false;</span>
+<span class="source-line-no">1488</span><span id="line-1488">    }</span>
+<span class="source-line-no">1489</span><span id="line-1489"></span>
+<span class="source-line-no">1490</span><span id="line-1490">    /**</span>
+<span class="source-line-no">1491</span><span id="line-1491">     * Returns the height ratio for the unit specified by the symbol ID</span>
+<span class="source-line-no">1492</span><span id="line-1492">     * Based on Figure 4 in 2525E.</span>
+<span class="source-line-no">1493</span><span id="line-1493">     * @param symbolID 30 Character {@link String}</span>
+<span class="source-line-no">1494</span><span id="line-1494">     * @return {@link Float}</span>
+<span class="source-line-no">1495</span><span id="line-1495">     */</span>
+<span class="source-line-no">1496</span><span id="line-1496">    public static float getUnitRatioHeight(String symbolID)</span>
+<span class="source-line-no">1497</span><span id="line-1497">    {</span>
+<span class="source-line-no">1498</span><span id="line-1498">        int ver = SymbolID.getVersion(symbolID);</span>
+<span class="source-line-no">1499</span><span id="line-1499">        int aff = SymbolID.getAffiliation(symbolID);</span>
+<span class="source-line-no">1500</span><span id="line-1500"></span>
+<span class="source-line-no">1501</span><span id="line-1501">        float rh = 0;</span>
+<span class="source-line-no">1502</span><span id="line-1502"></span>
+<span class="source-line-no">1503</span><span id="line-1503">        if(ver &lt; SymbolID.Version_2525E)</span>
+<span class="source-line-no">1504</span><span id="line-1504">        {</span>
+<span class="source-line-no">1505</span><span id="line-1505">            int ss = SymbolID.getSymbolSet(symbolID);</span>
+<span class="source-line-no">1506</span><span id="line-1506"></span>
+<span class="source-line-no">1507</span><span id="line-1507">            if(aff == SymbolID.StandardIdentity_Affiliation_Hostile_Faker ||</span>
+<span class="source-line-no">1508</span><span id="line-1508">                    aff == SymbolID.StandardIdentity_Affiliation_Suspect_Joker)</span>
+<span class="source-line-no">1509</span><span id="line-1509">            {</span>
+<span class="source-line-no">1510</span><span id="line-1510">                switch (ss){</span>
+<span class="source-line-no">1511</span><span id="line-1511">                    case SymbolID.SymbolSet_LandCivilianUnit_Organization:</span>
+<span class="source-line-no">1512</span><span id="line-1512">                    case SymbolID.SymbolSet_LandUnit:</span>
+<span class="source-line-no">1513</span><span id="line-1513">                    case SymbolID.SymbolSet_LandInstallation:</span>
+<span class="source-line-no">1514</span><span id="line-1514">                    case SymbolID.SymbolSet_LandEquipment:</span>
+<span class="source-line-no">1515</span><span id="line-1515">                    case SymbolID.SymbolSet_SignalsIntelligence_Land:</span>
+<span class="source-line-no">1516</span><span id="line-1516">                    case SymbolID.SymbolSet_Activities:</span>
+<span class="source-line-no">1517</span><span id="line-1517">                    case SymbolID.SymbolSet_CyberSpace:</span>
+<span class="source-line-no">1518</span><span id="line-1518">                        rh = 1.44f;</span>
+<span class="source-line-no">1519</span><span id="line-1519">                        break;</span>
+<span class="source-line-no">1520</span><span id="line-1520">                    default:</span>
+<span class="source-line-no">1521</span><span id="line-1521">                        rh=1.3f;</span>
+<span class="source-line-no">1522</span><span id="line-1522">                }</span>
+<span class="source-line-no">1523</span><span id="line-1523">            }</span>
+<span class="source-line-no">1524</span><span id="line-1524">            else if(aff == SymbolID.StandardIdentity_Affiliation_Friend ||</span>
+<span class="source-line-no">1525</span><span id="line-1525">                    aff == SymbolID.StandardIdentity_Affiliation_AssumedFriend)</span>
+<span class="source-line-no">1526</span><span id="line-1526">            {</span>
+<span class="source-line-no">1527</span><span id="line-1527">                switch (ss){</span>
+<span class="source-line-no">1528</span><span id="line-1528">                    case SymbolID.SymbolSet_LandCivilianUnit_Organization:</span>
+<span class="source-line-no">1529</span><span id="line-1529">                    case SymbolID.SymbolSet_LandUnit:</span>
+<span class="source-line-no">1530</span><span id="line-1530">                    case SymbolID.SymbolSet_LandInstallation:</span>
+<span class="source-line-no">1531</span><span id="line-1531">                    case SymbolID.SymbolSet_Activities:</span>
+<span class="source-line-no">1532</span><span id="line-1532">                    case SymbolID.SymbolSet_CyberSpace:</span>
+<span class="source-line-no">1533</span><span id="line-1533">                        rh = 1f;</span>
+<span class="source-line-no">1534</span><span id="line-1534">                        break;</span>
+<span class="source-line-no">1535</span><span id="line-1535">                    case SymbolID.SymbolSet_SignalsIntelligence_Land:</span>
+<span class="source-line-no">1536</span><span id="line-1536">                    default:</span>
+<span class="source-line-no">1537</span><span id="line-1537">                        rh=1.2f;</span>
+<span class="source-line-no">1538</span><span id="line-1538">                }</span>
+<span class="source-line-no">1539</span><span id="line-1539">            }</span>
+<span class="source-line-no">1540</span><span id="line-1540">            else if(aff == SymbolID.StandardIdentity_Affiliation_Neutral)</span>
+<span class="source-line-no">1541</span><span id="line-1541">            {</span>
+<span class="source-line-no">1542</span><span id="line-1542">                switch (ss){</span>
+<span class="source-line-no">1543</span><span id="line-1543">                    case SymbolID.SymbolSet_LandCivilianUnit_Organization:</span>
+<span class="source-line-no">1544</span><span id="line-1544">                    case SymbolID.SymbolSet_LandUnit:</span>
+<span class="source-line-no">1545</span><span id="line-1545">                    case SymbolID.SymbolSet_LandInstallation:</span>
+<span class="source-line-no">1546</span><span id="line-1546">                    case SymbolID.SymbolSet_LandEquipment:</span>
+<span class="source-line-no">1547</span><span id="line-1547">                    case SymbolID.SymbolSet_SignalsIntelligence_Land:</span>
+<span class="source-line-no">1548</span><span id="line-1548">                    case SymbolID.SymbolSet_Activities:</span>
+<span class="source-line-no">1549</span><span id="line-1549">                    case SymbolID.SymbolSet_CyberSpace:</span>
+<span class="source-line-no">1550</span><span id="line-1550">                        rh = 1.1f;</span>
+<span class="source-line-no">1551</span><span id="line-1551">                        break;</span>
+<span class="source-line-no">1552</span><span id="line-1552">                    default:</span>
+<span class="source-line-no">1553</span><span id="line-1553">                        rh=1.2f;</span>
+<span class="source-line-no">1554</span><span id="line-1554">                }</span>
+<span class="source-line-no">1555</span><span id="line-1555">            }</span>
+<span class="source-line-no">1556</span><span id="line-1556">            else //UNKNOWN</span>
+<span class="source-line-no">1557</span><span id="line-1557">            {</span>
+<span class="source-line-no">1558</span><span id="line-1558">                switch (ss){</span>
+<span class="source-line-no">1559</span><span id="line-1559">                    case SymbolID.SymbolSet_LandCivilianUnit_Organization:</span>
+<span class="source-line-no">1560</span><span id="line-1560">                    case SymbolID.SymbolSet_LandUnit:</span>
+<span class="source-line-no">1561</span><span id="line-1561">                    case SymbolID.SymbolSet_LandInstallation:</span>
+<span class="source-line-no">1562</span><span id="line-1562">                    case SymbolID.SymbolSet_LandEquipment:</span>
+<span class="source-line-no">1563</span><span id="line-1563">                    case SymbolID.SymbolSet_SignalsIntelligence_Land:</span>
+<span class="source-line-no">1564</span><span id="line-1564">                    case SymbolID.SymbolSet_Activities:</span>
+<span class="source-line-no">1565</span><span id="line-1565">                    case SymbolID.SymbolSet_CyberSpace:</span>
+<span class="source-line-no">1566</span><span id="line-1566">                        rh = 1.44f;</span>
+<span class="source-line-no">1567</span><span id="line-1567">                        break;</span>
+<span class="source-line-no">1568</span><span id="line-1568">                    default:</span>
+<span class="source-line-no">1569</span><span id="line-1569">                        rh=1.3f;</span>
+<span class="source-line-no">1570</span><span id="line-1570">                }</span>
+<span class="source-line-no">1571</span><span id="line-1571">            }</span>
+<span class="source-line-no">1572</span><span id="line-1572">        }</span>
+<span class="source-line-no">1573</span><span id="line-1573">        else //2525E and up</span>
+<span class="source-line-no">1574</span><span id="line-1574">        {</span>
+<span class="source-line-no">1575</span><span id="line-1575">            String frameID = SVGLookup.getFrameID(symbolID);</span>
+<span class="source-line-no">1576</span><span id="line-1576">            if(frameID.length()==6)</span>
+<span class="source-line-no">1577</span><span id="line-1577">                aff = Integer.parseInt(frameID.substring(2,3));</span>
+<span class="source-line-no">1578</span><span id="line-1578">            else //"octagon"</span>
+<span class="source-line-no">1579</span><span id="line-1579">                return 1f;</span>
+<span class="source-line-no">1580</span><span id="line-1580">            char fs = (frameID.charAt(3));</span>
+<span class="source-line-no">1581</span><span id="line-1581"></span>
+<span class="source-line-no">1582</span><span id="line-1582">            if(aff == SymbolID.StandardIdentity_Affiliation_Hostile_Faker ||</span>
+<span class="source-line-no">1583</span><span id="line-1583">                    aff == SymbolID.StandardIdentity_Affiliation_Suspect_Joker)</span>
+<span class="source-line-no">1584</span><span id="line-1584">            {</span>
+<span class="source-line-no">1585</span><span id="line-1585">                switch (fs){</span>
+<span class="source-line-no">1586</span><span id="line-1586">                    case SymbolID.FrameShape_LandUnit:</span>
+<span class="source-line-no">1587</span><span id="line-1587">                    case SymbolID.FrameShape_LandInstallation:</span>
+<span class="source-line-no">1588</span><span id="line-1588">                    case SymbolID.FrameShape_LandEquipment:</span>
+<span class="source-line-no">1589</span><span id="line-1589">                    case SymbolID.FrameShape_SeaSurface:</span>
+<span class="source-line-no">1590</span><span id="line-1590">                    case SymbolID.FrameShape_Activity_Event:</span>
+<span class="source-line-no">1591</span><span id="line-1591">                    case SymbolID.FrameShape_Cyberspace:</span>
+<span class="source-line-no">1592</span><span id="line-1592">                        rh = 1.44f;</span>
+<span class="source-line-no">1593</span><span id="line-1593">                        break;</span>
+<span class="source-line-no">1594</span><span id="line-1594">                    default:</span>
+<span class="source-line-no">1595</span><span id="line-1595">                        rh=1.3f;</span>
+<span class="source-line-no">1596</span><span id="line-1596">                }</span>
+<span class="source-line-no">1597</span><span id="line-1597">            }</span>
+<span class="source-line-no">1598</span><span id="line-1598">            else if(aff == SymbolID.StandardIdentity_Affiliation_Friend ||</span>
+<span class="source-line-no">1599</span><span id="line-1599">                    aff == SymbolID.StandardIdentity_Affiliation_AssumedFriend)</span>
+<span class="source-line-no">1600</span><span id="line-1600">            {</span>
+<span class="source-line-no">1601</span><span id="line-1601">                switch (fs){</span>
+<span class="source-line-no">1602</span><span id="line-1602">                    case SymbolID.FrameShape_LandUnit:</span>
+<span class="source-line-no">1603</span><span id="line-1603">                    case SymbolID.FrameShape_LandInstallation:</span>
+<span class="source-line-no">1604</span><span id="line-1604">                    case SymbolID.FrameShape_Activity_Event:</span>
+<span class="source-line-no">1605</span><span id="line-1605">                    case SymbolID.FrameShape_Cyberspace:</span>
+<span class="source-line-no">1606</span><span id="line-1606">                        rh = 1f;</span>
+<span class="source-line-no">1607</span><span id="line-1607">                        break;</span>
+<span class="source-line-no">1608</span><span id="line-1608">                    default:</span>
+<span class="source-line-no">1609</span><span id="line-1609">                        rh=1.2f;</span>
+<span class="source-line-no">1610</span><span id="line-1610">                }</span>
+<span class="source-line-no">1611</span><span id="line-1611">            }</span>
+<span class="source-line-no">1612</span><span id="line-1612">            else if(aff == SymbolID.StandardIdentity_Affiliation_Neutral)</span>
+<span class="source-line-no">1613</span><span id="line-1613">            {</span>
+<span class="source-line-no">1614</span><span id="line-1614">                switch (fs){</span>
+<span class="source-line-no">1615</span><span id="line-1615">                    case SymbolID.FrameShape_LandUnit:</span>
+<span class="source-line-no">1616</span><span id="line-1616">                    case SymbolID.FrameShape_LandInstallation:</span>
+<span class="source-line-no">1617</span><span id="line-1617">                    case SymbolID.FrameShape_LandEquipment:</span>
+<span class="source-line-no">1618</span><span id="line-1618">                    case SymbolID.FrameShape_SeaSurface:</span>
+<span class="source-line-no">1619</span><span id="line-1619">                    case SymbolID.FrameShape_Activity_Event:</span>
+<span class="source-line-no">1620</span><span id="line-1620">                    case SymbolID.FrameShape_Cyberspace:</span>
+<span class="source-line-no">1621</span><span id="line-1621">                        rh = 1.1f;</span>
+<span class="source-line-no">1622</span><span id="line-1622">                        break;</span>
+<span class="source-line-no">1623</span><span id="line-1623">                    default:</span>
+<span class="source-line-no">1624</span><span id="line-1624">                        rh=1.2f;</span>
+<span class="source-line-no">1625</span><span id="line-1625">                }</span>
+<span class="source-line-no">1626</span><span id="line-1626">            }</span>
+<span class="source-line-no">1627</span><span id="line-1627">            else //UNKNOWN</span>
+<span class="source-line-no">1628</span><span id="line-1628">            {</span>
+<span class="source-line-no">1629</span><span id="line-1629">                switch (fs){</span>
+<span class="source-line-no">1630</span><span id="line-1630">                    case SymbolID.FrameShape_LandUnit:</span>
+<span class="source-line-no">1631</span><span id="line-1631">                    case SymbolID.FrameShape_LandInstallation:</span>
+<span class="source-line-no">1632</span><span id="line-1632">                    case SymbolID.FrameShape_LandEquipment:</span>
+<span class="source-line-no">1633</span><span id="line-1633">                    case SymbolID.FrameShape_SeaSurface:</span>
+<span class="source-line-no">1634</span><span id="line-1634">                    case SymbolID.FrameShape_Activity_Event:</span>
+<span class="source-line-no">1635</span><span id="line-1635">                    case SymbolID.FrameShape_Cyberspace:</span>
+<span class="source-line-no">1636</span><span id="line-1636">                        rh = 1.44f;</span>
+<span class="source-line-no">1637</span><span id="line-1637">                        break;</span>
+<span class="source-line-no">1638</span><span id="line-1638">                    default:</span>
+<span class="source-line-no">1639</span><span id="line-1639">                        rh=1.3f;</span>
+<span class="source-line-no">1640</span><span id="line-1640">                }</span>
+<span class="source-line-no">1641</span><span id="line-1641">            }</span>
+<span class="source-line-no">1642</span><span id="line-1642"></span>
+<span class="source-line-no">1643</span><span id="line-1643"></span>
+<span class="source-line-no">1644</span><span id="line-1644">        }</span>
+<span class="source-line-no">1645</span><span id="line-1645"></span>
+<span class="source-line-no">1646</span><span id="line-1646">        return rh;</span>
+<span class="source-line-no">1647</span><span id="line-1647">    }</span>
+<span class="source-line-no">1648</span><span id="line-1648"></span>
+<span class="source-line-no">1649</span><span id="line-1649">    /**</span>
+<span class="source-line-no">1650</span><span id="line-1650">     * Returns the width ratio for the unit specified by the symbol ID</span>
+<span class="source-line-no">1651</span><span id="line-1651">     * Based on Figure 4 in 2525E.</span>
+<span class="source-line-no">1652</span><span id="line-1652">     * @param symbolID 30 Character {@link String}</span>
+<span class="source-line-no">1653</span><span id="line-1653">     * @return {@link Float}</span>
+<span class="source-line-no">1654</span><span id="line-1654">     */</span>
+<span class="source-line-no">1655</span><span id="line-1655">    public static float getUnitRatioWidth(String symbolID)</span>
+<span class="source-line-no">1656</span><span id="line-1656">    {</span>
+<span class="source-line-no">1657</span><span id="line-1657">        int ver = SymbolID.getVersion(symbolID);</span>
+<span class="source-line-no">1658</span><span id="line-1658">        int aff = SymbolID.getAffiliation(symbolID);</span>
+<span class="source-line-no">1659</span><span id="line-1659"></span>
+<span class="source-line-no">1660</span><span id="line-1660">        float rw = 0;</span>
+<span class="source-line-no">1661</span><span id="line-1661"></span>
+<span class="source-line-no">1662</span><span id="line-1662">        if(ver &lt; SymbolID.Version_2525E)</span>
+<span class="source-line-no">1663</span><span id="line-1663">        {</span>
+<span class="source-line-no">1664</span><span id="line-1664">            int ss = SymbolID.getSymbolSet(symbolID);</span>
+<span class="source-line-no">1665</span><span id="line-1665"></span>
+<span class="source-line-no">1666</span><span id="line-1666">            if(aff == SymbolID.StandardIdentity_Affiliation_Hostile_Faker ||</span>
+<span class="source-line-no">1667</span><span id="line-1667">                    aff == SymbolID.StandardIdentity_Affiliation_Suspect_Joker)</span>
+<span class="source-line-no">1668</span><span id="line-1668">            {</span>
+<span class="source-line-no">1669</span><span id="line-1669">                switch (ss){</span>
+<span class="source-line-no">1670</span><span id="line-1670">                    case SymbolID.SymbolSet_LandCivilianUnit_Organization:</span>
+<span class="source-line-no">1671</span><span id="line-1671">                    case SymbolID.SymbolSet_LandUnit:</span>
+<span class="source-line-no">1672</span><span id="line-1672">                    case SymbolID.SymbolSet_LandInstallation:</span>
+<span class="source-line-no">1673</span><span id="line-1673">                    case SymbolID.SymbolSet_LandEquipment:</span>
+<span class="source-line-no">1674</span><span id="line-1674">                    case SymbolID.SymbolSet_SignalsIntelligence_Land:</span>
+<span class="source-line-no">1675</span><span id="line-1675">                    case SymbolID.SymbolSet_Activities:</span>
+<span class="source-line-no">1676</span><span id="line-1676">                    case SymbolID.SymbolSet_CyberSpace:</span>
+<span class="source-line-no">1677</span><span id="line-1677">                        rw = 1.44f;</span>
+<span class="source-line-no">1678</span><span id="line-1678">                        break;</span>
+<span class="source-line-no">1679</span><span id="line-1679">                    default:</span>
+<span class="source-line-no">1680</span><span id="line-1680">                        rw=1.1f;</span>
+<span class="source-line-no">1681</span><span id="line-1681">                }</span>
+<span class="source-line-no">1682</span><span id="line-1682">            }</span>
+<span class="source-line-no">1683</span><span id="line-1683">            else if(aff == SymbolID.StandardIdentity_Affiliation_Friend ||</span>
+<span class="source-line-no">1684</span><span id="line-1684">                    aff == SymbolID.StandardIdentity_Affiliation_AssumedFriend)</span>
+<span class="source-line-no">1685</span><span id="line-1685">            {</span>
+<span class="source-line-no">1686</span><span id="line-1686">                switch (ss){</span>
+<span class="source-line-no">1687</span><span id="line-1687">                    case SymbolID.SymbolSet_LandCivilianUnit_Organization:</span>
+<span class="source-line-no">1688</span><span id="line-1688">                    case SymbolID.SymbolSet_LandUnit:</span>
+<span class="source-line-no">1689</span><span id="line-1689">                    case SymbolID.SymbolSet_LandInstallation:</span>
+<span class="source-line-no">1690</span><span id="line-1690">                    case SymbolID.SymbolSet_Activities:</span>
+<span class="source-line-no">1691</span><span id="line-1691">                    case SymbolID.SymbolSet_CyberSpace:</span>
+<span class="source-line-no">1692</span><span id="line-1692">                        rw = 1.5f;</span>
+<span class="source-line-no">1693</span><span id="line-1693">                        break;</span>
+<span class="source-line-no">1694</span><span id="line-1694">                    case SymbolID.SymbolSet_LandEquipment:</span>
+<span class="source-line-no">1695</span><span id="line-1695">                    case SymbolID.SymbolSet_SignalsIntelligence_Land:</span>
+<span class="source-line-no">1696</span><span id="line-1696">                        rw = 1.2f;</span>
+<span class="source-line-no">1697</span><span id="line-1697">                        break;</span>
+<span class="source-line-no">1698</span><span id="line-1698">                    default:</span>
+<span class="source-line-no">1699</span><span id="line-1699">                        rw=1.1f;</span>
+<span class="source-line-no">1700</span><span id="line-1700">                }</span>
+<span class="source-line-no">1701</span><span id="line-1701">            }</span>
+<span class="source-line-no">1702</span><span id="line-1702">            else if(aff == SymbolID.StandardIdentity_Affiliation_Neutral)</span>
+<span class="source-line-no">1703</span><span id="line-1703">            {</span>
+<span class="source-line-no">1704</span><span id="line-1704">                rw = 1.1f;</span>
+<span class="source-line-no">1705</span><span id="line-1705">            }</span>
+<span class="source-line-no">1706</span><span id="line-1706">            else //UNKNOWN</span>
+<span class="source-line-no">1707</span><span id="line-1707">            {</span>
+<span class="source-line-no">1708</span><span id="line-1708">                switch (ss){</span>
+<span class="source-line-no">1709</span><span id="line-1709">                    case SymbolID.SymbolSet_LandCivilianUnit_Organization:</span>
+<span class="source-line-no">1710</span><span id="line-1710">                    case SymbolID.SymbolSet_LandUnit:</span>
+<span class="source-line-no">1711</span><span id="line-1711">                    case SymbolID.SymbolSet_LandInstallation:</span>
+<span class="source-line-no">1712</span><span id="line-1712">                    case SymbolID.SymbolSet_LandEquipment:</span>
+<span class="source-line-no">1713</span><span id="line-1713">                    case SymbolID.SymbolSet_SignalsIntelligence_Land:</span>
+<span class="source-line-no">1714</span><span id="line-1714">                    case SymbolID.SymbolSet_Activities:</span>
+<span class="source-line-no">1715</span><span id="line-1715">                    case SymbolID.SymbolSet_CyberSpace:</span>
+<span class="source-line-no">1716</span><span id="line-1716">                        rw = 1.44f;</span>
+<span class="source-line-no">1717</span><span id="line-1717">                        break;</span>
+<span class="source-line-no">1718</span><span id="line-1718">                    default:</span>
+<span class="source-line-no">1719</span><span id="line-1719">                        rw=1.5f;</span>
+<span class="source-line-no">1720</span><span id="line-1720">                }</span>
+<span class="source-line-no">1721</span><span id="line-1721">            }</span>
+<span class="source-line-no">1722</span><span id="line-1722">        }</span>
+<span class="source-line-no">1723</span><span id="line-1723">        else //2525E and above</span>
+<span class="source-line-no">1724</span><span id="line-1724">        {</span>
+<span class="source-line-no">1725</span><span id="line-1725">            String frameID = SVGLookup.getFrameID(symbolID);</span>
+<span class="source-line-no">1726</span><span id="line-1726">            if(frameID.length()==6)</span>
+<span class="source-line-no">1727</span><span id="line-1727">                aff = Integer.parseInt(frameID.substring(2,3));</span>
+<span class="source-line-no">1728</span><span id="line-1728">            else //"octagon"</span>
+<span class="source-line-no">1729</span><span id="line-1729">                return 1f;</span>
+<span class="source-line-no">1730</span><span id="line-1730">            char fs = (frameID.charAt(3));</span>
+<span class="source-line-no">1731</span><span id="line-1731"></span>
+<span class="source-line-no">1732</span><span id="line-1732">            if(aff == SymbolID.StandardIdentity_Affiliation_Hostile_Faker ||</span>
+<span class="source-line-no">1733</span><span id="line-1733">                    aff == SymbolID.StandardIdentity_Affiliation_Suspect_Joker)</span>
+<span class="source-line-no">1734</span><span id="line-1734">            {</span>
+<span class="source-line-no">1735</span><span id="line-1735">                switch (fs){</span>
+<span class="source-line-no">1736</span><span id="line-1736">                    case SymbolID.FrameShape_LandUnit:</span>
+<span class="source-line-no">1737</span><span id="line-1737">                    case SymbolID.FrameShape_LandInstallation:</span>
+<span class="source-line-no">1738</span><span id="line-1738">                    case SymbolID.FrameShape_LandEquipment:</span>
+<span class="source-line-no">1739</span><span id="line-1739">                    case SymbolID.FrameShape_SeaSurface:</span>
+<span class="source-line-no">1740</span><span id="line-1740">                    case SymbolID.FrameShape_Activity_Event:</span>
+<span class="source-line-no">1741</span><span id="line-1741">                    case SymbolID.FrameShape_Cyberspace:</span>
+<span class="source-line-no">1742</span><span id="line-1742">                        rw = 1.44f;</span>
+<span class="source-line-no">1743</span><span id="line-1743">                        break;</span>
+<span class="source-line-no">1744</span><span id="line-1744">                    default:</span>
+<span class="source-line-no">1745</span><span id="line-1745">                        rw=1.1f;</span>
+<span class="source-line-no">1746</span><span id="line-1746">                }</span>
+<span class="source-line-no">1747</span><span id="line-1747">            }</span>
+<span class="source-line-no">1748</span><span id="line-1748">            else if(aff == SymbolID.StandardIdentity_Affiliation_Friend ||</span>
+<span class="source-line-no">1749</span><span id="line-1749">                    aff == SymbolID.StandardIdentity_Affiliation_AssumedFriend)</span>
+<span class="source-line-no">1750</span><span id="line-1750">            {</span>
+<span class="source-line-no">1751</span><span id="line-1751">                switch (fs){</span>
+<span class="source-line-no">1752</span><span id="line-1752">                    case SymbolID.FrameShape_LandUnit:</span>
+<span class="source-line-no">1753</span><span id="line-1753">                    case SymbolID.FrameShape_LandInstallation:</span>
+<span class="source-line-no">1754</span><span id="line-1754">                    case SymbolID.FrameShape_Activity_Event:</span>
+<span class="source-line-no">1755</span><span id="line-1755">                    case SymbolID.FrameShape_Cyberspace:</span>
+<span class="source-line-no">1756</span><span id="line-1756">                        rw = 1.5f;</span>
+<span class="source-line-no">1757</span><span id="line-1757">                        break;</span>
+<span class="source-line-no">1758</span><span id="line-1758">                    case SymbolID.FrameShape_LandEquipment:</span>
+<span class="source-line-no">1759</span><span id="line-1759">                    case SymbolID.FrameShape_SeaSurface:</span>
+<span class="source-line-no">1760</span><span id="line-1760">                        rw = 1.2f;</span>
+<span class="source-line-no">1761</span><span id="line-1761">                        break;</span>
+<span class="source-line-no">1762</span><span id="line-1762">                    default:</span>
+<span class="source-line-no">1763</span><span id="line-1763">                        rw=1.1f;</span>
+<span class="source-line-no">1764</span><span id="line-1764">                }</span>
+<span class="source-line-no">1765</span><span id="line-1765">            }</span>
+<span class="source-line-no">1766</span><span id="line-1766">            else if(aff == SymbolID.StandardIdentity_Affiliation_Neutral)</span>
+<span class="source-line-no">1767</span><span id="line-1767">            {</span>
+<span class="source-line-no">1768</span><span id="line-1768">                rw = 1.1f;</span>
+<span class="source-line-no">1769</span><span id="line-1769">            }</span>
+<span class="source-line-no">1770</span><span id="line-1770">            else //UNKNOWN</span>
+<span class="source-line-no">1771</span><span id="line-1771">            {</span>
+<span class="source-line-no">1772</span><span id="line-1772">                switch (fs){</span>
+<span class="source-line-no">1773</span><span id="line-1773">                    case SymbolID.FrameShape_LandUnit:</span>
+<span class="source-line-no">1774</span><span id="line-1774">                    case SymbolID.FrameShape_LandInstallation:</span>
+<span class="source-line-no">1775</span><span id="line-1775">                    case SymbolID.FrameShape_LandEquipment:</span>
+<span class="source-line-no">1776</span><span id="line-1776">                    case SymbolID.FrameShape_SeaSurface:</span>
+<span class="source-line-no">1777</span><span id="line-1777">                    case SymbolID.FrameShape_Activity_Event:</span>
+<span class="source-line-no">1778</span><span id="line-1778">                    case SymbolID.FrameShape_Cyberspace:</span>
+<span class="source-line-no">1779</span><span id="line-1779">                        rw = 1.44f;</span>
+<span class="source-line-no">1780</span><span id="line-1780">                        break;</span>
+<span class="source-line-no">1781</span><span id="line-1781">                    default:</span>
+<span class="source-line-no">1782</span><span id="line-1782">                        rw=1.5f;</span>
+<span class="source-line-no">1783</span><span id="line-1783">                }</span>
+<span class="source-line-no">1784</span><span id="line-1784">            }</span>
+<span class="source-line-no">1785</span><span id="line-1785">        }</span>
+<span class="source-line-no">1786</span><span id="line-1786"></span>
+<span class="source-line-no">1787</span><span id="line-1787">        return rw;</span>
+<span class="source-line-no">1788</span><span id="line-1788">    }</span>
+<span class="source-line-no">1789</span><span id="line-1789"></span>
+<span class="source-line-no">1790</span><span id="line-1790">    /**</span>
+<span class="source-line-no">1791</span><span id="line-1791">     * @param linetype the line type</span>
+<span class="source-line-no">1792</span><span id="line-1792">     * @return true if the line is a basic shape</span>
+<span class="source-line-no">1793</span><span id="line-1793">     */</span>
+<span class="source-line-no">1794</span><span id="line-1794">    public static boolean isBasicShape(int linetype) {</span>
+<span class="source-line-no">1795</span><span id="line-1795">        switch (linetype) {</span>
+<span class="source-line-no">1796</span><span id="line-1796">            case TacticalLines.BS_AREA:</span>
+<span class="source-line-no">1797</span><span id="line-1797">            case TacticalLines.BS_LINE:</span>
+<span class="source-line-no">1798</span><span id="line-1798">            case TacticalLines.BS_CROSS:</span>
+<span class="source-line-no">1799</span><span id="line-1799">            case TacticalLines.BS_ELLIPSE:</span>
+<span class="source-line-no">1800</span><span id="line-1800">            case TacticalLines.PBS_ELLIPSE:</span>
+<span class="source-line-no">1801</span><span id="line-1801">            case TacticalLines.PBS_CIRCLE:</span>
+<span class="source-line-no">1802</span><span id="line-1802">            case TacticalLines.PBS_SQUARE:</span>
+<span class="source-line-no">1803</span><span id="line-1803">            case TacticalLines.PBS_RECTANGLE:</span>
+<span class="source-line-no">1804</span><span id="line-1804">            case TacticalLines.BS_RECTANGLE:</span>
+<span class="source-line-no">1805</span><span id="line-1805">            case TacticalLines.BBS_AREA:</span>
+<span class="source-line-no">1806</span><span id="line-1806">            case TacticalLines.BBS_LINE:</span>
+<span class="source-line-no">1807</span><span id="line-1807">            case TacticalLines.BBS_POINT:</span>
+<span class="source-line-no">1808</span><span id="line-1808">            case TacticalLines.BBS_RECTANGLE:</span>
+<span class="source-line-no">1809</span><span id="line-1809">            case TacticalLines.BS_BBOX:</span>
+<span class="source-line-no">1810</span><span id="line-1810">            case TacticalLines.BS_ROUTE:</span>
+<span class="source-line-no">1811</span><span id="line-1811">            case TacticalLines.BS_TRACK:</span>
+<span class="source-line-no">1812</span><span id="line-1812">            case TacticalLines.BS_RADARC:</span>
+<span class="source-line-no">1813</span><span id="line-1813">            case TacticalLines.BS_CAKE:</span>
+<span class="source-line-no">1814</span><span id="line-1814">            case TacticalLines.BS_ORBIT:</span>
+<span class="source-line-no">1815</span><span id="line-1815">            case TacticalLines.BS_POLYARC:</span>
+<span class="source-line-no">1816</span><span id="line-1816">                return true;</span>
+<span class="source-line-no">1817</span><span id="line-1817">            default:</span>
+<span class="source-line-no">1818</span><span id="line-1818">                return false;</span>
+<span class="source-line-no">1819</span><span id="line-1819">        }</span>
+<span class="source-line-no">1820</span><span id="line-1820">    }</span>
+<span class="source-line-no">1821</span><span id="line-1821">}</span>
 
 
 

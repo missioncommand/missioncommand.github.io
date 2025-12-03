@@ -102,7 +102,7 @@
 <span class="source-line-no">089</span><span id="line-89">            mySVG = SVG.getFromString(hatchFillSVGString);</span>
 <span class="source-line-no">090</span><span id="line-90">        } catch (SVGParseException e) {</span>
 <span class="source-line-no">091</span><span id="line-91">            // Failed to generate SVG return empty bitmap</span>
-<span class="source-line-no">092</span><span id="line-92">            ErrorLogger.LogException("PatternFillRendererD", "MakeHatchPatternFill", e);</span>
+<span class="source-line-no">092</span><span id="line-92">            ErrorLogger.LogException("PatternFillRenderer", "MakeHatchPatternFill", e);</span>
 <span class="source-line-no">093</span><span id="line-93">            return bm;</span>
 <span class="source-line-no">094</span><span id="line-94">        }</span>
 <span class="source-line-no">095</span><span id="line-95">        Canvas canvas = new Canvas(bm);</span>
