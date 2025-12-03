@@ -261,498 +261,504 @@
 <span class="source-line-no">248</span><span id="line-248">     * @param scale A number corresponding to how many meters one meter of our </span>
 <span class="source-line-no">249</span><span id="line-249">     * map represents. A value "50000" would mean 1:50K which means for every </span>
 <span class="source-line-no">250</span><span id="line-250">     * meter of our map it represents 50000 meters of real world distance.</span>
-<span class="source-line-no">251</span><span id="line-251">     * @param bbox The viewable area of the map.  Passed in the format of a</span>
-<span class="source-line-no">252</span><span id="line-252">     * string "lowerLeftX,lowerLeftY,upperRightX,upperRightY." Not required</span>
-<span class="source-line-no">253</span><span id="line-253">     * but can speed up rendering in some cases.</span>
-<span class="source-line-no">254</span><span id="line-254">     * example: "-50.4,23.6,-42.2,24.2"</span>
-<span class="source-line-no">255</span><span id="line-255">     * @param modifiers keyed using constants from Modifiers.</span>
-<span class="source-line-no">256</span><span id="line-256">     * Pass in comma delimited String for modifiers with multiple values like AM, AN &amp;amp; X</span>
-<span class="source-line-no">257</span><span id="line-257">     * @param attributes keyed using constants from MilStdAttributes.</span>
-<span class="source-line-no">258</span><span id="line-258">     * @param format {@link WebRenderer#OUTPUT_FORMAT_KML}, {@link WebRenderer#OUTPUT_FORMAT_GEOJSON} or {@link WebRenderer#OUTPUT_FORMAT_GEOSVG}</span>
-<span class="source-line-no">259</span><span id="line-259">     * @return A KML, GeoJSON or SVG string representation of the graphic.</span>
-<span class="source-line-no">260</span><span id="line-260">     */</span>
-<span class="source-line-no">261</span><span id="line-261">    public static String RenderSymbol(String id, String name, String description,</span>
-<span class="source-line-no">262</span><span id="line-262">                                      String symbolCode, String controlPoints, String altitudeMode,</span>
-<span class="source-line-no">263</span><span id="line-263">                                      double scale, String bbox, Map&lt;String,String&gt; modifiers, Map&lt;String,String&gt; attributes, int format) {</span>
-<span class="source-line-no">264</span><span id="line-264">        String output = "";</span>
-<span class="source-line-no">265</span><span id="line-265">        try {         </span>
-<span class="source-line-no">266</span><span id="line-266">                </span>
-<span class="source-line-no">267</span><span id="line-267">                JavaRendererUtilities.addAltModeToModifiersString(attributes,altitudeMode);</span>
-<span class="source-line-no">268</span><span id="line-268">        </span>
-<span class="source-line-no">269</span><span id="line-269">            if (!altitudeMode.equals("clampToGround")</span>
-<span class="source-line-no">270</span><span id="line-270">                    &amp;&amp; (format == WebRenderer.OUTPUT_FORMAT_KML || format == WebRenderer.OUTPUT_FORMAT_GEOJSON)</span>
-<span class="source-line-no">271</span><span id="line-271">                    &amp;&amp; JavaRendererUtilities.is3dSymbol(symbolCode)</span>
-<span class="source-line-no">272</span><span id="line-272">                    &amp;&amp; modifiers.get(Modifiers.X_ALTITUDE_DEPTH) != null</span>
-<span class="source-line-no">273</span><span id="line-273">                    &amp;&amp; !modifiers.get(Modifiers.X_ALTITUDE_DEPTH).isEmpty()) {</span>
-<span class="source-line-no">274</span><span id="line-274">                output = RenderMilStd3dSymbol(id, name, description, symbolCode, controlPoints, altitudeMode, scale, bbox, modifiers, attributes, format);</span>
-<span class="source-line-no">275</span><span id="line-275">            }</span>
-<span class="source-line-no">276</span><span id="line-276"></span>
-<span class="source-line-no">277</span><span id="line-277">            if (output.isEmpty()) {</span>
-<span class="source-line-no">278</span><span id="line-278">                output = MultiPointHandler.RenderSymbol(id, name, description, symbolCode, controlPoints,</span>
-<span class="source-line-no">279</span><span id="line-279">                        scale, bbox, modifiers, attributes, format);</span>
-<span class="source-line-no">280</span><span id="line-280"></span>
-<span class="source-line-no">281</span><span id="line-281">                //DEBUGGING</span>
-<span class="source-line-no">282</span><span id="line-282">                if (ErrorLogger.getLevel().intValue() &lt;= Level.FINER.intValue()) {</span>
-<span class="source-line-no">283</span><span id="line-283">                    System.out.println("");</span>
-<span class="source-line-no">284</span><span id="line-284">                    StringBuilder sb = new StringBuilder();</span>
-<span class="source-line-no">285</span><span id="line-285">                    sb.append("\nID: ").append(id).append("\n");</span>
-<span class="source-line-no">286</span><span id="line-286">                    sb.append("Name: ").append(name).append("\n");</span>
-<span class="source-line-no">287</span><span id="line-287">                    sb.append("Description: ").append(description).append("\n");</span>
-<span class="source-line-no">288</span><span id="line-288">                    sb.append("SymbolID: ").append(symbolCode).append("\n");</span>
-<span class="source-line-no">289</span><span id="line-289">                    sb.append("Scale: ").append(String.valueOf(scale)).append("\n");</span>
-<span class="source-line-no">290</span><span id="line-290">                    sb.append("BBox: ").append(bbox).append("\n");</span>
-<span class="source-line-no">291</span><span id="line-291">                    sb.append("Coords: ").append(controlPoints).append("\n");</span>
-<span class="source-line-no">292</span><span id="line-292">                    sb.append("Modifiers: ").append(modifiers).append("\n");</span>
-<span class="source-line-no">293</span><span id="line-293">                    ErrorLogger.LogMessage("WebRenderer", "RenderSymbol", sb.toString(), Level.FINER);</span>
-<span class="source-line-no">294</span><span id="line-294">                }</span>
-<span class="source-line-no">295</span><span id="line-295">                if (ErrorLogger.getLevel().intValue() &lt;= Level.FINEST.intValue()) {</span>
-<span class="source-line-no">296</span><span id="line-296">                    String briefOutput = output.replaceAll("&lt;/Placemark&gt;", "&lt;/Placemark&gt;\n");</span>
-<span class="source-line-no">297</span><span id="line-297">                    briefOutput = output.replaceAll("(?s)&lt;description[^&gt;]*&gt;.*?&lt;/description&gt;", "&lt;description&gt;&lt;/description&gt;");</span>
-<span class="source-line-no">298</span><span id="line-298">                    ErrorLogger.LogMessage("WebRenderer", "RenderSymbol", "Output:\n" + briefOutput, Level.FINEST);</span>
-<span class="source-line-no">299</span><span id="line-299">                }</span>
-<span class="source-line-no">300</span><span id="line-300"></span>
-<span class="source-line-no">301</span><span id="line-301">            }</span>
-<span class="source-line-no">302</span><span id="line-302"></span>
-<span class="source-line-no">303</span><span id="line-303">        } catch (Exception ea) {</span>
-<span class="source-line-no">304</span><span id="line-304">            </span>
-<span class="source-line-no">305</span><span id="line-305">            output = "{\"type\":'error',error:'There was an error creating the MilStdSymbol - " + ea.toString() + "'}";</span>
-<span class="source-line-no">306</span><span id="line-306">            ErrorLogger.LogException("WebRenderer", "RenderSymbol", ea, Level.WARNING);</span>
-<span class="source-line-no">307</span><span id="line-307">        }</span>
-<span class="source-line-no">308</span><span id="line-308">        </span>
-<span class="source-line-no">309</span><span id="line-309">        return output;</span>
-<span class="source-line-no">310</span><span id="line-310">    }</span>
-<span class="source-line-no">311</span><span id="line-311">    </span>
-<span class="source-line-no">312</span><span id="line-312"></span>
-<span class="source-line-no">313</span><span id="line-313">         </span>
-<span class="source-line-no">314</span><span id="line-314"></span>
+<span class="source-line-no">251</span><span id="line-251">     * &lt;a href="https://github.com/missioncommand/mil-sym-java/wiki/2525D--Renderer-Overview#3316-scale-for-3d"&gt;Scale Calculation Example&lt;/a&gt;</span>
+<span class="source-line-no">252</span><span id="line-252">     * @param bbox The viewable area of the map.  Passed in the format of a</span>
+<span class="source-line-no">253</span><span id="line-253">     * string "lowerLeftX,lowerLeftY,upperRightX,upperRightY." Not required</span>
+<span class="source-line-no">254</span><span id="line-254">     * but can speed up rendering in some cases.</span>
+<span class="source-line-no">255</span><span id="line-255">     * example: "-50.4,23.6,-42.2,24.2"</span>
+<span class="source-line-no">256</span><span id="line-256">     * @param modifiers keyed using constants from Modifiers.</span>
+<span class="source-line-no">257</span><span id="line-257">     * Pass in comma delimited String for modifiers with multiple values like AM, AN &amp;amp; X</span>
+<span class="source-line-no">258</span><span id="line-258">     * @param attributes keyed using constants from MilStdAttributes.</span>
+<span class="source-line-no">259</span><span id="line-259">     * @param format {@link WebRenderer#OUTPUT_FORMAT_KML}, {@link WebRenderer#OUTPUT_FORMAT_GEOJSON} or {@link WebRenderer#OUTPUT_FORMAT_GEOSVG}</span>
+<span class="source-line-no">260</span><span id="line-260">     * @return A KML, GeoJSON or SVG string representation of the graphic.</span>
+<span class="source-line-no">261</span><span id="line-261">     */</span>
+<span class="source-line-no">262</span><span id="line-262">    public static String RenderSymbol(String id, String name, String description,</span>
+<span class="source-line-no">263</span><span id="line-263">                                      String symbolCode, String controlPoints, String altitudeMode,</span>
+<span class="source-line-no">264</span><span id="line-264">                                      double scale, String bbox, Map&lt;String,String&gt; modifiers, Map&lt;String,String&gt; attributes, int format) {</span>
+<span class="source-line-no">265</span><span id="line-265">        String output = "";</span>
+<span class="source-line-no">266</span><span id="line-266">        try {         </span>
+<span class="source-line-no">267</span><span id="line-267">                </span>
+<span class="source-line-no">268</span><span id="line-268">                JavaRendererUtilities.addAltModeToModifiersString(attributes,altitudeMode);</span>
+<span class="source-line-no">269</span><span id="line-269">        </span>
+<span class="source-line-no">270</span><span id="line-270">            if (!altitudeMode.equals("clampToGround")</span>
+<span class="source-line-no">271</span><span id="line-271">                    &amp;&amp; (format == WebRenderer.OUTPUT_FORMAT_KML || format == WebRenderer.OUTPUT_FORMAT_GEOJSON)</span>
+<span class="source-line-no">272</span><span id="line-272">                    &amp;&amp; JavaRendererUtilities.is3dSymbol(symbolCode)</span>
+<span class="source-line-no">273</span><span id="line-273">                    &amp;&amp; modifiers.get(Modifiers.X_ALTITUDE_DEPTH) != null</span>
+<span class="source-line-no">274</span><span id="line-274">                    &amp;&amp; !modifiers.get(Modifiers.X_ALTITUDE_DEPTH).isEmpty()) {</span>
+<span class="source-line-no">275</span><span id="line-275">                output = RenderMilStd3dSymbol(id, name, description, symbolCode, controlPoints, altitudeMode, scale, bbox, modifiers, attributes, format);</span>
+<span class="source-line-no">276</span><span id="line-276">            }</span>
+<span class="source-line-no">277</span><span id="line-277"></span>
+<span class="source-line-no">278</span><span id="line-278">            if (output.isEmpty()) {</span>
+<span class="source-line-no">279</span><span id="line-279">                output = MultiPointHandler.RenderSymbol(id, name, description, symbolCode, controlPoints,</span>
+<span class="source-line-no">280</span><span id="line-280">                        scale, bbox, modifiers, attributes, format);</span>
+<span class="source-line-no">281</span><span id="line-281"></span>
+<span class="source-line-no">282</span><span id="line-282">                //DEBUGGING</span>
+<span class="source-line-no">283</span><span id="line-283">                if (ErrorLogger.getLevel().intValue() &lt;= Level.FINER.intValue()) {</span>
+<span class="source-line-no">284</span><span id="line-284">                    System.out.println("");</span>
+<span class="source-line-no">285</span><span id="line-285">                    StringBuilder sb = new StringBuilder();</span>
+<span class="source-line-no">286</span><span id="line-286">                    sb.append("\nID: ").append(id).append("\n");</span>
+<span class="source-line-no">287</span><span id="line-287">                    sb.append("Name: ").append(name).append("\n");</span>
+<span class="source-line-no">288</span><span id="line-288">                    sb.append("Description: ").append(description).append("\n");</span>
+<span class="source-line-no">289</span><span id="line-289">                    sb.append("SymbolID: ").append(symbolCode).append("\n");</span>
+<span class="source-line-no">290</span><span id="line-290">                    sb.append("Scale: ").append(String.valueOf(scale)).append("\n");</span>
+<span class="source-line-no">291</span><span id="line-291">                    sb.append("BBox: ").append(bbox).append("\n");</span>
+<span class="source-line-no">292</span><span id="line-292">                    sb.append("Coords: ").append(controlPoints).append("\n");</span>
+<span class="source-line-no">293</span><span id="line-293">                    sb.append("Modifiers: ").append(modifiers).append("\n");</span>
+<span class="source-line-no">294</span><span id="line-294">                    ErrorLogger.LogMessage("WebRenderer", "RenderSymbol", sb.toString(), Level.FINER);</span>
+<span class="source-line-no">295</span><span id="line-295">                }</span>
+<span class="source-line-no">296</span><span id="line-296">                if (ErrorLogger.getLevel().intValue() &lt;= Level.FINEST.intValue()) {</span>
+<span class="source-line-no">297</span><span id="line-297">                    String briefOutput = output.replaceAll("&lt;/Placemark&gt;", "&lt;/Placemark&gt;\n");</span>
+<span class="source-line-no">298</span><span id="line-298">                    briefOutput = output.replaceAll("(?s)&lt;description[^&gt;]*&gt;.*?&lt;/description&gt;", "&lt;description&gt;&lt;/description&gt;");</span>
+<span class="source-line-no">299</span><span id="line-299">                    ErrorLogger.LogMessage("WebRenderer", "RenderSymbol", "Output:\n" + briefOutput, Level.FINEST);</span>
+<span class="source-line-no">300</span><span id="line-300">                }</span>
+<span class="source-line-no">301</span><span id="line-301"></span>
+<span class="source-line-no">302</span><span id="line-302">            }</span>
+<span class="source-line-no">303</span><span id="line-303"></span>
+<span class="source-line-no">304</span><span id="line-304">        } catch (Exception ea) {</span>
+<span class="source-line-no">305</span><span id="line-305">            </span>
+<span class="source-line-no">306</span><span id="line-306">            output = "{\"type\":'error',error:'There was an error creating the MilStdSymbol - " + ea.toString() + "'}";</span>
+<span class="source-line-no">307</span><span id="line-307">            ErrorLogger.LogException("WebRenderer", "RenderSymbol", ea, Level.WARNING);</span>
+<span class="source-line-no">308</span><span id="line-308">        }</span>
+<span class="source-line-no">309</span><span id="line-309">        </span>
+<span class="source-line-no">310</span><span id="line-310">        return output;</span>
+<span class="source-line-no">311</span><span id="line-311">    }</span>
+<span class="source-line-no">312</span><span id="line-312">    </span>
+<span class="source-line-no">313</span><span id="line-313"></span>
+<span class="source-line-no">314</span><span id="line-314">         </span>
 <span class="source-line-no">315</span><span id="line-315"></span>
-<span class="source-line-no">316</span><span id="line-316">    /**</span>
-<span class="source-line-no">317</span><span id="line-317">     * Renders all multi-point symbols, creating KML, GeoJSON or SVG for the user to</span>
-<span class="source-line-no">318</span><span id="line-318">     * parse and render as they like.</span>
-<span class="source-line-no">319</span><span id="line-319">     * This function requires the bounding box to help calculate the new</span>
-<span class="source-line-no">320</span><span id="line-320">     * locations.</span>
-<span class="source-line-no">321</span><span id="line-321">     * @param id A unique identifier used to identify the symbol by Google map.</span>
-<span class="source-line-no">322</span><span id="line-322">     * The id will be the folder name that contains the graphic.</span>
-<span class="source-line-no">323</span><span id="line-323">     * @param name a string used to display to the user as the name of the </span>
-<span class="source-line-no">324</span><span id="line-324">     * graphic being created.</span>
-<span class="source-line-no">325</span><span id="line-325">     * @param description a brief description about the graphic being made and </span>
-<span class="source-line-no">326</span><span id="line-326">     * what it represents.</span>
-<span class="source-line-no">327</span><span id="line-327">     * @param symbolCode A 20-30 digit symbolID corresponding to one of the</span>
-<span class="source-line-no">328</span><span id="line-328">     * graphics in the MIL-STD-2525D</span>
-<span class="source-line-no">329</span><span id="line-329">     * @param controlPoints The vertices of the graphics that make up the</span>
-<span class="source-line-no">330</span><span id="line-330">     * graphic.  Passed in the format of a string, using decimal degrees</span>
-<span class="source-line-no">331</span><span id="line-331">     * separating lat and lon by a comma, separating coordinates by a space.</span>
-<span class="source-line-no">332</span><span id="line-332">     * The following format shall be used "x1,y1 [xn,yn]..."</span>
-<span class="source-line-no">333</span><span id="line-333">     * @param pixelWidth pixel dimensions of the viewable map area</span>
-<span class="source-line-no">334</span><span id="line-334">     * @param pixelHeight pixel dimensions of the viewable map area</span>
-<span class="source-line-no">335</span><span id="line-335">     * @param bbox The viewable area of the map.  Passed in the format of a</span>
-<span class="source-line-no">336</span><span id="line-336">     * string "lowerLeftX,lowerLeftY,upperRightX,upperRightY."</span>
-<span class="source-line-no">337</span><span id="line-337">     * example: "-50.4,23.6,-42.2,24.2"</span>
-<span class="source-line-no">338</span><span id="line-338">     * @param modifiers keyed using constants from Modifiers.</span>
-<span class="source-line-no">339</span><span id="line-339">     * Pass in comma delimited String for modifiers with multiple values like AM, AN &amp;amp; X</span>
-<span class="source-line-no">340</span><span id="line-340">     * @param attributes keyed using constants from MilStdAttributes.</span>
-<span class="source-line-no">341</span><span id="line-341">     * @param format {@link WebRenderer#OUTPUT_FORMAT_KML}, {@link WebRenderer#OUTPUT_FORMAT_GEOJSON} or {@link WebRenderer#OUTPUT_FORMAT_GEOSVG}</span>
-<span class="source-line-no">342</span><span id="line-342">     * @return A KML, GeoJSON or SVG string representation of the graphic.</span>
-<span class="source-line-no">343</span><span id="line-343">     */</span>
-<span class="source-line-no">344</span><span id="line-344">    public static String RenderSymbol2D(String id, String name, String description, String symbolCode, String controlPoints,</span>
-<span class="source-line-no">345</span><span id="line-345">            int pixelWidth, int pixelHeight, String bbox, Map&lt;String,String&gt; modifiers, Map&lt;String,String&gt; attributes, int format)</span>
-<span class="source-line-no">346</span><span id="line-346">    {</span>
-<span class="source-line-no">347</span><span id="line-347">        String output = "";</span>
-<span class="source-line-no">348</span><span id="line-348">        try</span>
-<span class="source-line-no">349</span><span id="line-349">        {</span>
-<span class="source-line-no">350</span><span id="line-350">            output = MultiPointHandler.RenderSymbol2D(id, name, description, </span>
-<span class="source-line-no">351</span><span id="line-351">                    symbolCode, controlPoints, pixelWidth, pixelHeight, bbox, </span>
-<span class="source-line-no">352</span><span id="line-352">                    modifiers, attributes, format);</span>
-<span class="source-line-no">353</span><span id="line-353">        }</span>
-<span class="source-line-no">354</span><span id="line-354">        catch(Exception exc)</span>
-<span class="source-line-no">355</span><span id="line-355">        {</span>
-<span class="source-line-no">356</span><span id="line-356">            output = "{\"type\":'error',error:'There was an error creating the MilStdSymbol: " + symbolCode + " - " + exc.toString() + "'}";</span>
-<span class="source-line-no">357</span><span id="line-357">        }</span>
-<span class="source-line-no">358</span><span id="line-358">        return output;</span>
-<span class="source-line-no">359</span><span id="line-359">    }</span>
-<span class="source-line-no">360</span><span id="line-360"></span>
-<span class="source-line-no">361</span><span id="line-361">    /**</span>
-<span class="source-line-no">362</span><span id="line-362">     * Renders all 3d multi-point symbols, creating KML or GeoJSON that can be</span>
-<span class="source-line-no">363</span><span id="line-363">     * used to draw it on a Google map.</span>
-<span class="source-line-no">364</span><span id="line-364">     * 3D version of RenderSymbol()</span>
-<span class="source-line-no">365</span><span id="line-365">     *</span>
-<span class="source-line-no">366</span><span id="line-366">     * @param id            A unique identifier used to identify the symbol by Google map.</span>
-<span class="source-line-no">367</span><span id="line-367">     *                      The id will be the folder name that contains the graphic.</span>
-<span class="source-line-no">368</span><span id="line-368">     * @param name          a string used to display to the user as the name of the</span>
-<span class="source-line-no">369</span><span id="line-369">     *                      graphic being created.</span>
-<span class="source-line-no">370</span><span id="line-370">     * @param description   a brief description about the graphic being made and</span>
-<span class="source-line-no">371</span><span id="line-371">     *                      what it represents.</span>
-<span class="source-line-no">372</span><span id="line-372">     * @param symbolCode    A 20-30 digit symbolID corresponding to one of the</span>
-<span class="source-line-no">373</span><span id="line-373">     *                      graphics in the MIL-STD-2525D</span>
-<span class="source-line-no">374</span><span id="line-374">     * @param controlPoints The vertices of the graphics that make up the</span>
-<span class="source-line-no">375</span><span id="line-375">     *                      graphic.  Passed in the format of a string, using decimal degrees</span>
-<span class="source-line-no">376</span><span id="line-376">     *                      separating lat and lon by a comma, separating coordinates by a space.</span>
-<span class="source-line-no">377</span><span id="line-377">     *                      The following format shall be used "x1,y1[,z1] [xn,yn[,zn]]..."</span>
-<span class="source-line-no">378</span><span id="line-378">     * @param altitudeMode  Indicates whether the symbol should interpret</span>
-<span class="source-line-no">379</span><span id="line-379">     *                      altitudes as above sea level or above ground level. Options are</span>
-<span class="source-line-no">380</span><span id="line-380">     *                      "clampToGround", "relativeToGround" (from surface of earth), "absolute"</span>
-<span class="source-line-no">381</span><span id="line-381">     *                      (sea level), "relativeToSeaFloor" (from the bottom of major bodies of</span>
-<span class="source-line-no">382</span><span id="line-382">     *                      water).</span>
-<span class="source-line-no">383</span><span id="line-383">     * @param scale         A number corresponding to how many meters one meter of our</span>
-<span class="source-line-no">384</span><span id="line-384">     *                      map represents. A value "50000" would mean 1:50K which means for every</span>
-<span class="source-line-no">385</span><span id="line-385">     *                      meter of our map it represents 50000 meters of real world distance.</span>
-<span class="source-line-no">386</span><span id="line-386">     * @param bbox          The viewable area of the map.  Passed in the format of a</span>
-<span class="source-line-no">387</span><span id="line-387">     *                      string "lowerLeftX,lowerLeftY,upperRightX,upperRightY." Not required</span>
-<span class="source-line-no">388</span><span id="line-388">     *                      but can speed up rendering in some cases.</span>
-<span class="source-line-no">389</span><span id="line-389">     *                      example: "-50.4,23.6,-42.2,24.2"</span>
-<span class="source-line-no">390</span><span id="line-390">     * @param modifiers     keyed using constants from Modifiers.</span>
-<span class="source-line-no">391</span><span id="line-391">     *                      Pass in comma delimited String for modifiers with multiple values like AM, AN &amp;amp; X</span>
-<span class="source-line-no">392</span><span id="line-392">     * @param attributes    keyed using constants from MilStdAttributes.</span>
-<span class="source-line-no">393</span><span id="line-393">     * @param format        {@link WebRenderer#OUTPUT_FORMAT_KML}, {@link WebRenderer#OUTPUT_FORMAT_GEOJSON} or {@link WebRenderer#OUTPUT_FORMAT_GEOSVG}</span>
-<span class="source-line-no">394</span><span id="line-394">     * @return A KML, GeoJSON or SVG string representation of the graphic.</span>
-<span class="source-line-no">395</span><span id="line-395">     */</span>
-<span class="source-line-no">396</span><span id="line-396">    public static String RenderMilStd3dSymbol(String id, String name, String description,</span>
-<span class="source-line-no">397</span><span id="line-397">                                              String symbolCode, String controlPoints, String altitudeMode,</span>
-<span class="source-line-no">398</span><span id="line-398">                                              double scale, String bbox, Map&lt;String, String&gt; modifiers, Map&lt;String, String&gt; attributes, int format) {</span>
-<span class="source-line-no">399</span><span id="line-399">        String output = "";</span>
-<span class="source-line-no">400</span><span id="line-400">        try {</span>
-<span class="source-line-no">401</span><span id="line-401"></span>
-<span class="source-line-no">402</span><span id="line-402">            output = Shape3DHandler.RenderMilStd3dSymbol(id, name, description, symbolCode, controlPoints, altitudeMode,</span>
-<span class="source-line-no">403</span><span id="line-403">                    scale, bbox, modifiers, attributes, format);</span>
-<span class="source-line-no">404</span><span id="line-404"></span>
-<span class="source-line-no">405</span><span id="line-405">            //DEBUGGING</span>
-<span class="source-line-no">406</span><span id="line-406">            if (ErrorLogger.getLevel().intValue() &lt;= Level.FINER.intValue()) {</span>
-<span class="source-line-no">407</span><span id="line-407">                System.out.println("");</span>
-<span class="source-line-no">408</span><span id="line-408">                StringBuilder sb = new StringBuilder();</span>
-<span class="source-line-no">409</span><span id="line-409">                sb.append("\nID: ").append(id).append("\n");</span>
-<span class="source-line-no">410</span><span id="line-410">                sb.append("Name: ").append(name).append("\n");</span>
-<span class="source-line-no">411</span><span id="line-411">                sb.append("Description: ").append(description).append("\n");</span>
-<span class="source-line-no">412</span><span id="line-412">                sb.append("SymbolID: ").append(symbolCode).append("\n");</span>
-<span class="source-line-no">413</span><span id="line-413">                sb.append("Scale: ").append(String.valueOf(scale)).append("\n");</span>
-<span class="source-line-no">414</span><span id="line-414">                sb.append("BBox: ").append(bbox).append("\n");</span>
-<span class="source-line-no">415</span><span id="line-415">                sb.append("Coords: ").append(controlPoints).append("\n");</span>
-<span class="source-line-no">416</span><span id="line-416">                sb.append("Modifiers: ").append(modifiers).append("\n");</span>
-<span class="source-line-no">417</span><span id="line-417">                ErrorLogger.LogMessage("WebRenderer", "RenderMilStd3dSymbol", sb.toString(), Level.FINER);</span>
-<span class="source-line-no">418</span><span id="line-418">            }</span>
-<span class="source-line-no">419</span><span id="line-419">            if (ErrorLogger.getLevel().intValue() &lt;= Level.FINEST.intValue()) {</span>
-<span class="source-line-no">420</span><span id="line-420">                String briefOutput = output.replaceAll("&lt;/Placemark&gt;", "&lt;/Placemark&gt;\n");</span>
-<span class="source-line-no">421</span><span id="line-421">                briefOutput = output.replaceAll("(?s)&lt;description[^&gt;]*&gt;.*?&lt;/description&gt;", "&lt;description&gt;&lt;/description&gt;");</span>
-<span class="source-line-no">422</span><span id="line-422">                ErrorLogger.LogMessage("WebRenderer", "RenderMilStd3dSymbol", "Output:\n" + briefOutput, Level.FINEST);</span>
-<span class="source-line-no">423</span><span id="line-423">            }</span>
-<span class="source-line-no">424</span><span id="line-424">        } catch (Exception ea) {</span>
-<span class="source-line-no">425</span><span id="line-425">            output = "{\"type\":'error',error:'There was an error creating the 3D MilStdSymbol - " + ea.toString() + "'}";</span>
-<span class="source-line-no">426</span><span id="line-426">            ErrorLogger.LogException("WebRenderer", "RenderMilStd3dSymbol", ea, Level.WARNING);</span>
-<span class="source-line-no">427</span><span id="line-427">        }</span>
-<span class="source-line-no">428</span><span id="line-428">        return output;</span>
-<span class="source-line-no">429</span><span id="line-429">    }</span>
-<span class="source-line-no">430</span><span id="line-430"></span>
-<span class="source-line-no">431</span><span id="line-431">    /**</span>
-<span class="source-line-no">432</span><span id="line-432">         * Renders all MilStd 2525 multi-point symbols, creating MilStdSymbol that contains the</span>
-<span class="source-line-no">433</span><span id="line-433">         * information needed to draw the symbol on the map.</span>
-<span class="source-line-no">434</span><span id="line-434">     * DOES NOT support RADARC, CAKE, TRACK etc...</span>
-<span class="source-line-no">435</span><span id="line-435">         * ArrayList&amp;lt;Point2D&amp;gt; milStdSymbol.getSymbolShapes.get(index).getPolylines()</span>
-<span class="source-line-no">436</span><span id="line-436">         * and </span>
-<span class="source-line-no">437</span><span id="line-437">         * ShapeInfo = milStdSymbol.getModifierShapes.get(index). </span>
-<span class="source-line-no">438</span><span id="line-438">         * </span>
-<span class="source-line-no">439</span><span id="line-439">         * </span>
-<span class="source-line-no">440</span><span id="line-440">         * @param id</span>
-<span class="source-line-no">441</span><span id="line-441">         *            A unique identifier used to identify the symbol by Google map.</span>
-<span class="source-line-no">442</span><span id="line-442">         *            The id will be the folder name that contains the graphic.</span>
-<span class="source-line-no">443</span><span id="line-443">         * @param name</span>
-<span class="source-line-no">444</span><span id="line-444">         *            a string used to display to the user as the name of the</span>
-<span class="source-line-no">445</span><span id="line-445">         *            graphic being created.</span>
-<span class="source-line-no">446</span><span id="line-446">         * @param description</span>
-<span class="source-line-no">447</span><span id="line-447">         *            a brief description about the graphic being made and what it</span>
-<span class="source-line-no">448</span><span id="line-448">         *            represents.</span>
-<span class="source-line-no">449</span><span id="line-449">         * @param symbolCode</span>
-<span class="source-line-no">450</span><span id="line-450">         *            A 20-30 digit symbolID corresponding to one of the graphics</span>
-<span class="source-line-no">451</span><span id="line-451">         *            in the MIL-STD-2525D</span>
-<span class="source-line-no">452</span><span id="line-452">         * @param controlPoints</span>
-<span class="source-line-no">453</span><span id="line-453">         *            The vertices of the graphics that make up the graphic. Passed</span>
-<span class="source-line-no">454</span><span id="line-454">         *            in the format of a string, using decimal degrees separating</span>
-<span class="source-line-no">455</span><span id="line-455">         *            lat and lon by a comma, separating coordinates by a space. The</span>
-<span class="source-line-no">456</span><span id="line-456">         *            following format shall be used "x1,y1[,z1] [xn,yn[,zn]]..."</span>
-<span class="source-line-no">457</span><span id="line-457">         * @param altitudeMode</span>
-<span class="source-line-no">458</span><span id="line-458">         *            ignored</span>
-<span class="source-line-no">459</span><span id="line-459">         * @param scale</span>
-<span class="source-line-no">460</span><span id="line-460">         *            A number corresponding to how many meters one meter of our map</span>
-<span class="source-line-no">461</span><span id="line-461">         *            represents. A value "50000" would mean 1:50K which means for</span>
-<span class="source-line-no">462</span><span id="line-462">         *            every meter of our map it represents 50000 meters of real</span>
-<span class="source-line-no">463</span><span id="line-463">         *            world distance.</span>
-<span class="source-line-no">464</span><span id="line-464">         * @param bbox</span>
-<span class="source-line-no">465</span><span id="line-465">         *            The viewable area of the map. Passed in the format of a string</span>
-<span class="source-line-no">466</span><span id="line-466">         *            "lowerLeftX,lowerLeftY,upperRightX,upperRightY." Not required</span>
-<span class="source-line-no">467</span><span id="line-467">         *            but can speed up rendering in some cases. example:</span>
-<span class="source-line-no">468</span><span id="line-468">         *            "-50.4,23.6,-42.2,24.2"</span>
-<span class="source-line-no">469</span><span id="line-469">         * @param modifiers</span>
-<span class="source-line-no">470</span><span id="line-470">         *            Used like:</span>
-<span class="source-line-no">471</span><span id="line-471">         *            modifiers.put(Modifiers.T_UNIQUE_DESIGNATION_1, "T");</span>
-<span class="source-line-no">472</span><span id="line-472">         *            Or</span>
-<span class="source-line-no">473</span><span id="line-473">         *            modifiers.put(Modifiers.AM_DISTANCE, "1000,2000,3000");</span>
-<span class="source-line-no">474</span><span id="line-474">         * @param attributes</span>
-<span class="source-line-no">475</span><span id="line-475">         *                        Used like:</span>
-<span class="source-line-no">476</span><span id="line-476">         *            attributes.put(MilStdAttributes.LineWidth, "3");</span>
-<span class="source-line-no">477</span><span id="line-477">         *            Or</span>
-<span class="source-line-no">478</span><span id="line-478">         *            attributes.put(MilStdAttributes.LineColor, "#00FF00");</span>
-<span class="source-line-no">479</span><span id="line-479">     * @return MilStdSymbol</span>
-<span class="source-line-no">480</span><span id="line-480">     */</span>
-<span class="source-line-no">481</span><span id="line-481">    public static MilStdSymbol RenderMultiPointAsMilStdSymbol(String id, String name, String description, String symbolCode,</span>
-<span class="source-line-no">482</span><span id="line-482">                        String controlPoints, String altitudeMode, double scale, String bbox, Map&lt;String,String&gt; modifiers, Map&lt;String,String&gt; attributes)</span>
-<span class="source-line-no">483</span><span id="line-483">    {</span>
-<span class="source-line-no">484</span><span id="line-484">                MilStdSymbol mSymbol = null;</span>
-<span class="source-line-no">485</span><span id="line-485">                try </span>
-<span class="source-line-no">486</span><span id="line-486">                {</span>
-<span class="source-line-no">487</span><span id="line-487">                        mSymbol = MultiPointHandler.RenderSymbolAsMilStdSymbol(id, name, description, symbolCode,</span>
-<span class="source-line-no">488</span><span id="line-488">                    controlPoints, scale, bbox, modifiers, attributes);</span>
-<span class="source-line-no">489</span><span id="line-489"></span>
-<span class="source-line-no">490</span><span id="line-490">            //Uncomment to show sector1 modifiers as fill pattern</span>
-<span class="source-line-no">491</span><span id="line-491">//            int symbolSet = SymbolID.getEntityCode(symbolCode);</span>
-<span class="source-line-no">492</span><span id="line-492">//            if(symbolSet == 270707 || symbolSet == 270800 || symbolSet == 270801 || symbolSet == 151100) //Mined Areas</span>
-<span class="source-line-no">493</span><span id="line-493">//            {</span>
-<span class="source-line-no">494</span><span id="line-494">//                int size = RendererSettings.getInstance().getDefaultPixelSize();</span>
-<span class="source-line-no">495</span><span id="line-495">//</span>
-<span class="source-line-no">496</span><span id="line-496">//                ArrayList&lt;ShapeInfo&gt; shapes = mSymbol.getSymbolShapes();</span>
-<span class="source-line-no">497</span><span id="line-497">//                if(shapes.size() &gt; 0){</span>
-<span class="source-line-no">498</span><span id="line-498">//                    ShapeInfo shape = shapes.get(0);</span>
-<span class="source-line-no">499</span><span id="line-499">//                    shape.setPatternFillImage(PatternFillRendererD.MakeSymbolPatternFill(symbolCode,size));</span>
-<span class="source-line-no">500</span><span id="line-500">//                    if(shape.getPatternFillImage() != null)</span>
-<span class="source-line-no">501</span><span id="line-501">//                        shape.setShader(new BitmapShader(shape.getPatternFillImage(), Shader.TileMode.REPEAT, Shader.TileMode.REPEAT));</span>
-<span class="source-line-no">502</span><span id="line-502">//                }</span>
-<span class="source-line-no">503</span><span id="line-503">//            }</span>
-<span class="source-line-no">504</span><span id="line-504">                }</span>
-<span class="source-line-no">505</span><span id="line-505">                catch (Exception ea) </span>
-<span class="source-line-no">506</span><span id="line-506">                {</span>
-<span class="source-line-no">507</span><span id="line-507">                        mSymbol=null;</span>
-<span class="source-line-no">508</span><span id="line-508">                        ErrorLogger.LogException("WebRenderer", "RenderMultiPointAsMilStdSymbol" + " - " + symbolCode, ea, Level.WARNING);</span>
-<span class="source-line-no">509</span><span id="line-509">                }</span>
-<span class="source-line-no">510</span><span id="line-510">                </span>
-<span class="source-line-no">511</span><span id="line-511">                //System.out.println("RenderMultiPointAsMilStdSymbol exit");</span>
-<span class="source-line-no">512</span><span id="line-512">                return mSymbol;</span>
-<span class="source-line-no">513</span><span id="line-513">    }</span>
-<span class="source-line-no">514</span><span id="line-514"></span>
-<span class="source-line-no">515</span><span id="line-515">    /**</span>
-<span class="source-line-no">516</span><span id="line-516">     * Renders basic shapes as symbols, creating MilStdSymbol that contains the</span>
-<span class="source-line-no">517</span><span id="line-517">     * information needed to draw the shape on the map.</span>
-<span class="source-line-no">518</span><span id="line-518">     * ArrayList&amp;lt;Point2D&amp;gt; milStdSymbol.getSymbolShapes.get(index).getPolylines()</span>
-<span class="source-line-no">519</span><span id="line-519">     * and</span>
-<span class="source-line-no">520</span><span id="line-520">     * ShapeInfo = milStdSymbol.getModifierShapes.get(index).</span>
-<span class="source-line-no">521</span><span id="line-521">     *</span>
-<span class="source-line-no">522</span><span id="line-522">     *</span>
-<span class="source-line-no">523</span><span id="line-523">     * @param id</span>
-<span class="source-line-no">524</span><span id="line-524">     *            A unique identifier used to identify the symbol by Google map.</span>
-<span class="source-line-no">525</span><span id="line-525">     *            The id will be the folder name that contains the graphic.</span>
-<span class="source-line-no">526</span><span id="line-526">     * @param name</span>
-<span class="source-line-no">527</span><span id="line-527">     *            a string used to display to the user as the name of the</span>
-<span class="source-line-no">528</span><span id="line-528">     *            graphic being created.</span>
-<span class="source-line-no">529</span><span id="line-529">     * @param description</span>
-<span class="source-line-no">530</span><span id="line-530">     *            a brief description about the graphic being made and what it</span>
-<span class="source-line-no">531</span><span id="line-531">     *            represents.</span>
-<span class="source-line-no">532</span><span id="line-532">     * @param basicShapeType</span>
-<span class="source-line-no">533</span><span id="line-533">     *            {@link armyc2.c5isr.JavaLineArray.BasicShapes}</span>
-<span class="source-line-no">534</span><span id="line-534">     * @param controlPoints</span>
-<span class="source-line-no">535</span><span id="line-535">     *            The vertices of the graphics that make up the graphic. Passed</span>
-<span class="source-line-no">536</span><span id="line-536">     *            in the format of a string, using decimal degrees separating</span>
-<span class="source-line-no">537</span><span id="line-537">     *            lat and lon by a comma, separating coordinates by a space. The</span>
-<span class="source-line-no">538</span><span id="line-538">     *            following format shall be used "x1,y1[,z1] [xn,yn[,zn]]..."</span>
-<span class="source-line-no">539</span><span id="line-539">     * @param altitudeMode</span>
-<span class="source-line-no">540</span><span id="line-540">     *            ignored</span>
-<span class="source-line-no">541</span><span id="line-541">     * @param scale</span>
-<span class="source-line-no">542</span><span id="line-542">     *            A number corresponding to how many meters one meter of our map</span>
-<span class="source-line-no">543</span><span id="line-543">     *            represents. A value "50000" would mean 1:50K which means for</span>
-<span class="source-line-no">544</span><span id="line-544">     *            every meter of our map it represents 50000 meters of real</span>
-<span class="source-line-no">545</span><span id="line-545">     *            world distance.</span>
-<span class="source-line-no">546</span><span id="line-546">     * @param bbox</span>
-<span class="source-line-no">547</span><span id="line-547">     *            The viewable area of the map. Passed in the format of a string</span>
-<span class="source-line-no">548</span><span id="line-548">     *            "lowerLeftX,lowerLeftY,upperRightX,upperRightY." Not required</span>
-<span class="source-line-no">549</span><span id="line-549">     *            but can speed up rendering in some cases. example:</span>
-<span class="source-line-no">550</span><span id="line-550">     *            "-50.4,23.6,-42.2,24.2"</span>
-<span class="source-line-no">551</span><span id="line-551">     * @param modifiers</span>
-<span class="source-line-no">552</span><span id="line-552">     *            Used like:</span>
-<span class="source-line-no">553</span><span id="line-553">     *            modifiers.put(Modifiers.T_UNIQUE_DESIGNATION_1, "T");</span>
-<span class="source-line-no">554</span><span id="line-554">     *            Or</span>
-<span class="source-line-no">555</span><span id="line-555">     *            modifiers.put(Modifiers.AM_DISTANCE, "1000,2000,3000");</span>
-<span class="source-line-no">556</span><span id="line-556">     * @param attributes</span>
-<span class="source-line-no">557</span><span id="line-557">     *                    Used like:</span>
-<span class="source-line-no">558</span><span id="line-558">     *            attributes.put(MilStdAttributes.LineWidth, "3");</span>
-<span class="source-line-no">559</span><span id="line-559">     *            Or</span>
-<span class="source-line-no">560</span><span id="line-560">     *            attributes.put(MilStdAttributes.LineColor, "#00FF00");</span>
-<span class="source-line-no">561</span><span id="line-561">     * @return MilStdSymbol</span>
-<span class="source-line-no">562</span><span id="line-562">     */</span>
-<span class="source-line-no">563</span><span id="line-563">    public static MilStdSymbol RenderBasicShapeAsMilStdSymbol(String id, String name, String description, int basicShapeType,</span>
-<span class="source-line-no">564</span><span id="line-564">                                                              String controlPoints, String altitudeMode, double scale, String bbox, Map&lt;String, String&gt; modifiers, Map&lt;String, String&gt; attributes) {</span>
-<span class="source-line-no">565</span><span id="line-565">        MilStdSymbol mSymbol = null;</span>
-<span class="source-line-no">566</span><span id="line-566">        try {</span>
-<span class="source-line-no">567</span><span id="line-567">            if (SymbolUtilities.isBasicShape(basicShapeType))</span>
-<span class="source-line-no">568</span><span id="line-568">                mSymbol = MultiPointHandler.RenderBasicShapeAsMilStdSymbol(id, name, description, basicShapeType,</span>
-<span class="source-line-no">569</span><span id="line-569">                        controlPoints, scale, bbox, modifiers, attributes);</span>
-<span class="source-line-no">570</span><span id="line-570">        } catch (Exception ea) {</span>
-<span class="source-line-no">571</span><span id="line-571">            mSymbol = null;</span>
-<span class="source-line-no">572</span><span id="line-572">            ErrorLogger.LogException("WebRenderer", "RenderBasicShapeAsMilStdSymbol" + " - " + basicShapeType, ea, Level.WARNING);</span>
-<span class="source-line-no">573</span><span id="line-573">        }</span>
-<span class="source-line-no">574</span><span id="line-574"></span>
-<span class="source-line-no">575</span><span id="line-575">        return mSymbol;</span>
-<span class="source-line-no">576</span><span id="line-576">    }</span>
-<span class="source-line-no">577</span><span id="line-577"></span>
-<span class="source-line-no">578</span><span id="line-578">    /**</span>
-<span class="source-line-no">579</span><span id="line-579">     * Renders multipoint basic shapes, creating KML, GeoJSON or SVG that can be used to draw</span>
-<span class="source-line-no">580</span><span id="line-580">     * it on a Google map.</span>
-<span class="source-line-no">581</span><span id="line-581">     * @param id A unique identifier used to identify the symbol by Google map.</span>
-<span class="source-line-no">582</span><span id="line-582">     * The id will be the folder name that contains the graphic.</span>
-<span class="source-line-no">583</span><span id="line-583">     * @param name a string used to display to the user as the name of the</span>
-<span class="source-line-no">584</span><span id="line-584">     * graphic being created.</span>
-<span class="source-line-no">585</span><span id="line-585">     * @param description a brief description about the graphic being made and</span>
-<span class="source-line-no">586</span><span id="line-586">     * what it represents.</span>
-<span class="source-line-no">587</span><span id="line-587">     * @param basicShapeType {@link armyc2.c5isr.JavaLineArray.BasicShapes}</span>
-<span class="source-line-no">588</span><span id="line-588">     * @param controlPoints The vertices of the graphics that make up the</span>
-<span class="source-line-no">589</span><span id="line-589">     * graphic.  Passed in the format of a string, using decimal degrees</span>
-<span class="source-line-no">590</span><span id="line-590">     * separating lat and lon by a comma, separating coordinates by a space.</span>
-<span class="source-line-no">591</span><span id="line-591">     * The following format shall be used "x1,y1[,z1] [xn,yn[,zn]]..."</span>
-<span class="source-line-no">592</span><span id="line-592">     * @param altitudeMode ignored</span>
-<span class="source-line-no">593</span><span id="line-593">     * @param scale A number corresponding to how many meters one meter of our</span>
-<span class="source-line-no">594</span><span id="line-594">     * map represents. A value "50000" would mean 1:50K which means for every</span>
-<span class="source-line-no">595</span><span id="line-595">     * meter of our map it represents 50000 meters of real world distance.</span>
-<span class="source-line-no">596</span><span id="line-596">     * @param bbox The viewable area of the map.  Passed in the format of a</span>
-<span class="source-line-no">597</span><span id="line-597">     * string "lowerLeftX,lowerLeftY,upperRightX,upperRightY." Not required</span>
-<span class="source-line-no">598</span><span id="line-598">     * but can speed up rendering in some cases.</span>
-<span class="source-line-no">599</span><span id="line-599">     * example: "-50.4,23.6,-42.2,24.2"</span>
-<span class="source-line-no">600</span><span id="line-600">     * @param modifiers keyed using constants from Modifiers.</span>
-<span class="source-line-no">601</span><span id="line-601">     * Pass in comma delimited String for modifiers with multiple values like AM, AN &amp;amp; X</span>
-<span class="source-line-no">602</span><span id="line-602">     * @param attributes keyed using constants from MilStdAttributes.</span>
-<span class="source-line-no">603</span><span id="line-603">     * @param format {@link WebRenderer#OUTPUT_FORMAT_KML}, {@link WebRenderer#OUTPUT_FORMAT_GEOJSON} or {@link WebRenderer#OUTPUT_FORMAT_GEOSVG}</span>
-<span class="source-line-no">604</span><span id="line-604">     * @return A KML, GeoJSON or SVG string representation of the graphic.</span>
-<span class="source-line-no">605</span><span id="line-605">     */</span>
-<span class="source-line-no">606</span><span id="line-606">    public static String RenderBasicShape(String id, String name, String description, int basicShapeType,</span>
-<span class="source-line-no">607</span><span id="line-607">                                          String controlPoints, String altitudeMode,</span>
-<span class="source-line-no">608</span><span id="line-608">                                          double scale, String bbox, Map&lt;String, String&gt; modifiers, Map&lt;String, String&gt; attributes, int format) {</span>
-<span class="source-line-no">609</span><span id="line-609">        String output = "";</span>
-<span class="source-line-no">610</span><span id="line-610">        try {</span>
-<span class="source-line-no">611</span><span id="line-611">            if (SymbolUtilities.isBasicShape(basicShapeType))</span>
-<span class="source-line-no">612</span><span id="line-612">                output = MultiPointHandler.RenderBasicShape(id, name, description, basicShapeType, controlPoints,</span>
-<span class="source-line-no">613</span><span id="line-613">                    scale, bbox, modifiers, attributes, format);</span>
-<span class="source-line-no">614</span><span id="line-614">        } catch (Exception ea) {</span>
-<span class="source-line-no">615</span><span id="line-615">            output = "{\"type\":'error',error:'There was an error creating the MilStdSymbol - " + ea.toString() + "'}";</span>
-<span class="source-line-no">616</span><span id="line-616">            ErrorLogger.LogException("WebRenderer", "RenderBasicShape", ea, Level.WARNING);</span>
-<span class="source-line-no">617</span><span id="line-617">        }</span>
-<span class="source-line-no">618</span><span id="line-618">        return output;</span>
-<span class="source-line-no">619</span><span id="line-619">    }</span>
-<span class="source-line-no">620</span><span id="line-620"></span>
-<span class="source-line-no">621</span><span id="line-621">    /**</span>
-<span class="source-line-no">622</span><span id="line-622">     * Renders basic 3D shapes, creating KML or GeoJSON that can be used to draw</span>
-<span class="source-line-no">623</span><span id="line-623">     * it on a Google map.</span>
-<span class="source-line-no">624</span><span id="line-624">     * @param id A unique identifier used to identify the symbol by Google map.</span>
-<span class="source-line-no">625</span><span id="line-625">     * The id will be the folder name that contains the graphic.</span>
-<span class="source-line-no">626</span><span id="line-626">     * @param name a string used to display to the user as the name of the</span>
-<span class="source-line-no">627</span><span id="line-627">     * graphic being created.</span>
-<span class="source-line-no">628</span><span id="line-628">     * @param description a brief description about the graphic being made and</span>
-<span class="source-line-no">629</span><span id="line-629">     * what it represents.</span>
-<span class="source-line-no">630</span><span id="line-630">     * @param basicShapeType {@link Basic3DShapes}</span>
-<span class="source-line-no">631</span><span id="line-631">     * @param controlPoints The vertices of the graphics that make up the</span>
-<span class="source-line-no">632</span><span id="line-632">     * graphic.  Passed in the format of a string, using decimal degrees</span>
-<span class="source-line-no">633</span><span id="line-633">     * separating lat and lon by a comma, separating coordinates by a space.</span>
-<span class="source-line-no">634</span><span id="line-634">     * The following format shall be used "x1,y1[,z1] [xn,yn[,zn]]..."</span>
-<span class="source-line-no">635</span><span id="line-635">     * @param altitudeMode Indicates whether the symbol should interpret</span>
-<span class="source-line-no">636</span><span id="line-636">     * altitudes as above sea level or above ground level. Options are</span>
-<span class="source-line-no">637</span><span id="line-637">     * "clampToGround", "relativeToGround" (from surface of earth), "absolute"</span>
-<span class="source-line-no">638</span><span id="line-638">     * (sea level), "relativeToSeaFloor" (from the bottom of major bodies of</span>
-<span class="source-line-no">639</span><span id="line-639">     * water).</span>
-<span class="source-line-no">640</span><span id="line-640">     * @param scale A number corresponding to how many meters one meter of our</span>
-<span class="source-line-no">641</span><span id="line-641">     * map represents. A value "50000" would mean 1:50K which means for every</span>
-<span class="source-line-no">642</span><span id="line-642">     * meter of our map it represents 50000 meters of real world distance.</span>
-<span class="source-line-no">643</span><span id="line-643">     * @param bbox The viewable area of the map.  Passed in the format of a</span>
-<span class="source-line-no">644</span><span id="line-644">     * string "lowerLeftX,lowerLeftY,upperRightX,upperRightY." Not required</span>
-<span class="source-line-no">645</span><span id="line-645">     * but can speed up rendering in some cases.</span>
-<span class="source-line-no">646</span><span id="line-646">     * example: "-50.4,23.6,-42.2,24.2"</span>
-<span class="source-line-no">647</span><span id="line-647">     * @param modifiers {@link Map}, keyed using constants from Modifiers.</span>
-<span class="source-line-no">648</span><span id="line-648">     * Pass in comma delimited String for modifiers with multiple values like AM, AN &amp;amp; X</span>
-<span class="source-line-no">649</span><span id="line-649">     * @param attributes {@link Map}, keyed using constants from MilStdAttributes.</span>
-<span class="source-line-no">650</span><span id="line-650">     * @param format {@link WebRenderer#OUTPUT_FORMAT_KML}, {@link #OUTPUT_FORMAT_GEOJSON}</span>
-<span class="source-line-no">651</span><span id="line-651">     * @return A KML or GeoJSON string representation of the graphic.</span>
-<span class="source-line-no">652</span><span id="line-652">     */</span>
-<span class="source-line-no">653</span><span id="line-653">    public static String RenderBasic3DShape(String id, String name, String description, int basicShapeType,</span>
-<span class="source-line-no">654</span><span id="line-654">                                            String controlPoints, String altitudeMode,</span>
-<span class="source-line-no">655</span><span id="line-655">                                            double scale, String bbox, Map&lt;String, String&gt; modifiers, Map&lt;String, String&gt; attributes, int format) {</span>
-<span class="source-line-no">656</span><span id="line-656">        String output = "";</span>
-<span class="source-line-no">657</span><span id="line-657">        try {</span>
-<span class="source-line-no">658</span><span id="line-658">            JavaRendererUtilities.addAltModeToModifiersString(attributes, altitudeMode);</span>
-<span class="source-line-no">659</span><span id="line-659">            if (SymbolUtilities.isBasicShape(basicShapeType))</span>
-<span class="source-line-no">660</span><span id="line-660">                output = Shape3DHandler.RenderBasic3DShape(id, name, description, basicShapeType, controlPoints, altitudeMode,</span>
-<span class="source-line-no">661</span><span id="line-661">                        scale, bbox, modifiers, attributes, format);</span>
-<span class="source-line-no">662</span><span id="line-662">        } catch (Exception ea) {</span>
-<span class="source-line-no">663</span><span id="line-663">            output = "{\"type\":'error',error:'There was an error creating the 3D MilStdSymbol - " + ea.toString() + "'}";</span>
-<span class="source-line-no">664</span><span id="line-664">            ErrorLogger.LogException("WebRenderer", "RenderBasic3DShape", ea, Level.WARNING);</span>
-<span class="source-line-no">665</span><span id="line-665">        }</span>
-<span class="source-line-no">666</span><span id="line-666">        return output;</span>
-<span class="source-line-no">667</span><span id="line-667">    }</span>
-<span class="source-line-no">668</span><span id="line-668">    </span>
-<span class="source-line-no">669</span><span id="line-669">    /**</span>
-<span class="source-line-no">670</span><span id="line-670">     * Given a symbol code meant for a single point symbol, returns the</span>
-<span class="source-line-no">671</span><span id="line-671">     * anchor point at which to display that image based off the image returned</span>
-<span class="source-line-no">672</span><span id="line-672">     * from the URL of the SinglePointServer.</span>
-<span class="source-line-no">673</span><span id="line-673">     * </span>
-<span class="source-line-no">674</span><span id="line-674">     * @param symbolID - the 20-30 digit symbolID of a single point MilStd2525</span>
-<span class="source-line-no">675</span><span id="line-675">     * symbol. </span>
-<span class="source-line-no">676</span><span id="line-676">     * @return A pixel coordinate of the format "x,y".</span>
-<span class="source-line-no">677</span><span id="line-677">     * Returns an empty string if an error occurs.</span>
-<span class="source-line-no">678</span><span id="line-678">     * @deprecated </span>
-<span class="source-line-no">679</span><span id="line-679">     */</span>
-<span class="source-line-no">680</span><span id="line-680">        public String getSinglePointAnchor(String symbolID) {</span>
-<span class="source-line-no">681</span><span id="line-681">        String anchorPoint = "";</span>
-<span class="source-line-no">682</span><span id="line-682">        Point2D anchor = new Point2D.Double();</span>
-<span class="source-line-no">683</span><span id="line-683">        anchorPoint = anchor.getX() + "," + anchor.getY();        </span>
-<span class="source-line-no">684</span><span id="line-684">        return anchorPoint;</span>
-<span class="source-line-no">685</span><span id="line-685">    }</span>
-<span class="source-line-no">686</span><span id="line-686"></span>
-<span class="source-line-no">687</span><span id="line-687">    /**</span>
-<span class="source-line-no">688</span><span id="line-688">     * Given a symbol code meant for a single point symbol, returns the</span>
-<span class="source-line-no">689</span><span id="line-689">     * anchor point at which to display that image based off the image returned</span>
-<span class="source-line-no">690</span><span id="line-690">     * from the URL of the SinglePointServer.</span>
-<span class="source-line-no">691</span><span id="line-691">     *</span>
-<span class="source-line-no">692</span><span id="line-692">     * @param symbolID - the 20-30 digit symbolID of a single point MilStd2525</span>
-<span class="source-line-no">693</span><span id="line-693">     * symbol.</span>
-<span class="source-line-no">694</span><span id="line-694">     * @return A pixel coordinate of the format "anchorX,anchorY,SymbolBoundsX,</span>
-<span class="source-line-no">695</span><span id="line-695">     * SymbolBoundsY,SymbolBoundsWidth,SymbolBoundsHeight,IconWidth,IconHeight".</span>
-<span class="source-line-no">696</span><span id="line-696">     * Anchor, represents the center point of the core symbol within the image.</span>
-<span class="source-line-no">697</span><span id="line-697">     * The image should be centered on this point.</span>
-<span class="source-line-no">698</span><span id="line-698">     * Symbol bounds represents the bounding rectangle of the core symbol within</span>
-<span class="source-line-no">699</span><span id="line-699">     * the image.</span>
-<span class="source-line-no">700</span><span id="line-700">     * IconWidth/Height represents the height and width of the image in its</span>
-<span class="source-line-no">701</span><span id="line-701">     * entirety.</span>
-<span class="source-line-no">702</span><span id="line-702">     * Returns an empty string if an error occurs.</span>
-<span class="source-line-no">703</span><span id="line-703">     * @deprecated</span>
-<span class="source-line-no">704</span><span id="line-704">     */</span>
-<span class="source-line-no">705</span><span id="line-705">    public static String getSinglePointInfo(String symbolID)</span>
-<span class="source-line-no">706</span><span id="line-706">    {</span>
-<span class="source-line-no">707</span><span id="line-707">        String info = "";</span>
-<span class="source-line-no">708</span><span id="line-708">        Point2D anchor = new Point2D.Double();</span>
-<span class="source-line-no">709</span><span id="line-709">        Rectangle2D symbolBounds = new Rectangle2D.Double();</span>
-<span class="source-line-no">710</span><span id="line-710">        return info;</span>
-<span class="source-line-no">711</span><span id="line-711">    }</span>
-<span class="source-line-no">712</span><span id="line-712">        </span>
-<span class="source-line-no">713</span><span id="line-713">    /**</span>
-<span class="source-line-no">714</span><span id="line-714">     * Returns true if we recommend clipping a particular symbol.</span>
-<span class="source-line-no">715</span><span id="line-715">     * Would return false for and Ambush but would return true for a Line of </span>
-<span class="source-line-no">716</span><span id="line-716">     * Contact due to the decoration on the line.</span>
-<span class="source-line-no">717</span><span id="line-717">     * @param symbolID</span>
-<span class="source-line-no">718</span><span id="line-718">     * @return </span>
-<span class="source-line-no">719</span><span id="line-719">     */</span>
-<span class="source-line-no">720</span><span id="line-720">    public static String ShouldClipMultipointSymbol(String symbolID)</span>
-<span class="source-line-no">721</span><span id="line-721">    {</span>
-<span class="source-line-no">722</span><span id="line-722">        if(MultiPointHandler.ShouldClipSymbol(symbolID))</span>
-<span class="source-line-no">723</span><span id="line-723">            return "true";</span>
-<span class="source-line-no">724</span><span id="line-724">        else</span>
-<span class="source-line-no">725</span><span id="line-725">            return "false";</span>
-<span class="source-line-no">726</span><span id="line-726">    }</span>
-<span class="source-line-no">727</span><span id="line-727">    </span>
-<span class="source-line-no">728</span><span id="line-728">     /**</span>
-<span class="source-line-no">729</span><span id="line-729">     * Given a symbol code meant for a single point symbol, returns the</span>
-<span class="source-line-no">730</span><span id="line-730">     * symbol as a byte array.</span>
-<span class="source-line-no">731</span><span id="line-731">     *</span>
-<span class="source-line-no">732</span><span id="line-732">     * @param symbolID - the 20-30 digit symbolID of a single point MilStd2525</span>
-<span class="source-line-no">733</span><span id="line-733">     * symbol.</span>
-<span class="source-line-no">734</span><span id="line-734">     * @return byte array.</span>
-<span class="source-line-no">735</span><span id="line-735">      * @deprecated</span>
-<span class="source-line-no">736</span><span id="line-736">     */</span>
-<span class="source-line-no">737</span><span id="line-737">    public static byte[] getSinglePointByteArray(String symbolID)</span>
-<span class="source-line-no">738</span><span id="line-738">    {</span>
-<span class="source-line-no">739</span><span id="line-739">        //return sps.getSinglePointByteArray(symbolID);</span>
-<span class="source-line-no">740</span><span id="line-740">        return null;</span>
-<span class="source-line-no">741</span><span id="line-741">    }</span>
-<span class="source-line-no">742</span><span id="line-742">}</span>
+<span class="source-line-no">316</span><span id="line-316"></span>
+<span class="source-line-no">317</span><span id="line-317">    /**</span>
+<span class="source-line-no">318</span><span id="line-318">     * Renders all multi-point symbols, creating KML, GeoJSON or SVG for the user to</span>
+<span class="source-line-no">319</span><span id="line-319">     * parse and render as they like.</span>
+<span class="source-line-no">320</span><span id="line-320">     * This function requires the bounding box to help calculate the new</span>
+<span class="source-line-no">321</span><span id="line-321">     * locations.</span>
+<span class="source-line-no">322</span><span id="line-322">     * @param id A unique identifier used to identify the symbol by Google map.</span>
+<span class="source-line-no">323</span><span id="line-323">     * The id will be the folder name that contains the graphic.</span>
+<span class="source-line-no">324</span><span id="line-324">     * @param name a string used to display to the user as the name of the </span>
+<span class="source-line-no">325</span><span id="line-325">     * graphic being created.</span>
+<span class="source-line-no">326</span><span id="line-326">     * @param description a brief description about the graphic being made and </span>
+<span class="source-line-no">327</span><span id="line-327">     * what it represents.</span>
+<span class="source-line-no">328</span><span id="line-328">     * @param symbolCode A 20-30 digit symbolID corresponding to one of the</span>
+<span class="source-line-no">329</span><span id="line-329">     * graphics in the MIL-STD-2525D</span>
+<span class="source-line-no">330</span><span id="line-330">     * @param controlPoints The vertices of the graphics that make up the</span>
+<span class="source-line-no">331</span><span id="line-331">     * graphic.  Passed in the format of a string, using decimal degrees</span>
+<span class="source-line-no">332</span><span id="line-332">     * separating lat and lon by a comma, separating coordinates by a space.</span>
+<span class="source-line-no">333</span><span id="line-333">     * The following format shall be used "x1,y1 [xn,yn]..."</span>
+<span class="source-line-no">334</span><span id="line-334">     * @param pixelWidth pixel dimensions of the viewable map area</span>
+<span class="source-line-no">335</span><span id="line-335">     * @param pixelHeight pixel dimensions of the viewable map area</span>
+<span class="source-line-no">336</span><span id="line-336">     * @param bbox The viewable area of the map.  Passed in the format of a</span>
+<span class="source-line-no">337</span><span id="line-337">     * string "lowerLeftX,lowerLeftY,upperRightX,upperRightY."</span>
+<span class="source-line-no">338</span><span id="line-338">     * example: "-50.4,23.6,-42.2,24.2"</span>
+<span class="source-line-no">339</span><span id="line-339">     * @param modifiers keyed using constants from Modifiers.</span>
+<span class="source-line-no">340</span><span id="line-340">     * Pass in comma delimited String for modifiers with multiple values like AM, AN &amp;amp; X</span>
+<span class="source-line-no">341</span><span id="line-341">     * @param attributes keyed using constants from MilStdAttributes.</span>
+<span class="source-line-no">342</span><span id="line-342">     * @param format {@link WebRenderer#OUTPUT_FORMAT_KML}, {@link WebRenderer#OUTPUT_FORMAT_GEOJSON} or {@link WebRenderer#OUTPUT_FORMAT_GEOSVG}</span>
+<span class="source-line-no">343</span><span id="line-343">     * @return A KML, GeoJSON or SVG string representation of the graphic.</span>
+<span class="source-line-no">344</span><span id="line-344">     */</span>
+<span class="source-line-no">345</span><span id="line-345">    public static String RenderSymbol2D(String id, String name, String description, String symbolCode, String controlPoints,</span>
+<span class="source-line-no">346</span><span id="line-346">            int pixelWidth, int pixelHeight, String bbox, Map&lt;String,String&gt; modifiers, Map&lt;String,String&gt; attributes, int format)</span>
+<span class="source-line-no">347</span><span id="line-347">    {</span>
+<span class="source-line-no">348</span><span id="line-348">        String output = "";</span>
+<span class="source-line-no">349</span><span id="line-349">        try</span>
+<span class="source-line-no">350</span><span id="line-350">        {</span>
+<span class="source-line-no">351</span><span id="line-351">            output = MultiPointHandler.RenderSymbol2D(id, name, description, </span>
+<span class="source-line-no">352</span><span id="line-352">                    symbolCode, controlPoints, pixelWidth, pixelHeight, bbox, </span>
+<span class="source-line-no">353</span><span id="line-353">                    modifiers, attributes, format);</span>
+<span class="source-line-no">354</span><span id="line-354">        }</span>
+<span class="source-line-no">355</span><span id="line-355">        catch(Exception exc)</span>
+<span class="source-line-no">356</span><span id="line-356">        {</span>
+<span class="source-line-no">357</span><span id="line-357">            output = "{\"type\":'error',error:'There was an error creating the MilStdSymbol: " + symbolCode + " - " + exc.toString() + "'}";</span>
+<span class="source-line-no">358</span><span id="line-358">        }</span>
+<span class="source-line-no">359</span><span id="line-359">        return output;</span>
+<span class="source-line-no">360</span><span id="line-360">    }</span>
+<span class="source-line-no">361</span><span id="line-361"></span>
+<span class="source-line-no">362</span><span id="line-362">    /**</span>
+<span class="source-line-no">363</span><span id="line-363">     * Renders all 3d multi-point symbols, creating KML or GeoJSON that can be</span>
+<span class="source-line-no">364</span><span id="line-364">     * used to draw it on a Google map.</span>
+<span class="source-line-no">365</span><span id="line-365">     * 3D version of RenderSymbol()</span>
+<span class="source-line-no">366</span><span id="line-366">     *</span>
+<span class="source-line-no">367</span><span id="line-367">     * @param id            A unique identifier used to identify the symbol by Google map.</span>
+<span class="source-line-no">368</span><span id="line-368">     *                      The id will be the folder name that contains the graphic.</span>
+<span class="source-line-no">369</span><span id="line-369">     * @param name          a string used to display to the user as the name of the</span>
+<span class="source-line-no">370</span><span id="line-370">     *                      graphic being created.</span>
+<span class="source-line-no">371</span><span id="line-371">     * @param description   a brief description about the graphic being made and</span>
+<span class="source-line-no">372</span><span id="line-372">     *                      what it represents.</span>
+<span class="source-line-no">373</span><span id="line-373">     * @param symbolCode    A 20-30 digit symbolID corresponding to one of the</span>
+<span class="source-line-no">374</span><span id="line-374">     *                      graphics in the MIL-STD-2525D</span>
+<span class="source-line-no">375</span><span id="line-375">     * @param controlPoints The vertices of the graphics that make up the</span>
+<span class="source-line-no">376</span><span id="line-376">     *                      graphic.  Passed in the format of a string, using decimal degrees</span>
+<span class="source-line-no">377</span><span id="line-377">     *                      separating lat and lon by a comma, separating coordinates by a space.</span>
+<span class="source-line-no">378</span><span id="line-378">     *                      The following format shall be used "x1,y1[,z1] [xn,yn[,zn]]..."</span>
+<span class="source-line-no">379</span><span id="line-379">     * @param altitudeMode  Indicates whether the symbol should interpret</span>
+<span class="source-line-no">380</span><span id="line-380">     *                      altitudes as above sea level or above ground level. Options are</span>
+<span class="source-line-no">381</span><span id="line-381">     *                      "clampToGround", "relativeToGround" (from surface of earth), "absolute"</span>
+<span class="source-line-no">382</span><span id="line-382">     *                      (sea level), "relativeToSeaFloor" (from the bottom of major bodies of</span>
+<span class="source-line-no">383</span><span id="line-383">     *                      water).</span>
+<span class="source-line-no">384</span><span id="line-384">     * @param scale         A number corresponding to how many meters one meter of our</span>
+<span class="source-line-no">385</span><span id="line-385">     *                      map represents. A value "50000" would mean 1:50K which means for every</span>
+<span class="source-line-no">386</span><span id="line-386">     *                      meter of our map it represents 50000 meters of real world distance.</span>
+<span class="source-line-no">387</span><span id="line-387">     *                      &lt;a href="https://github.com/missioncommand/mil-sym-java/wiki/2525D--Renderer-Overview#3316-scale-for-3d"&gt;Scale Calculation Example&lt;/a&gt;</span>
+<span class="source-line-no">388</span><span id="line-388">     * @param bbox          The viewable area of the map.  Passed in the format of a</span>
+<span class="source-line-no">389</span><span id="line-389">     *                      string "lowerLeftX,lowerLeftY,upperRightX,upperRightY." Not required</span>
+<span class="source-line-no">390</span><span id="line-390">     *                      but can speed up rendering in some cases.</span>
+<span class="source-line-no">391</span><span id="line-391">     *                      example: "-50.4,23.6,-42.2,24.2"</span>
+<span class="source-line-no">392</span><span id="line-392">     * @param modifiers     keyed using constants from Modifiers.</span>
+<span class="source-line-no">393</span><span id="line-393">     *                      Pass in comma delimited String for modifiers with multiple values like AM, AN &amp;amp; X</span>
+<span class="source-line-no">394</span><span id="line-394">     * @param attributes    keyed using constants from MilStdAttributes.</span>
+<span class="source-line-no">395</span><span id="line-395">     * @param format        {@link WebRenderer#OUTPUT_FORMAT_KML}, {@link WebRenderer#OUTPUT_FORMAT_GEOJSON} or {@link WebRenderer#OUTPUT_FORMAT_GEOSVG}</span>
+<span class="source-line-no">396</span><span id="line-396">     * @return A KML, GeoJSON or SVG string representation of the graphic.</span>
+<span class="source-line-no">397</span><span id="line-397">     */</span>
+<span class="source-line-no">398</span><span id="line-398">    public static String RenderMilStd3dSymbol(String id, String name, String description,</span>
+<span class="source-line-no">399</span><span id="line-399">                                              String symbolCode, String controlPoints, String altitudeMode,</span>
+<span class="source-line-no">400</span><span id="line-400">                                              double scale, String bbox, Map&lt;String, String&gt; modifiers, Map&lt;String, String&gt; attributes, int format) {</span>
+<span class="source-line-no">401</span><span id="line-401">        String output = "";</span>
+<span class="source-line-no">402</span><span id="line-402">        try {</span>
+<span class="source-line-no">403</span><span id="line-403"></span>
+<span class="source-line-no">404</span><span id="line-404">            output = Shape3DHandler.RenderMilStd3dSymbol(id, name, description, symbolCode, controlPoints, altitudeMode,</span>
+<span class="source-line-no">405</span><span id="line-405">                    scale, bbox, modifiers, attributes, format);</span>
+<span class="source-line-no">406</span><span id="line-406"></span>
+<span class="source-line-no">407</span><span id="line-407">            //DEBUGGING</span>
+<span class="source-line-no">408</span><span id="line-408">            if (ErrorLogger.getLevel().intValue() &lt;= Level.FINER.intValue()) {</span>
+<span class="source-line-no">409</span><span id="line-409">                System.out.println("");</span>
+<span class="source-line-no">410</span><span id="line-410">                StringBuilder sb = new StringBuilder();</span>
+<span class="source-line-no">411</span><span id="line-411">                sb.append("\nID: ").append(id).append("\n");</span>
+<span class="source-line-no">412</span><span id="line-412">                sb.append("Name: ").append(name).append("\n");</span>
+<span class="source-line-no">413</span><span id="line-413">                sb.append("Description: ").append(description).append("\n");</span>
+<span class="source-line-no">414</span><span id="line-414">                sb.append("SymbolID: ").append(symbolCode).append("\n");</span>
+<span class="source-line-no">415</span><span id="line-415">                sb.append("Scale: ").append(String.valueOf(scale)).append("\n");</span>
+<span class="source-line-no">416</span><span id="line-416">                sb.append("BBox: ").append(bbox).append("\n");</span>
+<span class="source-line-no">417</span><span id="line-417">                sb.append("Coords: ").append(controlPoints).append("\n");</span>
+<span class="source-line-no">418</span><span id="line-418">                sb.append("Modifiers: ").append(modifiers).append("\n");</span>
+<span class="source-line-no">419</span><span id="line-419">                ErrorLogger.LogMessage("WebRenderer", "RenderMilStd3dSymbol", sb.toString(), Level.FINER);</span>
+<span class="source-line-no">420</span><span id="line-420">            }</span>
+<span class="source-line-no">421</span><span id="line-421">            if (ErrorLogger.getLevel().intValue() &lt;= Level.FINEST.intValue()) {</span>
+<span class="source-line-no">422</span><span id="line-422">                String briefOutput = output.replaceAll("&lt;/Placemark&gt;", "&lt;/Placemark&gt;\n");</span>
+<span class="source-line-no">423</span><span id="line-423">                briefOutput = output.replaceAll("(?s)&lt;description[^&gt;]*&gt;.*?&lt;/description&gt;", "&lt;description&gt;&lt;/description&gt;");</span>
+<span class="source-line-no">424</span><span id="line-424">                ErrorLogger.LogMessage("WebRenderer", "RenderMilStd3dSymbol", "Output:\n" + briefOutput, Level.FINEST);</span>
+<span class="source-line-no">425</span><span id="line-425">            }</span>
+<span class="source-line-no">426</span><span id="line-426">        } catch (Exception ea) {</span>
+<span class="source-line-no">427</span><span id="line-427">            output = "{\"type\":'error',error:'There was an error creating the 3D MilStdSymbol - " + ea.toString() + "'}";</span>
+<span class="source-line-no">428</span><span id="line-428">            ErrorLogger.LogException("WebRenderer", "RenderMilStd3dSymbol", ea, Level.WARNING);</span>
+<span class="source-line-no">429</span><span id="line-429">        }</span>
+<span class="source-line-no">430</span><span id="line-430">        return output;</span>
+<span class="source-line-no">431</span><span id="line-431">    }</span>
+<span class="source-line-no">432</span><span id="line-432"></span>
+<span class="source-line-no">433</span><span id="line-433">    /**</span>
+<span class="source-line-no">434</span><span id="line-434">         * Renders all MilStd 2525 multi-point symbols, creating MilStdSymbol that contains the</span>
+<span class="source-line-no">435</span><span id="line-435">         * information needed to draw the symbol on the map.</span>
+<span class="source-line-no">436</span><span id="line-436">     * DOES NOT support RADARC, CAKE, TRACK etc...</span>
+<span class="source-line-no">437</span><span id="line-437">         * ArrayList&amp;lt;Point2D&amp;gt; milStdSymbol.getSymbolShapes.get(index).getPolylines()</span>
+<span class="source-line-no">438</span><span id="line-438">         * and </span>
+<span class="source-line-no">439</span><span id="line-439">         * ShapeInfo = milStdSymbol.getModifierShapes.get(index). </span>
+<span class="source-line-no">440</span><span id="line-440">         * </span>
+<span class="source-line-no">441</span><span id="line-441">         * </span>
+<span class="source-line-no">442</span><span id="line-442">         * @param id</span>
+<span class="source-line-no">443</span><span id="line-443">         *            A unique identifier used to identify the symbol by Google map.</span>
+<span class="source-line-no">444</span><span id="line-444">         *            The id will be the folder name that contains the graphic.</span>
+<span class="source-line-no">445</span><span id="line-445">         * @param name</span>
+<span class="source-line-no">446</span><span id="line-446">         *            a string used to display to the user as the name of the</span>
+<span class="source-line-no">447</span><span id="line-447">         *            graphic being created.</span>
+<span class="source-line-no">448</span><span id="line-448">         * @param description</span>
+<span class="source-line-no">449</span><span id="line-449">         *            a brief description about the graphic being made and what it</span>
+<span class="source-line-no">450</span><span id="line-450">         *            represents.</span>
+<span class="source-line-no">451</span><span id="line-451">         * @param symbolCode</span>
+<span class="source-line-no">452</span><span id="line-452">         *            A 20-30 digit symbolID corresponding to one of the graphics</span>
+<span class="source-line-no">453</span><span id="line-453">         *            in the MIL-STD-2525D</span>
+<span class="source-line-no">454</span><span id="line-454">         * @param controlPoints</span>
+<span class="source-line-no">455</span><span id="line-455">         *            The vertices of the graphics that make up the graphic. Passed</span>
+<span class="source-line-no">456</span><span id="line-456">         *            in the format of a string, using decimal degrees separating</span>
+<span class="source-line-no">457</span><span id="line-457">         *            lat and lon by a comma, separating coordinates by a space. The</span>
+<span class="source-line-no">458</span><span id="line-458">         *            following format shall be used "x1,y1[,z1] [xn,yn[,zn]]..."</span>
+<span class="source-line-no">459</span><span id="line-459">         * @param altitudeMode</span>
+<span class="source-line-no">460</span><span id="line-460">         *            ignored</span>
+<span class="source-line-no">461</span><span id="line-461">         * @param scale</span>
+<span class="source-line-no">462</span><span id="line-462">         *            A number corresponding to how many meters one meter of our map</span>
+<span class="source-line-no">463</span><span id="line-463">         *            represents. A value "50000" would mean 1:50K which means for</span>
+<span class="source-line-no">464</span><span id="line-464">         *            every meter of our map it represents 50000 meters of real</span>
+<span class="source-line-no">465</span><span id="line-465">         *            world distance.</span>
+<span class="source-line-no">466</span><span id="line-466">     *            &lt;a href="https://github.com/missioncommand/mil-sym-java/wiki/2525D--Renderer-Overview#3316-scale-for-3d"&gt;Scale Calculation Example&lt;/a&gt;</span>
+<span class="source-line-no">467</span><span id="line-467">         * @param bbox</span>
+<span class="source-line-no">468</span><span id="line-468">         *            The viewable area of the map. Passed in the format of a string</span>
+<span class="source-line-no">469</span><span id="line-469">         *            "lowerLeftX,lowerLeftY,upperRightX,upperRightY." Not required</span>
+<span class="source-line-no">470</span><span id="line-470">         *            but can speed up rendering in some cases. example:</span>
+<span class="source-line-no">471</span><span id="line-471">         *            "-50.4,23.6,-42.2,24.2"</span>
+<span class="source-line-no">472</span><span id="line-472">         * @param modifiers</span>
+<span class="source-line-no">473</span><span id="line-473">         *            Used like:</span>
+<span class="source-line-no">474</span><span id="line-474">         *            modifiers.put(Modifiers.T_UNIQUE_DESIGNATION_1, "T");</span>
+<span class="source-line-no">475</span><span id="line-475">         *            Or</span>
+<span class="source-line-no">476</span><span id="line-476">         *            modifiers.put(Modifiers.AM_DISTANCE, "1000,2000,3000");</span>
+<span class="source-line-no">477</span><span id="line-477">         * @param attributes</span>
+<span class="source-line-no">478</span><span id="line-478">         *                        Used like:</span>
+<span class="source-line-no">479</span><span id="line-479">         *            attributes.put(MilStdAttributes.LineWidth, "3");</span>
+<span class="source-line-no">480</span><span id="line-480">         *            Or</span>
+<span class="source-line-no">481</span><span id="line-481">         *            attributes.put(MilStdAttributes.LineColor, "#00FF00");</span>
+<span class="source-line-no">482</span><span id="line-482">     * @return MilStdSymbol</span>
+<span class="source-line-no">483</span><span id="line-483">     */</span>
+<span class="source-line-no">484</span><span id="line-484">    public static MilStdSymbol RenderMultiPointAsMilStdSymbol(String id, String name, String description, String symbolCode,</span>
+<span class="source-line-no">485</span><span id="line-485">                        String controlPoints, String altitudeMode, double scale, String bbox, Map&lt;String,String&gt; modifiers, Map&lt;String,String&gt; attributes)</span>
+<span class="source-line-no">486</span><span id="line-486">    {</span>
+<span class="source-line-no">487</span><span id="line-487">                MilStdSymbol mSymbol = null;</span>
+<span class="source-line-no">488</span><span id="line-488">                try </span>
+<span class="source-line-no">489</span><span id="line-489">                {</span>
+<span class="source-line-no">490</span><span id="line-490">                        mSymbol = MultiPointHandler.RenderSymbolAsMilStdSymbol(id, name, description, symbolCode,</span>
+<span class="source-line-no">491</span><span id="line-491">                    controlPoints, scale, bbox, modifiers, attributes);</span>
+<span class="source-line-no">492</span><span id="line-492"></span>
+<span class="source-line-no">493</span><span id="line-493">            //Uncomment to show sector1 modifiers as fill pattern</span>
+<span class="source-line-no">494</span><span id="line-494">//            int symbolSet = SymbolID.getEntityCode(symbolCode);</span>
+<span class="source-line-no">495</span><span id="line-495">//            if(symbolSet == 270707 || symbolSet == 270800 || symbolSet == 270801 || symbolSet == 151100) //Mined Areas</span>
+<span class="source-line-no">496</span><span id="line-496">//            {</span>
+<span class="source-line-no">497</span><span id="line-497">//                int size = RendererSettings.getInstance().getDefaultPixelSize();</span>
+<span class="source-line-no">498</span><span id="line-498">//</span>
+<span class="source-line-no">499</span><span id="line-499">//                ArrayList&lt;ShapeInfo&gt; shapes = mSymbol.getSymbolShapes();</span>
+<span class="source-line-no">500</span><span id="line-500">//                if(shapes.size() &gt; 0){</span>
+<span class="source-line-no">501</span><span id="line-501">//                    ShapeInfo shape = shapes.get(0);</span>
+<span class="source-line-no">502</span><span id="line-502">//                    shape.setPatternFillImage(PatternFillRendererD.MakeSymbolPatternFill(symbolCode,size));</span>
+<span class="source-line-no">503</span><span id="line-503">//                    if(shape.getPatternFillImage() != null)</span>
+<span class="source-line-no">504</span><span id="line-504">//                        shape.setShader(new BitmapShader(shape.getPatternFillImage(), Shader.TileMode.REPEAT, Shader.TileMode.REPEAT));</span>
+<span class="source-line-no">505</span><span id="line-505">//                }</span>
+<span class="source-line-no">506</span><span id="line-506">//            }</span>
+<span class="source-line-no">507</span><span id="line-507">                }</span>
+<span class="source-line-no">508</span><span id="line-508">                catch (Exception ea) </span>
+<span class="source-line-no">509</span><span id="line-509">                {</span>
+<span class="source-line-no">510</span><span id="line-510">                        mSymbol=null;</span>
+<span class="source-line-no">511</span><span id="line-511">                        ErrorLogger.LogException("WebRenderer", "RenderMultiPointAsMilStdSymbol" + " - " + symbolCode, ea, Level.WARNING);</span>
+<span class="source-line-no">512</span><span id="line-512">                }</span>
+<span class="source-line-no">513</span><span id="line-513">                </span>
+<span class="source-line-no">514</span><span id="line-514">                //System.out.println("RenderMultiPointAsMilStdSymbol exit");</span>
+<span class="source-line-no">515</span><span id="line-515">                return mSymbol;</span>
+<span class="source-line-no">516</span><span id="line-516">    }</span>
+<span class="source-line-no">517</span><span id="line-517"></span>
+<span class="source-line-no">518</span><span id="line-518">    /**</span>
+<span class="source-line-no">519</span><span id="line-519">     * Renders basic shapes as symbols, creating MilStdSymbol that contains the</span>
+<span class="source-line-no">520</span><span id="line-520">     * information needed to draw the shape on the map.</span>
+<span class="source-line-no">521</span><span id="line-521">     * ArrayList&amp;lt;Point2D&amp;gt; milStdSymbol.getSymbolShapes.get(index).getPolylines()</span>
+<span class="source-line-no">522</span><span id="line-522">     * and</span>
+<span class="source-line-no">523</span><span id="line-523">     * ShapeInfo = milStdSymbol.getModifierShapes.get(index).</span>
+<span class="source-line-no">524</span><span id="line-524">     *</span>
+<span class="source-line-no">525</span><span id="line-525">     *</span>
+<span class="source-line-no">526</span><span id="line-526">     * @param id</span>
+<span class="source-line-no">527</span><span id="line-527">     *            A unique identifier used to identify the symbol by Google map.</span>
+<span class="source-line-no">528</span><span id="line-528">     *            The id will be the folder name that contains the graphic.</span>
+<span class="source-line-no">529</span><span id="line-529">     * @param name</span>
+<span class="source-line-no">530</span><span id="line-530">     *            a string used to display to the user as the name of the</span>
+<span class="source-line-no">531</span><span id="line-531">     *            graphic being created.</span>
+<span class="source-line-no">532</span><span id="line-532">     * @param description</span>
+<span class="source-line-no">533</span><span id="line-533">     *            a brief description about the graphic being made and what it</span>
+<span class="source-line-no">534</span><span id="line-534">     *            represents.</span>
+<span class="source-line-no">535</span><span id="line-535">     * @param basicShapeType</span>
+<span class="source-line-no">536</span><span id="line-536">     *            {@link armyc2.c5isr.JavaLineArray.BasicShapes}</span>
+<span class="source-line-no">537</span><span id="line-537">     * @param controlPoints</span>
+<span class="source-line-no">538</span><span id="line-538">     *            The vertices of the graphics that make up the graphic. Passed</span>
+<span class="source-line-no">539</span><span id="line-539">     *            in the format of a string, using decimal degrees separating</span>
+<span class="source-line-no">540</span><span id="line-540">     *            lat and lon by a comma, separating coordinates by a space. The</span>
+<span class="source-line-no">541</span><span id="line-541">     *            following format shall be used "x1,y1[,z1] [xn,yn[,zn]]..."</span>
+<span class="source-line-no">542</span><span id="line-542">     * @param altitudeMode</span>
+<span class="source-line-no">543</span><span id="line-543">     *            ignored</span>
+<span class="source-line-no">544</span><span id="line-544">     * @param scale</span>
+<span class="source-line-no">545</span><span id="line-545">     *            A number corresponding to how many meters one meter of our map</span>
+<span class="source-line-no">546</span><span id="line-546">     *            represents. A value "50000" would mean 1:50K which means for</span>
+<span class="source-line-no">547</span><span id="line-547">     *            every meter of our map it represents 50000 meters of real</span>
+<span class="source-line-no">548</span><span id="line-548">     *            world distance.</span>
+<span class="source-line-no">549</span><span id="line-549">     *            &lt;a href="https://github.com/missioncommand/mil-sym-java/wiki/2525D--Renderer-Overview#3316-scale-for-3d"&gt;Scale Calculation Example&lt;/a&gt;</span>
+<span class="source-line-no">550</span><span id="line-550">     * @param bbox</span>
+<span class="source-line-no">551</span><span id="line-551">     *            The viewable area of the map. Passed in the format of a string</span>
+<span class="source-line-no">552</span><span id="line-552">     *            "lowerLeftX,lowerLeftY,upperRightX,upperRightY." Not required</span>
+<span class="source-line-no">553</span><span id="line-553">     *            but can speed up rendering in some cases. example:</span>
+<span class="source-line-no">554</span><span id="line-554">     *            "-50.4,23.6,-42.2,24.2"</span>
+<span class="source-line-no">555</span><span id="line-555">     * @param modifiers</span>
+<span class="source-line-no">556</span><span id="line-556">     *            Used like:</span>
+<span class="source-line-no">557</span><span id="line-557">     *            modifiers.put(Modifiers.T_UNIQUE_DESIGNATION_1, "T");</span>
+<span class="source-line-no">558</span><span id="line-558">     *            Or</span>
+<span class="source-line-no">559</span><span id="line-559">     *            modifiers.put(Modifiers.AM_DISTANCE, "1000,2000,3000");</span>
+<span class="source-line-no">560</span><span id="line-560">     * @param attributes</span>
+<span class="source-line-no">561</span><span id="line-561">     *                    Used like:</span>
+<span class="source-line-no">562</span><span id="line-562">     *            attributes.put(MilStdAttributes.LineWidth, "3");</span>
+<span class="source-line-no">563</span><span id="line-563">     *            Or</span>
+<span class="source-line-no">564</span><span id="line-564">     *            attributes.put(MilStdAttributes.LineColor, "#00FF00");</span>
+<span class="source-line-no">565</span><span id="line-565">     * @return MilStdSymbol</span>
+<span class="source-line-no">566</span><span id="line-566">     */</span>
+<span class="source-line-no">567</span><span id="line-567">    public static MilStdSymbol RenderBasicShapeAsMilStdSymbol(String id, String name, String description, int basicShapeType,</span>
+<span class="source-line-no">568</span><span id="line-568">                                                              String controlPoints, String altitudeMode, double scale, String bbox, Map&lt;String, String&gt; modifiers, Map&lt;String, String&gt; attributes) {</span>
+<span class="source-line-no">569</span><span id="line-569">        MilStdSymbol mSymbol = null;</span>
+<span class="source-line-no">570</span><span id="line-570">        try {</span>
+<span class="source-line-no">571</span><span id="line-571">            if (SymbolUtilities.isBasicShape(basicShapeType))</span>
+<span class="source-line-no">572</span><span id="line-572">                mSymbol = MultiPointHandler.RenderBasicShapeAsMilStdSymbol(id, name, description, basicShapeType,</span>
+<span class="source-line-no">573</span><span id="line-573">                        controlPoints, scale, bbox, modifiers, attributes);</span>
+<span class="source-line-no">574</span><span id="line-574">        } catch (Exception ea) {</span>
+<span class="source-line-no">575</span><span id="line-575">            mSymbol = null;</span>
+<span class="source-line-no">576</span><span id="line-576">            ErrorLogger.LogException("WebRenderer", "RenderBasicShapeAsMilStdSymbol" + " - " + basicShapeType, ea, Level.WARNING);</span>
+<span class="source-line-no">577</span><span id="line-577">        }</span>
+<span class="source-line-no">578</span><span id="line-578"></span>
+<span class="source-line-no">579</span><span id="line-579">        return mSymbol;</span>
+<span class="source-line-no">580</span><span id="line-580">    }</span>
+<span class="source-line-no">581</span><span id="line-581"></span>
+<span class="source-line-no">582</span><span id="line-582">    /**</span>
+<span class="source-line-no">583</span><span id="line-583">     * Renders multipoint basic shapes, creating KML, GeoJSON or SVG that can be used to draw</span>
+<span class="source-line-no">584</span><span id="line-584">     * it on a Google map.</span>
+<span class="source-line-no">585</span><span id="line-585">     * @param id A unique identifier used to identify the symbol by Google map.</span>
+<span class="source-line-no">586</span><span id="line-586">     * The id will be the folder name that contains the graphic.</span>
+<span class="source-line-no">587</span><span id="line-587">     * @param name a string used to display to the user as the name of the</span>
+<span class="source-line-no">588</span><span id="line-588">     * graphic being created.</span>
+<span class="source-line-no">589</span><span id="line-589">     * @param description a brief description about the graphic being made and</span>
+<span class="source-line-no">590</span><span id="line-590">     * what it represents.</span>
+<span class="source-line-no">591</span><span id="line-591">     * @param basicShapeType {@link armyc2.c5isr.JavaLineArray.BasicShapes}</span>
+<span class="source-line-no">592</span><span id="line-592">     * @param controlPoints The vertices of the graphics that make up the</span>
+<span class="source-line-no">593</span><span id="line-593">     * graphic.  Passed in the format of a string, using decimal degrees</span>
+<span class="source-line-no">594</span><span id="line-594">     * separating lat and lon by a comma, separating coordinates by a space.</span>
+<span class="source-line-no">595</span><span id="line-595">     * The following format shall be used "x1,y1[,z1] [xn,yn[,zn]]..."</span>
+<span class="source-line-no">596</span><span id="line-596">     * @param altitudeMode ignored</span>
+<span class="source-line-no">597</span><span id="line-597">     * @param scale A number corresponding to how many meters one meter of our</span>
+<span class="source-line-no">598</span><span id="line-598">     * map represents. A value "50000" would mean 1:50K which means for every</span>
+<span class="source-line-no">599</span><span id="line-599">     * meter of our map it represents 50000 meters of real world distance.</span>
+<span class="source-line-no">600</span><span id="line-600">     * &lt;a href="https://github.com/missioncommand/mil-sym-java/wiki/2525D--Renderer-Overview#3316-scale-for-3d"&gt;Scale Calculation Example&lt;/a&gt;</span>
+<span class="source-line-no">601</span><span id="line-601">     * @param bbox The viewable area of the map.  Passed in the format of a</span>
+<span class="source-line-no">602</span><span id="line-602">     * string "lowerLeftX,lowerLeftY,upperRightX,upperRightY." Not required</span>
+<span class="source-line-no">603</span><span id="line-603">     * but can speed up rendering in some cases.</span>
+<span class="source-line-no">604</span><span id="line-604">     * example: "-50.4,23.6,-42.2,24.2"</span>
+<span class="source-line-no">605</span><span id="line-605">     * @param modifiers keyed using constants from Modifiers.</span>
+<span class="source-line-no">606</span><span id="line-606">     * Pass in comma delimited String for modifiers with multiple values like AM, AN &amp;amp; X</span>
+<span class="source-line-no">607</span><span id="line-607">     * @param attributes keyed using constants from MilStdAttributes.</span>
+<span class="source-line-no">608</span><span id="line-608">     * @param format {@link WebRenderer#OUTPUT_FORMAT_KML}, {@link WebRenderer#OUTPUT_FORMAT_GEOJSON} or {@link WebRenderer#OUTPUT_FORMAT_GEOSVG}</span>
+<span class="source-line-no">609</span><span id="line-609">     * @return A KML, GeoJSON or SVG string representation of the graphic.</span>
+<span class="source-line-no">610</span><span id="line-610">     */</span>
+<span class="source-line-no">611</span><span id="line-611">    public static String RenderBasicShape(String id, String name, String description, int basicShapeType,</span>
+<span class="source-line-no">612</span><span id="line-612">                                          String controlPoints, String altitudeMode,</span>
+<span class="source-line-no">613</span><span id="line-613">                                          double scale, String bbox, Map&lt;String, String&gt; modifiers, Map&lt;String, String&gt; attributes, int format) {</span>
+<span class="source-line-no">614</span><span id="line-614">        String output = "";</span>
+<span class="source-line-no">615</span><span id="line-615">        try {</span>
+<span class="source-line-no">616</span><span id="line-616">            if (SymbolUtilities.isBasicShape(basicShapeType))</span>
+<span class="source-line-no">617</span><span id="line-617">                output = MultiPointHandler.RenderBasicShape(id, name, description, basicShapeType, controlPoints,</span>
+<span class="source-line-no">618</span><span id="line-618">                    scale, bbox, modifiers, attributes, format);</span>
+<span class="source-line-no">619</span><span id="line-619">        } catch (Exception ea) {</span>
+<span class="source-line-no">620</span><span id="line-620">            output = "{\"type\":'error',error:'There was an error creating the MilStdSymbol - " + ea.toString() + "'}";</span>
+<span class="source-line-no">621</span><span id="line-621">            ErrorLogger.LogException("WebRenderer", "RenderBasicShape", ea, Level.WARNING);</span>
+<span class="source-line-no">622</span><span id="line-622">        }</span>
+<span class="source-line-no">623</span><span id="line-623">        return output;</span>
+<span class="source-line-no">624</span><span id="line-624">    }</span>
+<span class="source-line-no">625</span><span id="line-625"></span>
+<span class="source-line-no">626</span><span id="line-626">    /**</span>
+<span class="source-line-no">627</span><span id="line-627">     * Renders basic 3D shapes, creating KML or GeoJSON that can be used to draw</span>
+<span class="source-line-no">628</span><span id="line-628">     * it on a Google map.</span>
+<span class="source-line-no">629</span><span id="line-629">     * @param id A unique identifier used to identify the symbol by Google map.</span>
+<span class="source-line-no">630</span><span id="line-630">     * The id will be the folder name that contains the graphic.</span>
+<span class="source-line-no">631</span><span id="line-631">     * @param name a string used to display to the user as the name of the</span>
+<span class="source-line-no">632</span><span id="line-632">     * graphic being created.</span>
+<span class="source-line-no">633</span><span id="line-633">     * @param description a brief description about the graphic being made and</span>
+<span class="source-line-no">634</span><span id="line-634">     * what it represents.</span>
+<span class="source-line-no">635</span><span id="line-635">     * @param basicShapeType {@link Basic3DShapes}</span>
+<span class="source-line-no">636</span><span id="line-636">     * @param controlPoints The vertices of the graphics that make up the</span>
+<span class="source-line-no">637</span><span id="line-637">     * graphic.  Passed in the format of a string, using decimal degrees</span>
+<span class="source-line-no">638</span><span id="line-638">     * separating lat and lon by a comma, separating coordinates by a space.</span>
+<span class="source-line-no">639</span><span id="line-639">     * The following format shall be used "x1,y1[,z1] [xn,yn[,zn]]..."</span>
+<span class="source-line-no">640</span><span id="line-640">     * @param altitudeMode Indicates whether the symbol should interpret</span>
+<span class="source-line-no">641</span><span id="line-641">     * altitudes as above sea level or above ground level. Options are</span>
+<span class="source-line-no">642</span><span id="line-642">     * "clampToGround", "relativeToGround" (from surface of earth), "absolute"</span>
+<span class="source-line-no">643</span><span id="line-643">     * (sea level), "relativeToSeaFloor" (from the bottom of major bodies of</span>
+<span class="source-line-no">644</span><span id="line-644">     * water).</span>
+<span class="source-line-no">645</span><span id="line-645">     * @param scale A number corresponding to how many meters one meter of our</span>
+<span class="source-line-no">646</span><span id="line-646">     * map represents. A value "50000" would mean 1:50K which means for every</span>
+<span class="source-line-no">647</span><span id="line-647">     * meter of our map it represents 50000 meters of real world distance.</span>
+<span class="source-line-no">648</span><span id="line-648">     * &lt;a href="https://github.com/missioncommand/mil-sym-java/wiki/2525D--Renderer-Overview#3316-scale-for-3d"&gt;Scale Calculation Example&lt;/a&gt;</span>
+<span class="source-line-no">649</span><span id="line-649">     * @param bbox The viewable area of the map.  Passed in the format of a</span>
+<span class="source-line-no">650</span><span id="line-650">     * string "lowerLeftX,lowerLeftY,upperRightX,upperRightY." Not required</span>
+<span class="source-line-no">651</span><span id="line-651">     * but can speed up rendering in some cases.</span>
+<span class="source-line-no">652</span><span id="line-652">     * example: "-50.4,23.6,-42.2,24.2"</span>
+<span class="source-line-no">653</span><span id="line-653">     * @param modifiers {@link Map}, keyed using constants from Modifiers.</span>
+<span class="source-line-no">654</span><span id="line-654">     * Pass in comma delimited String for modifiers with multiple values like AM, AN &amp;amp; X</span>
+<span class="source-line-no">655</span><span id="line-655">     * @param attributes {@link Map}, keyed using constants from MilStdAttributes.</span>
+<span class="source-line-no">656</span><span id="line-656">     * @param format {@link WebRenderer#OUTPUT_FORMAT_KML}, {@link #OUTPUT_FORMAT_GEOJSON}</span>
+<span class="source-line-no">657</span><span id="line-657">     * @return A KML or GeoJSON string representation of the graphic.</span>
+<span class="source-line-no">658</span><span id="line-658">     */</span>
+<span class="source-line-no">659</span><span id="line-659">    public static String RenderBasic3DShape(String id, String name, String description, int basicShapeType,</span>
+<span class="source-line-no">660</span><span id="line-660">                                            String controlPoints, String altitudeMode,</span>
+<span class="source-line-no">661</span><span id="line-661">                                            double scale, String bbox, Map&lt;String, String&gt; modifiers, Map&lt;String, String&gt; attributes, int format) {</span>
+<span class="source-line-no">662</span><span id="line-662">        String output = "";</span>
+<span class="source-line-no">663</span><span id="line-663">        try {</span>
+<span class="source-line-no">664</span><span id="line-664">            JavaRendererUtilities.addAltModeToModifiersString(attributes, altitudeMode);</span>
+<span class="source-line-no">665</span><span id="line-665">            if (SymbolUtilities.isBasicShape(basicShapeType))</span>
+<span class="source-line-no">666</span><span id="line-666">                output = Shape3DHandler.RenderBasic3DShape(id, name, description, basicShapeType, controlPoints, altitudeMode,</span>
+<span class="source-line-no">667</span><span id="line-667">                        scale, bbox, modifiers, attributes, format);</span>
+<span class="source-line-no">668</span><span id="line-668">        } catch (Exception ea) {</span>
+<span class="source-line-no">669</span><span id="line-669">            output = "{\"type\":'error',error:'There was an error creating the 3D MilStdSymbol - " + ea.toString() + "'}";</span>
+<span class="source-line-no">670</span><span id="line-670">            ErrorLogger.LogException("WebRenderer", "RenderBasic3DShape", ea, Level.WARNING);</span>
+<span class="source-line-no">671</span><span id="line-671">        }</span>
+<span class="source-line-no">672</span><span id="line-672">        return output;</span>
+<span class="source-line-no">673</span><span id="line-673">    }</span>
+<span class="source-line-no">674</span><span id="line-674">    </span>
+<span class="source-line-no">675</span><span id="line-675">    /**</span>
+<span class="source-line-no">676</span><span id="line-676">     * Given a symbol code meant for a single point symbol, returns the</span>
+<span class="source-line-no">677</span><span id="line-677">     * anchor point at which to display that image based off the image returned</span>
+<span class="source-line-no">678</span><span id="line-678">     * from the URL of the SinglePointServer.</span>
+<span class="source-line-no">679</span><span id="line-679">     * </span>
+<span class="source-line-no">680</span><span id="line-680">     * @param symbolID - the 20-30 digit symbolID of a single point MilStd2525</span>
+<span class="source-line-no">681</span><span id="line-681">     * symbol. </span>
+<span class="source-line-no">682</span><span id="line-682">     * @return A pixel coordinate of the format "x,y".</span>
+<span class="source-line-no">683</span><span id="line-683">     * Returns an empty string if an error occurs.</span>
+<span class="source-line-no">684</span><span id="line-684">     * @deprecated </span>
+<span class="source-line-no">685</span><span id="line-685">     */</span>
+<span class="source-line-no">686</span><span id="line-686">        public String getSinglePointAnchor(String symbolID) {</span>
+<span class="source-line-no">687</span><span id="line-687">        String anchorPoint = "";</span>
+<span class="source-line-no">688</span><span id="line-688">        Point2D anchor = new Point2D.Double();</span>
+<span class="source-line-no">689</span><span id="line-689">        anchorPoint = anchor.getX() + "," + anchor.getY();        </span>
+<span class="source-line-no">690</span><span id="line-690">        return anchorPoint;</span>
+<span class="source-line-no">691</span><span id="line-691">    }</span>
+<span class="source-line-no">692</span><span id="line-692"></span>
+<span class="source-line-no">693</span><span id="line-693">    /**</span>
+<span class="source-line-no">694</span><span id="line-694">     * Given a symbol code meant for a single point symbol, returns the</span>
+<span class="source-line-no">695</span><span id="line-695">     * anchor point at which to display that image based off the image returned</span>
+<span class="source-line-no">696</span><span id="line-696">     * from the URL of the SinglePointServer.</span>
+<span class="source-line-no">697</span><span id="line-697">     *</span>
+<span class="source-line-no">698</span><span id="line-698">     * @param symbolID - the 20-30 digit symbolID of a single point MilStd2525</span>
+<span class="source-line-no">699</span><span id="line-699">     * symbol.</span>
+<span class="source-line-no">700</span><span id="line-700">     * @return A pixel coordinate of the format "anchorX,anchorY,SymbolBoundsX,</span>
+<span class="source-line-no">701</span><span id="line-701">     * SymbolBoundsY,SymbolBoundsWidth,SymbolBoundsHeight,IconWidth,IconHeight".</span>
+<span class="source-line-no">702</span><span id="line-702">     * Anchor, represents the center point of the core symbol within the image.</span>
+<span class="source-line-no">703</span><span id="line-703">     * The image should be centered on this point.</span>
+<span class="source-line-no">704</span><span id="line-704">     * Symbol bounds represents the bounding rectangle of the core symbol within</span>
+<span class="source-line-no">705</span><span id="line-705">     * the image.</span>
+<span class="source-line-no">706</span><span id="line-706">     * IconWidth/Height represents the height and width of the image in its</span>
+<span class="source-line-no">707</span><span id="line-707">     * entirety.</span>
+<span class="source-line-no">708</span><span id="line-708">     * Returns an empty string if an error occurs.</span>
+<span class="source-line-no">709</span><span id="line-709">     * @deprecated</span>
+<span class="source-line-no">710</span><span id="line-710">     */</span>
+<span class="source-line-no">711</span><span id="line-711">    public static String getSinglePointInfo(String symbolID)</span>
+<span class="source-line-no">712</span><span id="line-712">    {</span>
+<span class="source-line-no">713</span><span id="line-713">        String info = "";</span>
+<span class="source-line-no">714</span><span id="line-714">        Point2D anchor = new Point2D.Double();</span>
+<span class="source-line-no">715</span><span id="line-715">        Rectangle2D symbolBounds = new Rectangle2D.Double();</span>
+<span class="source-line-no">716</span><span id="line-716">        return info;</span>
+<span class="source-line-no">717</span><span id="line-717">    }</span>
+<span class="source-line-no">718</span><span id="line-718">        </span>
+<span class="source-line-no">719</span><span id="line-719">    /**</span>
+<span class="source-line-no">720</span><span id="line-720">     * Returns true if we recommend clipping a particular symbol.</span>
+<span class="source-line-no">721</span><span id="line-721">     * Would return false for and Ambush but would return true for a Line of </span>
+<span class="source-line-no">722</span><span id="line-722">     * Contact due to the decoration on the line.</span>
+<span class="source-line-no">723</span><span id="line-723">     * @param symbolID</span>
+<span class="source-line-no">724</span><span id="line-724">     * @return </span>
+<span class="source-line-no">725</span><span id="line-725">     */</span>
+<span class="source-line-no">726</span><span id="line-726">    public static String ShouldClipMultipointSymbol(String symbolID)</span>
+<span class="source-line-no">727</span><span id="line-727">    {</span>
+<span class="source-line-no">728</span><span id="line-728">        if(MultiPointHandler.ShouldClipSymbol(symbolID))</span>
+<span class="source-line-no">729</span><span id="line-729">            return "true";</span>
+<span class="source-line-no">730</span><span id="line-730">        else</span>
+<span class="source-line-no">731</span><span id="line-731">            return "false";</span>
+<span class="source-line-no">732</span><span id="line-732">    }</span>
+<span class="source-line-no">733</span><span id="line-733">    </span>
+<span class="source-line-no">734</span><span id="line-734">     /**</span>
+<span class="source-line-no">735</span><span id="line-735">     * Given a symbol code meant for a single point symbol, returns the</span>
+<span class="source-line-no">736</span><span id="line-736">     * symbol as a byte array.</span>
+<span class="source-line-no">737</span><span id="line-737">     *</span>
+<span class="source-line-no">738</span><span id="line-738">     * @param symbolID - the 20-30 digit symbolID of a single point MilStd2525</span>
+<span class="source-line-no">739</span><span id="line-739">     * symbol.</span>
+<span class="source-line-no">740</span><span id="line-740">     * @return byte array.</span>
+<span class="source-line-no">741</span><span id="line-741">      * @deprecated</span>
+<span class="source-line-no">742</span><span id="line-742">     */</span>
+<span class="source-line-no">743</span><span id="line-743">    public static byte[] getSinglePointByteArray(String symbolID)</span>
+<span class="source-line-no">744</span><span id="line-744">    {</span>
+<span class="source-line-no">745</span><span id="line-745">        //return sps.getSinglePointByteArray(symbolID);</span>
+<span class="source-line-no">746</span><span id="line-746">        return null;</span>
+<span class="source-line-no">747</span><span id="line-747">    }</span>
+<span class="source-line-no">748</span><span id="line-748">}</span>
 
 
 
