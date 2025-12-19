@@ -2,9 +2,6 @@ mil-sym-js
 =========
 mil-sym-js is a JavaScript port of the java-based mil-std rendering libraries that have been used in US Army Mission Command software for years.  In November 2013 Mission Command was given the approval to release and maintain these libraries as public open source. 
 
-[JS Renderer Developer's Guide Wiki](https://github.com/missioncommand/mil-sym-js/wiki/Developer's-Guide)  
-[Google Group Discussion Forum](https://groups.google.com/forum/#!forum/mission-command-milstd-renderer)  
-[mil-sym-js io page on GitHub](http://missioncommand.github.io/mil-sym-js/)
 
 MIL-STD-2525
 -----------

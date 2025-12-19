@@ -1,3 +1,6 @@
+Version 0.3.45
+-fixed bug with tacitcal graphic icon previews introduced in 0.3.44 causing them not to render
+
 Version 0.3.44
 -fixed label bug with screen/guard
 -replaced DOM canvas with OffscreenCanvas in most places
