@@ -5,18 +5,36 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <title>single point tester</title>
+    <!-- Not necessary as fonts are body fonts set in renderer.css
+    <style type="text/css">
+    body 
+    {
+        font-family: UnitFont, SinglePoint, TacticalGraphics;
+        font-size: 48pt;
+        padding: 25px;
+    }
+    </style> -->
 
-    <!-- Load as script -->
-    <!-- <script src="dist/C5Ren.js" type="text/javascript" ></script> -->
-	
-	<!-- Load as module.  Modules only load from server, can't access from file system -->
-    <script type="module">    
-        import * as C5Ren from './dist/C5Ren.js';
-    </script>  
+	<!-- ESBuild -->
+    <!-- <script src="dist/C5ISR2525.js" type="text/javascript" ></script> -->
 
+    <!-- Individual files -->
+    <!-- <script src="includes.js" type="text/javascript" ></script> -->
+
+    <!-- Web Pack -->
+    <script src="../dist/C5Ren.umd.js" type="text/javascript" ></script>
+
+    <!-- modules only load from server, can't access from file system -->
+    <!--<script type="module">    
+        import MilStdIconRenderer from './dist/bundle.js';
+   </script>  -->
 	    
     <script type = "text/javascript">
 	
+    var drawMPMode = false;
+    var mpPoints = null;
+    var mpcp = null;
+    var mpPointCount = 0;
 	var fontCheckTimer =  null;
 	var retries = 15;
 	var attempts = 0;
@@ -25,6 +43,7 @@
         var _modifiers = null;
         var Modifiers = null;
         //var C5Ren = null;
+
 	
 	
         function populateModifiers()
@@ -86,6 +105,52 @@
 			//modifiers.set(C5Ren.utilities.MilStdAttributes.TextColor,"#FF00FF";
 			//modifiers.set(C5Ren.utilities.MilStdAttributes.TextBackgroundColor,"#00FF00";
             
+            var id = buildSymbolID(_symbolID);
+            var msInfo = C5Ren.MSLookup.getInstance().getMSLInfo(id);
+            if(msInfo != null && msInfo.getSymbolSet()==25) {
+                var drawRule = msInfo.getDrawRule();
+                // Points
+                if (drawRule == C5Ren.DrawRules.POINT17) {
+                    modifiers.set(C5Ren.Modifiers.AM_DISTANCE, "1500,1000");
+                    modifiers.set(C5Ren.Modifiers.AN_AZIMUTH, "45"); // degrees
+                } else if (drawRule == C5Ren.DrawRules.POINT18) {
+                    modifiers.set(C5Ren.Modifiers.AM_DISTANCE, "1000,1500");
+                    modifiers.set(C5Ren.Modifiers.AN_AZIMUTH, "45,90"); // degrees
+                }
+                //Corridor
+                else if (drawRule == C5Ren.DrawRules.CORRIDOR1) {
+                    modifiers.set(C5Ren.Modifiers.AM_DISTANCE, "1000");
+                    modifiers.set(C5Ren.Modifiers.X_ALTITUDE_DEPTH, "0,10");
+                }
+                // Ellipse
+                else if (drawRule == C5Ren.DrawRules.ELLIPSE1) {
+                    modifiers.set(C5Ren.Modifiers.AM_DISTANCE, "1000,1500");
+                    modifiers.set(C5Ren.Modifiers.AN_AZIMUTH, "45");
+                }
+                // Rectangles
+                if (drawRule == C5Ren.DrawRules.RECTANGULAR1) {
+                    modifiers.set(C5Ren.Modifiers.AM_DISTANCE, "1000");
+                } else if (drawRule == C5Ren.DrawRules.RECTANGULAR2) {
+                    modifiers.set(C5Ren.Modifiers.AM_DISTANCE, "1000,3000");
+                    modifiers.set(C5Ren.Modifiers.AN_AZIMUTH, "45"); // mils
+                } else if (drawRule == C5Ren.DrawRules.RECTANGULAR3) {
+                    modifiers.set(C5Ren.Modifiers.AM_DISTANCE, "1000");
+                }
+                // Circles
+                else if (drawRule == C5Ren.DrawRules.CIRCULAR1) {
+                    modifiers.set(C5Ren.Modifiers.AM_DISTANCE, "1000");
+                } else if (drawRule == C5Ren.DrawRules.CIRCULAR2) {
+                    modifiers.set(C5Ren.Modifiers.AM_DISTANCE, "750,1500,1500");
+                    modifiers.set(C5Ren.Modifiers.X_ALTITUDE_DEPTH, "0,10,100");
+                }
+                // Arc
+                else if (drawRule == C5Ren.DrawRules.ARC1) {
+                    modifiers.set(C5Ren.Modifiers.AM_DISTANCE, "500,1500,2500,3500,4500");
+                    modifiers.set(C5Ren.Modifiers.AN_AZIMUTH, "290,30,290,30,315,30,315,35"); // degrees
+                    modifiers.set(C5Ren.Modifiers.X_ALTITUDE_DEPTH, "0,10,100,200");
+                }
+            }
+            
             return modifiers;
         }
 
@@ -134,19 +199,31 @@
             attributes.set(C5Ren.MilStdAttributes.DrawAsIcon,new String(drawAsIcon));
             attributes.set(C5Ren.MilStdAttributes.KeepUnitRatio,new String(keepUnitRatio));
             
-			C5Ren.RendererSettings.getInstance().setScaleMainIcon(scaleMainIcon);
+            RendererSettings.getInstance().setScaleMainIcon(scaleMainIcon);
 			
             //font change test
             //RendererSettings.getInstance().setLabelFont("serif","bold",24);
 
             //OutlineTest
-			//attributes.set(C5Ren.MilStdAttributes.OutlineColor]="#FF00FF";
-			//attributes.set(C5Ren.MilStdAttributes.OutlineWidth]=4;
+			//attributes.set(C5Ren.MilStdAttributes.OutlineColor,"#FF00FF");
+			//attributes.set(C5Ren.MilStdAttributes.OutlineWidth,4);
 			//attributes.set(C5Ren.MilStdAttributes.OutlineAlpha]=0.5;
 
             //attributes.set(C5Ren.MilStdAttributes.LineColor,"#00FF00");
             //attributes.set(C5Ren.MilStdAttributes.FillColor,"#0000FF00");
-            //attributes.set(C5Ren.MilStdAttributes.IconColor,"#0000FF");
+            //attributes.set(C5Ren.MilStdAttributes.FillColor,"#00FF00");
+            //attributes.set(C5Ren.MilStdAttributes.IconColor,"#00FF00");
+
+            C5Ren.RendererSettings.getInstance().setSPModifierPlacement(1);
+
+            //font override check
+            /*attributes.set(MilStdAttributes.FontFamily,"sans-serif");
+            //var type = String.valueOf(C5Ren.Font.BOLD); 
+            attributes.set(MilStdAttributes.FontStyle,C5Ren.Font.BOLD.toString());
+            attributes.set(MilStdAttributes.FontSize,"12");//*/
+
+            //flexible modifier placement test
+            attributes.set(C5Ren.MilStdAttributes.ModifierPlacement,C5Ren.RendererSettings.ModifierPlacement_FLEXIBLE);
         
             var si = C5Ren.MilStdIconRenderer.getInstance().RenderSVG(symbolID,modifiers,attributes);
             //var si2 = C5Ren.MilStdIconRenderer.getInstance().RenderSVG("130310000016570000000000000000",modifiers,attributes);
@@ -165,7 +242,7 @@
             document.getElementById("contentSpan").innerHTML += si.getSVG();
             
             
-            //test urlEncode vs base64
+            //test urlEncode vs base64 vs SYGSymbolInfo.getSVGDataURI()
             //speedTestSVGConversion(si.getSVG());
             
             try
@@ -284,8 +361,8 @@
     function speedTestSVGConversion(svg)
     {
         var start = new Date().getTime();
-        
-        for(var i = 0; i < 10000; i++)
+        var count = 1000;
+        for(var i = 0; i < count; i++)
 		{
 			encodeURIComponent(svg)
 		}
@@ -296,7 +373,7 @@
         
         start = new Date().getTime();
         
-        for(var j = 0; j < 10000; j++)
+        for(var j = 0; j < count; j++)
 		{
 			btoa(svg)
 		}
@@ -304,6 +381,15 @@
         end = new Date().getTime();
 		time = end - start;
 		alert('btoa: ' + (time/1000) + "; length: " + btoa(svg).length);//*/
+
+        start = new Date().getTime();
+        for(var k = 0; k < count; k++)
+        {
+            var temp = "data:image/svg+xml;base64," + btoa(String.fromCodePoint(...new TextEncoder().encode(svg)));
+        }
+        end = new Date().getTime();
+		time = end - start;
+		alert('SVGSymbolInfo.getSVGDataURI(): ' + (time/1000) + "; length: " + btoa(svg).length);//*/
         
     }
 	function speedTest(type)
@@ -340,6 +426,12 @@
 		start = new Date().getTime();
 		
         var attrib = new Map();
+
+        //font override check
+        /*C5Ren.RendererSettings.getInstance().setDeviceDPI(96);
+        attrib.set(MilStdAttributes.FontFamily,"sans-serif");
+        attrib.set(MilStdAttributes.FontStyle,C5Ren.Font.BOLD.toString());
+        attrib.set(MilStdAttributes.FontSize,"12");//*/
 
         var si;
 
@@ -451,6 +543,7 @@
 
         
     }
+
     function clearCanvas()
     {
         var preview = document.getElementById("preview");
@@ -482,10 +575,42 @@
         
         var id = buildSymbolID(_symbolID);
         
+
         var preview = document.getElementById("preview");
         var x = e.pageX - preview.offsetLeft;
         var y = e.pageY - preview.offsetTop;
-        render(id,x, y);
+
+        if(drawMPMode==false)
+        {
+            render(id,x, y);
+        }
+        else
+        {
+            msi = C5Ren.MSLookup.getInstance().getMSLInfo(id);
+            var max = Math.min(msi.getMaxPointCount(),6);
+            if(mpPoints != null && mpPointCount < max)
+            {
+                //add point
+                var point = getFakeGeo(x,y);
+                
+                if(mpPointCount >0)
+                    mpcp += " ";
+                
+                mpcp += point[0] + "," + point[1];
+                mpPointCount++;
+            }
+            if(mpPointCount >= max)
+            {
+                //Draw Multipoint
+                renderMP(id,mpcp);
+
+                //reset mode
+                drawMPMode = false;;
+                mpPoints = null;
+                mpcp = "";
+                mpPointCount = 0;
+            }
+        }
 
         /*
         var att = new Map();
@@ -494,6 +619,134 @@
         var LAA = "110325000015110016000000000000";
         var si = C5Ren.SinglePointSVGRenderer.getInstance().RenderModifier(LAA,att);
         console.log(si.getSVG());//*/
+    }
+
+    function getFakeGeo(x,y)
+    {
+        //33,34,33,34
+        var preview = document.getElementById("preview");
+        var pw = preview.width;
+        var ph = preview.height;
+        //return [33 + (1/pw),33 + (1/ph)];
+
+        var geoLeft = 49.9;
+        var geoRight = 50;
+        var geoTop = 20.05;
+        var geoBottom = 20;
+
+        var mx = (geoRight - geoLeft) / pw;
+        var my = (geoTop - geoBottom) / ph;
+
+        if(geoRight-geoLeft < -180)
+        {
+            mmx = (geoRight - geoLeft + 360) / pw ;
+        }
+        if(geoRight-geoLeft > 180)
+        {
+            mx = (360 - (geoRight - geoLeft) ) / pw ;
+        }
+        //end section
+        if(geoTop < geoBottom)
+            my = -Math.abs(my);
+        else
+            my = Math.abs(my);
+
+
+            /*if(coords.x > 180) //Should add but not necessary given the tester stays at a fixed location.
+            coords.x -= 360;
+        if(coords.x < -180)
+            coords.x += 360;//*/
+
+        return [geoLeft + (x*mx),geoTop - (y*my)];
+
+
+    }
+
+    function drawMP()
+    {
+        var id = buildSymbolID(_symbolID);
+        
+        if(C5Ren.SymbolUtilities.isMultiPoint(id))
+        {
+            
+            var preview = document.getElementById("preview");
+            var width = preview.width;
+            var height = preview.height;
+
+            drawMPMode = true;
+            mpPoints = new Array();
+            mpcp = "";
+            mpPointCount = 0;
+        }
+    
+    }
+
+    function renderMP(symbolID, controlPoints)
+    {
+        var id = "id";
+        var name = "name";
+        var description = "description";
+        //var controlPoints = "8.40185525443334,38.95854638813517";
+        var altitudeMode = "absolute";
+        var scale = 5869879.2;
+        var geoLeft = 49.9;
+        var geoRight = 50;
+        var geoTop = 20.05;
+        var geoBottom = 20
+        //var bbox = "5.76417051405295,34.86552015439102,20.291017309471272,45.188646318100695";
+        var bbox = "49.9,20,50,20.05";
+
+        var modifiers = populateModifiers();
+        var attributes = new Map();
+
+        var preview = document.getElementById("preview");
+        var pw = preview.width;
+        var ph = preview.height;
+
+        try
+        {
+
+            var geoSVG = C5Ren.WebRenderer.RenderSymbol2D(id, name, description,symbolID, controlPoints, pw,ph, bbox, modifiers, attributes, C5Ren.WebRenderer.OUTPUT_FORMAT_GEOSVG);
+            console.log("GeoSVG:");
+            console.log(geoSVG);
+
+            var data = "data:image/svg+xml;base64," + btoa(String.fromCodePoint(...new TextEncoder().encode(geoSVG)));
+
+            var svgImage = document.getElementById("SVGTest");
+            //svgImage.src = data;
+
+            if (typeof geoSVG === 'string') {
+                var start = geoSVG.toString().indexOf("<geoTL>");
+                var stop = geoSVG.toString().indexOf("</geoTL>");
+                var anchorString = geoSVG.toString().substring(start+7,stop);
+                var anchor = anchorString.split(" ");
+            }
+            //calculate pixel point////////////////////////////////
+            var geoLeft = 49.9;
+            var geoRight = 50;
+            var geoTop = 20.05;
+            var geoBottom = 20;
+
+            var mx = (geoRight - geoLeft) / pw;
+            var my = (geoBottom - geoTop) / ph;
+
+            //return [geoLeft + (x*mx),geoTop + (y*my)];
+
+            //put on canvas
+            x = parseFloat(anchor[0]);
+            y = parseFloat(anchor[1]);
+
+            x = (x - geoLeft)/mx;
+            y = (y - geoTop)/my;
+
+            drawToCanvas(geoSVG,x,y);
+
+
+        }
+        catch(exc)
+        {
+            console.log(exc);
+        }
     }
     
     function setSpeedTestImages()
@@ -525,19 +778,24 @@
     function setup()
     {
         document.getElementById("btnST1").disabled = true; 
-		
-		//Assumes location page is running in
+        //Assumes location page is running in
         //C5Ren.initialize().then(function(results){document.getElementById("btnST1").disabled = false;preload();}).catch(error => {throw error;});
-		
-		//Set location where renderer and files are
-        //C5Ren.initialize('/js-samples/dist/').then(function(results){document.getElementById("btnST1").disabled = false;preload();}).catch(error => {throw error;});
-		
-		//no longer using init call
-		document.getElementById("btnST1").disabled = false;
-		preload();
-		
-		//Tell the renderer specficially where the manifest file is in case the users process renamed it with a hash or something.
-		//C5Ren.initialize('/js-samples/dist/manifest.json').then(function(results){document.getElementById("btnST1").disabled = false;preload();}).catch(error => {throw error;});
+        //Set location where renderer and files are
+        //C5Ren.initialize('/dist/').then(function(results){document.getElementById("btnST1").disabled = false;preload();}).catch(error => {throw error;});
+        //Tell the renderer specficially where the manifest file is in case the users process renamed it with a hash or something.
+        //C5Ren.initialize('/dist/manifest.json').then(function(results){document.getElementById("btnST1").disabled = false;preload();}).catch(error => {throw error;});
+        
+        //no longer using init call
+        document.getElementById("btnST1").disabled = false;
+        preload();
+
+        /*if(C5Ren.isReady())
+        {
+            var mi = new C5Ren.MSInfo(13,"10", "Sustainment","TEST","","165700",null);
+            var si = new C5Ren.SVGInfo("10165700", new C5Ren.Rectangle2D(198,365,215,64),"<g id=\"10165700\"><text font-family=\"sans-serif\" stroke=\"red\" font-size=\"89\" x=\"192\" y=\"428\">MWR</text></g>");
+            C5Ren.MilStdIconRenderer.getInstance().AddCustomSymbol(mi,si);
+        }//*/
+        C5Ren.RendererSettings.getInstance().setLabelFont("arial","bold",12);
     }
         
 	function preload()
@@ -582,14 +840,89 @@
 			//RendererSettings.setTextBackgroundMethod(RendererSettings.TextBackgroundMethod_COLORFILL);
 			//RendererSettings.setTextBackgroundMethod(RendererSettings.TextBackgroundMethod_OUTLINE);
 			//RendererSettings.setTextBackgroundMethod(RendererSettings.TextBackgroundMethod_OUTLINE_QUICK);
-            RendererSettings.setOutlineSPControlMeasures(false);
+            //RendererSettings.setOutlineSPControlMeasures(false);
             //RendererSettings.setOperationalConditionModifierType(RendererSettings.OperationalConditionModifierType_SLASH);
 
             //lookup test
             var msInfo = C5Ren.MSLookup.getInstance().getMSLInfo("110345000016140700000000000840");
             var mods = msInfo.getModifiers();
 
+            //SectorModUtils test
+            try
+            {
+                var smu = C5Ren.SectorModUtils.getInstance();
+                var name = smu.getName(11,1,1,"01");//ver, symbol set, sector location, code
+                var alDch1 = smu.getSectorModList(11,1,1);//ver, symbol set, sector location
+                var alAPP6D = smu.getSectorModList(10,1,1);//ver, symbol set, sector location
+                name = smu.getName(15,0,1,"100");
+                console.log(name);
+
+                //code conversion test
+                /*var newCode = C5Ren.C2DLookup.getInstance().getDCode("GFGPDAE---**USX",true);
+                console.log(newCode);
+                var country = C5Ren.GENCLookup.getInstance().get3CharCode(840);
+                console.log(country);
+                country = C5Ren.GENCLookup.getInstance().get3CharCode(540);
+                console.log(country);
+                country = C5Ren.GENCLookup.getInstance().get3DigitCode("US");
+                console.log(country);
+                country = C5Ren.GENCLookup.getInstance().get3CharCode(76);
+                console.log(country);
+                country = C5Ren.GENCLookup.getInstance().get3DigitCode("BR");
+                console.log(country);
+                country = SymbolID.setCountryCode("000000000000000000000000000000",76);
+                C5Ren.ErrorLogger.LogMessage(country);
+                country = SymbolID.setCountryCode("000000000000000000000000000000","76");
+                C5Ren.ErrorLogger.LogMessage(country);
+                country = SymbolID.setCountryCode("000000000000000000000000000000","076");
+                C5Ren.ErrorLogger.LogMessage(country);//*/
+
+                testBasicShape();
+            }
+            catch(e)
+            {
+                if (e instanceof Error) {
+                //ErrorLogger.LogException("C5Ren","isReady()",e);
+                console.log(e.message);
+                }
+                return false;
+            }
+
 	}
+
+    function testBasicShape()
+    {
+        var id = "id";
+        var name = "name";
+        var description = "description";
+        var controlPoints = "8.40185525443334,38.95854638813517";
+        var altitudeMode = "absolute";
+        var scale = 5869879.2;
+        var bbox = "5.76417051405295,34.86552015439102,20.291017309471272,45.188646318100695";
+
+        var modifiers = new Map();
+        var attributes = new Map();
+        try
+        {
+            modifiers.set(C5Ren.Modifiers.AM_DISTANCE, "1500");
+
+            var geoJSON = C5Ren.WebRenderer.RenderBasicShape(id, name, description, C5Ren.BasicShapes.CIRCLE, controlPoints, altitudeMode, scale, bbox, modifiers, attributes, C5Ren.WebRenderer.OUTPUT_FORMAT_GEOJSON);
+            console.log("Basic Shape CIRCLE");
+            console.log(geoJSON);
+
+            modifiers.set(C5Ren.Modifiers.AM_DISTANCE, "1500,1000");
+            modifiers.set(C5Ren.Modifiers.AN_AZIMUTH, "20");
+            modifiers.set(C5Ren.Modifiers.T_UNIQUE_DESIGNATION_1, "T: RECTANGLE");
+
+            geoJSON = C5Ren.WebRenderer.RenderBasicShape(id, name, description, C5Ren.BasicShapes.RECTANGLE, controlPoints, altitudeMode, scale, bbox, modifiers, attributes, C5Ren.WebRenderer.OUTPUT_FORMAT_GEOJSON);
+            console.log("Basic Shape RECTANGLE");
+            console.log(geoJSON);
+        }
+        catch(exc)
+        {
+            console.log(exc);
+        }
+    }
 </script>
 </head>
    
@@ -611,8 +944,10 @@ SVG Rendered to HTML5 Canvas:<br/>
 SymbolID: <input id="tbSymbolID" type="text" value="" maxlength="30" size="30" readonly>
 <br>
 Version: <select id = lbVersion onchange="versionChange();">
-    <option>11-2525D</option>
-    <option>13-2525E</option>
+    <option>10-APP6D</option>
+    <option selected>11-2525D</option>
+    <option>15-2525E</option>
+    <option>16-APP6E</option>
 </select>
 Context: <select id = lbContext onchange="buildSymbolID();">
     <option>0-Reality</option>
@@ -711,18 +1046,21 @@ Frame Shape: <select id = lbFrame>
     <option>1-Space</option>
     <option>2-Air</option>
     <option>3-Land Unit</option>
-    <option>4-Equip/Sea</option>
+    <option>4-Equipment</option>
     <option>5-Land Inst.</option>
     <option>6-Dis. Ind.</option>
 	<option>7-Sea Sub.</option>
     <option>8-Activity</option>
     <option>9-Cyber</option>
+    <option>A-SeaSurface</option>
 </select>
 Size: <input id="tbSize" type="number" value="100" style="width: 4em"><br/>
 Keep Unit Ratio: <input id="cbKeepUnitRatio" type="checkbox" checked><br/>
 Labels:  <input id="cbLabels" type="checkbox"><br/>
 Draw as Icon:  <input id="cbDrawAsIcon" type="checkbox"><br/>
 Scale Internal Symbol:  <input id="cbScaleMainIcon" type="checkbox" checked><br/>
+<button id="btnDrawMP" type='button' onclick='drawMP();' >Draw MP</button>
+<br/>
 <button id="btnClear" type='button' onclick='clearCanvas();' >Clear Canvas</button>
 <br/>
 <!-- <button id="btnRender" type='button' onclick='testRender();' disabled>Loading Page</button>-->
@@ -736,6 +1074,12 @@ Scale Internal Symbol:  <input id="cbScaleMainIcon" type="checkbox" checked><br/
 <img id="SVGTest" src="" alt="svg from datauri" height="100" width="100">
 <br/>
 <span id='contentSpan'/>
+
+<!-- Export single point output to files -->
+<br/>
+<script src="ExportSPImages.js" type="text/javascript" ></script>
+<script src="../node_modules/jszip/dist/jszip.js"></script>
+<button id="btnExport" type='button' onclick='exportTestImages("SPImageTestJS.zip")'>Export test images</button>
 
 </BODY>
 </html>
