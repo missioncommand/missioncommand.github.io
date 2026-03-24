@@ -34,619 +34,674 @@
 <span class="source-line-no">021</span><span id="line-21">    private static Boolean _initCalled = false;</span>
 <span class="source-line-no">022</span><span id="line-22">    private static Map&lt;String, SVGInfo&gt; _SVGLookupD = null;</span>
 <span class="source-line-no">023</span><span id="line-23">    private static Map&lt;String, SVGInfo&gt; _SVGLookupE = null;</span>
-<span class="source-line-no">024</span><span id="line-24">    private String TAG = "SVGLookup";</span>
-<span class="source-line-no">025</span><span id="line-25"></span>
-<span class="source-line-no">026</span><span id="line-26"></span>
-<span class="source-line-no">027</span><span id="line-27">    /*</span>
-<span class="source-line-no">028</span><span id="line-28">     * Holds SymbolDefs for all symbols. (basicSymbolID, Description, MinPoint, MaxPoints, etc...) Call</span>
-<span class="source-line-no">029</span><span id="line-29">     * getInstance().</span>
-<span class="source-line-no">030</span><span id="line-30">     *</span>
-<span class="source-line-no">031</span><span id="line-31">     */</span>
-<span class="source-line-no">032</span><span id="line-32">    private SVGLookup() {</span>
-<span class="source-line-no">033</span><span id="line-33">        // init(null);</span>
-<span class="source-line-no">034</span><span id="line-34">        // _initCalled=true;</span>
-<span class="source-line-no">035</span><span id="line-35">    }</span>
-<span class="source-line-no">036</span><span id="line-36"></span>
-<span class="source-line-no">037</span><span id="line-37">    public static synchronized SVGLookup getInstance() {</span>
-<span class="source-line-no">038</span><span id="line-38">        if (_instance == null) {</span>
-<span class="source-line-no">039</span><span id="line-39">            _instance = new SVGLookup();</span>
-<span class="source-line-no">040</span><span id="line-40">        }</span>
-<span class="source-line-no">041</span><span id="line-41"></span>
-<span class="source-line-no">042</span><span id="line-42">        return _instance;</span>
-<span class="source-line-no">043</span><span id="line-43">    }</span>
-<span class="source-line-no">044</span><span id="line-44"></span>
-<span class="source-line-no">045</span><span id="line-45">    public final synchronized void init(Context context)</span>
-<span class="source-line-no">046</span><span id="line-46">    {</span>
-<span class="source-line-no">047</span><span id="line-47">        if (_initCalled == false)</span>
-<span class="source-line-no">048</span><span id="line-48">        {</span>
-<span class="source-line-no">049</span><span id="line-49">            _SVGLookupD = new HashMap&lt;&gt;();</span>
-<span class="source-line-no">050</span><span id="line-50">            _SVGLookupE = new HashMap&lt;&gt;();</span>
-<span class="source-line-no">051</span><span id="line-51"></span>
-<span class="source-line-no">052</span><span id="line-52">            try</span>
-<span class="source-line-no">053</span><span id="line-53">            {</span>
-<span class="source-line-no">054</span><span id="line-54">                InputStream isD = context.getResources().openRawResource(R.raw.svgd);</span>
-<span class="source-line-no">055</span><span id="line-55">                loadData(isD, SymbolID.Version_2525Dch1);</span>
-<span class="source-line-no">056</span><span id="line-56">                isD.close();</span>
-<span class="source-line-no">057</span><span id="line-57"></span>
-<span class="source-line-no">058</span><span id="line-58">                InputStream isE = context.getResources().openRawResource(R.raw.svge);</span>
-<span class="source-line-no">059</span><span id="line-59">                loadData(isE, SymbolID.Version_2525E);</span>
-<span class="source-line-no">060</span><span id="line-60">                isE.close();</span>
+<span class="source-line-no">024</span><span id="line-24">    private static Map&lt;String, SVGInfo&gt; _SVGLookup6D = null;</span>
+<span class="source-line-no">025</span><span id="line-25">    private static Map&lt;String, SVGInfo&gt; _SVGLookup6E = null;</span>
+<span class="source-line-no">026</span><span id="line-26">    private String TAG = "SVGLookup";</span>
+<span class="source-line-no">027</span><span id="line-27"></span>
+<span class="source-line-no">028</span><span id="line-28"></span>
+<span class="source-line-no">029</span><span id="line-29">    /*</span>
+<span class="source-line-no">030</span><span id="line-30">     * Holds SymbolDefs for all symbols. (basicSymbolID, Description, MinPoint, MaxPoints, etc...) Call</span>
+<span class="source-line-no">031</span><span id="line-31">     * getInstance().</span>
+<span class="source-line-no">032</span><span id="line-32">     *</span>
+<span class="source-line-no">033</span><span id="line-33">     */</span>
+<span class="source-line-no">034</span><span id="line-34">    private SVGLookup() {</span>
+<span class="source-line-no">035</span><span id="line-35">        // init(null);</span>
+<span class="source-line-no">036</span><span id="line-36">        // _initCalled=true;</span>
+<span class="source-line-no">037</span><span id="line-37">    }</span>
+<span class="source-line-no">038</span><span id="line-38"></span>
+<span class="source-line-no">039</span><span id="line-39">    public static synchronized SVGLookup getInstance() {</span>
+<span class="source-line-no">040</span><span id="line-40">        if (_instance == null) {</span>
+<span class="source-line-no">041</span><span id="line-41">            _instance = new SVGLookup();</span>
+<span class="source-line-no">042</span><span id="line-42">        }</span>
+<span class="source-line-no">043</span><span id="line-43"></span>
+<span class="source-line-no">044</span><span id="line-44">        return _instance;</span>
+<span class="source-line-no">045</span><span id="line-45">    }</span>
+<span class="source-line-no">046</span><span id="line-46"></span>
+<span class="source-line-no">047</span><span id="line-47">    public final synchronized void init(Context context)</span>
+<span class="source-line-no">048</span><span id="line-48">    {</span>
+<span class="source-line-no">049</span><span id="line-49">        if (_initCalled == false)</span>
+<span class="source-line-no">050</span><span id="line-50">        {</span>
+<span class="source-line-no">051</span><span id="line-51">            _SVGLookupD = new HashMap&lt;&gt;();</span>
+<span class="source-line-no">052</span><span id="line-52">            _SVGLookupE = new HashMap&lt;&gt;();</span>
+<span class="source-line-no">053</span><span id="line-53">            _SVGLookup6D = new HashMap&lt;&gt;();</span>
+<span class="source-line-no">054</span><span id="line-54">            _SVGLookup6E = new HashMap&lt;&gt;();</span>
+<span class="source-line-no">055</span><span id="line-55"></span>
+<span class="source-line-no">056</span><span id="line-56">            try</span>
+<span class="source-line-no">057</span><span id="line-57">            {</span>
+<span class="source-line-no">058</span><span id="line-58">                InputStream isD = context.getResources().openRawResource(R.raw.svgd);</span>
+<span class="source-line-no">059</span><span id="line-59">                loadData(isD, SymbolID.Version_2525Dch1);</span>
+<span class="source-line-no">060</span><span id="line-60">                isD.close();</span>
 <span class="source-line-no">061</span><span id="line-61"></span>
-<span class="source-line-no">062</span><span id="line-62">                _initCalled = true;</span>
-<span class="source-line-no">063</span><span id="line-63">            }</span>
-<span class="source-line-no">064</span><span id="line-64">            catch(Exception e)</span>
-<span class="source-line-no">065</span><span id="line-65">            {</span>
-<span class="source-line-no">066</span><span id="line-66">                System.out.println(e.getMessage());</span>
-<span class="source-line-no">067</span><span id="line-67">            }</span>
-<span class="source-line-no">068</span><span id="line-68">        }</span>
+<span class="source-line-no">062</span><span id="line-62">                InputStream is6D = context.getResources().openRawResource(R.raw.svg6d);</span>
+<span class="source-line-no">063</span><span id="line-63">                loadData(is6D, SymbolID.Version_2525Dch1);</span>
+<span class="source-line-no">064</span><span id="line-64">                is6D.close();</span>
+<span class="source-line-no">065</span><span id="line-65"></span>
+<span class="source-line-no">066</span><span id="line-66">                InputStream isE = context.getResources().openRawResource(R.raw.svge);</span>
+<span class="source-line-no">067</span><span id="line-67">                loadData(isE, SymbolID.Version_2525Ech1);</span>
+<span class="source-line-no">068</span><span id="line-68">                isE.close();</span>
 <span class="source-line-no">069</span><span id="line-69"></span>
-<span class="source-line-no">070</span><span id="line-70">    }</span>
-<span class="source-line-no">071</span><span id="line-71"></span>
-<span class="source-line-no">072</span><span id="line-72">    private void loadData(InputStream is, int version)</span>
-<span class="source-line-no">073</span><span id="line-73">    {</span>
-<span class="source-line-no">074</span><span id="line-74">        Map&lt;String, SVGInfo&gt; lookup;</span>
-<span class="source-line-no">075</span><span id="line-75">        if(version &gt;= SymbolID.Version_2525E)</span>
-<span class="source-line-no">076</span><span id="line-76">            lookup = _SVGLookupE;</span>
-<span class="source-line-no">077</span><span id="line-77">        else</span>
-<span class="source-line-no">078</span><span id="line-78">            lookup = _SVGLookupD;</span>
-<span class="source-line-no">079</span><span id="line-79"></span>
-<span class="source-line-no">080</span><span id="line-80">        String[] temp = null;</span>
-<span class="source-line-no">081</span><span id="line-81">        String id = null;</span>
-<span class="source-line-no">082</span><span id="line-82">        RectF bbox = null;</span>
-<span class="source-line-no">083</span><span id="line-83">        String svg = null;</span>
-<span class="source-line-no">084</span><span id="line-84">        String delimiter = "~";</span>
-<span class="source-line-no">085</span><span id="line-85"></span>
-<span class="source-line-no">086</span><span id="line-86">        try</span>
-<span class="source-line-no">087</span><span id="line-87">        {</span>
-<span class="source-line-no">088</span><span id="line-88">            BufferedReader br = new BufferedReader(new InputStreamReader(is));</span>
-<span class="source-line-no">089</span><span id="line-89"></span>
-<span class="source-line-no">090</span><span id="line-90">            String line = br.readLine();</span>
+<span class="source-line-no">070</span><span id="line-70">                InputStream is6E = context.getResources().openRawResource(R.raw.svg6e);</span>
+<span class="source-line-no">071</span><span id="line-71">                loadData(is6E, SymbolID.Version_2525E);</span>
+<span class="source-line-no">072</span><span id="line-72">                is6E.close();</span>
+<span class="source-line-no">073</span><span id="line-73"></span>
+<span class="source-line-no">074</span><span id="line-74">                _initCalled = true;</span>
+<span class="source-line-no">075</span><span id="line-75">            }</span>
+<span class="source-line-no">076</span><span id="line-76">            catch(Exception e)</span>
+<span class="source-line-no">077</span><span id="line-77">            {</span>
+<span class="source-line-no">078</span><span id="line-78">                System.out.println(e.getMessage());</span>
+<span class="source-line-no">079</span><span id="line-79">            }</span>
+<span class="source-line-no">080</span><span id="line-80">        }</span>
+<span class="source-line-no">081</span><span id="line-81"></span>
+<span class="source-line-no">082</span><span id="line-82">    }</span>
+<span class="source-line-no">083</span><span id="line-83"></span>
+<span class="source-line-no">084</span><span id="line-84">    private void loadData(InputStream is, int version)</span>
+<span class="source-line-no">085</span><span id="line-85">    {</span>
+<span class="source-line-no">086</span><span id="line-86">        String[] temp = null;</span>
+<span class="source-line-no">087</span><span id="line-87">        String id = null;</span>
+<span class="source-line-no">088</span><span id="line-88">        RectF bbox = null;</span>
+<span class="source-line-no">089</span><span id="line-89">        String svg = null;</span>
+<span class="source-line-no">090</span><span id="line-90">        String delimiter = "~";</span>
 <span class="source-line-no">091</span><span id="line-91"></span>
-<span class="source-line-no">092</span><span id="line-92">            while (line != null)</span>
-<span class="source-line-no">093</span><span id="line-93">            {</span>
-<span class="source-line-no">094</span><span id="line-94">                //parse first line</span>
-<span class="source-line-no">095</span><span id="line-95">                temp = line.split(delimiter);</span>
-<span class="source-line-no">096</span><span id="line-96">                id = temp[0];</span>
-<span class="source-line-no">097</span><span id="line-97">                float left, top, width, height;</span>
-<span class="source-line-no">098</span><span id="line-98">                left = Float.parseFloat(temp[1]);</span>
-<span class="source-line-no">099</span><span id="line-99">                top = Float.parseFloat(temp[2]);</span>
-<span class="source-line-no">100</span><span id="line-100">                width = Float.parseFloat(temp[3]);</span>
-<span class="source-line-no">101</span><span id="line-101">                height = Float.parseFloat(temp[4]);</span>
-<span class="source-line-no">102</span><span id="line-102">                bbox = RectUtilities.makeRectF(left, top, width, height);</span>
-<span class="source-line-no">103</span><span id="line-103"></span>
-<span class="source-line-no">104</span><span id="line-104">                if(id.startsWith("461206"))//Hydrography Bottom Features</span>
-<span class="source-line-no">105</span><span id="line-105">                {</span>
-<span class="source-line-no">106</span><span id="line-106">                    //grow bbox as android uses a different serif italic font than browsers and windows</span>
-<span class="source-line-no">107</span><span id="line-107">                    bbox = RectUtilities.makeRectF((int)(left + (left * -0.04)), (int)(top + (top * -0.1)), (int)(width * 1.2), (int)(height * 1.1));</span>
-<span class="source-line-no">108</span><span id="line-108">                }</span>
-<span class="source-line-no">109</span><span id="line-109">                    /*if(id.equals("25130100"))</span>
-<span class="source-line-no">110</span><span id="line-110">                        Log.e("action point",id);//*/</span>
-<span class="source-line-no">111</span><span id="line-111"></span>
-<span class="source-line-no">112</span><span id="line-112">                //read 2nd line to get SVG</span>
-<span class="source-line-no">113</span><span id="line-113">                svg = br.readLine();</span>
-<span class="source-line-no">114</span><span id="line-114"></span>
-<span class="source-line-no">115</span><span id="line-115">                lookup.put(id, new SVGInfo(id, bbox, svg));</span>
-<span class="source-line-no">116</span><span id="line-116"></span>
-<span class="source-line-no">117</span><span id="line-117">                //read next line for next loop</span>
-<span class="source-line-no">118</span><span id="line-118">                line = br.readLine();</span>
-<span class="source-line-no">119</span><span id="line-119">            }</span>
-<span class="source-line-no">120</span><span id="line-120">            _initCalled = true;</span>
-<span class="source-line-no">121</span><span id="line-121">        }</span>
-<span class="source-line-no">122</span><span id="line-122">        catch(IOException ioe)</span>
-<span class="source-line-no">123</span><span id="line-123">        {</span>
-<span class="source-line-no">124</span><span id="line-124">            System.out.println(ioe.getMessage());</span>
-<span class="source-line-no">125</span><span id="line-125">        }</span>
-<span class="source-line-no">126</span><span id="line-126">        catch(Exception e)</span>
-<span class="source-line-no">127</span><span id="line-127">        {</span>
-<span class="source-line-no">128</span><span id="line-128">            System.out.println(e.getMessage());</span>
-<span class="source-line-no">129</span><span id="line-129">        }</span>
-<span class="source-line-no">130</span><span id="line-130">    }</span>
-<span class="source-line-no">131</span><span id="line-131"></span>
-<span class="source-line-no">132</span><span id="line-132">    /**</span>
-<span class="source-line-no">133</span><span id="line-133">     *</span>
-<span class="source-line-no">134</span><span id="line-134">     * @param id</span>
-<span class="source-line-no">135</span><span id="line-135">     * @param version</span>
-<span class="source-line-no">136</span><span id="line-136">     * @return</span>
-<span class="source-line-no">137</span><span id="line-137">     */</span>
-<span class="source-line-no">138</span><span id="line-138">    public SVGInfo getSVGLInfo(String id, int version)</span>
-<span class="source-line-no">139</span><span id="line-139">    {</span>
-<span class="source-line-no">140</span><span id="line-140">        if(version &gt;= SymbolID.Version_2525E)</span>
-<span class="source-line-no">141</span><span id="line-141">        {</span>
-<span class="source-line-no">142</span><span id="line-142">            if (_SVGLookupE.containsKey(id))</span>
-<span class="source-line-no">143</span><span id="line-143">                return _SVGLookupE.get(id);</span>
+<span class="source-line-no">092</span><span id="line-92">        try</span>
+<span class="source-line-no">093</span><span id="line-93">        {</span>
+<span class="source-line-no">094</span><span id="line-94">            BufferedReader br = new BufferedReader(new InputStreamReader(is));</span>
+<span class="source-line-no">095</span><span id="line-95">            String line = br.readLine();</span>
+<span class="source-line-no">096</span><span id="line-96"></span>
+<span class="source-line-no">097</span><span id="line-97">            Map&lt;String, SVGInfo&gt; lookup = null;</span>
+<span class="source-line-no">098</span><span id="line-98">            if(version == SymbolID.Version_2525E || version == SymbolID.Version_2525Ech1)</span>
+<span class="source-line-no">099</span><span id="line-99">                lookup = _SVGLookupE;</span>
+<span class="source-line-no">100</span><span id="line-100">            else if(version == SymbolID.Version_2525Dch1)</span>
+<span class="source-line-no">101</span><span id="line-101">                lookup = _SVGLookupD;</span>
+<span class="source-line-no">102</span><span id="line-102">            else if(version == SymbolID.Version_APP6D)// || version == SymbolID.Version_APP6Dch2)</span>
+<span class="source-line-no">103</span><span id="line-103">                lookup = _SVGLookup6D;</span>
+<span class="source-line-no">104</span><span id="line-104">            else if(version == SymbolID.Version_APP6Ech1 || version == SymbolID.Version_APP6Ech2)</span>
+<span class="source-line-no">105</span><span id="line-105">                lookup = _SVGLookup6E;</span>
+<span class="source-line-no">106</span><span id="line-106"></span>
+<span class="source-line-no">107</span><span id="line-107">            while (line != null)</span>
+<span class="source-line-no">108</span><span id="line-108">            {</span>
+<span class="source-line-no">109</span><span id="line-109">                //parse first line</span>
+<span class="source-line-no">110</span><span id="line-110">                temp = line.split(delimiter);</span>
+<span class="source-line-no">111</span><span id="line-111">                id = temp[0];</span>
+<span class="source-line-no">112</span><span id="line-112">                float left, top, width, height;</span>
+<span class="source-line-no">113</span><span id="line-113">                left = Float.parseFloat(temp[1]);</span>
+<span class="source-line-no">114</span><span id="line-114">                top = Float.parseFloat(temp[2]);</span>
+<span class="source-line-no">115</span><span id="line-115">                width = Float.parseFloat(temp[3]);</span>
+<span class="source-line-no">116</span><span id="line-116">                height = Float.parseFloat(temp[4]);</span>
+<span class="source-line-no">117</span><span id="line-117">                bbox = RectUtilities.makeRectF(left, top, width, height);</span>
+<span class="source-line-no">118</span><span id="line-118"></span>
+<span class="source-line-no">119</span><span id="line-119">                if(id.startsWith("461206"))//Hydrography Bottom Features</span>
+<span class="source-line-no">120</span><span id="line-120">                {</span>
+<span class="source-line-no">121</span><span id="line-121">                    //grow bbox as android uses a different serif italic font than browsers and windows</span>
+<span class="source-line-no">122</span><span id="line-122">                    bbox = RectUtilities.makeRectF((int)(left + (left * -0.04)), (int)(top + (top * -0.1)), (int)(width * 1.2), (int)(height * 1.1));</span>
+<span class="source-line-no">123</span><span id="line-123">                }</span>
+<span class="source-line-no">124</span><span id="line-124">                    /*if(id.equals("25130100"))</span>
+<span class="source-line-no">125</span><span id="line-125">                        Log.e("action point",id);//*/</span>
+<span class="source-line-no">126</span><span id="line-126"></span>
+<span class="source-line-no">127</span><span id="line-127">                //read 2nd line to get SVG</span>
+<span class="source-line-no">128</span><span id="line-128">                svg = br.readLine();</span>
+<span class="source-line-no">129</span><span id="line-129"></span>
+<span class="source-line-no">130</span><span id="line-130">                //increase icon stroke width for high dpi screens</span>
+<span class="source-line-no">131</span><span id="line-131">                //ldpi &lt;=120, mdpi &gt;= 160, hdpi &gt;= 240, xhdpi &gt;= 320, xxhdpi &gt;= 480, xxxhdpi &gt;= 640</span>
+<span class="source-line-no">132</span><span id="line-132">                /*if(svg != null &amp;&amp; id.length() == 8 &amp;&amp; !id.startsWith("25") &amp;&amp; !id.startsWith("4")) {</span>
+<span class="source-line-no">133</span><span id="line-133">                    //int dpi = RendererSettings.getInstance().getDeviceDPI();</span>
+<span class="source-line-no">134</span><span id="line-134">                    svg = RendererUtilities.increaseStrokeWidth(svg, 2);</span>
+<span class="source-line-no">135</span><span id="line-135">                }//*/</span>
+<span class="source-line-no">136</span><span id="line-136"></span>
+<span class="source-line-no">137</span><span id="line-137">                if(lookup != null)</span>
+<span class="source-line-no">138</span><span id="line-138">                    lookup.put(id, new SVGInfo(id, bbox, svg));</span>
+<span class="source-line-no">139</span><span id="line-139"></span>
+<span class="source-line-no">140</span><span id="line-140">                //read next line for next loop</span>
+<span class="source-line-no">141</span><span id="line-141">                line = br.readLine();</span>
+<span class="source-line-no">142</span><span id="line-142">            }</span>
+<span class="source-line-no">143</span><span id="line-143">            _initCalled = true;</span>
 <span class="source-line-no">144</span><span id="line-144">        }</span>
-<span class="source-line-no">145</span><span id="line-145">        else</span>
+<span class="source-line-no">145</span><span id="line-145">        catch(IOException ioe)</span>
 <span class="source-line-no">146</span><span id="line-146">        {</span>
-<span class="source-line-no">147</span><span id="line-147">            if (_SVGLookupD.containsKey(id))</span>
-<span class="source-line-no">148</span><span id="line-148">                return _SVGLookupD.get(id);</span>
-<span class="source-line-no">149</span><span id="line-149">        }</span>
-<span class="source-line-no">150</span><span id="line-150"></span>
-<span class="source-line-no">151</span><span id="line-151">        return null;</span>
-<span class="source-line-no">152</span><span id="line-152">    }</span>
-<span class="source-line-no">153</span><span id="line-153"></span>
+<span class="source-line-no">147</span><span id="line-147">            System.out.println(ioe.getMessage());</span>
+<span class="source-line-no">148</span><span id="line-148">        }</span>
+<span class="source-line-no">149</span><span id="line-149">        catch(Exception e)</span>
+<span class="source-line-no">150</span><span id="line-150">        {</span>
+<span class="source-line-no">151</span><span id="line-151">            System.out.println(e.getMessage());</span>
+<span class="source-line-no">152</span><span id="line-152">        }</span>
+<span class="source-line-no">153</span><span id="line-153">    }</span>
 <span class="source-line-no">154</span><span id="line-154"></span>
-<span class="source-line-no">155</span><span id="line-155">    public static String getFrameID(String symbolID)</span>
-<span class="source-line-no">156</span><span id="line-156">    {</span>
-<span class="source-line-no">157</span><span id="line-157">        //SIDC positions 3_456_7</span>
-<span class="source-line-no">158</span><span id="line-158">        // String frameID = symbolID.charAt(2) + "_" + symbolID.substring(3, 6) + "_" + symbolID.charAt(6);</span>
-<span class="source-line-no">159</span><span id="line-159"></span>
-<span class="source-line-no">160</span><span id="line-160">        String frameID = null;</span>
-<span class="source-line-no">161</span><span id="line-161">        String ss;</span>
-<span class="source-line-no">162</span><span id="line-162"></span>
-<span class="source-line-no">163</span><span id="line-163">        int affiliation = SymbolID.getAffiliation(symbolID);</span>
-<span class="source-line-no">164</span><span id="line-164">        if(affiliation &gt; SymbolID.StandardIdentity_Affiliation_Hostile_Faker)</span>
-<span class="source-line-no">165</span><span id="line-165">            affiliation = SymbolID.StandardIdentity_Affiliation_Unknown;</span>
-<span class="source-line-no">166</span><span id="line-166"></span>
-<span class="source-line-no">167</span><span id="line-167">        int status = SymbolID.getStatus(symbolID);</span>
-<span class="source-line-no">168</span><span id="line-168">        //Some affiliations are always dashed and only have one SVG for status with a value of 0</span>
-<span class="source-line-no">169</span><span id="line-169">        if(affiliation == SymbolID.StandardIdentity_Affiliation_Pending ||</span>
-<span class="source-line-no">170</span><span id="line-170">                affiliation == SymbolID.StandardIdentity_Affiliation_AssumedFriend ||</span>
-<span class="source-line-no">171</span><span id="line-171">                affiliation == SymbolID.StandardIdentity_Affiliation_Suspect_Joker)</span>
-<span class="source-line-no">172</span><span id="line-172">        {</span>
-<span class="source-line-no">173</span><span id="line-173">            // "When the frame is assumed friend, suspect, or pending, the status shall not be displayed."</span>
-<span class="source-line-no">174</span><span id="line-174">            status = 0;</span>
-<span class="source-line-no">175</span><span id="line-175">        }</span>
-<span class="source-line-no">176</span><span id="line-176">        if(status &gt; 1) // Anything above 1 for status means present for the frame</span>
-<span class="source-line-no">177</span><span id="line-177">            status = 0;</span>
-<span class="source-line-no">178</span><span id="line-178"></span>
-<span class="source-line-no">179</span><span id="line-179">        int context = SymbolID.getContext(symbolID);</span>
-<span class="source-line-no">180</span><span id="line-180">        //they didn't make duplicate frame so I have to change the number for</span>
-<span class="source-line-no">181</span><span id="line-181">        //the lookup to work.</span>
-<span class="source-line-no">182</span><span id="line-182"></span>
-<span class="source-line-no">183</span><span id="line-183">        if(SymbolID.getVersion(symbolID) &lt; SymbolID.Version_2525E)//2525Dch1 or less</span>
-<span class="source-line-no">184</span><span id="line-184">        {</span>
-<span class="source-line-no">185</span><span id="line-185">            switch(SymbolID.getSymbolSet(symbolID))</span>
-<span class="source-line-no">186</span><span id="line-186">            {</span>
-<span class="source-line-no">187</span><span id="line-187">                case 01: //Air</span>
-<span class="source-line-no">188</span><span id="line-188">                case 02: //Air Missile</span>
-<span class="source-line-no">189</span><span id="line-189">                case 51: //Air SIGINT</span>
-<span class="source-line-no">190</span><span id="line-190">                    ss = "01";</span>
-<span class="source-line-no">191</span><span id="line-191">                    break;</span>
-<span class="source-line-no">192</span><span id="line-192">                case 05: //Space</span>
-<span class="source-line-no">193</span><span id="line-193">                case 06: //Space Missile</span>
-<span class="source-line-no">194</span><span id="line-194">                case 50: //Space SIGINT</span>
-<span class="source-line-no">195</span><span id="line-195">                    ss = "05";</span>
-<span class="source-line-no">196</span><span id="line-196">                    break;</span>
-<span class="source-line-no">197</span><span id="line-197">                case 10: //Land Unit</span>
-<span class="source-line-no">198</span><span id="line-198">                case 11://Land Civilian Unit/Org</span>
-<span class="source-line-no">199</span><span id="line-199">                    ss = "10";</span>
-<span class="source-line-no">200</span><span id="line-200">                    break;</span>
-<span class="source-line-no">201</span><span id="line-201">                case 15://Land Equipment</span>
-<span class="source-line-no">202</span><span id="line-202">                case 52://Land SigInt</span>
-<span class="source-line-no">203</span><span id="line-203">                case 53://Sea Surface SIGINT</span>
-<span class="source-line-no">204</span><span id="line-204">                    ss = "30";</span>
-<span class="source-line-no">205</span><span id="line-205">                    break;</span>
-<span class="source-line-no">206</span><span id="line-206">                case 30://Sea Surface</span>
-<span class="source-line-no">207</span><span id="line-207">                    ss = "30";</span>
-<span class="source-line-no">208</span><span id="line-208">                    if(SymbolID.getEntityCode(symbolID)==150000)</span>
-<span class="source-line-no">209</span><span id="line-209">                        return "octagon";//this symbol has no frame and a size of 1L x 1L.</span>
-<span class="source-line-no">210</span><span id="line-210">                    break;</span>
-<span class="source-line-no">211</span><span id="line-211">                case 20: //Land Installation</span>
-<span class="source-line-no">212</span><span id="line-212">                    ss = "20";</span>
-<span class="source-line-no">213</span><span id="line-213">                    break;</span>
-<span class="source-line-no">214</span><span id="line-214">                case SymbolID.SymbolSet_DismountedIndividuals: //Dismounted Individuals</span>
-<span class="source-line-no">215</span><span id="line-215">                    ss = "27";</span>
-<span class="source-line-no">216</span><span id="line-216">                    break;</span>
-<span class="source-line-no">217</span><span id="line-217">                case 35: //Sea Subsurface</span>
-<span class="source-line-no">218</span><span id="line-218">                case 36: //Mine Warfare</span>
-<span class="source-line-no">219</span><span id="line-219">                case 54: //Sea Subsurface SigInt</span>
-<span class="source-line-no">220</span><span id="line-220">                    ss = "35";</span>
-<span class="source-line-no">221</span><span id="line-221">                    break;</span>
-<span class="source-line-no">222</span><span id="line-222">                case 40: //Activities/Events</span>
-<span class="source-line-no">223</span><span id="line-223">                    ss = "40";</span>
-<span class="source-line-no">224</span><span id="line-224">                    break;</span>
-<span class="source-line-no">225</span><span id="line-225">                case 60: //Cyberspace</span>
-<span class="source-line-no">226</span><span id="line-226">                    ss = "60"; //No cyberspace SVG frame at the moment so setting to activities</span>
-<span class="source-line-no">227</span><span id="line-227">                    break;</span>
-<span class="source-line-no">228</span><span id="line-228">                default:</span>
-<span class="source-line-no">229</span><span id="line-229">                    ss = "00";</span>
-<span class="source-line-no">230</span><span id="line-230"></span>
-<span class="source-line-no">231</span><span id="line-231">                    if(context == SymbolID.StandardIdentity_Context_Exercise &amp;&amp; affiliation &gt; SymbolID.StandardIdentity_Affiliation_Unknown)</span>
-<span class="source-line-no">232</span><span id="line-232">                    {</span>
-<span class="source-line-no">233</span><span id="line-233">                        //really there are no unknown exercise symbols outside of pending and unknown</span>
-<span class="source-line-no">234</span><span id="line-234">                        //default to unknown</span>
-<span class="source-line-no">235</span><span id="line-235">                        affiliation = SymbolID.StandardIdentity_Affiliation_Unknown;</span>
-<span class="source-line-no">236</span><span id="line-236">                    }</span>
-<span class="source-line-no">237</span><span id="line-237">            }</span>
-<span class="source-line-no">238</span><span id="line-238">            if(context == SymbolID.StandardIdentity_Context_Restricted_Target_Reality || context == SymbolID.StandardIdentity_Context_No_Strike_Entity_Reality)</span>
-<span class="source-line-no">239</span><span id="line-239">                context = SymbolID.StandardIdentity_Context_Reality;</span>
-<span class="source-line-no">240</span><span id="line-240">            frameID = context + "_" + affiliation + ss + "_" + status;</span>
-<span class="source-line-no">241</span><span id="line-241">        }</span>
-<span class="source-line-no">242</span><span id="line-242">        else//2525E or above</span>
-<span class="source-line-no">243</span><span id="line-243">        {</span>
-<span class="source-line-no">244</span><span id="line-244">            char frameShape = SymbolID.getFrameShape(symbolID);</span>
-<span class="source-line-no">245</span><span id="line-245">            if(frameShape==SymbolID.FrameShape_Unknown)</span>
-<span class="source-line-no">246</span><span id="line-246">            {</span>
-<span class="source-line-no">247</span><span id="line-247"></span>
-<span class="source-line-no">248</span><span id="line-248">                /*if(SymbolID.getSymbolSet(symbolID) != SymbolID.SymbolSet_SignalsIntelligence)</span>
-<span class="source-line-no">249</span><span id="line-249">                {//get frame shape associated with symbol set</span>
-<span class="source-line-no">250</span><span id="line-250">                    frameShape=SymbolID.getDefaultFrameShape(symbolID);</span>
-<span class="source-line-no">251</span><span id="line-251">                }//*/</span>
-<span class="source-line-no">252</span><span id="line-252">                frameShape=SymbolID.getDefaultFrameShape(symbolID);</span>
-<span class="source-line-no">253</span><span id="line-253">                if(context == SymbolID.StandardIdentity_Context_Exercise &amp;&amp;</span>
-<span class="source-line-no">254</span><span id="line-254">                        SymbolID.getSymbolSet(symbolID) == SymbolID.SymbolSet_Unknown &amp;&amp;</span>
-<span class="source-line-no">255</span><span id="line-255">                        affiliation &gt; SymbolID.StandardIdentity_Affiliation_Unknown)</span>
-<span class="source-line-no">256</span><span id="line-256">                {</span>
-<span class="source-line-no">257</span><span id="line-257">                    //really there are no unknown exercise symbols outside pending and unknown affiliations</span>
-<span class="source-line-no">258</span><span id="line-258">                    //default to unknown</span>
-<span class="source-line-no">259</span><span id="line-259">                    affiliation = SymbolID.StandardIdentity_Affiliation_Unknown;</span>
-<span class="source-line-no">260</span><span id="line-260">                }</span>
-<span class="source-line-no">261</span><span id="line-261">            }</span>
-<span class="source-line-no">262</span><span id="line-262">            if(SymbolID.getSymbolSet(symbolID)==SymbolID.SymbolSet_SeaSurface &amp;&amp;</span>
-<span class="source-line-no">263</span><span id="line-263">                    SymbolID.getEntityCode(symbolID)==150000 &amp;&amp;  //Own Ship</span>
-<span class="source-line-no">264</span><span id="line-264">                    (frameShape == SymbolID.FrameShape_SeaSurface || frameShape == SymbolID.FrameShape_Unknown))</span>
-<span class="source-line-no">265</span><span id="line-265">            {</span>
-<span class="source-line-no">266</span><span id="line-266">                return "octagon";</span>
-<span class="source-line-no">267</span><span id="line-267">            }</span>
-<span class="source-line-no">268</span><span id="line-268">            if(context == SymbolID.StandardIdentity_Context_Restricted_Target_Reality || context == SymbolID.StandardIdentity_Context_No_Strike_Entity_Reality)</span>
-<span class="source-line-no">269</span><span id="line-269">                context = SymbolID.StandardIdentity_Context_Reality;</span>
-<span class="source-line-no">270</span><span id="line-270">            frameID = context + "_" + affiliation + frameShape + "_" + status;</span>
-<span class="source-line-no">271</span><span id="line-271">        }</span>
-<span class="source-line-no">272</span><span id="line-272">        return frameID;</span>
-<span class="source-line-no">273</span><span id="line-273">    }</span>
-<span class="source-line-no">274</span><span id="line-274"></span>
-<span class="source-line-no">275</span><span id="line-275">    public static String getMainIconID(String symbolID)</span>
-<span class="source-line-no">276</span><span id="line-276">    {</span>
-<span class="source-line-no">277</span><span id="line-277">        //SIDC positions 5-6 + 11-16</span>
-<span class="source-line-no">278</span><span id="line-278">        String mainIconID = symbolID.substring(4, 6) + symbolID.substring(10, 16);</span>
-<span class="source-line-no">279</span><span id="line-279">        int ss = SymbolID.getSymbolSet(symbolID);</span>
-<span class="source-line-no">280</span><span id="line-280"></span>
-<span class="source-line-no">281</span><span id="line-281">        if(ss == SymbolID.SymbolSet_MineWarfare)</span>
+<span class="source-line-no">155</span><span id="line-155">    /**</span>
+<span class="source-line-no">156</span><span id="line-156">     *</span>
+<span class="source-line-no">157</span><span id="line-157">     * @param id</span>
+<span class="source-line-no">158</span><span id="line-158">     * @param version</span>
+<span class="source-line-no">159</span><span id="line-159">     * @return</span>
+<span class="source-line-no">160</span><span id="line-160">     */</span>
+<span class="source-line-no">161</span><span id="line-161">    public SVGInfo getSVGLInfo(String id, int version)</span>
+<span class="source-line-no">162</span><span id="line-162">    {</span>
+<span class="source-line-no">163</span><span id="line-163">        if(version == SymbolID.Version_2525E || version == SymbolID.Version_2525Ech1)</span>
+<span class="source-line-no">164</span><span id="line-164">        {</span>
+<span class="source-line-no">165</span><span id="line-165">            if (_SVGLookupE.containsKey(id))</span>
+<span class="source-line-no">166</span><span id="line-166">                return _SVGLookupE.get(id);</span>
+<span class="source-line-no">167</span><span id="line-167">        }</span>
+<span class="source-line-no">168</span><span id="line-168">        else if(version == SymbolID.Version_2525Dch1)</span>
+<span class="source-line-no">169</span><span id="line-169">        {</span>
+<span class="source-line-no">170</span><span id="line-170">            if (_SVGLookupD.containsKey(id))</span>
+<span class="source-line-no">171</span><span id="line-171">                return _SVGLookupD.get(id);</span>
+<span class="source-line-no">172</span><span id="line-172">        }</span>
+<span class="source-line-no">173</span><span id="line-173">        else if(version == SymbolID.Version_APP6Ech2 || version == SymbolID.Version_APP6Ech1)</span>
+<span class="source-line-no">174</span><span id="line-174">        {</span>
+<span class="source-line-no">175</span><span id="line-175">            if (_SVGLookup6E.containsKey(id))</span>
+<span class="source-line-no">176</span><span id="line-176">                return _SVGLookup6E.get(id);</span>
+<span class="source-line-no">177</span><span id="line-177">            else if (_SVGLookupE.containsKey(id))</span>
+<span class="source-line-no">178</span><span id="line-178">                return _SVGLookupE.get(id);</span>
+<span class="source-line-no">179</span><span id="line-179">        }</span>
+<span class="source-line-no">180</span><span id="line-180">        else if(version == SymbolID.Version_APP6D)</span>
+<span class="source-line-no">181</span><span id="line-181">        {</span>
+<span class="source-line-no">182</span><span id="line-182">            if (_SVGLookup6D.containsKey(id))</span>
+<span class="source-line-no">183</span><span id="line-183">                return _SVGLookup6D.get(id);</span>
+<span class="source-line-no">184</span><span id="line-184">            else if (_SVGLookupD.containsKey(id))</span>
+<span class="source-line-no">185</span><span id="line-185">                return _SVGLookupD.get(id);</span>
+<span class="source-line-no">186</span><span id="line-186">            else if (_SVGLookupE.containsKey(id))//Dismounted Individual</span>
+<span class="source-line-no">187</span><span id="line-187">                return _SVGLookupE.get(id);</span>
+<span class="source-line-no">188</span><span id="line-188">        }</span>
+<span class="source-line-no">189</span><span id="line-189"></span>
+<span class="source-line-no">190</span><span id="line-190">        return null;</span>
+<span class="source-line-no">191</span><span id="line-191">    }</span>
+<span class="source-line-no">192</span><span id="line-192"></span>
+<span class="source-line-no">193</span><span id="line-193"></span>
+<span class="source-line-no">194</span><span id="line-194">    public static String getFrameID(String symbolID)</span>
+<span class="source-line-no">195</span><span id="line-195">    {</span>
+<span class="source-line-no">196</span><span id="line-196">        //SIDC positions 3_456_7</span>
+<span class="source-line-no">197</span><span id="line-197">        // String frameID = symbolID.charAt(2) + "_" + symbolID.substring(3, 6) + "_" + symbolID.charAt(6);</span>
+<span class="source-line-no">198</span><span id="line-198"></span>
+<span class="source-line-no">199</span><span id="line-199">        String frameID = null;</span>
+<span class="source-line-no">200</span><span id="line-200">        String ss;</span>
+<span class="source-line-no">201</span><span id="line-201"></span>
+<span class="source-line-no">202</span><span id="line-202">        int affiliation = SymbolID.getAffiliation(symbolID);</span>
+<span class="source-line-no">203</span><span id="line-203">        if(affiliation &gt; SymbolID.StandardIdentity_Affiliation_Hostile_Faker)</span>
+<span class="source-line-no">204</span><span id="line-204">            affiliation = SymbolID.StandardIdentity_Affiliation_Unknown;</span>
+<span class="source-line-no">205</span><span id="line-205"></span>
+<span class="source-line-no">206</span><span id="line-206">        int status = SymbolID.getStatus(symbolID);</span>
+<span class="source-line-no">207</span><span id="line-207">        //Some affiliations are always dashed and only have one SVG for status with a value of 0</span>
+<span class="source-line-no">208</span><span id="line-208">        if(affiliation == SymbolID.StandardIdentity_Affiliation_Pending ||</span>
+<span class="source-line-no">209</span><span id="line-209">                affiliation == SymbolID.StandardIdentity_Affiliation_AssumedFriend ||</span>
+<span class="source-line-no">210</span><span id="line-210">                affiliation == SymbolID.StandardIdentity_Affiliation_Suspect_Joker)</span>
+<span class="source-line-no">211</span><span id="line-211">        {</span>
+<span class="source-line-no">212</span><span id="line-212">            // "When the frame is assumed friend, suspect, or pending, the status shall not be displayed."</span>
+<span class="source-line-no">213</span><span id="line-213">            status = 0;</span>
+<span class="source-line-no">214</span><span id="line-214">        }</span>
+<span class="source-line-no">215</span><span id="line-215">        if(status &gt; 1) // Anything above 1 for status means present for the frame</span>
+<span class="source-line-no">216</span><span id="line-216">            status = 0;</span>
+<span class="source-line-no">217</span><span id="line-217"></span>
+<span class="source-line-no">218</span><span id="line-218">        int context = SymbolID.getContext(symbolID);</span>
+<span class="source-line-no">219</span><span id="line-219">        //they didn't make duplicate frame so I have to change the number for</span>
+<span class="source-line-no">220</span><span id="line-220">        //the lookup to work.</span>
+<span class="source-line-no">221</span><span id="line-221"></span>
+<span class="source-line-no">222</span><span id="line-222">        if(SymbolID.getVersion(symbolID) &lt; SymbolID.Version_2525E)//2525Dch1 or less</span>
+<span class="source-line-no">223</span><span id="line-223">        {</span>
+<span class="source-line-no">224</span><span id="line-224">            switch(SymbolID.getSymbolSet(symbolID))</span>
+<span class="source-line-no">225</span><span id="line-225">            {</span>
+<span class="source-line-no">226</span><span id="line-226">                case 01: //Air</span>
+<span class="source-line-no">227</span><span id="line-227">                case 02: //Air Missile</span>
+<span class="source-line-no">228</span><span id="line-228">                case 51: //Air SIGINT</span>
+<span class="source-line-no">229</span><span id="line-229">                    ss = "01";</span>
+<span class="source-line-no">230</span><span id="line-230">                    break;</span>
+<span class="source-line-no">231</span><span id="line-231">                case 05: //Space</span>
+<span class="source-line-no">232</span><span id="line-232">                case 06: //Space Missile</span>
+<span class="source-line-no">233</span><span id="line-233">                case 50: //Space SIGINT</span>
+<span class="source-line-no">234</span><span id="line-234">                    ss = "05";</span>
+<span class="source-line-no">235</span><span id="line-235">                    break;</span>
+<span class="source-line-no">236</span><span id="line-236">                case 10: //Land Unit</span>
+<span class="source-line-no">237</span><span id="line-237">                case 11://Land Civilian Unit/Org</span>
+<span class="source-line-no">238</span><span id="line-238">                    ss = "10";</span>
+<span class="source-line-no">239</span><span id="line-239">                    break;</span>
+<span class="source-line-no">240</span><span id="line-240">                case 15://Land Equipment</span>
+<span class="source-line-no">241</span><span id="line-241">                case 52://Land SigInt</span>
+<span class="source-line-no">242</span><span id="line-242">                case 53://Sea Surface SIGINT</span>
+<span class="source-line-no">243</span><span id="line-243">                    ss = "30";</span>
+<span class="source-line-no">244</span><span id="line-244">                    break;</span>
+<span class="source-line-no">245</span><span id="line-245">                case 30://Sea Surface</span>
+<span class="source-line-no">246</span><span id="line-246">                    ss = "30";</span>
+<span class="source-line-no">247</span><span id="line-247">                    if(SymbolID.getEntityCode(symbolID)==150000)</span>
+<span class="source-line-no">248</span><span id="line-248">                        return "octagon";//this symbol has no frame and a size of 1L x 1L.</span>
+<span class="source-line-no">249</span><span id="line-249">                    break;</span>
+<span class="source-line-no">250</span><span id="line-250">                case 20: //Land Installation</span>
+<span class="source-line-no">251</span><span id="line-251">                    ss = "20";</span>
+<span class="source-line-no">252</span><span id="line-252">                    break;</span>
+<span class="source-line-no">253</span><span id="line-253">                case SymbolID.SymbolSet_DismountedIndividuals: //Dismounted Individuals</span>
+<span class="source-line-no">254</span><span id="line-254">                    ss = "27";</span>
+<span class="source-line-no">255</span><span id="line-255">                    break;</span>
+<span class="source-line-no">256</span><span id="line-256">                case 35: //Sea Subsurface</span>
+<span class="source-line-no">257</span><span id="line-257">                case 36: //Mine Warfare</span>
+<span class="source-line-no">258</span><span id="line-258">                case 54: //Sea Subsurface SigInt</span>
+<span class="source-line-no">259</span><span id="line-259">                    ss = "35";</span>
+<span class="source-line-no">260</span><span id="line-260">                    break;</span>
+<span class="source-line-no">261</span><span id="line-261">                case 40: //Activities/Events</span>
+<span class="source-line-no">262</span><span id="line-262">                    ss = "40";</span>
+<span class="source-line-no">263</span><span id="line-263">                    break;</span>
+<span class="source-line-no">264</span><span id="line-264">                case 60: //Cyberspace</span>
+<span class="source-line-no">265</span><span id="line-265">                    ss = "60"; //No cyberspace SVG frame at the moment so setting to activities</span>
+<span class="source-line-no">266</span><span id="line-266">                    break;</span>
+<span class="source-line-no">267</span><span id="line-267">                default:</span>
+<span class="source-line-no">268</span><span id="line-268">                    ss = "00";</span>
+<span class="source-line-no">269</span><span id="line-269"></span>
+<span class="source-line-no">270</span><span id="line-270">                    if(context == SymbolID.StandardIdentity_Context_Exercise &amp;&amp; affiliation &gt; SymbolID.StandardIdentity_Affiliation_Unknown)</span>
+<span class="source-line-no">271</span><span id="line-271">                    {</span>
+<span class="source-line-no">272</span><span id="line-272">                        //really there are no unknown exercise symbols outside of pending and unknown</span>
+<span class="source-line-no">273</span><span id="line-273">                        //default to unknown</span>
+<span class="source-line-no">274</span><span id="line-274">                        affiliation = SymbolID.StandardIdentity_Affiliation_Unknown;</span>
+<span class="source-line-no">275</span><span id="line-275">                    }</span>
+<span class="source-line-no">276</span><span id="line-276">            }</span>
+<span class="source-line-no">277</span><span id="line-277">            if(context == SymbolID.StandardIdentity_Context_Restricted_Target_Reality || context == SymbolID.StandardIdentity_Context_No_Strike_Entity_Reality)</span>
+<span class="source-line-no">278</span><span id="line-278">                context = SymbolID.StandardIdentity_Context_Reality;</span>
+<span class="source-line-no">279</span><span id="line-279">            frameID = context + "_" + affiliation + ss + "_" + status;</span>
+<span class="source-line-no">280</span><span id="line-280">        }</span>
+<span class="source-line-no">281</span><span id="line-281">        else//2525E or above</span>
 <span class="source-line-no">282</span><span id="line-282">        {</span>
-<span class="source-line-no">283</span><span id="line-283">            if(RendererSettings.getInstance().getSeaMineRenderMethod() == RendererSettings.SeaMineRenderMethod_ALT ||</span>
-<span class="source-line-no">284</span><span id="line-284">                    mainIconID.equals("36110600") || mainIconID.equals("36110700"))</span>
+<span class="source-line-no">283</span><span id="line-283">            char frameShape = SymbolID.getFrameShape(symbolID);</span>
+<span class="source-line-no">284</span><span id="line-284">            if(frameShape==SymbolID.FrameShape_Unknown)</span>
 <span class="source-line-no">285</span><span id="line-285">            {</span>
-<span class="source-line-no">286</span><span id="line-286">                mainIconID += "_a";</span>
-<span class="source-line-no">287</span><span id="line-287">            }</span>
-<span class="source-line-no">288</span><span id="line-288">        }</span>
-<span class="source-line-no">289</span><span id="line-289">        else if(ss == SymbolID.SymbolSet_LandUnit)</span>
-<span class="source-line-no">290</span><span id="line-290">        {</span>
-<span class="source-line-no">291</span><span id="line-291">            switch(SymbolID.getEntityCode(symbolID))</span>
-<span class="source-line-no">292</span><span id="line-292">            {</span>
-<span class="source-line-no">293</span><span id="line-293">                case 111000:</span>
-<span class="source-line-no">294</span><span id="line-294">                case 111001:</span>
-<span class="source-line-no">295</span><span id="line-295">                case 111002:</span>
-<span class="source-line-no">296</span><span id="line-296">                case 111003:</span>
-<span class="source-line-no">297</span><span id="line-297">                case 111004:</span>
-<span class="source-line-no">298</span><span id="line-298">                case 111005:</span>
-<span class="source-line-no">299</span><span id="line-299">                case 111500:</span>
-<span class="source-line-no">300</span><span id="line-300">                case 120100:</span>
-<span class="source-line-no">301</span><span id="line-301">                case 120300:</span>
-<span class="source-line-no">302</span><span id="line-302">                case 120400:</span>
-<span class="source-line-no">303</span><span id="line-303">                case 120401:</span>
-<span class="source-line-no">304</span><span id="line-304">                case 120402:</span>
-<span class="source-line-no">305</span><span id="line-305">                case 120501:</span>
-<span class="source-line-no">306</span><span id="line-306">                case 120502:</span>
-<span class="source-line-no">307</span><span id="line-307">                case 120601:</span>
-<span class="source-line-no">308</span><span id="line-308">                case 120801:</span>
-<span class="source-line-no">309</span><span id="line-309">                case 121100:</span>
-<span class="source-line-no">310</span><span id="line-310">                case 121101:</span>
-<span class="source-line-no">311</span><span id="line-311">                case 121102:</span>
-<span class="source-line-no">312</span><span id="line-312">                case 121103:</span>
-<span class="source-line-no">313</span><span id="line-313">                case 121104:</span>
-<span class="source-line-no">314</span><span id="line-314">                case 121105:</span>
-<span class="source-line-no">315</span><span id="line-315">                case 121106:</span>
-<span class="source-line-no">316</span><span id="line-316">                case 121107:</span>
-<span class="source-line-no">317</span><span id="line-317">                case 121300:</span>
-<span class="source-line-no">318</span><span id="line-318">                case 121301:</span>
-<span class="source-line-no">319</span><span id="line-319">                case 121302:</span>
-<span class="source-line-no">320</span><span id="line-320">                case 121303:</span>
-<span class="source-line-no">321</span><span id="line-321">                case 121304:</span>
-<span class="source-line-no">322</span><span id="line-322">                case 121802:</span>
-<span class="source-line-no">323</span><span id="line-323">                case 122100:</span>
-<span class="source-line-no">324</span><span id="line-324">                case 130100:</span>
-<span class="source-line-no">325</span><span id="line-325">                case 130101:</span>
-<span class="source-line-no">326</span><span id="line-326">                case 130102:</span>
-<span class="source-line-no">327</span><span id="line-327">                case 130103:</span>
-<span class="source-line-no">328</span><span id="line-328">                case 130200:</span>
-<span class="source-line-no">329</span><span id="line-329">                case 130302:</span>
-<span class="source-line-no">330</span><span id="line-330">                case 130303:</span>
-<span class="source-line-no">331</span><span id="line-331">                case 140102:</span>
-<span class="source-line-no">332</span><span id="line-332">                case 140103:</span>
-<span class="source-line-no">333</span><span id="line-333">                case 140104:</span>
-<span class="source-line-no">334</span><span id="line-334">                case 140105:</span>
-<span class="source-line-no">335</span><span id="line-335">                case 140702:</span>
-<span class="source-line-no">336</span><span id="line-336">                case 140703:</span>
-<span class="source-line-no">337</span><span id="line-337">                case 141702:</span>
-<span class="source-line-no">338</span><span id="line-338">                case 150504:</span>
-<span class="source-line-no">339</span><span id="line-339">                case 150800:</span>
-<span class="source-line-no">340</span><span id="line-340">                case 160200:</span>
-<span class="source-line-no">341</span><span id="line-341">                case 161200:</span>
-<span class="source-line-no">342</span><span id="line-342">                case 161300:</span>
-<span class="source-line-no">343</span><span id="line-343">                case 161400:</span>
-<span class="source-line-no">344</span><span id="line-344">                case 161700:</span>
-<span class="source-line-no">345</span><span id="line-345">                case 161800:</span>
-<span class="source-line-no">346</span><span id="line-346">                case 161900:</span>
-<span class="source-line-no">347</span><span id="line-347">                case 162000:</span>
-<span class="source-line-no">348</span><span id="line-348">                case 162100:</span>
-<span class="source-line-no">349</span><span id="line-349">                case 162200:</span>
-<span class="source-line-no">350</span><span id="line-350">                case 163400:</span>
-<span class="source-line-no">351</span><span id="line-351">                case 163700:</span>
-<span class="source-line-no">352</span><span id="line-352">                case 163800:</span>
-<span class="source-line-no">353</span><span id="line-353">                case 163900:</span>
-<span class="source-line-no">354</span><span id="line-354">                case 164000:</span>
-<span class="source-line-no">355</span><span id="line-355">                case 164100:</span>
-<span class="source-line-no">356</span><span id="line-356">                case 164200:</span>
-<span class="source-line-no">357</span><span id="line-357">                case 164300:</span>
-<span class="source-line-no">358</span><span id="line-358">                case 164400:</span>
-<span class="source-line-no">359</span><span id="line-359">                case 164500:</span>
-<span class="source-line-no">360</span><span id="line-360">                case 164600:</span>
-<span class="source-line-no">361</span><span id="line-361">                case 165000://NATO Only</span>
-<span class="source-line-no">362</span><span id="line-362">                    //do thing to append correct number</span>
-<span class="source-line-no">363</span><span id="line-363">                    mainIconID += getPostFixForIcon(symbolID);</span>
-<span class="source-line-no">364</span><span id="line-364">                    break;</span>
-<span class="source-line-no">365</span><span id="line-365">                default:</span>
-<span class="source-line-no">366</span><span id="line-366">                    break;</span>
-<span class="source-line-no">367</span><span id="line-367">            }</span>
-<span class="source-line-no">368</span><span id="line-368"></span>
-<span class="source-line-no">369</span><span id="line-369">        }</span>
-<span class="source-line-no">370</span><span id="line-370">        else if(ss == SymbolID.SymbolSet_LandEquipment)</span>
-<span class="source-line-no">371</span><span id="line-371">        {</span>
-<span class="source-line-no">372</span><span id="line-372">            switch (SymbolID.getEntityCode(symbolID))</span>
-<span class="source-line-no">373</span><span id="line-373">            {</span>
-<span class="source-line-no">374</span><span id="line-374">                case 120111:</span>
-<span class="source-line-no">375</span><span id="line-375">                    //do thing to append correct number</span>
-<span class="source-line-no">376</span><span id="line-376">                    mainIconID += getPostFixForIcon(symbolID);</span>
-<span class="source-line-no">377</span><span id="line-377">                    break;</span>
-<span class="source-line-no">378</span><span id="line-378">                default:</span>
-<span class="source-line-no">379</span><span id="line-379">                    break;</span>
-<span class="source-line-no">380</span><span id="line-380">            }</span>
-<span class="source-line-no">381</span><span id="line-381">        }</span>
-<span class="source-line-no">382</span><span id="line-382">        else if(ss == SymbolID.SymbolSet_LandInstallation)</span>
-<span class="source-line-no">383</span><span id="line-383">        {</span>
-<span class="source-line-no">384</span><span id="line-384">            switch (SymbolID.getEntityCode(symbolID))</span>
-<span class="source-line-no">385</span><span id="line-385">            {</span>
-<span class="source-line-no">386</span><span id="line-386">                case 110300:</span>
-<span class="source-line-no">387</span><span id="line-387">                case 111200:</span>
-<span class="source-line-no">388</span><span id="line-388">                case 120103:</span>
-<span class="source-line-no">389</span><span id="line-389">                case 120105:</span>
-<span class="source-line-no">390</span><span id="line-390">                case 120106:</span>
-<span class="source-line-no">391</span><span id="line-391">                case 120107:</span>
-<span class="source-line-no">392</span><span id="line-392">                case 120701:</span>
-<span class="source-line-no">393</span><span id="line-393">                case 120702:</span>
-<span class="source-line-no">394</span><span id="line-394">                    //do thing to append correct number</span>
-<span class="source-line-no">395</span><span id="line-395">                    mainIconID += getPostFixForIcon(symbolID);</span>
-<span class="source-line-no">396</span><span id="line-396">                    break;</span>
-<span class="source-line-no">397</span><span id="line-397">                default:</span>
-<span class="source-line-no">398</span><span id="line-398">                    break;</span>
-<span class="source-line-no">399</span><span id="line-399">            }</span>
-<span class="source-line-no">400</span><span id="line-400">        }</span>
-<span class="source-line-no">401</span><span id="line-401">        else if(ss == SymbolID.SymbolSet_Activities)</span>
-<span class="source-line-no">402</span><span id="line-402">        {</span>
-<span class="source-line-no">403</span><span id="line-403">            switch (SymbolID.getEntityCode(symbolID))</span>
-<span class="source-line-no">404</span><span id="line-404">            {</span>
-<span class="source-line-no">405</span><span id="line-405">                case 110303:</span>
-<span class="source-line-no">406</span><span id="line-406">                case 130201:</span>
-<span class="source-line-no">407</span><span id="line-407">                case 131202:</span>
-<span class="source-line-no">408</span><span id="line-408">                case 131208:</span>
-<span class="source-line-no">409</span><span id="line-409">                    //do thing to append correct number</span>
-<span class="source-line-no">410</span><span id="line-410">                    mainIconID += getPostFixForIcon(symbolID);</span>
-<span class="source-line-no">411</span><span id="line-411">                    break;</span>
-<span class="source-line-no">412</span><span id="line-412">                default:</span>
-<span class="source-line-no">413</span><span id="line-413">                    break;</span>
-<span class="source-line-no">414</span><span id="line-414">            }</span>
-<span class="source-line-no">415</span><span id="line-415">        }</span>
-<span class="source-line-no">416</span><span id="line-416">        else if(ss == SymbolID.SymbolSet_Unknown)</span>
-<span class="source-line-no">417</span><span id="line-417">            mainIconID = "00000000";//unknown with question mark</span>
-<span class="source-line-no">418</span><span id="line-418">        else if (ss != SymbolID.SymbolSet_Air &amp;&amp;</span>
-<span class="source-line-no">419</span><span id="line-419">                ss != SymbolID.SymbolSet_AirMissile &amp;&amp;</span>
-<span class="source-line-no">420</span><span id="line-420">                ss != SymbolID.SymbolSet_Space &amp;&amp;</span>
-<span class="source-line-no">421</span><span id="line-421">                ss != SymbolID.SymbolSet_SpaceMissile &amp;&amp;</span>
-<span class="source-line-no">422</span><span id="line-422">                ss != SymbolID.SymbolSet_LandCivilianUnit_Organization &amp;&amp;</span>
-<span class="source-line-no">423</span><span id="line-423">                ss != SymbolID.SymbolSet_DismountedIndividuals &amp;&amp;</span>
-<span class="source-line-no">424</span><span id="line-424">                ss != SymbolID.SymbolSet_ControlMeasure &amp;&amp;</span>
-<span class="source-line-no">425</span><span id="line-425">                ss != SymbolID.SymbolSet_SeaSurface &amp;&amp;</span>
-<span class="source-line-no">426</span><span id="line-426">                ss != SymbolID.SymbolSet_SeaSubsurface &amp;&amp;</span>
-<span class="source-line-no">427</span><span id="line-427">                ss != SymbolID.SymbolSet_Atmospheric &amp;&amp;</span>
-<span class="source-line-no">428</span><span id="line-428">                ss != SymbolID.SymbolSet_Oceanographic &amp;&amp;</span>
-<span class="source-line-no">429</span><span id="line-429">                ss != SymbolID.SymbolSet_MeteorologicalSpace &amp;&amp;</span>
-<span class="source-line-no">430</span><span id="line-430">                ss != SymbolID.SymbolSet_SignalsIntelligence_Space &amp;&amp;</span>
-<span class="source-line-no">431</span><span id="line-431">                ss != SymbolID.SymbolSet_SignalsIntelligence_Air &amp;&amp;</span>
-<span class="source-line-no">432</span><span id="line-432">                ss != SymbolID.SymbolSet_SignalsIntelligence_Land &amp;&amp;</span>
-<span class="source-line-no">433</span><span id="line-433">                ss != SymbolID.SymbolSet_SignalsIntelligence_SeaSurface &amp;&amp;</span>
-<span class="source-line-no">434</span><span id="line-434">                ss != SymbolID.SymbolSet_SignalsIntelligence_SeaSubsurface &amp;&amp;</span>
-<span class="source-line-no">435</span><span id="line-435">                ss != SymbolID.SymbolSet_CyberSpace)</span>
-<span class="source-line-no">436</span><span id="line-436">        {</span>
-<span class="source-line-no">437</span><span id="line-437">            mainIconID = "98100000";//invalid symbol, inverted question mark</span>
-<span class="source-line-no">438</span><span id="line-438">        }</span>
-<span class="source-line-no">439</span><span id="line-439"></span>
-<span class="source-line-no">440</span><span id="line-440">        return mainIconID;</span>
-<span class="source-line-no">441</span><span id="line-441">    }</span>
-<span class="source-line-no">442</span><span id="line-442"></span>
-<span class="source-line-no">443</span><span id="line-443"></span>
-<span class="source-line-no">444</span><span id="line-444">    private static String getPostFixForIcon(String symbolID)</span>
-<span class="source-line-no">445</span><span id="line-445">    {</span>
-<span class="source-line-no">446</span><span id="line-446">        int aff = SymbolID.getAffiliation(symbolID);</span>
-<span class="source-line-no">447</span><span id="line-447">        String pf = "";</span>
-<span class="source-line-no">448</span><span id="line-448">        if(aff == SymbolID.StandardIdentity_Affiliation_Friend ||</span>
-<span class="source-line-no">449</span><span id="line-449">                aff == SymbolID.StandardIdentity_Affiliation_AssumedFriend)</span>
-<span class="source-line-no">450</span><span id="line-450">            pf += "_1";</span>
-<span class="source-line-no">451</span><span id="line-451">        else if(aff == SymbolID.StandardIdentity_Affiliation_Neutral)</span>
-<span class="source-line-no">452</span><span id="line-452">            pf += "_2";</span>
-<span class="source-line-no">453</span><span id="line-453">        else if(aff == SymbolID.StandardIdentity_Affiliation_Hostile_Faker ||</span>
-<span class="source-line-no">454</span><span id="line-454">                aff == SymbolID.StandardIdentity_Affiliation_Suspect_Joker)</span>
-<span class="source-line-no">455</span><span id="line-455">            pf += "_3";</span>
-<span class="source-line-no">456</span><span id="line-456">        else if(aff == SymbolID.StandardIdentity_Affiliation_Unknown ||</span>
-<span class="source-line-no">457</span><span id="line-457">                aff == SymbolID.StandardIdentity_Affiliation_Pending)</span>
-<span class="source-line-no">458</span><span id="line-458">            pf += "_0";</span>
-<span class="source-line-no">459</span><span id="line-459"></span>
-<span class="source-line-no">460</span><span id="line-460">        return pf;</span>
-<span class="source-line-no">461</span><span id="line-461">    }</span>
-<span class="source-line-no">462</span><span id="line-462"></span>
-<span class="source-line-no">463</span><span id="line-463">    public static String getMod1ID(String symbolID)</span>
-<span class="source-line-no">464</span><span id="line-464">    {</span>
-<span class="source-line-no">465</span><span id="line-465">        String mod1ID = null;</span>
-<span class="source-line-no">466</span><span id="line-466"></span>
-<span class="source-line-no">467</span><span id="line-467"></span>
-<span class="source-line-no">468</span><span id="line-468">        if((SymbolID.getVersion(symbolID)&gt;=SymbolID.Version_2525E) &amp;&amp; symbolID.charAt(20) !='0')</span>
-<span class="source-line-no">469</span><span id="line-469">        {//2525E with Modifier 1 Indicator set</span>
-<span class="source-line-no">470</span><span id="line-470">            mod1ID = symbolID.substring(20,21) + symbolID.substring(16, 18) + "_1";</span>
-<span class="source-line-no">471</span><span id="line-471">            if(mod1ID.equals("175_1"))</span>
-<span class="source-line-no">472</span><span id="line-472">            {</span>
-<span class="source-line-no">473</span><span id="line-473">                //TODO: as this is a common modifier, it can fit more than land units and will probably need its own function and more SVGs</span>
-<span class="source-line-no">474</span><span id="line-474">                mod1ID += getPostFixForIcon(symbolID);</span>
-<span class="source-line-no">475</span><span id="line-475">            }</span>
-<span class="source-line-no">476</span><span id="line-476">        }</span>
-<span class="source-line-no">477</span><span id="line-477">        else //2525D or no Modifier 1 Indicator set</span>
-<span class="source-line-no">478</span><span id="line-478">        {</span>
-<span class="source-line-no">479</span><span id="line-479">            //SIDC positions 5-6 + 17-18 + "1"</span>
-<span class="source-line-no">480</span><span id="line-480">            mod1ID = symbolID.substring(4, 6) + symbolID.substring(16, 18) + "1";</span>
-<span class="source-line-no">481</span><span id="line-481"></span>
-<span class="source-line-no">482</span><span id="line-482">            if(SymbolID.getSymbolSet(symbolID) == SymbolID.SymbolSet_LandUnit)</span>
-<span class="source-line-no">483</span><span id="line-483">            {</span>
-<span class="source-line-no">484</span><span id="line-484">                switch(SymbolID.getModifier1(symbolID))</span>
-<span class="source-line-no">485</span><span id="line-485">                {</span>
-<span class="source-line-no">486</span><span id="line-486">                    case 98:</span>
-<span class="source-line-no">487</span><span id="line-487">                        mod1ID += getPostFixForIcon(symbolID);</span>
-<span class="source-line-no">488</span><span id="line-488">                        break;</span>
-<span class="source-line-no">489</span><span id="line-489">                    default:</span>
-<span class="source-line-no">490</span><span id="line-490">                        break;</span>
-<span class="source-line-no">491</span><span id="line-491">                }</span>
-<span class="source-line-no">492</span><span id="line-492">            }</span>
+<span class="source-line-no">286</span><span id="line-286"></span>
+<span class="source-line-no">287</span><span id="line-287">                /*if(SymbolID.getSymbolSet(symbolID) != SymbolID.SymbolSet_SignalsIntelligence)</span>
+<span class="source-line-no">288</span><span id="line-288">                {//get frame shape associated with symbol set</span>
+<span class="source-line-no">289</span><span id="line-289">                    frameShape=SymbolID.getDefaultFrameShape(symbolID);</span>
+<span class="source-line-no">290</span><span id="line-290">                }//*/</span>
+<span class="source-line-no">291</span><span id="line-291">                frameShape=SymbolID.getDefaultFrameShape(symbolID);</span>
+<span class="source-line-no">292</span><span id="line-292">                if(context == SymbolID.StandardIdentity_Context_Exercise &amp;&amp;</span>
+<span class="source-line-no">293</span><span id="line-293">                        SymbolID.getSymbolSet(symbolID) == SymbolID.SymbolSet_Unknown &amp;&amp;</span>
+<span class="source-line-no">294</span><span id="line-294">                        affiliation &gt; SymbolID.StandardIdentity_Affiliation_Unknown)</span>
+<span class="source-line-no">295</span><span id="line-295">                {</span>
+<span class="source-line-no">296</span><span id="line-296">                    //really there are no unknown exercise symbols outside pending and unknown affiliations</span>
+<span class="source-line-no">297</span><span id="line-297">                    //default to unknown</span>
+<span class="source-line-no">298</span><span id="line-298">                    affiliation = SymbolID.StandardIdentity_Affiliation_Unknown;</span>
+<span class="source-line-no">299</span><span id="line-299">                }</span>
+<span class="source-line-no">300</span><span id="line-300">            }</span>
+<span class="source-line-no">301</span><span id="line-301">            if(SymbolID.getSymbolSet(symbolID)==SymbolID.SymbolSet_SeaSurface &amp;&amp;</span>
+<span class="source-line-no">302</span><span id="line-302">                    SymbolID.getEntityCode(symbolID)==150000 &amp;&amp;  //Own Ship</span>
+<span class="source-line-no">303</span><span id="line-303">                    (frameShape == SymbolID.FrameShape_SeaSurface || frameShape == SymbolID.FrameShape_Unknown))</span>
+<span class="source-line-no">304</span><span id="line-304">            {</span>
+<span class="source-line-no">305</span><span id="line-305">                return "octagon";</span>
+<span class="source-line-no">306</span><span id="line-306">            }</span>
+<span class="source-line-no">307</span><span id="line-307">            if(context == SymbolID.StandardIdentity_Context_Restricted_Target_Reality || context == SymbolID.StandardIdentity_Context_No_Strike_Entity_Reality)</span>
+<span class="source-line-no">308</span><span id="line-308">                context = SymbolID.StandardIdentity_Context_Reality;</span>
+<span class="source-line-no">309</span><span id="line-309">            frameID = context + "_" + affiliation + frameShape + "_" + status;</span>
+<span class="source-line-no">310</span><span id="line-310">        }</span>
+<span class="source-line-no">311</span><span id="line-311">        return frameID;</span>
+<span class="source-line-no">312</span><span id="line-312">    }</span>
+<span class="source-line-no">313</span><span id="line-313"></span>
+<span class="source-line-no">314</span><span id="line-314">    public static String getMainIconID(String symbolID)</span>
+<span class="source-line-no">315</span><span id="line-315">    {</span>
+<span class="source-line-no">316</span><span id="line-316">        //SIDC positions 5-6 + 11-16</span>
+<span class="source-line-no">317</span><span id="line-317">        String mainIconID = symbolID.substring(4, 6) + symbolID.substring(10, 16);</span>
+<span class="source-line-no">318</span><span id="line-318">        int ss = SymbolID.getSymbolSet(symbolID);</span>
+<span class="source-line-no">319</span><span id="line-319"></span>
+<span class="source-line-no">320</span><span id="line-320">        if(ss == SymbolID.SymbolSet_MineWarfare)</span>
+<span class="source-line-no">321</span><span id="line-321">        {</span>
+<span class="source-line-no">322</span><span id="line-322">            if(RendererSettings.getInstance().getSeaMineRenderMethod() == RendererSettings.SeaMineRenderMethod_ALT ||</span>
+<span class="source-line-no">323</span><span id="line-323">                    mainIconID.equals("36110600") || mainIconID.equals("36110700"))</span>
+<span class="source-line-no">324</span><span id="line-324">            {</span>
+<span class="source-line-no">325</span><span id="line-325">                mainIconID += "_a";</span>
+<span class="source-line-no">326</span><span id="line-326">            }</span>
+<span class="source-line-no">327</span><span id="line-327">        }</span>
+<span class="source-line-no">328</span><span id="line-328">        else if(ss == SymbolID.SymbolSet_LandUnit)</span>
+<span class="source-line-no">329</span><span id="line-329">        {</span>
+<span class="source-line-no">330</span><span id="line-330">            switch(SymbolID.getEntityCode(symbolID))</span>
+<span class="source-line-no">331</span><span id="line-331">            {</span>
+<span class="source-line-no">332</span><span id="line-332">                case 110501:</span>
+<span class="source-line-no">333</span><span id="line-333">                case 111000:</span>
+<span class="source-line-no">334</span><span id="line-334">                case 111001:</span>
+<span class="source-line-no">335</span><span id="line-335">                case 111002:</span>
+<span class="source-line-no">336</span><span id="line-336">                case 111003:</span>
+<span class="source-line-no">337</span><span id="line-337">                case 111004:</span>
+<span class="source-line-no">338</span><span id="line-338">                case 111005:</span>
+<span class="source-line-no">339</span><span id="line-339">                case 111500:</span>
+<span class="source-line-no">340</span><span id="line-340">                case 120100:</span>
+<span class="source-line-no">341</span><span id="line-341">                case 120300:</span>
+<span class="source-line-no">342</span><span id="line-342">                case 120400:</span>
+<span class="source-line-no">343</span><span id="line-343">                case 120401:</span>
+<span class="source-line-no">344</span><span id="line-344">                case 120402:</span>
+<span class="source-line-no">345</span><span id="line-345">                case 120501:</span>
+<span class="source-line-no">346</span><span id="line-346">                case 120502:</span>
+<span class="source-line-no">347</span><span id="line-347">                case 120601:</span>
+<span class="source-line-no">348</span><span id="line-348">                case 120801:</span>
+<span class="source-line-no">349</span><span id="line-349">                case 121100:</span>
+<span class="source-line-no">350</span><span id="line-350">                case 121101:</span>
+<span class="source-line-no">351</span><span id="line-351">                case 121102:</span>
+<span class="source-line-no">352</span><span id="line-352">                case 121103:</span>
+<span class="source-line-no">353</span><span id="line-353">                case 121104:</span>
+<span class="source-line-no">354</span><span id="line-354">                case 121105:</span>
+<span class="source-line-no">355</span><span id="line-355">                case 121106:</span>
+<span class="source-line-no">356</span><span id="line-356">                case 121107:</span>
+<span class="source-line-no">357</span><span id="line-357">                case 121300:</span>
+<span class="source-line-no">358</span><span id="line-358">                case 121301:</span>
+<span class="source-line-no">359</span><span id="line-359">                case 121302:</span>
+<span class="source-line-no">360</span><span id="line-360">                case 121303:</span>
+<span class="source-line-no">361</span><span id="line-361">                case 121304:</span>
+<span class="source-line-no">362</span><span id="line-362">                case 121802:</span>
+<span class="source-line-no">363</span><span id="line-363">                case 122100:</span>
+<span class="source-line-no">364</span><span id="line-364">                case 130100:</span>
+<span class="source-line-no">365</span><span id="line-365">                case 130101:</span>
+<span class="source-line-no">366</span><span id="line-366">                case 130102:</span>
+<span class="source-line-no">367</span><span id="line-367">                case 130103:</span>
+<span class="source-line-no">368</span><span id="line-368">                case 130200:</span>
+<span class="source-line-no">369</span><span id="line-369">                case 130302:</span>
+<span class="source-line-no">370</span><span id="line-370">                case 130303:</span>
+<span class="source-line-no">371</span><span id="line-371">                case 140102:</span>
+<span class="source-line-no">372</span><span id="line-372">                case 140103:</span>
+<span class="source-line-no">373</span><span id="line-373">                case 140104:</span>
+<span class="source-line-no">374</span><span id="line-374">                case 140105:</span>
+<span class="source-line-no">375</span><span id="line-375">                case 140702:</span>
+<span class="source-line-no">376</span><span id="line-376">                case 140703:</span>
+<span class="source-line-no">377</span><span id="line-377">                case 141702:</span>
+<span class="source-line-no">378</span><span id="line-378">                case 150504:</span>
+<span class="source-line-no">379</span><span id="line-379">                case 150800:</span>
+<span class="source-line-no">380</span><span id="line-380">                case 160200:</span>
+<span class="source-line-no">381</span><span id="line-381">                case 161200:</span>
+<span class="source-line-no">382</span><span id="line-382">                case 161300:</span>
+<span class="source-line-no">383</span><span id="line-383">                case 161400:</span>
+<span class="source-line-no">384</span><span id="line-384">                case 161700:</span>
+<span class="source-line-no">385</span><span id="line-385">                case 161800:</span>
+<span class="source-line-no">386</span><span id="line-386">                case 161900:</span>
+<span class="source-line-no">387</span><span id="line-387">                case 162000:</span>
+<span class="source-line-no">388</span><span id="line-388">                case 162100:</span>
+<span class="source-line-no">389</span><span id="line-389">                case 162200:</span>
+<span class="source-line-no">390</span><span id="line-390">                case 163400:</span>
+<span class="source-line-no">391</span><span id="line-391">                case 163700:</span>
+<span class="source-line-no">392</span><span id="line-392">                case 163800:</span>
+<span class="source-line-no">393</span><span id="line-393">                case 163900:</span>
+<span class="source-line-no">394</span><span id="line-394">                case 164000:</span>
+<span class="source-line-no">395</span><span id="line-395">                case 164100:</span>
+<span class="source-line-no">396</span><span id="line-396">                case 164200:</span>
+<span class="source-line-no">397</span><span id="line-397">                case 164300:</span>
+<span class="source-line-no">398</span><span id="line-398">                case 164400:</span>
+<span class="source-line-no">399</span><span id="line-399">                case 164500:</span>
+<span class="source-line-no">400</span><span id="line-400">                case 164600:</span>
+<span class="source-line-no">401</span><span id="line-401">                case 165000://NATO Only</span>
+<span class="source-line-no">402</span><span id="line-402">                    //do thing to append correct number</span>
+<span class="source-line-no">403</span><span id="line-403">                    mainIconID += getPostFixForIcon(symbolID);</span>
+<span class="source-line-no">404</span><span id="line-404">                    break;</span>
+<span class="source-line-no">405</span><span id="line-405">                default:</span>
+<span class="source-line-no">406</span><span id="line-406">                    break;</span>
+<span class="source-line-no">407</span><span id="line-407">            }</span>
+<span class="source-line-no">408</span><span id="line-408"></span>
+<span class="source-line-no">409</span><span id="line-409">        }</span>
+<span class="source-line-no">410</span><span id="line-410">        else if(ss == SymbolID.SymbolSet_LandEquipment)</span>
+<span class="source-line-no">411</span><span id="line-411">        {</span>
+<span class="source-line-no">412</span><span id="line-412">            switch (SymbolID.getEntityCode(symbolID))</span>
+<span class="source-line-no">413</span><span id="line-413">            {</span>
+<span class="source-line-no">414</span><span id="line-414">                case 120111:</span>
+<span class="source-line-no">415</span><span id="line-415">                    //do thing to append correct number</span>
+<span class="source-line-no">416</span><span id="line-416">                    mainIconID += getPostFixForIcon(symbolID);</span>
+<span class="source-line-no">417</span><span id="line-417">                    break;</span>
+<span class="source-line-no">418</span><span id="line-418">                default:</span>
+<span class="source-line-no">419</span><span id="line-419">                    break;</span>
+<span class="source-line-no">420</span><span id="line-420">            }</span>
+<span class="source-line-no">421</span><span id="line-421">        }</span>
+<span class="source-line-no">422</span><span id="line-422">        else if(ss == SymbolID.SymbolSet_LandInstallation)</span>
+<span class="source-line-no">423</span><span id="line-423">        {</span>
+<span class="source-line-no">424</span><span id="line-424">            switch (SymbolID.getEntityCode(symbolID))</span>
+<span class="source-line-no">425</span><span id="line-425">            {</span>
+<span class="source-line-no">426</span><span id="line-426">                case 110300:</span>
+<span class="source-line-no">427</span><span id="line-427">                case 111200:</span>
+<span class="source-line-no">428</span><span id="line-428">                case 120103:</span>
+<span class="source-line-no">429</span><span id="line-429">                case 120105:</span>
+<span class="source-line-no">430</span><span id="line-430">                case 120106:</span>
+<span class="source-line-no">431</span><span id="line-431">                case 120107:</span>
+<span class="source-line-no">432</span><span id="line-432">                case 120701:</span>
+<span class="source-line-no">433</span><span id="line-433">                case 120702:</span>
+<span class="source-line-no">434</span><span id="line-434">                    //do thing to append correct number</span>
+<span class="source-line-no">435</span><span id="line-435">                    mainIconID += getPostFixForIcon(symbolID);</span>
+<span class="source-line-no">436</span><span id="line-436">                    break;</span>
+<span class="source-line-no">437</span><span id="line-437">                default:</span>
+<span class="source-line-no">438</span><span id="line-438">                    break;</span>
+<span class="source-line-no">439</span><span id="line-439">            }</span>
+<span class="source-line-no">440</span><span id="line-440">        }</span>
+<span class="source-line-no">441</span><span id="line-441">        else if(ss == SymbolID.SymbolSet_DismountedIndividuals)</span>
+<span class="source-line-no">442</span><span id="line-442">        {</span>
+<span class="source-line-no">443</span><span id="line-443">            switch (SymbolID.getEntityCode(symbolID))</span>
+<span class="source-line-no">444</span><span id="line-444">            {</span>
+<span class="source-line-no">445</span><span id="line-445">                case 110101:</span>
+<span class="source-line-no">446</span><span id="line-446">                case 110102:</span>
+<span class="source-line-no">447</span><span id="line-447">                case 110103:</span>
+<span class="source-line-no">448</span><span id="line-448">                case 110104:</span>
+<span class="source-line-no">449</span><span id="line-449">                    //do thing to append correct number</span>
+<span class="source-line-no">450</span><span id="line-450">                    mainIconID += getPostFixForIcon(symbolID);</span>
+<span class="source-line-no">451</span><span id="line-451">                    break;</span>
+<span class="source-line-no">452</span><span id="line-452">                default:</span>
+<span class="source-line-no">453</span><span id="line-453">                    break;</span>
+<span class="source-line-no">454</span><span id="line-454">            }</span>
+<span class="source-line-no">455</span><span id="line-455">        }</span>
+<span class="source-line-no">456</span><span id="line-456">        else if(ss == SymbolID.SymbolSet_Activities)</span>
+<span class="source-line-no">457</span><span id="line-457">        {</span>
+<span class="source-line-no">458</span><span id="line-458">            switch (SymbolID.getEntityCode(symbolID))</span>
+<span class="source-line-no">459</span><span id="line-459">            {</span>
+<span class="source-line-no">460</span><span id="line-460">                case 110303:</span>
+<span class="source-line-no">461</span><span id="line-461">                case 130201:</span>
+<span class="source-line-no">462</span><span id="line-462">                case 131202:</span>
+<span class="source-line-no">463</span><span id="line-463">                case 131208:</span>
+<span class="source-line-no">464</span><span id="line-464">                    //do thing to append correct number</span>
+<span class="source-line-no">465</span><span id="line-465">                    mainIconID += getPostFixForIcon(symbolID);</span>
+<span class="source-line-no">466</span><span id="line-466">                    break;</span>
+<span class="source-line-no">467</span><span id="line-467">                default:</span>
+<span class="source-line-no">468</span><span id="line-468">                    break;</span>
+<span class="source-line-no">469</span><span id="line-469">            }</span>
+<span class="source-line-no">470</span><span id="line-470">        }</span>
+<span class="source-line-no">471</span><span id="line-471">        else if(ss == SymbolID.SymbolSet_Unknown)</span>
+<span class="source-line-no">472</span><span id="line-472">            mainIconID = "00000000";//unknown with question mark</span>
+<span class="source-line-no">473</span><span id="line-473">        else if (ss != SymbolID.SymbolSet_Air &amp;&amp;</span>
+<span class="source-line-no">474</span><span id="line-474">                ss != SymbolID.SymbolSet_AirMissile &amp;&amp;</span>
+<span class="source-line-no">475</span><span id="line-475">                ss != SymbolID.SymbolSet_Space &amp;&amp;</span>
+<span class="source-line-no">476</span><span id="line-476">                ss != SymbolID.SymbolSet_SpaceMissile &amp;&amp;</span>
+<span class="source-line-no">477</span><span id="line-477">                ss != SymbolID.SymbolSet_LandCivilianUnit_Organization &amp;&amp;</span>
+<span class="source-line-no">478</span><span id="line-478">                ss != SymbolID.SymbolSet_DismountedIndividuals &amp;&amp;</span>
+<span class="source-line-no">479</span><span id="line-479">                ss != SymbolID.SymbolSet_ControlMeasure &amp;&amp;</span>
+<span class="source-line-no">480</span><span id="line-480">                ss != SymbolID.SymbolSet_SeaSurface &amp;&amp;</span>
+<span class="source-line-no">481</span><span id="line-481">                ss != SymbolID.SymbolSet_SeaSubsurface &amp;&amp;</span>
+<span class="source-line-no">482</span><span id="line-482">                ss != SymbolID.SymbolSet_Atmospheric &amp;&amp;</span>
+<span class="source-line-no">483</span><span id="line-483">                ss != SymbolID.SymbolSet_Oceanographic &amp;&amp;</span>
+<span class="source-line-no">484</span><span id="line-484">                ss != SymbolID.SymbolSet_MeteorologicalSpace &amp;&amp;</span>
+<span class="source-line-no">485</span><span id="line-485">                ss != SymbolID.SymbolSet_SignalsIntelligence_Space &amp;&amp;</span>
+<span class="source-line-no">486</span><span id="line-486">                ss != SymbolID.SymbolSet_SignalsIntelligence_Air &amp;&amp;</span>
+<span class="source-line-no">487</span><span id="line-487">                ss != SymbolID.SymbolSet_SignalsIntelligence_Land &amp;&amp;</span>
+<span class="source-line-no">488</span><span id="line-488">                ss != SymbolID.SymbolSet_SignalsIntelligence_SeaSurface &amp;&amp;</span>
+<span class="source-line-no">489</span><span id="line-489">                ss != SymbolID.SymbolSet_SignalsIntelligence_SeaSubsurface &amp;&amp;</span>
+<span class="source-line-no">490</span><span id="line-490">                ss != SymbolID.SymbolSet_CyberSpace)</span>
+<span class="source-line-no">491</span><span id="line-491">        {</span>
+<span class="source-line-no">492</span><span id="line-492">            mainIconID = "98100000";//invalid symbol, inverted question mark</span>
 <span class="source-line-no">493</span><span id="line-493">        }</span>
-<span class="source-line-no">494</span><span id="line-494">        return mod1ID;</span>
-<span class="source-line-no">495</span><span id="line-495">    }</span>
-<span class="source-line-no">496</span><span id="line-496"></span>
-<span class="source-line-no">497</span><span id="line-497">    public static String getMod2ID(String symbolID)</span>
-<span class="source-line-no">498</span><span id="line-498">    {</span>
-<span class="source-line-no">499</span><span id="line-499">        String mod2ID = null;</span>
-<span class="source-line-no">500</span><span id="line-500">        if((SymbolID.getVersion(symbolID)&gt;=SymbolID.Version_2525E) &amp;&amp; symbolID.charAt(21) != '0')</span>
-<span class="source-line-no">501</span><span id="line-501">        {//2525E with Modifier 1 Indicator set</span>
-<span class="source-line-no">502</span><span id="line-502">            mod2ID = symbolID.substring(21,22) + symbolID.substring(18, 20) + "_2";</span>
-<span class="source-line-no">503</span><span id="line-503">            if(mod2ID.equals("131_2") || mod2ID.equals("134_2"))</span>
-<span class="source-line-no">504</span><span id="line-504">            {</span>
-<span class="source-line-no">505</span><span id="line-505">                //TODO: as this is a common modifier, it can fit more than land units and will probably need its own function and more SVGs</span>
-<span class="source-line-no">506</span><span id="line-506">                mod2ID += getPostFixForIcon(symbolID);</span>
-<span class="source-line-no">507</span><span id="line-507">            }</span>
-<span class="source-line-no">508</span><span id="line-508">        }</span>
-<span class="source-line-no">509</span><span id="line-509">        else //2525D or no Modifier 1 Indicator set</span>
-<span class="source-line-no">510</span><span id="line-510">        {</span>
-<span class="source-line-no">511</span><span id="line-511">            //SIDC positions 5-6 + 19-20 + "2"</span>
-<span class="source-line-no">512</span><span id="line-512">            mod2ID = symbolID.substring(4, 6) + symbolID.substring(18, 20) + "2";</span>
-<span class="source-line-no">513</span><span id="line-513"></span>
-<span class="source-line-no">514</span><span id="line-514">            if(SymbolID.getSymbolSet(symbolID) == SymbolID.SymbolSet_LandUnit)</span>
-<span class="source-line-no">515</span><span id="line-515">            {</span>
-<span class="source-line-no">516</span><span id="line-516">                switch(SymbolID.getModifier2(symbolID))</span>
-<span class="source-line-no">517</span><span id="line-517">                {</span>
-<span class="source-line-no">518</span><span id="line-518">                    case 60:</span>
-<span class="source-line-no">519</span><span id="line-519">                    case 62:</span>
-<span class="source-line-no">520</span><span id="line-520">                    case 84:</span>
-<span class="source-line-no">521</span><span id="line-521">                    case 89:</span>
-<span class="source-line-no">522</span><span id="line-522">                        mod2ID += getPostFixForIcon(symbolID);</span>
-<span class="source-line-no">523</span><span id="line-523">                        break;</span>
-<span class="source-line-no">524</span><span id="line-524">                    default:</span>
-<span class="source-line-no">525</span><span id="line-525">                        break;</span>
-<span class="source-line-no">526</span><span id="line-526">                }</span>
-<span class="source-line-no">527</span><span id="line-527">            }</span>
-<span class="source-line-no">528</span><span id="line-528">        }</span>
-<span class="source-line-no">529</span><span id="line-529">        return mod2ID;</span>
-<span class="source-line-no">530</span><span id="line-530">    }</span>
-<span class="source-line-no">531</span><span id="line-531"></span>
-<span class="source-line-no">532</span><span id="line-532">    public static String getEchelonAmplifier(String symbolID)</span>
-<span class="source-line-no">533</span><span id="line-533">    {</span>
-<span class="source-line-no">534</span><span id="line-534">        String amp = null;</span>
-<span class="source-line-no">535</span><span id="line-535">        int ver = SymbolID.getVersion(symbolID);</span>
-<span class="source-line-no">536</span><span id="line-536">        if (ver &lt; SymbolID.Version_2525E)</span>
-<span class="source-line-no">537</span><span id="line-537">        {</span>
-<span class="source-line-no">538</span><span id="line-538">            amp = symbolID.charAt(3) + symbolID.substring(8,10);</span>
-<span class="source-line-no">539</span><span id="line-539">        }</span>
-<span class="source-line-no">540</span><span id="line-540">        else // &gt;= 2525E</span>
-<span class="source-line-no">541</span><span id="line-541">        {</span>
-<span class="source-line-no">542</span><span id="line-542">            //This will eventually be different with the introduction of the frame shape modifier</span>
-<span class="source-line-no">543</span><span id="line-543">            amp = symbolID.charAt(3) + symbolID.substring(8,10);</span>
-<span class="source-line-no">544</span><span id="line-544">        }</span>
-<span class="source-line-no">545</span><span id="line-545">        return amp;</span>
-<span class="source-line-no">546</span><span id="line-546">    }</span>
-<span class="source-line-no">547</span><span id="line-547"></span>
-<span class="source-line-no">548</span><span id="line-548">    public static String getHQTFFD(String symbolID) {</span>
-<span class="source-line-no">549</span><span id="line-549">        String hqtffd = null;</span>
-<span class="source-line-no">550</span><span id="line-550">        int ver = SymbolID.getVersion(symbolID);</span>
-<span class="source-line-no">551</span><span id="line-551">        if (ver &lt; SymbolID.Version_2525E)</span>
-<span class="source-line-no">552</span><span id="line-552">        {</span>
-<span class="source-line-no">553</span><span id="line-553">            hqtffd = symbolID.substring(3, 6) + symbolID.charAt(7);</span>
-<span class="source-line-no">554</span><span id="line-554">        }</span>
-<span class="source-line-no">555</span><span id="line-555">        else // &gt;= 2525E</span>
-<span class="source-line-no">556</span><span id="line-556">        {</span>
-<span class="source-line-no">557</span><span id="line-557">            //This will eventually be different with the introduction of the frame shape modifier</span>
-<span class="source-line-no">558</span><span id="line-558">            hqtffd = symbolID.substring(3, 6) + symbolID.charAt(7);</span>
-<span class="source-line-no">559</span><span id="line-559">        }</span>
-<span class="source-line-no">560</span><span id="line-560">        return hqtffd;</span>
-<span class="source-line-no">561</span><span id="line-561">    }</span>
-<span class="source-line-no">562</span><span id="line-562"></span>
-<span class="source-line-no">563</span><span id="line-563">    public static String getOCA(String symbolID, boolean useSlash)</span>
-<span class="source-line-no">564</span><span id="line-564">    {</span>
-<span class="source-line-no">565</span><span id="line-565">        if(useSlash)</span>
-<span class="source-line-no">566</span><span id="line-566">        {</span>
-<span class="source-line-no">567</span><span id="line-567">            int status = SymbolID.getStatus(symbolID);</span>
-<span class="source-line-no">568</span><span id="line-568">            if(status == SymbolID.Status_Present_Damaged || status == SymbolID.Status_Present_Destroyed)</span>
-<span class="source-line-no">569</span><span id="line-569">                return String.valueOf(status);</span>
-<span class="source-line-no">570</span><span id="line-570">            else</span>
-<span class="source-line-no">571</span><span id="line-571">                return null;</span>
-<span class="source-line-no">572</span><span id="line-572">        }</span>
-<span class="source-line-no">573</span><span id="line-573">        else//get the bar</span>
-<span class="source-line-no">574</span><span id="line-574">        {</span>
-<span class="source-line-no">575</span><span id="line-575">            String oca = null;</span>
-<span class="source-line-no">576</span><span id="line-576">            int ver = SymbolID.getVersion(symbolID);</span>
-<span class="source-line-no">577</span><span id="line-577">            if(ver &lt; SymbolID.Version_2525E)</span>
-<span class="source-line-no">578</span><span id="line-578">            {</span>
-<span class="source-line-no">579</span><span id="line-579">                oca = symbolID.substring(2,7) + "2";</span>
-<span class="source-line-no">580</span><span id="line-580">            }</span>
-<span class="source-line-no">581</span><span id="line-581">            else // &gt;= 2525E</span>
-<span class="source-line-no">582</span><span id="line-582">            {</span>
-<span class="source-line-no">583</span><span id="line-583">                //This will eventually be different with the introduction of the frame shape modifier</span>
-<span class="source-line-no">584</span><span id="line-584">                oca = symbolID.substring(2,7) + "2";</span>
-<span class="source-line-no">585</span><span id="line-585">            }</span>
-<span class="source-line-no">586</span><span id="line-586">            return oca;</span>
-<span class="source-line-no">587</span><span id="line-587">        }</span>
-<span class="source-line-no">588</span><span id="line-588">    }</span>
-<span class="source-line-no">589</span><span id="line-589">    public static List&lt;String&gt; getAllKeys()</span>
-<span class="source-line-no">590</span><span id="line-590">    {</span>
-<span class="source-line-no">591</span><span id="line-591">        List&lt;String&gt; kl = new ArrayList();</span>
-<span class="source-line-no">592</span><span id="line-592">        Set&lt;String&gt; keys = _SVGLookupD.keySet();</span>
-<span class="source-line-no">593</span><span id="line-593">        for(String key: keys) {</span>
-<span class="source-line-no">594</span><span id="line-594">            //System.out.println(key);</span>
-<span class="source-line-no">595</span><span id="line-595">            kl.add(key);</span>
-<span class="source-line-no">596</span><span id="line-596">        }</span>
-<span class="source-line-no">597</span><span id="line-597">        return kl;</span>
-<span class="source-line-no">598</span><span id="line-598">    }</span>
-<span class="source-line-no">599</span><span id="line-599"></span>
-<span class="source-line-no">600</span><span id="line-600"></span>
-<span class="source-line-no">601</span><span id="line-601">    /*</span>
-<span class="source-line-no">602</span><span id="line-602">     * For use only by MilStdIconRenderer.addCustomSymbol()</span>
-<span class="source-line-no">603</span><span id="line-603">     * @param svgInfo with the basic symbol id, bounds of the SVG, SVG group</span>
-<span class="source-line-no">604</span><span id="line-604">     * @param version like SymbolID.Version_2525E</span>
-<span class="source-line-no">605</span><span id="line-605">     * @return</span>
-<span class="source-line-no">606</span><span id="line-606">     */</span>
-<span class="source-line-no">607</span><span id="line-607">    public boolean addCustomSymbol(SVGInfo svgInfo, int version)</span>
-<span class="source-line-no">608</span><span id="line-608">    {</span>
-<span class="source-line-no">609</span><span id="line-609">        boolean success = false;</span>
-<span class="source-line-no">610</span><span id="line-610">        try</span>
+<span class="source-line-no">494</span><span id="line-494"></span>
+<span class="source-line-no">495</span><span id="line-495">        return mainIconID;</span>
+<span class="source-line-no">496</span><span id="line-496">    }</span>
+<span class="source-line-no">497</span><span id="line-497"></span>
+<span class="source-line-no">498</span><span id="line-498"></span>
+<span class="source-line-no">499</span><span id="line-499">    private static String getPostFixForIcon(String symbolID)</span>
+<span class="source-line-no">500</span><span id="line-500">    {</span>
+<span class="source-line-no">501</span><span id="line-501">        int aff = SymbolID.getAffiliation(symbolID);</span>
+<span class="source-line-no">502</span><span id="line-502">        String pf = "";</span>
+<span class="source-line-no">503</span><span id="line-503">        if(aff == SymbolID.StandardIdentity_Affiliation_Friend ||</span>
+<span class="source-line-no">504</span><span id="line-504">                aff == SymbolID.StandardIdentity_Affiliation_AssumedFriend)</span>
+<span class="source-line-no">505</span><span id="line-505">            pf += "_1";</span>
+<span class="source-line-no">506</span><span id="line-506">        else if(aff == SymbolID.StandardIdentity_Affiliation_Neutral)</span>
+<span class="source-line-no">507</span><span id="line-507">            pf += "_2";</span>
+<span class="source-line-no">508</span><span id="line-508">        else if(aff == SymbolID.StandardIdentity_Affiliation_Hostile_Faker ||</span>
+<span class="source-line-no">509</span><span id="line-509">                aff == SymbolID.StandardIdentity_Affiliation_Suspect_Joker)</span>
+<span class="source-line-no">510</span><span id="line-510">            pf += "_3";</span>
+<span class="source-line-no">511</span><span id="line-511">        else if(aff == SymbolID.StandardIdentity_Affiliation_Unknown ||</span>
+<span class="source-line-no">512</span><span id="line-512">                aff == SymbolID.StandardIdentity_Affiliation_Pending)</span>
+<span class="source-line-no">513</span><span id="line-513">            pf += "_0";</span>
+<span class="source-line-no">514</span><span id="line-514"></span>
+<span class="source-line-no">515</span><span id="line-515">        return pf;</span>
+<span class="source-line-no">516</span><span id="line-516">    }</span>
+<span class="source-line-no">517</span><span id="line-517"></span>
+<span class="source-line-no">518</span><span id="line-518">    public static String getMod1ID(String symbolID)</span>
+<span class="source-line-no">519</span><span id="line-519">    {</span>
+<span class="source-line-no">520</span><span id="line-520">        String mod1ID = null;</span>
+<span class="source-line-no">521</span><span id="line-521"></span>
+<span class="source-line-no">522</span><span id="line-522"></span>
+<span class="source-line-no">523</span><span id="line-523">        if((SymbolID.getVersion(symbolID)&gt;=SymbolID.Version_2525E) &amp;&amp; symbolID.charAt(20) !='0')</span>
+<span class="source-line-no">524</span><span id="line-524">        {//2525E with Modifier 1 Indicator set</span>
+<span class="source-line-no">525</span><span id="line-525">            mod1ID = symbolID.substring(20,21) + symbolID.substring(16, 18) + "_1";</span>
+<span class="source-line-no">526</span><span id="line-526">            if(mod1ID.equals("175_1"))</span>
+<span class="source-line-no">527</span><span id="line-527">            {</span>
+<span class="source-line-no">528</span><span id="line-528">                //TODO: as this is a common modifier, it can fit more than land units and will probably need its own function and more SVGs</span>
+<span class="source-line-no">529</span><span id="line-529">                mod1ID += getPostFixForIcon(symbolID);</span>
+<span class="source-line-no">530</span><span id="line-530">            }</span>
+<span class="source-line-no">531</span><span id="line-531">        }</span>
+<span class="source-line-no">532</span><span id="line-532">        else //2525D or no Modifier 1 Indicator set</span>
+<span class="source-line-no">533</span><span id="line-533">        {</span>
+<span class="source-line-no">534</span><span id="line-534">            //SIDC positions 5-6 + 17-18 + "1"</span>
+<span class="source-line-no">535</span><span id="line-535">            mod1ID = symbolID.substring(4, 6) + symbolID.substring(16, 18) + "1";</span>
+<span class="source-line-no">536</span><span id="line-536"></span>
+<span class="source-line-no">537</span><span id="line-537">            if(SymbolID.getSymbolSet(symbolID) == SymbolID.SymbolSet_LandUnit)</span>
+<span class="source-line-no">538</span><span id="line-538">            {</span>
+<span class="source-line-no">539</span><span id="line-539">                switch(SymbolID.getModifier1(symbolID))</span>
+<span class="source-line-no">540</span><span id="line-540">                {</span>
+<span class="source-line-no">541</span><span id="line-541">                    case 98:</span>
+<span class="source-line-no">542</span><span id="line-542">                        mod1ID += getPostFixForIcon(symbolID);</span>
+<span class="source-line-no">543</span><span id="line-543">                        break;</span>
+<span class="source-line-no">544</span><span id="line-544">                    default:</span>
+<span class="source-line-no">545</span><span id="line-545">                        break;</span>
+<span class="source-line-no">546</span><span id="line-546">                }</span>
+<span class="source-line-no">547</span><span id="line-547">            }</span>
+<span class="source-line-no">548</span><span id="line-548">        }</span>
+<span class="source-line-no">549</span><span id="line-549">        return mod1ID;</span>
+<span class="source-line-no">550</span><span id="line-550">    }</span>
+<span class="source-line-no">551</span><span id="line-551"></span>
+<span class="source-line-no">552</span><span id="line-552">    public static String getMod2ID(String symbolID)</span>
+<span class="source-line-no">553</span><span id="line-553">    {</span>
+<span class="source-line-no">554</span><span id="line-554">        String mod2ID = null;</span>
+<span class="source-line-no">555</span><span id="line-555">        if((SymbolID.getVersion(symbolID)&gt;=SymbolID.Version_2525E) &amp;&amp; symbolID.charAt(21) != '0')</span>
+<span class="source-line-no">556</span><span id="line-556">        {//2525E with Modifier 1 Indicator set</span>
+<span class="source-line-no">557</span><span id="line-557">            mod2ID = symbolID.substring(21,22) + symbolID.substring(18, 20) + "_2";</span>
+<span class="source-line-no">558</span><span id="line-558">            if(mod2ID.equals("131_2") || mod2ID.equals("134_2"))</span>
+<span class="source-line-no">559</span><span id="line-559">            {</span>
+<span class="source-line-no">560</span><span id="line-560">                //TODO: as this is a common modifier, it can fit more than land units and will probably need its own function and more SVGs</span>
+<span class="source-line-no">561</span><span id="line-561">                mod2ID += getPostFixForIcon(symbolID);</span>
+<span class="source-line-no">562</span><span id="line-562">            }</span>
+<span class="source-line-no">563</span><span id="line-563">        }</span>
+<span class="source-line-no">564</span><span id="line-564">        else //2525D or no Modifier 1 Indicator set</span>
+<span class="source-line-no">565</span><span id="line-565">        {</span>
+<span class="source-line-no">566</span><span id="line-566">            //SIDC positions 5-6 + 19-20 + "2"</span>
+<span class="source-line-no">567</span><span id="line-567">            mod2ID = symbolID.substring(4, 6) + symbolID.substring(18, 20) + "2";</span>
+<span class="source-line-no">568</span><span id="line-568"></span>
+<span class="source-line-no">569</span><span id="line-569">            if(SymbolID.getSymbolSet(symbolID) == SymbolID.SymbolSet_LandUnit)</span>
+<span class="source-line-no">570</span><span id="line-570">            {</span>
+<span class="source-line-no">571</span><span id="line-571">                switch(SymbolID.getModifier2(symbolID))</span>
+<span class="source-line-no">572</span><span id="line-572">                {</span>
+<span class="source-line-no">573</span><span id="line-573">                    case 60:</span>
+<span class="source-line-no">574</span><span id="line-574">                    case 62:</span>
+<span class="source-line-no">575</span><span id="line-575">                    case 84:</span>
+<span class="source-line-no">576</span><span id="line-576">                    case 89:</span>
+<span class="source-line-no">577</span><span id="line-577">                        mod2ID += getPostFixForIcon(symbolID);</span>
+<span class="source-line-no">578</span><span id="line-578">                        break;</span>
+<span class="source-line-no">579</span><span id="line-579">                    default:</span>
+<span class="source-line-no">580</span><span id="line-580">                        break;</span>
+<span class="source-line-no">581</span><span id="line-581">                }</span>
+<span class="source-line-no">582</span><span id="line-582">            }</span>
+<span class="source-line-no">583</span><span id="line-583">        }</span>
+<span class="source-line-no">584</span><span id="line-584">        return mod2ID;</span>
+<span class="source-line-no">585</span><span id="line-585">    }</span>
+<span class="source-line-no">586</span><span id="line-586"></span>
+<span class="source-line-no">587</span><span id="line-587">    public static String getEchelonAmplifier(String symbolID)</span>
+<span class="source-line-no">588</span><span id="line-588">    {</span>
+<span class="source-line-no">589</span><span id="line-589">        String amp = null;</span>
+<span class="source-line-no">590</span><span id="line-590">        int ver = SymbolID.getVersion(symbolID);</span>
+<span class="source-line-no">591</span><span id="line-591">        if (ver &lt; SymbolID.Version_2525E)</span>
+<span class="source-line-no">592</span><span id="line-592">        {</span>
+<span class="source-line-no">593</span><span id="line-593">            amp = symbolID.charAt(3) + symbolID.substring(8,10);</span>
+<span class="source-line-no">594</span><span id="line-594">        }</span>
+<span class="source-line-no">595</span><span id="line-595">        else // &gt;= 2525E</span>
+<span class="source-line-no">596</span><span id="line-596">        {</span>
+<span class="source-line-no">597</span><span id="line-597">            //This will eventually be different with the introduction of the frame shape modifier</span>
+<span class="source-line-no">598</span><span id="line-598">            amp = symbolID.charAt(3) + symbolID.substring(8,10);</span>
+<span class="source-line-no">599</span><span id="line-599">        }</span>
+<span class="source-line-no">600</span><span id="line-600">        return amp;</span>
+<span class="source-line-no">601</span><span id="line-601">    }</span>
+<span class="source-line-no">602</span><span id="line-602"></span>
+<span class="source-line-no">603</span><span id="line-603">    public static String getHQTFFD(String symbolID) {</span>
+<span class="source-line-no">604</span><span id="line-604">        String hqtffd = null;</span>
+<span class="source-line-no">605</span><span id="line-605">        int ver = SymbolID.getVersion(symbolID);</span>
+<span class="source-line-no">606</span><span id="line-606">        if (ver &lt; SymbolID.Version_2525E)</span>
+<span class="source-line-no">607</span><span id="line-607">        {</span>
+<span class="source-line-no">608</span><span id="line-608">            hqtffd = symbolID.substring(3, 6) + symbolID.charAt(7);</span>
+<span class="source-line-no">609</span><span id="line-609">        }</span>
+<span class="source-line-no">610</span><span id="line-610">        else // &gt;= 2525E</span>
 <span class="source-line-no">611</span><span id="line-611">        {</span>
-<span class="source-line-no">612</span><span id="line-612">            String basicID = svgInfo.getID();</span>
-<span class="source-line-no">613</span><span id="line-613">            if (version &lt; SymbolID.Version_2525E)</span>
-<span class="source-line-no">614</span><span id="line-614">            {</span>
-<span class="source-line-no">615</span><span id="line-615">                if(SVGLookup._SVGLookupD.containsKey(svgInfo.getID()) == false)</span>
-<span class="source-line-no">616</span><span id="line-616">                {</span>
-<span class="source-line-no">617</span><span id="line-617">                    SVGLookup._SVGLookupD.put(svgInfo.getID(),svgInfo);</span>
-<span class="source-line-no">618</span><span id="line-618">                }</span>
-<span class="source-line-no">619</span><span id="line-619">            }</span>
-<span class="source-line-no">620</span><span id="line-620">            else if (version &gt;= SymbolID.Version_2525E)</span>
-<span class="source-line-no">621</span><span id="line-621">            {</span>
-<span class="source-line-no">622</span><span id="line-622">                if(SVGLookup._SVGLookupE.containsKey(svgInfo.getID()) == false)</span>
-<span class="source-line-no">623</span><span id="line-623">                {</span>
-<span class="source-line-no">624</span><span id="line-624">                    SVGLookup._SVGLookupE.put(svgInfo.getID(),svgInfo);</span>
-<span class="source-line-no">625</span><span id="line-625">                }</span>
-<span class="source-line-no">626</span><span id="line-626">            }</span>
+<span class="source-line-no">612</span><span id="line-612">            //This will eventually be different with the introduction of the frame shape modifier</span>
+<span class="source-line-no">613</span><span id="line-613">            hqtffd = symbolID.substring(3, 6) + symbolID.charAt(7);</span>
+<span class="source-line-no">614</span><span id="line-614">        }</span>
+<span class="source-line-no">615</span><span id="line-615">        return hqtffd;</span>
+<span class="source-line-no">616</span><span id="line-616">    }</span>
+<span class="source-line-no">617</span><span id="line-617"></span>
+<span class="source-line-no">618</span><span id="line-618">    public static String getOCA(String symbolID, boolean useSlash)</span>
+<span class="source-line-no">619</span><span id="line-619">    {</span>
+<span class="source-line-no">620</span><span id="line-620">        if(useSlash)</span>
+<span class="source-line-no">621</span><span id="line-621">        {</span>
+<span class="source-line-no">622</span><span id="line-622">            int status = SymbolID.getStatus(symbolID);</span>
+<span class="source-line-no">623</span><span id="line-623">            if(status == SymbolID.Status_Present_Damaged || status == SymbolID.Status_Present_Destroyed)</span>
+<span class="source-line-no">624</span><span id="line-624">                return String.valueOf(status);</span>
+<span class="source-line-no">625</span><span id="line-625">            else</span>
+<span class="source-line-no">626</span><span id="line-626">                return null;</span>
 <span class="source-line-no">627</span><span id="line-627">        }</span>
-<span class="source-line-no">628</span><span id="line-628">        catch(Exception e)</span>
+<span class="source-line-no">628</span><span id="line-628">        else//get the bar</span>
 <span class="source-line-no">629</span><span id="line-629">        {</span>
-<span class="source-line-no">630</span><span id="line-630">            ErrorLogger.LogException("SVGLookup","addCUstomSymbol",e);</span>
-<span class="source-line-no">631</span><span id="line-631">        }</span>
-<span class="source-line-no">632</span><span id="line-632">        return success;</span>
-<span class="source-line-no">633</span><span id="line-633">    }</span>
-<span class="source-line-no">634</span><span id="line-634">}</span>
-<span class="source-line-no">635</span><span id="line-635"></span>
-<span class="source-line-no">636</span><span id="line-636"></span>
+<span class="source-line-no">630</span><span id="line-630">            String oca = null;</span>
+<span class="source-line-no">631</span><span id="line-631">            int ver = SymbolID.getVersion(symbolID);</span>
+<span class="source-line-no">632</span><span id="line-632">            if(ver &lt; SymbolID.Version_2525E)</span>
+<span class="source-line-no">633</span><span id="line-633">            {</span>
+<span class="source-line-no">634</span><span id="line-634">                oca = symbolID.substring(2,7) + "2";</span>
+<span class="source-line-no">635</span><span id="line-635">            }</span>
+<span class="source-line-no">636</span><span id="line-636">            else // &gt;= 2525E</span>
+<span class="source-line-no">637</span><span id="line-637">            {</span>
+<span class="source-line-no">638</span><span id="line-638">                //This will eventually be different with the introduction of the frame shape modifier</span>
+<span class="source-line-no">639</span><span id="line-639">                oca = symbolID.substring(2,7) + "2";</span>
+<span class="source-line-no">640</span><span id="line-640">            }</span>
+<span class="source-line-no">641</span><span id="line-641">            return oca;</span>
+<span class="source-line-no">642</span><span id="line-642">        }</span>
+<span class="source-line-no">643</span><span id="line-643">    }</span>
+<span class="source-line-no">644</span><span id="line-644">    public static List&lt;String&gt; getAllKeys()</span>
+<span class="source-line-no">645</span><span id="line-645">    {</span>
+<span class="source-line-no">646</span><span id="line-646">        List&lt;String&gt; kl = new ArrayList();</span>
+<span class="source-line-no">647</span><span id="line-647">        Set&lt;String&gt; keys = _SVGLookupD.keySet();</span>
+<span class="source-line-no">648</span><span id="line-648">        for(String key: keys) {</span>
+<span class="source-line-no">649</span><span id="line-649">            //System.out.println(key);</span>
+<span class="source-line-no">650</span><span id="line-650">            kl.add(key);</span>
+<span class="source-line-no">651</span><span id="line-651">        }</span>
+<span class="source-line-no">652</span><span id="line-652">        return kl;</span>
+<span class="source-line-no">653</span><span id="line-653">    }</span>
+<span class="source-line-no">654</span><span id="line-654"></span>
+<span class="source-line-no">655</span><span id="line-655"></span>
+<span class="source-line-no">656</span><span id="line-656">    /*</span>
+<span class="source-line-no">657</span><span id="line-657">     * For use only by MilStdIconRenderer.addCustomSymbol()</span>
+<span class="source-line-no">658</span><span id="line-658">     * @param svgInfo with the basic symbol id, bounds of the SVG, SVG group</span>
+<span class="source-line-no">659</span><span id="line-659">     * @param version like SymbolID.Version_2525E</span>
+<span class="source-line-no">660</span><span id="line-660">     * @return</span>
+<span class="source-line-no">661</span><span id="line-661">     */</span>
+<span class="source-line-no">662</span><span id="line-662">    public boolean addCustomSymbol(SVGInfo svgInfo, int version)</span>
+<span class="source-line-no">663</span><span id="line-663">    {</span>
+<span class="source-line-no">664</span><span id="line-664">        boolean success = false;</span>
+<span class="source-line-no">665</span><span id="line-665">        try</span>
+<span class="source-line-no">666</span><span id="line-666">        {</span>
+<span class="source-line-no">667</span><span id="line-667">            String basicID = svgInfo.getID();</span>
+<span class="source-line-no">668</span><span id="line-668">            if (version &lt; SymbolID.Version_2525E)</span>
+<span class="source-line-no">669</span><span id="line-669">            {</span>
+<span class="source-line-no">670</span><span id="line-670">                if(SVGLookup._SVGLookupD.containsKey(svgInfo.getID()) == false)</span>
+<span class="source-line-no">671</span><span id="line-671">                {</span>
+<span class="source-line-no">672</span><span id="line-672">                    SVGLookup._SVGLookupD.put(svgInfo.getID(),svgInfo);</span>
+<span class="source-line-no">673</span><span id="line-673">                }</span>
+<span class="source-line-no">674</span><span id="line-674">            }</span>
+<span class="source-line-no">675</span><span id="line-675">            else if (version &gt;= SymbolID.Version_2525E)</span>
+<span class="source-line-no">676</span><span id="line-676">            {</span>
+<span class="source-line-no">677</span><span id="line-677">                if(SVGLookup._SVGLookupE.containsKey(svgInfo.getID()) == false)</span>
+<span class="source-line-no">678</span><span id="line-678">                {</span>
+<span class="source-line-no">679</span><span id="line-679">                    SVGLookup._SVGLookupE.put(svgInfo.getID(),svgInfo);</span>
+<span class="source-line-no">680</span><span id="line-680">                }</span>
+<span class="source-line-no">681</span><span id="line-681">            }</span>
+<span class="source-line-no">682</span><span id="line-682">        }</span>
+<span class="source-line-no">683</span><span id="line-683">        catch(Exception e)</span>
+<span class="source-line-no">684</span><span id="line-684">        {</span>
+<span class="source-line-no">685</span><span id="line-685">            ErrorLogger.LogException("SVGLookup","addCUstomSymbol",e);</span>
+<span class="source-line-no">686</span><span id="line-686">        }</span>
+<span class="source-line-no">687</span><span id="line-687">        return success;</span>
+<span class="source-line-no">688</span><span id="line-688">    }</span>
+<span class="source-line-no">689</span><span id="line-689">}</span>
+<span class="source-line-no">690</span><span id="line-690"></span>
+<span class="source-line-no">691</span><span id="line-691"></span>
 
 
 

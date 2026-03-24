@@ -16,47 +16,62 @@
 <span class="source-line-no">003</span><span id="line-3">    public static final int EntityCode_FLOT = 140100;</span>
 <span class="source-line-no">004</span><span id="line-4"></span>
 <span class="source-line-no">005</span><span id="line-5">    public static final int EntityCode_BioContaminatedArea = 271700;</span>
-<span class="source-line-no">006</span><span id="line-6"></span>
-<span class="source-line-no">007</span><span id="line-7">    public static final int EntityCode_ChemContaminatedArea = 271800;</span>
-<span class="source-line-no">008</span><span id="line-8"></span>
-<span class="source-line-no">009</span><span id="line-9">    public static final int EntityCode_NuclearContaminatedArea = 271900;</span>
-<span class="source-line-no">010</span><span id="line-10">    public static final int EntityCode_RadiologicalContaminatedArea = 272000;</span>
-<span class="source-line-no">011</span><span id="line-11"></span>
-<span class="source-line-no">012</span><span id="line-12"></span>
-<span class="source-line-no">013</span><span id="line-13">    public static final int EntityCode_BioEvent = 281400;</span>
+<span class="source-line-no">006</span><span id="line-6">    public static final int EntityCode_BioContaminatedAreaToxic = 271701;</span>
+<span class="source-line-no">007</span><span id="line-7"></span>
+<span class="source-line-no">008</span><span id="line-8">    public static final int EntityCode_ChemContaminatedArea = 271800;</span>
+<span class="source-line-no">009</span><span id="line-9">    public static final int EntityCode_ChemContaminatedAreaToxic = 271801;</span>
+<span class="source-line-no">010</span><span id="line-10"></span>
+<span class="source-line-no">011</span><span id="line-11">    public static final int EntityCode_NuclearContaminatedArea = 271900;</span>
+<span class="source-line-no">012</span><span id="line-12">    public static final int EntityCode_RadiologicalContaminatedArea = 272000;</span>
+<span class="source-line-no">013</span><span id="line-13">    public static final int EntityCode_RadiologicalContaminatedAreaToxic = 272001;</span>
 <span class="source-line-no">014</span><span id="line-14"></span>
-<span class="source-line-no">015</span><span id="line-15">    public static final int EntityCode_ChemicalEvent = 281300;</span>
-<span class="source-line-no">016</span><span id="line-16"></span>
-<span class="source-line-no">017</span><span id="line-17">    public static final int EntityCode_NuclearEvent = 281500;</span>
+<span class="source-line-no">015</span><span id="line-15"></span>
+<span class="source-line-no">016</span><span id="line-16">    public static final int EntityCode_BioEvent = 281400;</span>
+<span class="source-line-no">017</span><span id="line-17">    public static final int EntityCode_BioEvent_Toxic = 281401;</span>
 <span class="source-line-no">018</span><span id="line-18"></span>
-<span class="source-line-no">019</span><span id="line-19">    public static final int EntityCode_RadiologicalEvent = 281700;</span>
-<span class="source-line-no">020</span><span id="line-20"></span>
-<span class="source-line-no">021</span><span id="line-21">    public static final int EntityCode_AnchoragePoint = 120304;</span>
-<span class="source-line-no">022</span><span id="line-22"></span>
-<span class="source-line-no">023</span><span id="line-23">    /**</span>
-<span class="source-line-no">024</span><span id="line-24">     * Returns the modifier icon for a given contamination area</span>
-<span class="source-line-no">025</span><span id="line-25">     * @param contaminationArea the entity code of the contamination area</span>
-<span class="source-line-no">026</span><span id="line-26">     * @return the entity code of the icon that should be displayed within it</span>
-<span class="source-line-no">027</span><span id="line-27">     */</span>
-<span class="source-line-no">028</span><span id="line-28">    public static int getSymbolForContaminationArea(int contaminationArea) {</span>
-<span class="source-line-no">029</span><span id="line-29">        switch (contaminationArea) {</span>
-<span class="source-line-no">030</span><span id="line-30">            case EntityCode_BioContaminatedArea:</span>
-<span class="source-line-no">031</span><span id="line-31">                return EntityCode_BioEvent;</span>
-<span class="source-line-no">032</span><span id="line-32"></span>
-<span class="source-line-no">033</span><span id="line-33">            case EntityCode_ChemContaminatedArea:</span>
-<span class="source-line-no">034</span><span id="line-34">                return EntityCode_ChemicalEvent;</span>
-<span class="source-line-no">035</span><span id="line-35"></span>
-<span class="source-line-no">036</span><span id="line-36">            case EntityCode_NuclearContaminatedArea:</span>
-<span class="source-line-no">037</span><span id="line-37">                return EntityCode_NuclearEvent;</span>
-<span class="source-line-no">038</span><span id="line-38"></span>
-<span class="source-line-no">039</span><span id="line-39">            case EntityCode_RadiologicalContaminatedArea:</span>
-<span class="source-line-no">040</span><span id="line-40">                return EntityCode_RadiologicalEvent;</span>
-<span class="source-line-no">041</span><span id="line-41"></span>
-<span class="source-line-no">042</span><span id="line-42">            default:</span>
-<span class="source-line-no">043</span><span id="line-43">                return -1;</span>
-<span class="source-line-no">044</span><span id="line-44">        }</span>
-<span class="source-line-no">045</span><span id="line-45">    }</span>
-<span class="source-line-no">046</span><span id="line-46">}</span>
+<span class="source-line-no">019</span><span id="line-19">    public static final int EntityCode_ChemicalEvent = 281300;</span>
+<span class="source-line-no">020</span><span id="line-20">    public static final int EntityCode_ChemicalEvent_Toxic = 281301;</span>
+<span class="source-line-no">021</span><span id="line-21"></span>
+<span class="source-line-no">022</span><span id="line-22">    public static final int EntityCode_NuclearEvent = 281500;</span>
+<span class="source-line-no">023</span><span id="line-23"></span>
+<span class="source-line-no">024</span><span id="line-24">    public static final int EntityCode_RadiologicalEvent = 281700;</span>
+<span class="source-line-no">025</span><span id="line-25">    public static final int EntityCode_RadiologicalEvent_Toxic = 281701;</span>
+<span class="source-line-no">026</span><span id="line-26"></span>
+<span class="source-line-no">027</span><span id="line-27">    public static final int EntityCode_AnchoragePoint = 120304;</span>
+<span class="source-line-no">028</span><span id="line-28"></span>
+<span class="source-line-no">029</span><span id="line-29">    public static final int EntityCode_Decision_Point = 130700;</span>
+<span class="source-line-no">030</span><span id="line-30"></span>
+<span class="source-line-no">031</span><span id="line-31">    /**</span>
+<span class="source-line-no">032</span><span id="line-32">     * Returns the modifier icon for a given contamination area</span>
+<span class="source-line-no">033</span><span id="line-33">     * @param contaminationArea the entity code of the contamination area</span>
+<span class="source-line-no">034</span><span id="line-34">     * @return the entity code of the icon that should be displayed within it</span>
+<span class="source-line-no">035</span><span id="line-35">     */</span>
+<span class="source-line-no">036</span><span id="line-36">    public static int getSymbolForContaminationArea(int contaminationArea) {</span>
+<span class="source-line-no">037</span><span id="line-37">        switch (contaminationArea) {</span>
+<span class="source-line-no">038</span><span id="line-38">            case EntityCode_BioContaminatedArea:</span>
+<span class="source-line-no">039</span><span id="line-39">                return EntityCode_BioEvent;</span>
+<span class="source-line-no">040</span><span id="line-40">            case EntityCode_BioContaminatedAreaToxic:</span>
+<span class="source-line-no">041</span><span id="line-41">                return EntityCode_BioEvent_Toxic;</span>
+<span class="source-line-no">042</span><span id="line-42"></span>
+<span class="source-line-no">043</span><span id="line-43">            case EntityCode_ChemContaminatedArea:</span>
+<span class="source-line-no">044</span><span id="line-44">                return EntityCode_ChemicalEvent;</span>
+<span class="source-line-no">045</span><span id="line-45">            case EntityCode_ChemContaminatedAreaToxic:</span>
+<span class="source-line-no">046</span><span id="line-46">                return EntityCode_ChemicalEvent_Toxic;</span>
+<span class="source-line-no">047</span><span id="line-47"></span>
+<span class="source-line-no">048</span><span id="line-48">            case EntityCode_NuclearContaminatedArea:</span>
+<span class="source-line-no">049</span><span id="line-49">                return EntityCode_NuclearEvent;</span>
+<span class="source-line-no">050</span><span id="line-50"></span>
+<span class="source-line-no">051</span><span id="line-51">            case EntityCode_RadiologicalContaminatedArea:</span>
+<span class="source-line-no">052</span><span id="line-52">                return EntityCode_RadiologicalEvent;</span>
+<span class="source-line-no">053</span><span id="line-53"></span>
+<span class="source-line-no">054</span><span id="line-54">            case EntityCode_RadiologicalContaminatedAreaToxic:</span>
+<span class="source-line-no">055</span><span id="line-55">                return EntityCode_RadiologicalEvent_Toxic;</span>
+<span class="source-line-no">056</span><span id="line-56"></span>
+<span class="source-line-no">057</span><span id="line-57">            default:</span>
+<span class="source-line-no">058</span><span id="line-58">                return -1;</span>
+<span class="source-line-no">059</span><span id="line-59">        }</span>
+<span class="source-line-no">060</span><span id="line-60">    }</span>
+<span class="source-line-no">061</span><span id="line-61">}</span>
 
 
 
