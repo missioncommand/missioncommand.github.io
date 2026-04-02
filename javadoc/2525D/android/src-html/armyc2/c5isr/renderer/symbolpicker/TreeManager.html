@@ -86,87 +86,93 @@
 <span class="source-line-no">073</span><span id="line-73">        }</span>
 <span class="source-line-no">074</span><span id="line-74">        BufferedReader br = new BufferedReader(new InputStreamReader(is));</span>
 <span class="source-line-no">075</span><span id="line-75"></span>
-<span class="source-line-no">076</span><span id="line-76">        while ((line = br.readLine()) != null) {</span>
-<span class="source-line-no">077</span><span id="line-77">            // count tabs to calculate nodeDepth</span>
-<span class="source-line-no">078</span><span id="line-78">            int nodeDepth = 1;</span>
-<span class="source-line-no">079</span><span id="line-79">            while (line.charAt(0) == '\t') {</span>
-<span class="source-line-no">080</span><span id="line-80">                line = line.substring(1);</span>
-<span class="source-line-no">081</span><span id="line-81">                nodeDepth++;</span>
-<span class="source-line-no">082</span><span id="line-82">            }</span>
-<span class="source-line-no">083</span><span id="line-83"></span>
-<span class="source-line-no">084</span><span id="line-84">            if (nodeDepth &gt; parentStack.size()) {</span>
-<span class="source-line-no">085</span><span id="line-85">                parentStack.push(child);</span>
-<span class="source-line-no">086</span><span id="line-86">            }</span>
-<span class="source-line-no">087</span><span id="line-87">            while (nodeDepth &lt; parentStack.size()) {</span>
-<span class="source-line-no">088</span><span id="line-88">                parentStack.pop();</span>
-<span class="source-line-no">089</span><span id="line-89">            }</span>
-<span class="source-line-no">090</span><span id="line-90"></span>
-<span class="source-line-no">091</span><span id="line-91">            // special case for parsing the Symbol Set codes since they're only 2 digits</span>
-<span class="source-line-no">092</span><span id="line-92">            if (nodeDepth == 1) {</span>
-<span class="source-line-no">093</span><span id="line-93">                String[] segments = line.split("\\t");</span>
-<span class="source-line-no">094</span><span id="line-94">                symbolSet = segments[0];</span>
-<span class="source-line-no">095</span><span id="line-95"></span>
-<span class="source-line-no">096</span><span id="line-96">                if (SYMBOL_BLACKLIST.contains(symbolSet)) {</span>
-<span class="source-line-no">097</span><span id="line-97">                    continue;</span>
-<span class="source-line-no">098</span><span id="line-98">                }</span>
-<span class="source-line-no">099</span><span id="line-99"></span>
-<span class="source-line-no">100</span><span id="line-100">                child = getChild(parentStack.peek(), symbolSet, "000000");</span>
-<span class="source-line-no">101</span><span id="line-101">                if (child == null) {</span>
-<span class="source-line-no">102</span><span id="line-102">                    child = new Node(MSInfo.parseSymbolSetName(symbolSet,version), String.valueOf(version), symbolSet, "000000");</span>
-<span class="source-line-no">103</span><span id="line-103">                    parentStack.peek().addChild(child);</span>
-<span class="source-line-no">104</span><span id="line-104">                }</span>
-<span class="source-line-no">105</span><span id="line-105"></span>
-<span class="source-line-no">106</span><span id="line-106">                if (segments[1].equals("Unspecified")) {</span>
-<span class="source-line-no">107</span><span id="line-107">                    // Ignore rest of line</span>
-<span class="source-line-no">108</span><span id="line-108">                    continue;</span>
-<span class="source-line-no">109</span><span id="line-109">                } else {</span>
-<span class="source-line-no">110</span><span id="line-110">                    // There is a subfolder on this line, add parent and continue parsing</span>
-<span class="source-line-no">111</span><span id="line-111">                    parentStack.push(child);</span>
-<span class="source-line-no">112</span><span id="line-112">                }</span>
-<span class="source-line-no">113</span><span id="line-113">            }</span>
-<span class="source-line-no">114</span><span id="line-114"></span>
-<span class="source-line-no">115</span><span id="line-115">            // skip "{Reserved for future use}" codes</span>
-<span class="source-line-no">116</span><span id="line-116">            if (!line.toLowerCase().contains("{reserved for future use}")) {</span>
-<span class="source-line-no">117</span><span id="line-117">                String[] segments = line.split("\t+");</span>
-<span class="source-line-no">118</span><span id="line-118">                String name;</span>
-<span class="source-line-no">119</span><span id="line-119">                if (nodeDepth == 1) {</span>
-<span class="source-line-no">120</span><span id="line-120">                    name = segments[1];</span>
-<span class="source-line-no">121</span><span id="line-121">                } else {</span>
-<span class="source-line-no">122</span><span id="line-122">                    name = segments[0];</span>
-<span class="source-line-no">123</span><span id="line-123">                }</span>
-<span class="source-line-no">124</span><span id="line-124"></span>
-<span class="source-line-no">125</span><span id="line-125">                // XXXXXX would indicate an error reading the file where it couldn't find 6 digits</span>
-<span class="source-line-no">126</span><span id="line-126">                String code = "XXXXXX";</span>
-<span class="source-line-no">127</span><span id="line-127">                // extract 6-digit decimal code from remainder of line segments</span>
-<span class="source-line-no">128</span><span id="line-128">                for (int i = 1; i &lt; segments.length; i++) {</span>
-<span class="source-line-no">129</span><span id="line-129">                    if (segments[i].matches("\\d{6}")) {</span>
-<span class="source-line-no">130</span><span id="line-130">                        code = segments[i];</span>
-<span class="source-line-no">131</span><span id="line-131">                        break;</span>
-<span class="source-line-no">132</span><span id="line-132">                    }</span>
-<span class="source-line-no">133</span><span id="line-133">                }</span>
-<span class="source-line-no">134</span><span id="line-134"></span>
-<span class="source-line-no">135</span><span id="line-135">                if (SYMBOL_BLACKLIST.contains(symbolSet) || SYMBOL_BLACKLIST.contains(symbolSet + code)) {</span>
-<span class="source-line-no">136</span><span id="line-136">                    continue;</span>
-<span class="source-line-no">137</span><span id="line-137">                }</span>
-<span class="source-line-no">138</span><span id="line-138"></span>
-<span class="source-line-no">139</span><span id="line-139">                child = getChild(parentStack.peek(), symbolSet, code);</span>
-<span class="source-line-no">140</span><span id="line-140">                if (child == null) {</span>
-<span class="source-line-no">141</span><span id="line-141">                    child = new Node(name, String.valueOf(version), symbolSet, code);</span>
-<span class="source-line-no">142</span><span id="line-142">                    parentStack.peek().addChild(child);</span>
-<span class="source-line-no">143</span><span id="line-143">                }</span>
-<span class="source-line-no">144</span><span id="line-144">            }</span>
-<span class="source-line-no">145</span><span id="line-145">        }</span>
-<span class="source-line-no">146</span><span id="line-146">        br.close();</span>
-<span class="source-line-no">147</span><span id="line-147">    }</span>
-<span class="source-line-no">148</span><span id="line-148"></span>
-<span class="source-line-no">149</span><span id="line-149">    private Node getChild(Node parent, String symbolSet, String entityCode) {</span>
-<span class="source-line-no">150</span><span id="line-150">        for (Node child : parent.getChildren()){</span>
-<span class="source-line-no">151</span><span id="line-151">            if (child.getSymbolSetCode().equals(symbolSet) &amp;&amp; child.getCode().equals(entityCode))</span>
-<span class="source-line-no">152</span><span id="line-152">                return child;</span>
-<span class="source-line-no">153</span><span id="line-153">        }</span>
-<span class="source-line-no">154</span><span id="line-154">        return null;</span>
-<span class="source-line-no">155</span><span id="line-155">    }</span>
-<span class="source-line-no">156</span><span id="line-156">}</span>
+<span class="source-line-no">076</span><span id="line-76">        try {</span>
+<span class="source-line-no">077</span><span id="line-77">            while ((line = br.readLine()) != null) {</span>
+<span class="source-line-no">078</span><span id="line-78">                if (line.split("\t")[5].contains(String.valueOf(version))) {</span>
+<span class="source-line-no">079</span><span id="line-79">                    // count tabs to calculate nodeDepth</span>
+<span class="source-line-no">080</span><span id="line-80">                    int nodeDepth = 1;</span>
+<span class="source-line-no">081</span><span id="line-81">                    while (line.charAt(0) == '\t') {</span>
+<span class="source-line-no">082</span><span id="line-82">                        line = line.substring(1);</span>
+<span class="source-line-no">083</span><span id="line-83">                        nodeDepth++;</span>
+<span class="source-line-no">084</span><span id="line-84">                    }</span>
+<span class="source-line-no">085</span><span id="line-85"></span>
+<span class="source-line-no">086</span><span id="line-86">                    if (nodeDepth &gt; parentStack.size()) {</span>
+<span class="source-line-no">087</span><span id="line-87">                        parentStack.push(child);</span>
+<span class="source-line-no">088</span><span id="line-88">                    }</span>
+<span class="source-line-no">089</span><span id="line-89">                    while (nodeDepth &lt; parentStack.size()) {</span>
+<span class="source-line-no">090</span><span id="line-90">                        parentStack.pop();</span>
+<span class="source-line-no">091</span><span id="line-91">                    }</span>
+<span class="source-line-no">092</span><span id="line-92"></span>
+<span class="source-line-no">093</span><span id="line-93">                    // special case for parsing the Symbol Set codes since they're only 2 digits</span>
+<span class="source-line-no">094</span><span id="line-94">                    if (nodeDepth == 1) {</span>
+<span class="source-line-no">095</span><span id="line-95">                        String[] segments = line.split("\\t");</span>
+<span class="source-line-no">096</span><span id="line-96">                        symbolSet = segments[0];</span>
+<span class="source-line-no">097</span><span id="line-97"></span>
+<span class="source-line-no">098</span><span id="line-98">                        if (SYMBOL_BLACKLIST.contains(symbolSet)) {</span>
+<span class="source-line-no">099</span><span id="line-99">                            continue;</span>
+<span class="source-line-no">100</span><span id="line-100">                        }</span>
+<span class="source-line-no">101</span><span id="line-101"></span>
+<span class="source-line-no">102</span><span id="line-102">                        child = getChild(parentStack.peek(), symbolSet, "000000");</span>
+<span class="source-line-no">103</span><span id="line-103">                        if (child == null) {</span>
+<span class="source-line-no">104</span><span id="line-104">                            child = new Node(MSInfo.parseSymbolSetName(symbolSet, version), String.valueOf(version), symbolSet, "000000");</span>
+<span class="source-line-no">105</span><span id="line-105">                            parentStack.peek().addChild(child);</span>
+<span class="source-line-no">106</span><span id="line-106">                        }</span>
+<span class="source-line-no">107</span><span id="line-107"></span>
+<span class="source-line-no">108</span><span id="line-108">                        if (segments[1].equals("Unspecified")) {</span>
+<span class="source-line-no">109</span><span id="line-109">                            // Ignore rest of line</span>
+<span class="source-line-no">110</span><span id="line-110">                            continue;</span>
+<span class="source-line-no">111</span><span id="line-111">                        } else {</span>
+<span class="source-line-no">112</span><span id="line-112">                            // There is a subfolder on this line, add parent and continue parsing</span>
+<span class="source-line-no">113</span><span id="line-113">                            parentStack.push(child);</span>
+<span class="source-line-no">114</span><span id="line-114">                        }</span>
+<span class="source-line-no">115</span><span id="line-115">                    }</span>
+<span class="source-line-no">116</span><span id="line-116"></span>
+<span class="source-line-no">117</span><span id="line-117">                    // skip "{Reserved for future use}" codes</span>
+<span class="source-line-no">118</span><span id="line-118">                    if (!line.toLowerCase().contains("{reserved for future use}")) {</span>
+<span class="source-line-no">119</span><span id="line-119">                        String[] segments = line.split("\t+");</span>
+<span class="source-line-no">120</span><span id="line-120">                        String name;</span>
+<span class="source-line-no">121</span><span id="line-121">                        if (nodeDepth == 1) {</span>
+<span class="source-line-no">122</span><span id="line-122">                            name = segments[1];</span>
+<span class="source-line-no">123</span><span id="line-123">                        } else {</span>
+<span class="source-line-no">124</span><span id="line-124">                            name = segments[0];</span>
+<span class="source-line-no">125</span><span id="line-125">                        }</span>
+<span class="source-line-no">126</span><span id="line-126"></span>
+<span class="source-line-no">127</span><span id="line-127">                        // XXXXXX would indicate an error reading the file where it couldn't find 6 digits</span>
+<span class="source-line-no">128</span><span id="line-128">                        String code = "XXXXXX";</span>
+<span class="source-line-no">129</span><span id="line-129">                        // extract 6-digit decimal code from remainder of line segments</span>
+<span class="source-line-no">130</span><span id="line-130">                        for (int i = 1; i &lt; segments.length; i++) {</span>
+<span class="source-line-no">131</span><span id="line-131">                            if (segments[i].matches("\\d{6}")) {</span>
+<span class="source-line-no">132</span><span id="line-132">                                code = segments[i];</span>
+<span class="source-line-no">133</span><span id="line-133">                                break;</span>
+<span class="source-line-no">134</span><span id="line-134">                            }</span>
+<span class="source-line-no">135</span><span id="line-135">                        }</span>
+<span class="source-line-no">136</span><span id="line-136"></span>
+<span class="source-line-no">137</span><span id="line-137">                        if (SYMBOL_BLACKLIST.contains(symbolSet) || SYMBOL_BLACKLIST.contains(symbolSet + code)) {</span>
+<span class="source-line-no">138</span><span id="line-138">                            continue;</span>
+<span class="source-line-no">139</span><span id="line-139">                        }</span>
+<span class="source-line-no">140</span><span id="line-140"></span>
+<span class="source-line-no">141</span><span id="line-141">                        child = getChild(parentStack.peek(), symbolSet, code);</span>
+<span class="source-line-no">142</span><span id="line-142">                        if (child == null) {</span>
+<span class="source-line-no">143</span><span id="line-143">                            child = new Node(name, String.valueOf(version), symbolSet, code);</span>
+<span class="source-line-no">144</span><span id="line-144">                            parentStack.peek().addChild(child);</span>
+<span class="source-line-no">145</span><span id="line-145">                        }</span>
+<span class="source-line-no">146</span><span id="line-146">                    }</span>
+<span class="source-line-no">147</span><span id="line-147">                }</span>
+<span class="source-line-no">148</span><span id="line-148">            }</span>
+<span class="source-line-no">149</span><span id="line-149">            br.close();</span>
+<span class="source-line-no">150</span><span id="line-150">        } catch (Exception e) {</span>
+<span class="source-line-no">151</span><span id="line-151">            throw new RuntimeException(e);</span>
+<span class="source-line-no">152</span><span id="line-152">        }</span>
+<span class="source-line-no">153</span><span id="line-153">    }</span>
+<span class="source-line-no">154</span><span id="line-154"></span>
+<span class="source-line-no">155</span><span id="line-155">    private Node getChild(Node parent, String symbolSet, String entityCode) {</span>
+<span class="source-line-no">156</span><span id="line-156">        for (Node child : parent.getChildren()){</span>
+<span class="source-line-no">157</span><span id="line-157">            if (child.getSymbolSetCode().equals(symbolSet) &amp;&amp; child.getCode().equals(entityCode))</span>
+<span class="source-line-no">158</span><span id="line-158">                return child;</span>
+<span class="source-line-no">159</span><span id="line-159">        }</span>
+<span class="source-line-no">160</span><span id="line-160">        return null;</span>
+<span class="source-line-no">161</span><span id="line-161">    }</span>
+<span class="source-line-no">162</span><span id="line-162">}</span>
 
 
 

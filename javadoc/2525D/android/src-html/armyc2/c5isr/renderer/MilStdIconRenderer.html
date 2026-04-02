@@ -223,163 +223,165 @@
 <span class="source-line-no">210</span><span id="line-210"></span>
 <span class="source-line-no">211</span><span id="line-211">        ImageInfo temp = null;</span>
 <span class="source-line-no">212</span><span id="line-212">        MSInfo msi = MSLookup.getInstance().getMSLInfo(symbolID);</span>
-<span class="source-line-no">213</span><span id="line-213">        if (msi == null)</span>
+<span class="source-line-no">213</span><span id="line-213">        /*if (msi == null)</span>
 <span class="source-line-no">214</span><span id="line-214">        {</span>
 <span class="source-line-no">215</span><span id="line-215">            //Attempt to fix the code or set if to invalid symbol if unfixable</span>
 <span class="source-line-no">216</span><span id="line-216">            symbolID = SymbolUtilities.reconcileSymbolID(symbolID);</span>
 <span class="source-line-no">217</span><span id="line-217">            msi = MSLookup.getInstance().getMSLInfo(symbolID);</span>
 <span class="source-line-no">218</span><span id="line-218">            if(msi == null)</span>
 <span class="source-line-no">219</span><span id="line-219">            {</span>
-<span class="source-line-no">220</span><span id="line-220">                symbolID = "110098000010000000000000000000";//invalid symbol</span>
-<span class="source-line-no">221</span><span id="line-221">            }</span>
-<span class="source-line-no">222</span><span id="line-222">        }</span>
-<span class="source-line-no">223</span><span id="line-223">        if (msi != null &amp;&amp; msi.getDrawRule() == DrawRules.DONOTDRAW) {</span>
-<span class="source-line-no">224</span><span id="line-224">            return null;</span>
-<span class="source-line-no">225</span><span id="line-225">        }</span>
-<span class="source-line-no">226</span><span id="line-226"></span>
-<span class="source-line-no">227</span><span id="line-227">        if (ss==SymbolID.SymbolSet_ControlMeasure)</span>
-<span class="source-line-no">228</span><span id="line-228">        {</span>
-<span class="source-line-no">229</span><span id="line-229">            if (msi != null) {</span>
-<span class="source-line-no">230</span><span id="line-230">                //Point12 is actually a multipoint and 17 &amp; 18 are rectangular target and sector range fan</span>
-<span class="source-line-no">231</span><span id="line-231">                if (SymbolUtilities.isMultiPoint(symbolID)==false) {</span>
-<span class="source-line-no">232</span><span id="line-232">                    temp = _SPR.RenderSP(symbolID, modifiers, attributes);</span>
-<span class="source-line-no">233</span><span id="line-233">                } else {</span>
-<span class="source-line-no">234</span><span id="line-234">                    temp = _SPR.RenderSP(symbolID, null, attributes);</span>
-<span class="source-line-no">235</span><span id="line-235">                }</span>
-<span class="source-line-no">236</span><span id="line-236">            }</span>
-<span class="source-line-no">237</span><span id="line-237">        }</span>
-<span class="source-line-no">238</span><span id="line-238">        else if(ss==SymbolID.SymbolSet_Atmospheric ||</span>
-<span class="source-line-no">239</span><span id="line-239">                ss==SymbolID.SymbolSet_Oceanographic ||</span>
-<span class="source-line-no">240</span><span id="line-240">                ss==SymbolID.SymbolSet_MeteorologicalSpace)</span>
-<span class="source-line-no">241</span><span id="line-241">        {</span>
-<span class="source-line-no">242</span><span id="line-242">            temp = _SPR.RenderSP(symbolID, modifiers, attributes);</span>
-<span class="source-line-no">243</span><span id="line-243">        }</span>
-<span class="source-line-no">244</span><span id="line-244">        else</span>
-<span class="source-line-no">245</span><span id="line-245">        {</span>
-<span class="source-line-no">246</span><span id="line-246">            temp = _SPR.RenderUnit(symbolID, modifiers, attributes);</span>
-<span class="source-line-no">247</span><span id="line-247">        }</span>
-<span class="source-line-no">248</span><span id="line-248"></span>
-<span class="source-line-no">249</span><span id="line-249">        return temp;</span>
-<span class="source-line-no">250</span><span id="line-250">    }</span>
-<span class="source-line-no">251</span><span id="line-251"></span>
-<span class="source-line-no">252</span><span id="line-252">    public SVGSymbolInfo RenderSVG(String symbolID, Map&lt;String,String&gt; modifiers,</span>
-<span class="source-line-no">253</span><span id="line-253">                                   Map&lt;String,String&gt; attributes)</span>
-<span class="source-line-no">254</span><span id="line-254">    {</span>
-<span class="source-line-no">255</span><span id="line-255"></span>
-<span class="source-line-no">256</span><span id="line-256">        //Update to use _SPSVGR.RenderUnit</span>
-<span class="source-line-no">257</span><span id="line-257">        int ss = SymbolID.getSymbolSet(symbolID);</span>
-<span class="source-line-no">258</span><span id="line-258"></span>
-<span class="source-line-no">259</span><span id="line-259">        ImageInfo temp = null;</span>
-<span class="source-line-no">260</span><span id="line-260">        SVGSymbolInfo svgTemp = null;</span>
-<span class="source-line-no">261</span><span id="line-261">        MSInfo msi = MSLookup.getInstance().getMSLInfo(symbolID);</span>
-<span class="source-line-no">262</span><span id="line-262">        if (msi == null)</span>
-<span class="source-line-no">263</span><span id="line-263">        {</span>
-<span class="source-line-no">264</span><span id="line-264">            //TODO: if null, try to fix the code so that something renders</span>
-<span class="source-line-no">265</span><span id="line-265">                /*symbolID = SymbolUtilities.reconcileSymbolID(symbolID);</span>
-<span class="source-line-no">266</span><span id="line-266">                basicSymbolID = SymbolUtilities.getBasicSymbolIDStrict(symbolID);</span>
-<span class="source-line-no">267</span><span id="line-267">                sd = SymbolDefTable.getInstance().getSymbolDef(basicSymbolID, symStd);//*/</span>
-<span class="source-line-no">268</span><span id="line-268">        }</span>
-<span class="source-line-no">269</span><span id="line-269">        if (msi != null &amp;&amp; msi.getDrawRule() == DrawRules.DONOTDRAW)</span>
-<span class="source-line-no">270</span><span id="line-270">        {</span>
-<span class="source-line-no">271</span><span id="line-271">            return null;</span>
-<span class="source-line-no">272</span><span id="line-272">        }</span>
-<span class="source-line-no">273</span><span id="line-273"></span>
-<span class="source-line-no">274</span><span id="line-274">        if (ss==SymbolID.SymbolSet_ControlMeasure)</span>
-<span class="source-line-no">275</span><span id="line-275">        {</span>
-<span class="source-line-no">276</span><span id="line-276">            if (msi != null) {</span>
-<span class="source-line-no">277</span><span id="line-277">                //Point12 is actually a multipoint and 17 &amp; 18 are rectangular target and sector range fan</span>
-<span class="source-line-no">278</span><span id="line-278">                if (SymbolUtilities.isMultiPoint(symbolID)==false) {</span>
-<span class="source-line-no">279</span><span id="line-279">                    svgTemp = _SPSVGR.RenderSP(symbolID, modifiers, attributes);</span>
-<span class="source-line-no">280</span><span id="line-280">                } else {</span>
-<span class="source-line-no">281</span><span id="line-281">                    svgTemp = _SPSVGR.RenderSP(symbolID, null, attributes);</span>
-<span class="source-line-no">282</span><span id="line-282">                }</span>
-<span class="source-line-no">283</span><span id="line-283">            }</span>
-<span class="source-line-no">284</span><span id="line-284">        }</span>
-<span class="source-line-no">285</span><span id="line-285">        else if(ss==SymbolID.SymbolSet_Atmospheric ||</span>
-<span class="source-line-no">286</span><span id="line-286">                ss==SymbolID.SymbolSet_Oceanographic ||</span>
-<span class="source-line-no">287</span><span id="line-287">                ss==SymbolID.SymbolSet_MeteorologicalSpace)</span>
-<span class="source-line-no">288</span><span id="line-288">        {</span>
-<span class="source-line-no">289</span><span id="line-289">            svgTemp = _SPSVGR.RenderSP(symbolID, modifiers, attributes);</span>
-<span class="source-line-no">290</span><span id="line-290">        }</span>
-<span class="source-line-no">291</span><span id="line-291">        else</span>
-<span class="source-line-no">292</span><span id="line-292">        {</span>
-<span class="source-line-no">293</span><span id="line-293">            svgTemp = _SPSVGR.RenderUnit(symbolID, modifiers, attributes);</span>
-<span class="source-line-no">294</span><span id="line-294">        }</span>
-<span class="source-line-no">295</span><span id="line-295"></span>
-<span class="source-line-no">296</span><span id="line-296">        return svgTemp;</span>
-<span class="source-line-no">297</span><span id="line-297">    }</span>
-<span class="source-line-no">298</span><span id="line-298"></span>
-<span class="source-line-no">299</span><span id="line-299">    // @Override</span>
-<span class="source-line-no">300</span><span id="line-300">    public String getRendererID()</span>
-<span class="source-line-no">301</span><span id="line-301">    {</span>
-<span class="source-line-no">302</span><span id="line-302"></span>
-<span class="source-line-no">303</span><span id="line-303">        return "milstd2525";</span>
-<span class="source-line-no">304</span><span id="line-304">    }</span>
-<span class="source-line-no">305</span><span id="line-305"></span>
-<span class="source-line-no">306</span><span id="line-306">    private Map&lt;String,String&gt; getDefaultAttributes(String symbolID)</span>
-<span class="source-line-no">307</span><span id="line-307">    {</span>
-<span class="source-line-no">308</span><span id="line-308">        Map&lt;String,String&gt; map = new HashMap&lt;&gt;();</span>
-<span class="source-line-no">309</span><span id="line-309">        try {</span>
-<span class="source-line-no">310</span><span id="line-310">            if (symbolID == null || symbolID.length() != 15) {</span>
-<span class="source-line-no">311</span><span id="line-311">                if (symbolID == null) {</span>
-<span class="source-line-no">312</span><span id="line-312">                    symbolID = "null";</span>
-<span class="source-line-no">313</span><span id="line-313">                }</span>
-<span class="source-line-no">314</span><span id="line-314">                ErrorLogger.LogMessage("MilStdIconRenderer", "getDefaultAttributes",</span>
-<span class="source-line-no">315</span><span id="line-315">                        "getDefaultAttributes passed bad symbolID: " + symbolID);</span>
-<span class="source-line-no">316</span><span id="line-316">                return null;</span>
-<span class="source-line-no">317</span><span id="line-317">            }</span>
-<span class="source-line-no">318</span><span id="line-318"></span>
-<span class="source-line-no">319</span><span id="line-319">            map.put(MilStdAttributes.Alpha, "1.0");</span>
-<span class="source-line-no">320</span><span id="line-320">            if (SymbolUtilities.hasDefaultFill(symbolID)) {</span>
-<span class="source-line-no">321</span><span id="line-321">                map.put(MilStdAttributes.FillColor,</span>
-<span class="source-line-no">322</span><span id="line-322">                        SymbolUtilities.getFillColorOfAffiliation(symbolID).toHexString());</span>
-<span class="source-line-no">323</span><span id="line-323">            }</span>
-<span class="source-line-no">324</span><span id="line-324"></span>
-<span class="source-line-no">325</span><span id="line-325">            map.put(MilStdAttributes.LineColor,</span>
-<span class="source-line-no">326</span><span id="line-326">                    SymbolUtilities.getLineColorOfAffiliation(symbolID).toHexString());</span>
-<span class="source-line-no">327</span><span id="line-327"></span>
-<span class="source-line-no">328</span><span id="line-328">            map.put(MilStdAttributes.OutlineSymbol, "false");</span>
-<span class="source-line-no">329</span><span id="line-329">            // attribute[MilStdAttributes.SymbolOutlineColor] = null;</span>
-<span class="source-line-no">330</span><span id="line-330">            // map.put(MilStdAttributes.OutlineWidth,"1");</span>
-<span class="source-line-no">331</span><span id="line-331"></span>
-<span class="source-line-no">332</span><span id="line-332">            map.put(MilStdAttributes.DrawAsIcon, "false");</span>
+<span class="source-line-no">220</span><span id="line-220">                if(SymbolID.getSymbolSet(symbolID)!=SymbolID.SymbolSet_LandUnit)</span>
+<span class="source-line-no">221</span><span id="line-221"></span>
+<span class="source-line-no">222</span><span id="line-222">                symbolID = "110098000010000000000000000000";//invalid symbol</span>
+<span class="source-line-no">223</span><span id="line-223">            }</span>
+<span class="source-line-no">224</span><span id="line-224">        }</span>
+<span class="source-line-no">225</span><span id="line-225">        if (msi != null &amp;&amp; msi.getDrawRule() == DrawRules.DONOTDRAW) {</span>
+<span class="source-line-no">226</span><span id="line-226">            return null;</span>
+<span class="source-line-no">227</span><span id="line-227">        }//*/</span>
+<span class="source-line-no">228</span><span id="line-228"></span>
+<span class="source-line-no">229</span><span id="line-229">        if (ss==SymbolID.SymbolSet_ControlMeasure)</span>
+<span class="source-line-no">230</span><span id="line-230">        {</span>
+<span class="source-line-no">231</span><span id="line-231">            if (msi != null) {</span>
+<span class="source-line-no">232</span><span id="line-232">                //Point12 is actually a multipoint and 17 &amp; 18 are rectangular target and sector range fan</span>
+<span class="source-line-no">233</span><span id="line-233">                if (SymbolUtilities.isMultiPoint(symbolID)==false) {</span>
+<span class="source-line-no">234</span><span id="line-234">                    temp = _SPR.RenderSP(symbolID, modifiers, attributes);</span>
+<span class="source-line-no">235</span><span id="line-235">                } else {</span>
+<span class="source-line-no">236</span><span id="line-236">                    temp = _SPR.RenderSP(symbolID, null, attributes);</span>
+<span class="source-line-no">237</span><span id="line-237">                }</span>
+<span class="source-line-no">238</span><span id="line-238">            }</span>
+<span class="source-line-no">239</span><span id="line-239">        }</span>
+<span class="source-line-no">240</span><span id="line-240">        else if(ss==SymbolID.SymbolSet_Atmospheric ||</span>
+<span class="source-line-no">241</span><span id="line-241">                ss==SymbolID.SymbolSet_Oceanographic ||</span>
+<span class="source-line-no">242</span><span id="line-242">                ss==SymbolID.SymbolSet_MeteorologicalSpace)</span>
+<span class="source-line-no">243</span><span id="line-243">        {</span>
+<span class="source-line-no">244</span><span id="line-244">            temp = _SPR.RenderSP(symbolID, modifiers, attributes);</span>
+<span class="source-line-no">245</span><span id="line-245">        }</span>
+<span class="source-line-no">246</span><span id="line-246">        else</span>
+<span class="source-line-no">247</span><span id="line-247">        {</span>
+<span class="source-line-no">248</span><span id="line-248">            temp = _SPR.RenderUnit(symbolID, modifiers, attributes);</span>
+<span class="source-line-no">249</span><span id="line-249">        }</span>
+<span class="source-line-no">250</span><span id="line-250"></span>
+<span class="source-line-no">251</span><span id="line-251">        return temp;</span>
+<span class="source-line-no">252</span><span id="line-252">    }</span>
+<span class="source-line-no">253</span><span id="line-253"></span>
+<span class="source-line-no">254</span><span id="line-254">    public SVGSymbolInfo RenderSVG(String symbolID, Map&lt;String,String&gt; modifiers,</span>
+<span class="source-line-no">255</span><span id="line-255">                                   Map&lt;String,String&gt; attributes)</span>
+<span class="source-line-no">256</span><span id="line-256">    {</span>
+<span class="source-line-no">257</span><span id="line-257"></span>
+<span class="source-line-no">258</span><span id="line-258">        //Update to use _SPSVGR.RenderUnit</span>
+<span class="source-line-no">259</span><span id="line-259">        int ss = SymbolID.getSymbolSet(symbolID);</span>
+<span class="source-line-no">260</span><span id="line-260"></span>
+<span class="source-line-no">261</span><span id="line-261">        ImageInfo temp = null;</span>
+<span class="source-line-no">262</span><span id="line-262">        SVGSymbolInfo svgTemp = null;</span>
+<span class="source-line-no">263</span><span id="line-263">        MSInfo msi = MSLookup.getInstance().getMSLInfo(symbolID);</span>
+<span class="source-line-no">264</span><span id="line-264">        if (msi == null)</span>
+<span class="source-line-no">265</span><span id="line-265">        {</span>
+<span class="source-line-no">266</span><span id="line-266">            //TODO: if null, try to fix the code so that something renders</span>
+<span class="source-line-no">267</span><span id="line-267">                /*symbolID = SymbolUtilities.reconcileSymbolID(symbolID);</span>
+<span class="source-line-no">268</span><span id="line-268">                basicSymbolID = SymbolUtilities.getBasicSymbolIDStrict(symbolID);</span>
+<span class="source-line-no">269</span><span id="line-269">                sd = SymbolDefTable.getInstance().getSymbolDef(basicSymbolID, symStd);//*/</span>
+<span class="source-line-no">270</span><span id="line-270">        }</span>
+<span class="source-line-no">271</span><span id="line-271">        if (msi != null &amp;&amp; msi.getDrawRule() == DrawRules.DONOTDRAW)</span>
+<span class="source-line-no">272</span><span id="line-272">        {</span>
+<span class="source-line-no">273</span><span id="line-273">            return null;</span>
+<span class="source-line-no">274</span><span id="line-274">        }</span>
+<span class="source-line-no">275</span><span id="line-275"></span>
+<span class="source-line-no">276</span><span id="line-276">        if (ss==SymbolID.SymbolSet_ControlMeasure)</span>
+<span class="source-line-no">277</span><span id="line-277">        {</span>
+<span class="source-line-no">278</span><span id="line-278">            if (msi != null) {</span>
+<span class="source-line-no">279</span><span id="line-279">                //Point12 is actually a multipoint and 17 &amp; 18 are rectangular target and sector range fan</span>
+<span class="source-line-no">280</span><span id="line-280">                if (SymbolUtilities.isMultiPoint(symbolID)==false) {</span>
+<span class="source-line-no">281</span><span id="line-281">                    svgTemp = _SPSVGR.RenderSP(symbolID, modifiers, attributes);</span>
+<span class="source-line-no">282</span><span id="line-282">                } else {</span>
+<span class="source-line-no">283</span><span id="line-283">                    svgTemp = _SPSVGR.RenderSP(symbolID, null, attributes);</span>
+<span class="source-line-no">284</span><span id="line-284">                }</span>
+<span class="source-line-no">285</span><span id="line-285">            }</span>
+<span class="source-line-no">286</span><span id="line-286">        }</span>
+<span class="source-line-no">287</span><span id="line-287">        else if(ss==SymbolID.SymbolSet_Atmospheric ||</span>
+<span class="source-line-no">288</span><span id="line-288">                ss==SymbolID.SymbolSet_Oceanographic ||</span>
+<span class="source-line-no">289</span><span id="line-289">                ss==SymbolID.SymbolSet_MeteorologicalSpace)</span>
+<span class="source-line-no">290</span><span id="line-290">        {</span>
+<span class="source-line-no">291</span><span id="line-291">            svgTemp = _SPSVGR.RenderSP(symbolID, modifiers, attributes);</span>
+<span class="source-line-no">292</span><span id="line-292">        }</span>
+<span class="source-line-no">293</span><span id="line-293">        else</span>
+<span class="source-line-no">294</span><span id="line-294">        {</span>
+<span class="source-line-no">295</span><span id="line-295">            svgTemp = _SPSVGR.RenderUnit(symbolID, modifiers, attributes);</span>
+<span class="source-line-no">296</span><span id="line-296">        }</span>
+<span class="source-line-no">297</span><span id="line-297"></span>
+<span class="source-line-no">298</span><span id="line-298">        return svgTemp;</span>
+<span class="source-line-no">299</span><span id="line-299">    }</span>
+<span class="source-line-no">300</span><span id="line-300"></span>
+<span class="source-line-no">301</span><span id="line-301">    // @Override</span>
+<span class="source-line-no">302</span><span id="line-302">    public String getRendererID()</span>
+<span class="source-line-no">303</span><span id="line-303">    {</span>
+<span class="source-line-no">304</span><span id="line-304"></span>
+<span class="source-line-no">305</span><span id="line-305">        return "milstd2525";</span>
+<span class="source-line-no">306</span><span id="line-306">    }</span>
+<span class="source-line-no">307</span><span id="line-307"></span>
+<span class="source-line-no">308</span><span id="line-308">    private Map&lt;String,String&gt; getDefaultAttributes(String symbolID)</span>
+<span class="source-line-no">309</span><span id="line-309">    {</span>
+<span class="source-line-no">310</span><span id="line-310">        Map&lt;String,String&gt; map = new HashMap&lt;&gt;();</span>
+<span class="source-line-no">311</span><span id="line-311">        try {</span>
+<span class="source-line-no">312</span><span id="line-312">            if (symbolID == null || symbolID.length() != 15) {</span>
+<span class="source-line-no">313</span><span id="line-313">                if (symbolID == null) {</span>
+<span class="source-line-no">314</span><span id="line-314">                    symbolID = "null";</span>
+<span class="source-line-no">315</span><span id="line-315">                }</span>
+<span class="source-line-no">316</span><span id="line-316">                ErrorLogger.LogMessage("MilStdIconRenderer", "getDefaultAttributes",</span>
+<span class="source-line-no">317</span><span id="line-317">                        "getDefaultAttributes passed bad symbolID: " + symbolID);</span>
+<span class="source-line-no">318</span><span id="line-318">                return null;</span>
+<span class="source-line-no">319</span><span id="line-319">            }</span>
+<span class="source-line-no">320</span><span id="line-320"></span>
+<span class="source-line-no">321</span><span id="line-321">            map.put(MilStdAttributes.Alpha, "1.0");</span>
+<span class="source-line-no">322</span><span id="line-322">            if (SymbolUtilities.hasDefaultFill(symbolID)) {</span>
+<span class="source-line-no">323</span><span id="line-323">                map.put(MilStdAttributes.FillColor,</span>
+<span class="source-line-no">324</span><span id="line-324">                        SymbolUtilities.getFillColorOfAffiliation(symbolID).toHexString());</span>
+<span class="source-line-no">325</span><span id="line-325">            }</span>
+<span class="source-line-no">326</span><span id="line-326"></span>
+<span class="source-line-no">327</span><span id="line-327">            map.put(MilStdAttributes.LineColor,</span>
+<span class="source-line-no">328</span><span id="line-328">                    SymbolUtilities.getLineColorOfAffiliation(symbolID).toHexString());</span>
+<span class="source-line-no">329</span><span id="line-329"></span>
+<span class="source-line-no">330</span><span id="line-330">            map.put(MilStdAttributes.OutlineSymbol, "false");</span>
+<span class="source-line-no">331</span><span id="line-331">            // attribute[MilStdAttributes.SymbolOutlineColor] = null;</span>
+<span class="source-line-no">332</span><span id="line-332">            // map.put(MilStdAttributes.OutlineWidth,"1");</span>
 <span class="source-line-no">333</span><span id="line-333"></span>
-<span class="source-line-no">334</span><span id="line-334">            RendererSettings rs = RendererSettings.getInstance();</span>
+<span class="source-line-no">334</span><span id="line-334">            map.put(MilStdAttributes.DrawAsIcon, "false");</span>
 <span class="source-line-no">335</span><span id="line-335"></span>
-<span class="source-line-no">336</span><span id="line-336">            map.put(MilStdAttributes.KeepUnitRatio, "true");</span>
-<span class="source-line-no">337</span><span id="line-337">            return map;</span>
-<span class="source-line-no">338</span><span id="line-338">        } catch (Exception exc) {</span>
-<span class="source-line-no">339</span><span id="line-339">            ErrorLogger.LogException("MilStdIconRenderer", "getDefaultAttributes", exc);</span>
-<span class="source-line-no">340</span><span id="line-340">        }</span>
-<span class="source-line-no">341</span><span id="line-341">        return map;</span>
-<span class="source-line-no">342</span><span id="line-342">    }</span>
-<span class="source-line-no">343</span><span id="line-343"></span>
-<span class="source-line-no">344</span><span id="line-344">    /**</span>
-<span class="source-line-no">345</span><span id="line-345">     * Add a custom framed symbol to the renderer's collection</span>
-<span class="source-line-no">346</span><span id="line-346">     * @param msInfo</span>
-<span class="source-line-no">347</span><span id="line-347">     * @param svgInfo</span>
-<span class="source-line-no">348</span><span id="line-348">     * @return</span>
-<span class="source-line-no">349</span><span id="line-349">     */</span>
-<span class="source-line-no">350</span><span id="line-350">    public boolean AddCustomSymbol(MSInfo msInfo, SVGInfo svgInfo)</span>
-<span class="source-line-no">351</span><span id="line-351">    {</span>
-<span class="source-line-no">352</span><span id="line-352">        boolean success = false;</span>
-<span class="source-line-no">353</span><span id="line-353">        if(msInfo.getBasicSymbolID().equals(svgInfo.getID()))//Make sure IDs match</span>
-<span class="source-line-no">354</span><span id="line-354">        {</span>
-<span class="source-line-no">355</span><span id="line-355">            //Make sure entry isn't already there</span>
-<span class="source-line-no">356</span><span id="line-356">            if(MSLookup.getInstance().getMSLInfo(msInfo.getBasicSymbolID(),msInfo.getVersion())==null &amp;&amp;</span>
-<span class="source-line-no">357</span><span id="line-357">                    SVGLookup.getInstance().getSVGLInfo(svgInfo.getID(),msInfo.getVersion())==null)</span>
-<span class="source-line-no">358</span><span id="line-358">            {</span>
-<span class="source-line-no">359</span><span id="line-359">                if(MSLookup.getInstance().addCustomSymbol(msInfo))</span>
-<span class="source-line-no">360</span><span id="line-360">                    success = SVGLookup.getInstance().addCustomSymbol(svgInfo,msInfo.getVersion());</span>
-<span class="source-line-no">361</span><span id="line-361">            }</span>
-<span class="source-line-no">362</span><span id="line-362">        }</span>
-<span class="source-line-no">363</span><span id="line-363">        else</span>
-<span class="source-line-no">364</span><span id="line-364">        {</span>
-<span class="source-line-no">365</span><span id="line-365">            ErrorLogger.LogMessage("Symbol Set and Entity Codes do not match", Level.INFO,false);</span>
-<span class="source-line-no">366</span><span id="line-366">        }</span>
-<span class="source-line-no">367</span><span id="line-367">        return success;</span>
-<span class="source-line-no">368</span><span id="line-368">    }</span>
-<span class="source-line-no">369</span><span id="line-369">}</span>
+<span class="source-line-no">336</span><span id="line-336">            RendererSettings rs = RendererSettings.getInstance();</span>
+<span class="source-line-no">337</span><span id="line-337"></span>
+<span class="source-line-no">338</span><span id="line-338">            map.put(MilStdAttributes.KeepUnitRatio, "true");</span>
+<span class="source-line-no">339</span><span id="line-339">            return map;</span>
+<span class="source-line-no">340</span><span id="line-340">        } catch (Exception exc) {</span>
+<span class="source-line-no">341</span><span id="line-341">            ErrorLogger.LogException("MilStdIconRenderer", "getDefaultAttributes", exc);</span>
+<span class="source-line-no">342</span><span id="line-342">        }</span>
+<span class="source-line-no">343</span><span id="line-343">        return map;</span>
+<span class="source-line-no">344</span><span id="line-344">    }</span>
+<span class="source-line-no">345</span><span id="line-345"></span>
+<span class="source-line-no">346</span><span id="line-346">    /**</span>
+<span class="source-line-no">347</span><span id="line-347">     * Add a custom framed symbol to the renderer's collection</span>
+<span class="source-line-no">348</span><span id="line-348">     * @param msInfo</span>
+<span class="source-line-no">349</span><span id="line-349">     * @param svgInfo</span>
+<span class="source-line-no">350</span><span id="line-350">     * @return</span>
+<span class="source-line-no">351</span><span id="line-351">     */</span>
+<span class="source-line-no">352</span><span id="line-352">    public boolean AddCustomSymbol(MSInfo msInfo, SVGInfo svgInfo)</span>
+<span class="source-line-no">353</span><span id="line-353">    {</span>
+<span class="source-line-no">354</span><span id="line-354">        boolean success = false;</span>
+<span class="source-line-no">355</span><span id="line-355">        if(msInfo.getBasicSymbolID().equals(svgInfo.getID()))//Make sure IDs match</span>
+<span class="source-line-no">356</span><span id="line-356">        {</span>
+<span class="source-line-no">357</span><span id="line-357">            //Make sure entry isn't already there</span>
+<span class="source-line-no">358</span><span id="line-358">            if(MSLookup.getInstance().getMSLInfo(msInfo.getBasicSymbolID(),msInfo.getVersion())==null &amp;&amp;</span>
+<span class="source-line-no">359</span><span id="line-359">                    SVGLookup.getInstance().getSVGLInfo(svgInfo.getID(),msInfo.getVersion())==null)</span>
+<span class="source-line-no">360</span><span id="line-360">            {</span>
+<span class="source-line-no">361</span><span id="line-361">                if(MSLookup.getInstance().addCustomSymbol(msInfo))</span>
+<span class="source-line-no">362</span><span id="line-362">                    success = SVGLookup.getInstance().addCustomSymbol(svgInfo,msInfo.getVersion());</span>
+<span class="source-line-no">363</span><span id="line-363">            }</span>
+<span class="source-line-no">364</span><span id="line-364">        }</span>
+<span class="source-line-no">365</span><span id="line-365">        else</span>
+<span class="source-line-no">366</span><span id="line-366">        {</span>
+<span class="source-line-no">367</span><span id="line-367">            ErrorLogger.LogMessage("Symbol Set and Entity Codes do not match", Level.INFO,false);</span>
+<span class="source-line-no">368</span><span id="line-368">        }</span>
+<span class="source-line-no">369</span><span id="line-369">        return success;</span>
+<span class="source-line-no">370</span><span id="line-370">    }</span>
+<span class="source-line-no">371</span><span id="line-371">}</span>
 
 
 

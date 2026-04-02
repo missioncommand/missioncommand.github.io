@@ -4520,419 +4520,453 @@
 <span class="source-line-no">4507</span><span id="line-4507">                g2d.setBackground(Color.white);</span>
 <span class="source-line-no">4508</span><span id="line-4508">            }</span>
 <span class="source-line-no">4509</span><span id="line-4509"></span>
-<span class="source-line-no">4510</span><span id="line-4510">            int direction = -1;</span>
-<span class="source-line-no">4511</span><span id="line-4511">            Point glyphPosition = null;</span>
-<span class="source-line-no">4512</span><span id="line-4512">            for (j = 0; j &lt; tg.modifiers.size(); j++) {</span>
-<span class="source-line-no">4513</span><span id="line-4513">                modifier = (Modifier2) tg.modifiers.get(j);</span>
-<span class="source-line-no">4514</span><span id="line-4514"></span>
-<span class="source-line-no">4515</span><span id="line-4515">                double lineFactor = modifier.lineFactor;</span>
-<span class="source-line-no">4516</span><span id="line-4516"></span>
-<span class="source-line-no">4517</span><span id="line-4517">                if (isTextFlipped) {</span>
-<span class="source-line-no">4518</span><span id="line-4518">                    lineFactor = -lineFactor;</span>
-<span class="source-line-no">4519</span><span id="line-4519">                }</span>
-<span class="source-line-no">4520</span><span id="line-4520"></span>
-<span class="source-line-no">4521</span><span id="line-4521">                s = modifier.text;</span>
-<span class="source-line-no">4522</span><span id="line-4522">                if (s == null || s.equals("")) {</span>
+<span class="source-line-no">4510</span><span id="line-4510">            Point2D anchor = null;</span>
+<span class="source-line-no">4511</span><span id="line-4511">            Point2D anchorOffset = null;</span>
+<span class="source-line-no">4512</span><span id="line-4512"></span>
+<span class="source-line-no">4513</span><span id="line-4513">            int direction = -1;</span>
+<span class="source-line-no">4514</span><span id="line-4514">            Point glyphPosition = null;</span>
+<span class="source-line-no">4515</span><span id="line-4515">            for (j = 0; j &lt; tg.modifiers.size(); j++) {</span>
+<span class="source-line-no">4516</span><span id="line-4516">                modifier = (Modifier2) tg.modifiers.get(j);</span>
+<span class="source-line-no">4517</span><span id="line-4517"></span>
+<span class="source-line-no">4518</span><span id="line-4518">                double lineFactor = modifier.lineFactor;</span>
+<span class="source-line-no">4519</span><span id="line-4519"></span>
+<span class="source-line-no">4520</span><span id="line-4520">                if (isTextFlipped) {</span>
+<span class="source-line-no">4521</span><span id="line-4521">                    lineFactor = -lineFactor;</span>
+<span class="source-line-no">4522</span><span id="line-4522">                }</span>
 <span class="source-line-no">4523</span><span id="line-4523"></span>
-<span class="source-line-no">4524</span><span id="line-4524">                    image = modifier.image;</span>
-<span class="source-line-no">4525</span><span id="line-4525">                    if (image == null) {</span>
-<span class="source-line-no">4526</span><span id="line-4526">                        continue;</span>
-<span class="source-line-no">4527</span><span id="line-4527">                    }</span>
-<span class="source-line-no">4528</span><span id="line-4528">                }</span>
-<span class="source-line-no">4529</span><span id="line-4529">                stringWidth = s != null ? (double) metrics.stringWidth(s) + 1 : image.getWidth() + 1;</span>
-<span class="source-line-no">4530</span><span id="line-4530">                stringHeight = s != null ? (double) font.getSize() : image.getHeight();</span>
-<span class="source-line-no">4531</span><span id="line-4531"></span>
-<span class="source-line-no">4532</span><span id="line-4532">                double x1 = 0, y1 = 0, x2 = 0, y2 = 0, dist = 0;</span>
-<span class="source-line-no">4533</span><span id="line-4533">                pt0 = modifier.textPath[0];</span>
-<span class="source-line-no">4534</span><span id="line-4534">                x1 = Math.round(pt0.x);</span>
-<span class="source-line-no">4535</span><span id="line-4535">                y1 = Math.round(pt0.y);</span>
-<span class="source-line-no">4536</span><span id="line-4536">                pt1 = modifier.textPath[1];</span>
-<span class="source-line-no">4537</span><span id="line-4537">                x2 = Math.round(pt1.x);</span>
-<span class="source-line-no">4538</span><span id="line-4538">                y2 = Math.round(pt1.y);</span>
-<span class="source-line-no">4539</span><span id="line-4539">                theta = Math.atan2(y2 - y1, x2 - x1);</span>
-<span class="source-line-no">4540</span><span id="line-4540">                POINT2 midPt;</span>
-<span class="source-line-no">4541</span><span id="line-4541">                if (x1 &gt; x2) {</span>
-<span class="source-line-no">4542</span><span id="line-4542">                    theta -= Math.PI;</span>
-<span class="source-line-no">4543</span><span id="line-4543">                }</span>
-<span class="source-line-no">4544</span><span id="line-4544">                pt0 = new POINT2(x1, y1);</span>
-<span class="source-line-no">4545</span><span id="line-4545">                pt1 = new POINT2(x2, y2);</span>
-<span class="source-line-no">4546</span><span id="line-4546">                midPt = new POINT2((x1 + x2) / 2, (y1 + y2) / 2);</span>
-<span class="source-line-no">4547</span><span id="line-4547">                Point2D modifierPosition = null;  //use this if using justify</span>
-<span class="source-line-no">4548</span><span id="line-4548">                int justify = ShapeInfo.justify_left;</span>
-<span class="source-line-no">4549</span><span id="line-4549">                switch (modifier.type) {</span>
-<span class="source-line-no">4550</span><span id="line-4550">                    case aboveEnd: // On line</span>
-<span class="source-line-no">4551</span><span id="line-4551">                    case toEnd: // Next to line</span>
-<span class="source-line-no">4552</span><span id="line-4552">                        if (x1 == x2) {</span>
-<span class="source-line-no">4553</span><span id="line-4553">                            x2 += 1;</span>
-<span class="source-line-no">4554</span><span id="line-4554">                        }</span>
-<span class="source-line-no">4555</span><span id="line-4555"></span>
-<span class="source-line-no">4556</span><span id="line-4556">                        if (lineFactor &gt;= 0) {</span>
-<span class="source-line-no">4557</span><span id="line-4557">                            direction = 2;</span>
-<span class="source-line-no">4558</span><span id="line-4558">                        } else {</span>
-<span class="source-line-no">4559</span><span id="line-4559">                            direction = 3;</span>
-<span class="source-line-no">4560</span><span id="line-4560">                        }</span>
-<span class="source-line-no">4561</span><span id="line-4561"></span>
-<span class="source-line-no">4562</span><span id="line-4562">                        if (lineType == TacticalLines.LC || tg.get_Client().equalsIgnoreCase("ge")) {</span>
-<span class="source-line-no">4563</span><span id="line-4563">                            direction = lineutility.reverseDirection(direction);</span>
-<span class="source-line-no">4564</span><span id="line-4564">                        }</span>
-<span class="source-line-no">4565</span><span id="line-4565"></span>
-<span class="source-line-no">4566</span><span id="line-4566">                        if ((modifier.type == toEnd &amp;&amp; x1 &lt; x2) || (modifier.type == aboveEnd &amp;&amp; x2 &lt; x1)) {</span>
-<span class="source-line-no">4567</span><span id="line-4567">                            justify = ShapeInfo.justify_right;</span>
-<span class="source-line-no">4568</span><span id="line-4568">                        } else {</span>
-<span class="source-line-no">4569</span><span id="line-4569">                            justify = ShapeInfo.justify_left;</span>
-<span class="source-line-no">4570</span><span id="line-4570">                        }</span>
-<span class="source-line-no">4571</span><span id="line-4571"></span>
-<span class="source-line-no">4572</span><span id="line-4572">                        pt3 = lineutility.ExtendDirectedLine(pt1, pt0, pt0, direction, lineFactor * stringHeight);</span>
-<span class="source-line-no">4573</span><span id="line-4573"></span>
-<span class="source-line-no">4574</span><span id="line-4574">                        glyphPosition = new Point((int) pt3.x, (int) pt3.y);</span>
-<span class="source-line-no">4575</span><span id="line-4575">                        modifierPosition = new Point2D.Double(pt3.x, pt3.y);</span>
-<span class="source-line-no">4576</span><span id="line-4576">                        break;</span>
-<span class="source-line-no">4577</span><span id="line-4577">                    case aboveStartInside:</span>
-<span class="source-line-no">4578</span><span id="line-4578">                        pt3 = lineutility.ExtendAlongLineDouble(pt0, pt1, stringWidth);</span>
-<span class="source-line-no">4579</span><span id="line-4579"></span>
-<span class="source-line-no">4580</span><span id="line-4580">                        glyphPosition = new Point((int) pt3.x, (int) pt3.y);</span>
-<span class="source-line-no">4581</span><span id="line-4581">                        modifierPosition = new Point2D.Double((int) pt3.x, pt3.y);</span>
-<span class="source-line-no">4582</span><span id="line-4582">                        break;</span>
-<span class="source-line-no">4583</span><span id="line-4583">                    case aboveEndInside:</span>
-<span class="source-line-no">4584</span><span id="line-4584">                        pt3 = lineutility.ExtendAlongLineDouble(pt1, pt0, stringWidth);</span>
-<span class="source-line-no">4585</span><span id="line-4585"></span>
-<span class="source-line-no">4586</span><span id="line-4586">                        glyphPosition = new Point((int) pt3.x, (int) pt3.y);</span>
-<span class="source-line-no">4587</span><span id="line-4587">                        modifierPosition = new Point2D.Double((int) pt3.x, pt3.y);</span>
-<span class="source-line-no">4588</span><span id="line-4588">                        break;</span>
-<span class="source-line-no">4589</span><span id="line-4589">                    case aboveMiddle:</span>
-<span class="source-line-no">4590</span><span id="line-4590">                    case aboveMiddlePerpendicular:</span>
-<span class="source-line-no">4591</span><span id="line-4591">                        pt2 = midPt;</span>
-<span class="source-line-no">4592</span><span id="line-4592">                        if (tg.get_Client().equals("2D")) {</span>
-<span class="source-line-no">4593</span><span id="line-4593">                            lineFactor += 0.5;</span>
-<span class="source-line-no">4594</span><span id="line-4594">                        }</span>
-<span class="source-line-no">4595</span><span id="line-4595"></span>
-<span class="source-line-no">4596</span><span id="line-4596">                        if (lineFactor &gt;= 0) {</span>
-<span class="source-line-no">4597</span><span id="line-4597">                            pt3 = lineutility.ExtendDirectedLine(pt0, pt2, pt2, 3, Math.abs((lineFactor) * stringHeight));</span>
-<span class="source-line-no">4598</span><span id="line-4598">                            midPt = lineutility.ExtendDirectedLine(pt0, midPt, midPt, 3, Math.abs((lineFactor) * stringHeight));</span>
-<span class="source-line-no">4599</span><span id="line-4599">                        } else {</span>
-<span class="source-line-no">4600</span><span id="line-4600">                            pt3 = lineutility.ExtendDirectedLine(pt0, pt2, pt2, 2, Math.abs((lineFactor) * stringHeight));</span>
-<span class="source-line-no">4601</span><span id="line-4601">                            midPt = lineutility.ExtendDirectedLine(pt0, midPt, midPt, 2, Math.abs((lineFactor) * stringHeight));</span>
-<span class="source-line-no">4602</span><span id="line-4602">                        }</span>
-<span class="source-line-no">4603</span><span id="line-4603">                        //pt3=lineutility.ExtendDirectedLine(pt0, pt2, pt2, 2, lineFactor*stringHeight);</span>
-<span class="source-line-no">4604</span><span id="line-4604">                        if (x1 == x2 &amp;&amp; y1 &gt; y2) {</span>
-<span class="source-line-no">4605</span><span id="line-4605">                            pt3 = lineutility.ExtendDirectedLine(pt0, pt2, pt2, 1, Math.abs((lineFactor) * stringHeight));</span>
-<span class="source-line-no">4606</span><span id="line-4606">                            midPt = lineutility.ExtendDirectedLine(pt0, midPt, midPt, 1, Math.abs((lineFactor) * stringHeight));</span>
-<span class="source-line-no">4607</span><span id="line-4607">                        }</span>
-<span class="source-line-no">4608</span><span id="line-4608">                        if (x1 == x2 &amp;&amp; y1 &lt; y2) {</span>
-<span class="source-line-no">4609</span><span id="line-4609">                            pt3 = lineutility.ExtendDirectedLine(pt0, pt2, pt2, 0, Math.abs((lineFactor) * stringHeight));</span>
-<span class="source-line-no">4610</span><span id="line-4610">                            midPt = lineutility.ExtendDirectedLine(pt0, midPt, midPt, 0, Math.abs((lineFactor) * stringHeight));</span>
-<span class="source-line-no">4611</span><span id="line-4611">                        }</span>
-<span class="source-line-no">4612</span><span id="line-4612"></span>
-<span class="source-line-no">4613</span><span id="line-4613">                        glyphPosition = new Point((int) pt3.x, (int) pt3.y);</span>
-<span class="source-line-no">4614</span><span id="line-4614">                        justify = ShapeInfo.justify_center;</span>
-<span class="source-line-no">4615</span><span id="line-4615">                        modifierPosition = new Point2D.Double(midPt.x, midPt.y);</span>
-<span class="source-line-no">4616</span><span id="line-4616"></span>
-<span class="source-line-no">4617</span><span id="line-4617">                        if(modifier.type == aboveMiddlePerpendicular) {</span>
-<span class="source-line-no">4618</span><span id="line-4618">                            // Need to negate the original rotation</span>
-<span class="source-line-no">4619</span><span id="line-4619">                            if (x1 &gt; x2) {</span>
-<span class="source-line-no">4620</span><span id="line-4620">                                theta += Math.PI;</span>
-<span class="source-line-no">4621</span><span id="line-4621">                            }</span>
-<span class="source-line-no">4622</span><span id="line-4622">                            // Adjust the label rotation based on the y values</span>
-<span class="source-line-no">4623</span><span id="line-4623">                            if (y1 &gt; y2) {</span>
-<span class="source-line-no">4624</span><span id="line-4624">                                theta += Math.PI;</span>
-<span class="source-line-no">4625</span><span id="line-4625">                            }</span>
-<span class="source-line-no">4626</span><span id="line-4626">                            // Rotate by 90 degrees. This is how we rotate the label perpendicular to the line</span>
-<span class="source-line-no">4627</span><span id="line-4627">                            theta -= Math.PI / 2;</span>
-<span class="source-line-no">4628</span><span id="line-4628">                        }</span>
-<span class="source-line-no">4629</span><span id="line-4629">                        break;</span>
-<span class="source-line-no">4630</span><span id="line-4630">                    case area:</span>
-<span class="source-line-no">4631</span><span id="line-4631">                        theta = 0;</span>
-<span class="source-line-no">4632</span><span id="line-4632"></span>
-<span class="source-line-no">4633</span><span id="line-4633">                        //y = (int) y1 + (int) (stringHeight / 2) + (int) (1.25 * lineFactor * stringHeight);</span>
-<span class="source-line-no">4634</span><span id="line-4634">                        y = (int) y1 + (int) (stringHeight / 2) + (int) (lineFactor * stringHeight);</span>
-<span class="source-line-no">4635</span><span id="line-4635">                        x = image != null ? (int) (x1 - stringWidth / 3) : (int) x1;</span>
-<span class="source-line-no">4636</span><span id="line-4636"></span>
-<span class="source-line-no">4637</span><span id="line-4637">                        glyphPosition = new Point(x, y);</span>
-<span class="source-line-no">4638</span><span id="line-4638">                        justify = ShapeInfo.justify_center;</span>
-<span class="source-line-no">4639</span><span id="line-4639">                        modifierPosition = new Point2D.Double(x, y);</span>
-<span class="source-line-no">4640</span><span id="line-4640">                        break;</span>
-<span class="source-line-no">4641</span><span id="line-4641">                    case areaImage:</span>
-<span class="source-line-no">4642</span><span id="line-4642">                        glyphPosition = new Point((int)x1, (int)y1);</span>
-<span class="source-line-no">4643</span><span id="line-4643">                        justify = ShapeInfo.justify_center;</span>
-<span class="source-line-no">4644</span><span id="line-4644">                        modifierPosition = new Point2D.Double((int)x1, (int)y1);</span>
-<span class="source-line-no">4645</span><span id="line-4645">                        break;</span>
-<span class="source-line-no">4646</span><span id="line-4646">                    case screen:    //for SCREEN, GUARD, COVER, not currently used</span>
-<span class="source-line-no">4647</span><span id="line-4647">                        if (tg.Pixels.size() &gt;= 14) {</span>
-<span class="source-line-no">4648</span><span id="line-4648">                            pt1 = tg.Pixels.get(3);</span>
-<span class="source-line-no">4649</span><span id="line-4649">                            pt2 = tg.Pixels.get(10);</span>
-<span class="source-line-no">4650</span><span id="line-4650">                            quadrant = lineutility.GetQuadrantDouble(pt1, pt2);</span>
-<span class="source-line-no">4651</span><span id="line-4651">                            theta = Math.atan2(pt2.y - pt1.y, pt2.x - pt1.x);</span>
-<span class="source-line-no">4652</span><span id="line-4652">                            if (Math.abs(theta) &lt; Math.PI / 8) {</span>
-<span class="source-line-no">4653</span><span id="line-4653">                                if (theta &lt; 0) {</span>
-<span class="source-line-no">4654</span><span id="line-4654">                                    theta -= Math.PI / 2;</span>
-<span class="source-line-no">4655</span><span id="line-4655">                                } else {</span>
-<span class="source-line-no">4656</span><span id="line-4656">                                    theta += Math.PI / 2;</span>
-<span class="source-line-no">4657</span><span id="line-4657">                                }</span>
-<span class="source-line-no">4658</span><span id="line-4658">                            }</span>
-<span class="source-line-no">4659</span><span id="line-4659">                            switch (quadrant) {</span>
-<span class="source-line-no">4660</span><span id="line-4660">                                case 1:</span>
-<span class="source-line-no">4661</span><span id="line-4661">                                    theta += Math.PI / 2;</span>
-<span class="source-line-no">4662</span><span id="line-4662">                                    break;</span>
-<span class="source-line-no">4663</span><span id="line-4663">                                case 2:</span>
-<span class="source-line-no">4664</span><span id="line-4664">                                    theta -= Math.PI / 2;</span>
-<span class="source-line-no">4665</span><span id="line-4665">                                    break;</span>
-<span class="source-line-no">4666</span><span id="line-4666">                                case 3:</span>
-<span class="source-line-no">4667</span><span id="line-4667">                                    theta -= Math.PI / 2;</span>
-<span class="source-line-no">4668</span><span id="line-4668">                                    break;</span>
-<span class="source-line-no">4669</span><span id="line-4669">                                case 4:</span>
-<span class="source-line-no">4670</span><span id="line-4670">                                    theta += Math.PI / 2;</span>
-<span class="source-line-no">4671</span><span id="line-4671">                                    break;</span>
-<span class="source-line-no">4672</span><span id="line-4672">                                default:</span>
-<span class="source-line-no">4673</span><span id="line-4673">                                    break;</span>
-<span class="source-line-no">4674</span><span id="line-4674">                            }</span>
-<span class="source-line-no">4675</span><span id="line-4675"></span>
-<span class="source-line-no">4676</span><span id="line-4676">                            x = (int) x1 - (int) stringWidth / 2;</span>
-<span class="source-line-no">4677</span><span id="line-4677">                            y = (int) y1 - (int) stringHeight / 2 + (int) (lineFactor * stringHeight);</span>
-<span class="source-line-no">4678</span><span id="line-4678">                            y = (int) y1 + (int) (stringHeight / 2) + (int) (lineFactor * stringHeight);</span>
-<span class="source-line-no">4679</span><span id="line-4679">                        } else {</span>
-<span class="source-line-no">4680</span><span id="line-4680">                            theta = 0;</span>
-<span class="source-line-no">4681</span><span id="line-4681">                            x = (int) tg.Pixels.get(0).x;</span>
-<span class="source-line-no">4682</span><span id="line-4682">                            y = (int) tg.Pixels.get(0).y;</span>
-<span class="source-line-no">4683</span><span id="line-4683">                            x = (int) x - (int) stringWidth / 2;</span>
-<span class="source-line-no">4684</span><span id="line-4684">                            y = (int) y - (int) stringHeight / 2 + (int) (lineFactor * stringHeight);</span>
-<span class="source-line-no">4685</span><span id="line-4685">                            y = (int) y + (int) (stringHeight / 2) + (int) (lineFactor * stringHeight);</span>
-<span class="source-line-no">4686</span><span id="line-4686">                        }</span>
-<span class="source-line-no">4687</span><span id="line-4687"></span>
-<span class="source-line-no">4688</span><span id="line-4688">                        glyphPosition = new Point(x, y);</span>
-<span class="source-line-no">4689</span><span id="line-4689">                        //glyphPosition=new Point2D.Double(x,y);</span>
-<span class="source-line-no">4690</span><span id="line-4690">                        break;</span>
-<span class="source-line-no">4691</span><span id="line-4691">                    default:</span>
-<span class="source-line-no">4692</span><span id="line-4692">                        break;</span>
-<span class="source-line-no">4693</span><span id="line-4693">                }   //end switch</span>
-<span class="source-line-no">4694</span><span id="line-4694"></span>
-<span class="source-line-no">4695</span><span id="line-4695">                shape2 = new Shape2(Shape2.SHAPE_TYPE_MODIFIER_FILL);</span>
-<span class="source-line-no">4696</span><span id="line-4696"></span>
-<span class="source-line-no">4697</span><span id="line-4697">                shape2.setStroke(new BasicStroke(0, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 3));</span>
-<span class="source-line-no">4698</span><span id="line-4698"></span>
-<span class="source-line-no">4699</span><span id="line-4699">                if (tg.get_TextColor() != null) {</span>
-<span class="source-line-no">4700</span><span id="line-4700">                    shape2.setFillColor(tg.get_TextColor());</span>
-<span class="source-line-no">4701</span><span id="line-4701">                } else if (tg.get_LineColor() != null) {</span>
-<span class="source-line-no">4702</span><span id="line-4702">                    shape2.setFillColor(tg.get_LineColor());</span>
-<span class="source-line-no">4703</span><span id="line-4703">                }</span>
-<span class="source-line-no">4704</span><span id="line-4704">                if (tg.get_LineColor() != null) {</span>
-<span class="source-line-no">4705</span><span id="line-4705">                    shape2.setLineColor(tg.get_LineColor());</span>
-<span class="source-line-no">4706</span><span id="line-4706">                }</span>
-<span class="source-line-no">4707</span><span id="line-4707">                //only GE uses the converter, generic uses the affine transform and draws at 0,0</span>
-<span class="source-line-no">4708</span><span id="line-4708">                if (converter != null) {</span>
-<span class="source-line-no">4709</span><span id="line-4709">                    shape2.setGlyphPosition(glyphPosition);</span>
-<span class="source-line-no">4710</span><span id="line-4710">                } else {</span>
-<span class="source-line-no">4711</span><span id="line-4711">                    shape2.setGlyphPosition(new Point2D.Double(0, 0));</span>
-<span class="source-line-no">4712</span><span id="line-4712">                }</span>
-<span class="source-line-no">4713</span><span id="line-4713">                //shape2.setGlyphPosition(new Point(0,0));</span>
-<span class="source-line-no">4714</span><span id="line-4714">                //added two settings for use by GE</span>
-<span class="source-line-no">4715</span><span id="line-4715">                if(s != null &amp;&amp; !s.equals("")) {</span>
-<span class="source-line-no">4716</span><span id="line-4716">                    shape2.setModifierString(s);</span>
-<span class="source-line-no">4717</span><span id="line-4717">                    TextLayout tl = new TextLayout(s, font, g2d.getFontMetrics().getFontRenderContext());</span>
-<span class="source-line-no">4718</span><span id="line-4718">                    shape2.setTextLayout(tl);</span>
-<span class="source-line-no">4719</span><span id="line-4719">                    shape2.setTextJustify(justify);</span>
-<span class="source-line-no">4720</span><span id="line-4720">                } else if (image != null) {</span>
-<span class="source-line-no">4721</span><span id="line-4721">                    shape2.setModifierImage(image);</span>
-<span class="source-line-no">4722</span><span id="line-4722">                }</span>
-<span class="source-line-no">4723</span><span id="line-4723">                //shape2.setModifierStringPosition(glyphPosition);//M. Deutch 7-6-11</span>
-<span class="source-line-no">4724</span><span id="line-4724">                shape2.setModifierAngle(theta * 180 / Math.PI);</span>
-<span class="source-line-no">4725</span><span id="line-4725">                shape2.setModifierPosition(modifierPosition);</span>
+<span class="source-line-no">4524</span><span id="line-4524">                s = modifier.text;</span>
+<span class="source-line-no">4525</span><span id="line-4525">                if (s == null || s.equals("")) {</span>
+<span class="source-line-no">4526</span><span id="line-4526"></span>
+<span class="source-line-no">4527</span><span id="line-4527">                    image = modifier.image;</span>
+<span class="source-line-no">4528</span><span id="line-4528">                    if (image == null) {</span>
+<span class="source-line-no">4529</span><span id="line-4529">                        continue;</span>
+<span class="source-line-no">4530</span><span id="line-4530">                    }</span>
+<span class="source-line-no">4531</span><span id="line-4531">                }</span>
+<span class="source-line-no">4532</span><span id="line-4532">                stringWidth = s != null ? (double) metrics.stringWidth(s) + 1 : image.getWidth() + 1;</span>
+<span class="source-line-no">4533</span><span id="line-4533">                stringHeight = s != null ? (double) font.getSize() : image.getHeight();</span>
+<span class="source-line-no">4534</span><span id="line-4534"></span>
+<span class="source-line-no">4535</span><span id="line-4535">                double x1 = 0, y1 = 0, x2 = 0, y2 = 0, dist = 0;</span>
+<span class="source-line-no">4536</span><span id="line-4536">                pt0 = modifier.textPath[0];</span>
+<span class="source-line-no">4537</span><span id="line-4537">                x1 = Math.round(pt0.x);</span>
+<span class="source-line-no">4538</span><span id="line-4538">                y1 = Math.round(pt0.y);</span>
+<span class="source-line-no">4539</span><span id="line-4539">                pt1 = modifier.textPath[1];</span>
+<span class="source-line-no">4540</span><span id="line-4540">                x2 = Math.round(pt1.x);</span>
+<span class="source-line-no">4541</span><span id="line-4541">                y2 = Math.round(pt1.y);</span>
+<span class="source-line-no">4542</span><span id="line-4542">                theta = Math.atan2(y2 - y1, x2 - x1);</span>
+<span class="source-line-no">4543</span><span id="line-4543">                POINT2 midPt;</span>
+<span class="source-line-no">4544</span><span id="line-4544">                if (x1 &gt; x2) {</span>
+<span class="source-line-no">4545</span><span id="line-4545">                    theta -= Math.PI;</span>
+<span class="source-line-no">4546</span><span id="line-4546">                }</span>
+<span class="source-line-no">4547</span><span id="line-4547">                pt0 = new POINT2(x1, y1);</span>
+<span class="source-line-no">4548</span><span id="line-4548">                pt1 = new POINT2(x2, y2);</span>
+<span class="source-line-no">4549</span><span id="line-4549">                midPt = new POINT2((x1 + x2) / 2, (y1 + y2) / 2);</span>
+<span class="source-line-no">4550</span><span id="line-4550">                Point2D modifierPosition = null;  //use this if using justify</span>
+<span class="source-line-no">4551</span><span id="line-4551">                int justify = ShapeInfo.justify_left;</span>
+<span class="source-line-no">4552</span><span id="line-4552">                switch (modifier.type) {</span>
+<span class="source-line-no">4553</span><span id="line-4553">                    case aboveEnd: // On line</span>
+<span class="source-line-no">4554</span><span id="line-4554">                    case toEnd: // Next to line</span>
+<span class="source-line-no">4555</span><span id="line-4555">                        if (x1 == x2) {</span>
+<span class="source-line-no">4556</span><span id="line-4556">                            x2 += 1;</span>
+<span class="source-line-no">4557</span><span id="line-4557">                        }</span>
+<span class="source-line-no">4558</span><span id="line-4558"></span>
+<span class="source-line-no">4559</span><span id="line-4559">                        if (lineFactor &gt;= 0) {</span>
+<span class="source-line-no">4560</span><span id="line-4560">                            direction = 2;</span>
+<span class="source-line-no">4561</span><span id="line-4561">                        } else {</span>
+<span class="source-line-no">4562</span><span id="line-4562">                            direction = 3;</span>
+<span class="source-line-no">4563</span><span id="line-4563">                        }</span>
+<span class="source-line-no">4564</span><span id="line-4564"></span>
+<span class="source-line-no">4565</span><span id="line-4565">                        if (lineType == TacticalLines.LC || tg.get_Client().equalsIgnoreCase("ge")) {</span>
+<span class="source-line-no">4566</span><span id="line-4566">                            direction = lineutility.reverseDirection(direction);</span>
+<span class="source-line-no">4567</span><span id="line-4567">                        }</span>
+<span class="source-line-no">4568</span><span id="line-4568"></span>
+<span class="source-line-no">4569</span><span id="line-4569">                        if ((modifier.type == toEnd &amp;&amp; x1 &lt; x2) || (modifier.type == aboveEnd &amp;&amp; x2 &lt; x1)) {</span>
+<span class="source-line-no">4570</span><span id="line-4570">                            justify = ShapeInfo.justify_right;</span>
+<span class="source-line-no">4571</span><span id="line-4571">                        } else {</span>
+<span class="source-line-no">4572</span><span id="line-4572">                            justify = ShapeInfo.justify_left;</span>
+<span class="source-line-no">4573</span><span id="line-4573">                        }</span>
+<span class="source-line-no">4574</span><span id="line-4574"></span>
+<span class="source-line-no">4575</span><span id="line-4575">                        //3rd point value is location to start perpendicular line from</span>
+<span class="source-line-no">4576</span><span id="line-4576">                        pt3 = lineutility.ExtendDirectedLine(pt1, pt0, pt0, direction, lineFactor * stringHeight);</span>
+<span class="source-line-no">4577</span><span id="line-4577">                        //pt3 is the end point of the perpendicularline</span>
+<span class="source-line-no">4578</span><span id="line-4578"></span>
+<span class="source-line-no">4579</span><span id="line-4579">                        glyphPosition = new Point((int) pt3.x, (int) pt3.y);</span>
+<span class="source-line-no">4580</span><span id="line-4580">                        modifierPosition = new Point2D.Double(pt3.x, pt3.y);</span>
+<span class="source-line-no">4581</span><span id="line-4581"></span>
+<span class="source-line-no">4582</span><span id="line-4582">                        anchor = new Point2D.Double(pt0.x, pt0.y);</span>
+<span class="source-line-no">4583</span><span id="line-4583">                        anchorOffset = new Point2D.Double(pt3.x - pt0.x, pt3.y - pt0.y);</span>
+<span class="source-line-no">4584</span><span id="line-4584"></span>
+<span class="source-line-no">4585</span><span id="line-4585">                        break;</span>
+<span class="source-line-no">4586</span><span id="line-4586">                    case aboveStartInside:</span>
+<span class="source-line-no">4587</span><span id="line-4587">                        //returns pt3 which is based on the specified distance from pt0 along the line of pt0 to pt1.</span>
+<span class="source-line-no">4588</span><span id="line-4588">                        pt3 = lineutility.ExtendAlongLineDouble(pt0, pt1, stringWidth);</span>
+<span class="source-line-no">4589</span><span id="line-4589"></span>
+<span class="source-line-no">4590</span><span id="line-4590">                        glyphPosition = new Point((int) pt3.x, (int) pt3.y);</span>
+<span class="source-line-no">4591</span><span id="line-4591">                        modifierPosition = new Point2D.Double((int) pt3.x, pt3.y);</span>
+<span class="source-line-no">4592</span><span id="line-4592"></span>
+<span class="source-line-no">4593</span><span id="line-4593">                        anchor = new Point2D.Double(pt0.x, pt0.y);</span>
+<span class="source-line-no">4594</span><span id="line-4594">                        anchorOffset = new Point2D.Double(pt3.x - pt0.x, pt3.y - pt0.y);</span>
+<span class="source-line-no">4595</span><span id="line-4595">                        break;</span>
+<span class="source-line-no">4596</span><span id="line-4596">                    case aboveEndInside:</span>
+<span class="source-line-no">4597</span><span id="line-4597">                        //returns pt3 which is based on the specified distance from pt0 along the line of pt1 to pt0.</span>
+<span class="source-line-no">4598</span><span id="line-4598">                        pt3 = lineutility.ExtendAlongLineDouble(pt1, pt0, stringWidth);</span>
+<span class="source-line-no">4599</span><span id="line-4599"></span>
+<span class="source-line-no">4600</span><span id="line-4600">                        glyphPosition = new Point((int) pt3.x, (int) pt3.y);</span>
+<span class="source-line-no">4601</span><span id="line-4601">                        modifierPosition = new Point2D.Double((int) pt3.x, pt3.y);</span>
+<span class="source-line-no">4602</span><span id="line-4602"></span>
+<span class="source-line-no">4603</span><span id="line-4603">                        anchor = new Point2D.Double(pt1.x, pt1.y);</span>
+<span class="source-line-no">4604</span><span id="line-4604">                        anchorOffset = new Point2D.Double(pt3.x - pt1.x, pt3.y - pt1.y);</span>
+<span class="source-line-no">4605</span><span id="line-4605">                        break;</span>
+<span class="source-line-no">4606</span><span id="line-4606">                    case aboveMiddle:</span>
+<span class="source-line-no">4607</span><span id="line-4607">                    case aboveMiddlePerpendicular:</span>
+<span class="source-line-no">4608</span><span id="line-4608">                        pt2 = midPt;</span>
+<span class="source-line-no">4609</span><span id="line-4609">                        anchor = new Point2D.Double(midPt.x,midPt.y);</span>
+<span class="source-line-no">4610</span><span id="line-4610"></span>
+<span class="source-line-no">4611</span><span id="line-4611">                        if (tg.get_Client().equals("2D")) {</span>
+<span class="source-line-no">4612</span><span id="line-4612">                            lineFactor += 0.5;</span>
+<span class="source-line-no">4613</span><span id="line-4613">                        }</span>
+<span class="source-line-no">4614</span><span id="line-4614"></span>
+<span class="source-line-no">4615</span><span id="line-4615">                        if (lineFactor &gt;= 0) {</span>
+<span class="source-line-no">4616</span><span id="line-4616">                            pt3 = lineutility.ExtendDirectedLine(pt0, pt2, pt2, 3, Math.abs((lineFactor) * stringHeight));</span>
+<span class="source-line-no">4617</span><span id="line-4617">                            midPt = lineutility.ExtendDirectedLine(pt0, midPt, midPt, 3, Math.abs((lineFactor) * stringHeight));</span>
+<span class="source-line-no">4618</span><span id="line-4618">                        } else {</span>
+<span class="source-line-no">4619</span><span id="line-4619">                            pt3 = lineutility.ExtendDirectedLine(pt0, pt2, pt2, 2, Math.abs((lineFactor) * stringHeight));</span>
+<span class="source-line-no">4620</span><span id="line-4620">                            midPt = lineutility.ExtendDirectedLine(pt0, midPt, midPt, 2, Math.abs((lineFactor) * stringHeight));</span>
+<span class="source-line-no">4621</span><span id="line-4621">                        }</span>
+<span class="source-line-no">4622</span><span id="line-4622">                        //pt3=lineutility.ExtendDirectedLine(pt0, pt2, pt2, 2, lineFactor*stringHeight);</span>
+<span class="source-line-no">4623</span><span id="line-4623">                        if (x1 == x2 &amp;&amp; y1 &gt; y2) {</span>
+<span class="source-line-no">4624</span><span id="line-4624">                            pt3 = lineutility.ExtendDirectedLine(pt0, pt2, pt2, 1, Math.abs((lineFactor) * stringHeight));</span>
+<span class="source-line-no">4625</span><span id="line-4625">                            midPt = lineutility.ExtendDirectedLine(pt0, midPt, midPt, 1, Math.abs((lineFactor) * stringHeight));</span>
+<span class="source-line-no">4626</span><span id="line-4626">                        }</span>
+<span class="source-line-no">4627</span><span id="line-4627">                        if (x1 == x2 &amp;&amp; y1 &lt; y2) {</span>
+<span class="source-line-no">4628</span><span id="line-4628">                            pt3 = lineutility.ExtendDirectedLine(pt0, pt2, pt2, 0, Math.abs((lineFactor) * stringHeight));</span>
+<span class="source-line-no">4629</span><span id="line-4629">                            midPt = lineutility.ExtendDirectedLine(pt0, midPt, midPt, 0, Math.abs((lineFactor) * stringHeight));</span>
+<span class="source-line-no">4630</span><span id="line-4630">                        }</span>
+<span class="source-line-no">4631</span><span id="line-4631"></span>
+<span class="source-line-no">4632</span><span id="line-4632">                        glyphPosition = new Point((int) pt3.x, (int) pt3.y);</span>
+<span class="source-line-no">4633</span><span id="line-4633">                        justify = ShapeInfo.justify_center;</span>
+<span class="source-line-no">4634</span><span id="line-4634">                        modifierPosition = new Point2D.Double(midPt.x, midPt.y);</span>
+<span class="source-line-no">4635</span><span id="line-4635"></span>
+<span class="source-line-no">4636</span><span id="line-4636">                        //anchor = new Point2D.Double(midPt.x, midPt.y);</span>
+<span class="source-line-no">4637</span><span id="line-4637">                        anchorOffset = new Point2D.Double(midPt.x - anchor.getX(), midPt.y - anchor.getY());</span>
+<span class="source-line-no">4638</span><span id="line-4638"></span>
+<span class="source-line-no">4639</span><span id="line-4639">                        if(modifier.type == aboveMiddlePerpendicular) {</span>
+<span class="source-line-no">4640</span><span id="line-4640">                            // Need to negate the original rotation</span>
+<span class="source-line-no">4641</span><span id="line-4641">                            if (x1 &gt; x2) {</span>
+<span class="source-line-no">4642</span><span id="line-4642">                                theta += Math.PI;</span>
+<span class="source-line-no">4643</span><span id="line-4643">                            }</span>
+<span class="source-line-no">4644</span><span id="line-4644">                            // Adjust the label rotation based on the y values</span>
+<span class="source-line-no">4645</span><span id="line-4645">                            if (y1 &gt; y2) {</span>
+<span class="source-line-no">4646</span><span id="line-4646">                                theta += Math.PI;</span>
+<span class="source-line-no">4647</span><span id="line-4647">                            }</span>
+<span class="source-line-no">4648</span><span id="line-4648">                            // Rotate by 90 degrees. This is how we rotate the label perpendicular to the line</span>
+<span class="source-line-no">4649</span><span id="line-4649">                            theta -= Math.PI / 2;</span>
+<span class="source-line-no">4650</span><span id="line-4650">                        }</span>
+<span class="source-line-no">4651</span><span id="line-4651">                        break;</span>
+<span class="source-line-no">4652</span><span id="line-4652">                    case area:</span>
+<span class="source-line-no">4653</span><span id="line-4653">                        theta = 0;</span>
+<span class="source-line-no">4654</span><span id="line-4654"></span>
+<span class="source-line-no">4655</span><span id="line-4655">                        //y = (int) y1 + (int) (stringHeight / 2) + (int) (1.25 * lineFactor * stringHeight);</span>
+<span class="source-line-no">4656</span><span id="line-4656">                        y = (int) y1 + (int) (stringHeight / 2) + (int) (lineFactor * stringHeight);</span>
+<span class="source-line-no">4657</span><span id="line-4657">                        x = image != null ? (int) (x1 - stringWidth / 3) : (int) x1;</span>
+<span class="source-line-no">4658</span><span id="line-4658"></span>
+<span class="source-line-no">4659</span><span id="line-4659">                        glyphPosition = new Point(x, y);</span>
+<span class="source-line-no">4660</span><span id="line-4660">                        justify = ShapeInfo.justify_center;</span>
+<span class="source-line-no">4661</span><span id="line-4661">                        modifierPosition = new Point2D.Double(x, y);</span>
+<span class="source-line-no">4662</span><span id="line-4662"></span>
+<span class="source-line-no">4663</span><span id="line-4663">                        anchor = new Point2D.Double(x1, y1);</span>
+<span class="source-line-no">4664</span><span id="line-4664">                        anchorOffset = new Point2D.Double(x - x1, y - y1);</span>
+<span class="source-line-no">4665</span><span id="line-4665">                        break;</span>
+<span class="source-line-no">4666</span><span id="line-4666">                    case areaImage:</span>
+<span class="source-line-no">4667</span><span id="line-4667">                        glyphPosition = new Point((int)x1, (int)y1);</span>
+<span class="source-line-no">4668</span><span id="line-4668">                        justify = ShapeInfo.justify_center;</span>
+<span class="source-line-no">4669</span><span id="line-4669">                        modifierPosition = new Point2D.Double((int)x1, (int)y1);</span>
+<span class="source-line-no">4670</span><span id="line-4670"></span>
+<span class="source-line-no">4671</span><span id="line-4671">                        anchor = new Point2D.Double(x1, y1);</span>
+<span class="source-line-no">4672</span><span id="line-4672">                        anchorOffset = new Point2D.Double(0, 0);</span>
+<span class="source-line-no">4673</span><span id="line-4673">                        break;</span>
+<span class="source-line-no">4674</span><span id="line-4674">                    case screen:    //for SCREEN, GUARD, COVER, not currently used</span>
+<span class="source-line-no">4675</span><span id="line-4675">                        if (tg.Pixels.size() &gt;= 14) {</span>
+<span class="source-line-no">4676</span><span id="line-4676">                            pt1 = tg.Pixels.get(3);</span>
+<span class="source-line-no">4677</span><span id="line-4677">                            pt2 = tg.Pixels.get(10);</span>
+<span class="source-line-no">4678</span><span id="line-4678">                            quadrant = lineutility.GetQuadrantDouble(pt1, pt2);</span>
+<span class="source-line-no">4679</span><span id="line-4679">                            theta = Math.atan2(pt2.y - pt1.y, pt2.x - pt1.x);</span>
+<span class="source-line-no">4680</span><span id="line-4680">                            if (Math.abs(theta) &lt; Math.PI / 8) {</span>
+<span class="source-line-no">4681</span><span id="line-4681">                                if (theta &lt; 0) {</span>
+<span class="source-line-no">4682</span><span id="line-4682">                                    theta -= Math.PI / 2;</span>
+<span class="source-line-no">4683</span><span id="line-4683">                                } else {</span>
+<span class="source-line-no">4684</span><span id="line-4684">                                    theta += Math.PI / 2;</span>
+<span class="source-line-no">4685</span><span id="line-4685">                                }</span>
+<span class="source-line-no">4686</span><span id="line-4686">                            }</span>
+<span class="source-line-no">4687</span><span id="line-4687">                            switch (quadrant) {</span>
+<span class="source-line-no">4688</span><span id="line-4688">                                case 1:</span>
+<span class="source-line-no">4689</span><span id="line-4689">                                    theta += Math.PI / 2;</span>
+<span class="source-line-no">4690</span><span id="line-4690">                                    break;</span>
+<span class="source-line-no">4691</span><span id="line-4691">                                case 2:</span>
+<span class="source-line-no">4692</span><span id="line-4692">                                    theta -= Math.PI / 2;</span>
+<span class="source-line-no">4693</span><span id="line-4693">                                    break;</span>
+<span class="source-line-no">4694</span><span id="line-4694">                                case 3:</span>
+<span class="source-line-no">4695</span><span id="line-4695">                                    theta -= Math.PI / 2;</span>
+<span class="source-line-no">4696</span><span id="line-4696">                                    break;</span>
+<span class="source-line-no">4697</span><span id="line-4697">                                case 4:</span>
+<span class="source-line-no">4698</span><span id="line-4698">                                    theta += Math.PI / 2;</span>
+<span class="source-line-no">4699</span><span id="line-4699">                                    break;</span>
+<span class="source-line-no">4700</span><span id="line-4700">                                default:</span>
+<span class="source-line-no">4701</span><span id="line-4701">                                    break;</span>
+<span class="source-line-no">4702</span><span id="line-4702">                            }</span>
+<span class="source-line-no">4703</span><span id="line-4703"></span>
+<span class="source-line-no">4704</span><span id="line-4704">                            x = (int) x1 - (int) stringWidth / 2;</span>
+<span class="source-line-no">4705</span><span id="line-4705">                            y = (int) y1 - (int) stringHeight / 2 + (int) (lineFactor * stringHeight);</span>
+<span class="source-line-no">4706</span><span id="line-4706">                            y = (int) y1 + (int) (stringHeight / 2) + (int) (lineFactor * stringHeight);</span>
+<span class="source-line-no">4707</span><span id="line-4707">                            anchor = new Point2D.Double(x1, y1);</span>
+<span class="source-line-no">4708</span><span id="line-4708">                        } else {</span>
+<span class="source-line-no">4709</span><span id="line-4709">                            theta = 0;</span>
+<span class="source-line-no">4710</span><span id="line-4710">                            x = (int) tg.Pixels.get(0).x;</span>
+<span class="source-line-no">4711</span><span id="line-4711">                            y = (int) tg.Pixels.get(0).y;</span>
+<span class="source-line-no">4712</span><span id="line-4712">                            anchor = new Point2D.Double(x, y);</span>
+<span class="source-line-no">4713</span><span id="line-4713">                            x = (int) x - (int) stringWidth / 2;</span>
+<span class="source-line-no">4714</span><span id="line-4714">                            y = (int) y - (int) stringHeight / 2 + (int) (lineFactor * stringHeight);</span>
+<span class="source-line-no">4715</span><span id="line-4715">                            y = (int) y + (int) (stringHeight / 2) + (int) (lineFactor * stringHeight);</span>
+<span class="source-line-no">4716</span><span id="line-4716">                        }</span>
+<span class="source-line-no">4717</span><span id="line-4717"></span>
+<span class="source-line-no">4718</span><span id="line-4718">                        glyphPosition = new Point(x, y);</span>
+<span class="source-line-no">4719</span><span id="line-4719">                        //glyphPosition=new Point2D.Double(x,y);</span>
+<span class="source-line-no">4720</span><span id="line-4720">                        //anchor = new Point2D.Double(x1, y1);</span>
+<span class="source-line-no">4721</span><span id="line-4721">                        anchorOffset = new Point2D.Double(x - anchor.getX(), y - anchor.getY());</span>
+<span class="source-line-no">4722</span><span id="line-4722">                        break;</span>
+<span class="source-line-no">4723</span><span id="line-4723">                    default:</span>
+<span class="source-line-no">4724</span><span id="line-4724">                        break;</span>
+<span class="source-line-no">4725</span><span id="line-4725">                }   //end switch</span>
 <span class="source-line-no">4726</span><span id="line-4726"></span>
-<span class="source-line-no">4727</span><span id="line-4727">                if (shape2 != null) {</span>
-<span class="source-line-no">4728</span><span id="line-4728">                    shapes.add(shape2);</span>
-<span class="source-line-no">4729</span><span id="line-4729">                }</span>
+<span class="source-line-no">4727</span><span id="line-4727">                shape2 = new Shape2(Shape2.SHAPE_TYPE_MODIFIER_FILL);</span>
+<span class="source-line-no">4728</span><span id="line-4728"></span>
+<span class="source-line-no">4729</span><span id="line-4729">                shape2.setStroke(new BasicStroke(0, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 3));</span>
 <span class="source-line-no">4730</span><span id="line-4730"></span>
-<span class="source-line-no">4731</span><span id="line-4731">            }   //end for</span>
-<span class="source-line-no">4732</span><span id="line-4732">        } //end try</span>
-<span class="source-line-no">4733</span><span id="line-4733">        catch (Exception exc) {</span>
-<span class="source-line-no">4734</span><span id="line-4734">            ErrorLogger.LogException(_className, "DisplayModifiers2",</span>
-<span class="source-line-no">4735</span><span id="line-4735">                    exc);</span>
-<span class="source-line-no">4736</span><span id="line-4736">        }</span>
-<span class="source-line-no">4737</span><span id="line-4737">    }//end function</span>
-<span class="source-line-no">4738</span><span id="line-4738"></span>
-<span class="source-line-no">4739</span><span id="line-4739">    /**</span>
-<span class="source-line-no">4740</span><span id="line-4740">     * Builds a shape object to wrap text</span>
-<span class="source-line-no">4741</span><span id="line-4741">     *</span>
-<span class="source-line-no">4742</span><span id="line-4742">     * @param g2d the Graphic object for drawing</span>
-<span class="source-line-no">4743</span><span id="line-4743">     * @param str text to wrap</span>
-<span class="source-line-no">4744</span><span id="line-4744">     * @param font the draw font</span>
-<span class="source-line-no">4745</span><span id="line-4745">     * @param tx the drawing transform, text rotation and translation</span>
-<span class="source-line-no">4746</span><span id="line-4746">     * @return</span>
-<span class="source-line-no">4747</span><span id="line-4747">     */</span>
-<span class="source-line-no">4748</span><span id="line-4748">    public static Shape getTextShape(Graphics2D g2d,</span>
-<span class="source-line-no">4749</span><span id="line-4749">                                     String str,</span>
-<span class="source-line-no">4750</span><span id="line-4750">                                     Font font,</span>
-<span class="source-line-no">4751</span><span id="line-4751">                                     AffineTransform tx) {</span>
-<span class="source-line-no">4752</span><span id="line-4752">        TextLayout tl = null;</span>
-<span class="source-line-no">4753</span><span id="line-4753">        FontRenderContext frc = null;</span>
-<span class="source-line-no">4754</span><span id="line-4754">        try {</span>
-<span class="source-line-no">4755</span><span id="line-4755">            frc = g2d.getFontRenderContext();</span>
-<span class="source-line-no">4756</span><span id="line-4756">            tl = new TextLayout(str, font, frc);</span>
-<span class="source-line-no">4757</span><span id="line-4757">        } catch (Exception exc) {</span>
-<span class="source-line-no">4758</span><span id="line-4758">            ErrorLogger.LogException(_className, "getTextShape",</span>
-<span class="source-line-no">4759</span><span id="line-4759">                    new RendererException("Failed inside getTextShape", exc));</span>
-<span class="source-line-no">4760</span><span id="line-4760">        }</span>
-<span class="source-line-no">4761</span><span id="line-4761">        return tl.getOutline(tx);</span>
-<span class="source-line-no">4762</span><span id="line-4762">    }</span>
-<span class="source-line-no">4763</span><span id="line-4763"></span>
-<span class="source-line-no">4764</span><span id="line-4764">    /**</span>
-<span class="source-line-no">4765</span><span id="line-4765">     * Creates text outline as a shape</span>
-<span class="source-line-no">4766</span><span id="line-4766">     *</span>
-<span class="source-line-no">4767</span><span id="line-4767">     * @param originalText the original text</span>
-<span class="source-line-no">4768</span><span id="line-4768">     * @return text shape</span>
-<span class="source-line-no">4769</span><span id="line-4769">     */</span>
-<span class="source-line-no">4770</span><span id="line-4770">    public static Shape2 createTextOutline(Shape2 originalText) {</span>
-<span class="source-line-no">4771</span><span id="line-4771">        Shape2 siOutline = null;</span>
-<span class="source-line-no">4772</span><span id="line-4772">        try {</span>
-<span class="source-line-no">4773</span><span id="line-4773">            Shape outline = originalText.getShape();</span>
-<span class="source-line-no">4774</span><span id="line-4774"></span>
-<span class="source-line-no">4775</span><span id="line-4775">            siOutline = new Shape2(Shape2.SHAPE_TYPE_MODIFIER_FILL);</span>
-<span class="source-line-no">4776</span><span id="line-4776">            siOutline.setShape(outline);</span>
-<span class="source-line-no">4777</span><span id="line-4777"></span>
-<span class="source-line-no">4778</span><span id="line-4778">            if (originalText.getFillColor().getRed() == 255</span>
-<span class="source-line-no">4779</span><span id="line-4779">                    &amp;&amp; originalText.getFillColor().getGreen() == 255</span>
-<span class="source-line-no">4780</span><span id="line-4780">                    &amp;&amp; originalText.getFillColor().getBlue() == 255) {</span>
-<span class="source-line-no">4781</span><span id="line-4781">                siOutline.setLineColor(Color.BLACK);</span>
-<span class="source-line-no">4782</span><span id="line-4782">            } else {</span>
-<span class="source-line-no">4783</span><span id="line-4783">                siOutline.setLineColor(Color.WHITE);</span>
-<span class="source-line-no">4784</span><span id="line-4784">            }</span>
-<span class="source-line-no">4785</span><span id="line-4785"></span>
-<span class="source-line-no">4786</span><span id="line-4786">            int width = RendererSettings.getInstance().getTextOutlineWidth();</span>
-<span class="source-line-no">4787</span><span id="line-4787"></span>
-<span class="source-line-no">4788</span><span id="line-4788">            siOutline.setStroke(new BasicStroke(width, BasicStroke.CAP_ROUND,</span>
-<span class="source-line-no">4789</span><span id="line-4789">                    BasicStroke.JOIN_ROUND, 3));</span>
-<span class="source-line-no">4790</span><span id="line-4790"></span>
+<span class="source-line-no">4731</span><span id="line-4731">                if (tg.get_TextColor() != null) {</span>
+<span class="source-line-no">4732</span><span id="line-4732">                    shape2.setFillColor(tg.get_TextColor());</span>
+<span class="source-line-no">4733</span><span id="line-4733">                } else if (tg.get_LineColor() != null) {</span>
+<span class="source-line-no">4734</span><span id="line-4734">                    shape2.setFillColor(tg.get_LineColor());</span>
+<span class="source-line-no">4735</span><span id="line-4735">                }</span>
+<span class="source-line-no">4736</span><span id="line-4736">                if (tg.get_LineColor() != null) {</span>
+<span class="source-line-no">4737</span><span id="line-4737">                    shape2.setLineColor(tg.get_LineColor());</span>
+<span class="source-line-no">4738</span><span id="line-4738">                }</span>
+<span class="source-line-no">4739</span><span id="line-4739">                //only GE uses the converter, generic uses the affine transform and draws at 0,0</span>
+<span class="source-line-no">4740</span><span id="line-4740">                if (converter != null) {</span>
+<span class="source-line-no">4741</span><span id="line-4741">                    shape2.setGlyphPosition(glyphPosition);</span>
+<span class="source-line-no">4742</span><span id="line-4742">                } else {</span>
+<span class="source-line-no">4743</span><span id="line-4743">                    shape2.setGlyphPosition(new Point2D.Double(0, 0));</span>
+<span class="source-line-no">4744</span><span id="line-4744">                }</span>
+<span class="source-line-no">4745</span><span id="line-4745">                //shape2.setGlyphPosition(new Point(0,0));</span>
+<span class="source-line-no">4746</span><span id="line-4746">                //added two settings for use by GE</span>
+<span class="source-line-no">4747</span><span id="line-4747">                if(s != null &amp;&amp; !s.equals("")) {</span>
+<span class="source-line-no">4748</span><span id="line-4748">                    shape2.setModifierString(s);</span>
+<span class="source-line-no">4749</span><span id="line-4749">                    TextLayout tl = new TextLayout(s, font, g2d.getFontMetrics().getFontRenderContext());</span>
+<span class="source-line-no">4750</span><span id="line-4750">                    shape2.setTextLayout(tl);</span>
+<span class="source-line-no">4751</span><span id="line-4751">                    shape2.setTextJustify(justify);</span>
+<span class="source-line-no">4752</span><span id="line-4752">                } else if (image != null) {</span>
+<span class="source-line-no">4753</span><span id="line-4753">                    shape2.setModifierImage(image);</span>
+<span class="source-line-no">4754</span><span id="line-4754">                }</span>
+<span class="source-line-no">4755</span><span id="line-4755">                //shape2.setModifierStringPosition(glyphPosition);//M. Deutch 7-6-11</span>
+<span class="source-line-no">4756</span><span id="line-4756">                shape2.setModifierAngle(theta * 180 / Math.PI);</span>
+<span class="source-line-no">4757</span><span id="line-4757">                shape2.setModifierPosition(modifierPosition);</span>
+<span class="source-line-no">4758</span><span id="line-4758">                shape2.setModifierAnchor(anchor);</span>
+<span class="source-line-no">4759</span><span id="line-4759">                shape2.setModifierAnchorOffset(anchorOffset);</span>
+<span class="source-line-no">4760</span><span id="line-4760"></span>
+<span class="source-line-no">4761</span><span id="line-4761">                if (shape2 != null) {</span>
+<span class="source-line-no">4762</span><span id="line-4762">                    shapes.add(shape2);</span>
+<span class="source-line-no">4763</span><span id="line-4763">                }</span>
+<span class="source-line-no">4764</span><span id="line-4764"></span>
+<span class="source-line-no">4765</span><span id="line-4765">            }   //end for</span>
+<span class="source-line-no">4766</span><span id="line-4766">        } //end try</span>
+<span class="source-line-no">4767</span><span id="line-4767">        catch (Exception exc) {</span>
+<span class="source-line-no">4768</span><span id="line-4768">            ErrorLogger.LogException(_className, "DisplayModifiers2",</span>
+<span class="source-line-no">4769</span><span id="line-4769">                    exc);</span>
+<span class="source-line-no">4770</span><span id="line-4770">        }</span>
+<span class="source-line-no">4771</span><span id="line-4771">    }//end function</span>
+<span class="source-line-no">4772</span><span id="line-4772"></span>
+<span class="source-line-no">4773</span><span id="line-4773">    /**</span>
+<span class="source-line-no">4774</span><span id="line-4774">     * Builds a shape object to wrap text</span>
+<span class="source-line-no">4775</span><span id="line-4775">     *</span>
+<span class="source-line-no">4776</span><span id="line-4776">     * @param g2d the Graphic object for drawing</span>
+<span class="source-line-no">4777</span><span id="line-4777">     * @param str text to wrap</span>
+<span class="source-line-no">4778</span><span id="line-4778">     * @param font the draw font</span>
+<span class="source-line-no">4779</span><span id="line-4779">     * @param tx the drawing transform, text rotation and translation</span>
+<span class="source-line-no">4780</span><span id="line-4780">     * @return</span>
+<span class="source-line-no">4781</span><span id="line-4781">     */</span>
+<span class="source-line-no">4782</span><span id="line-4782">    public static Shape getTextShape(Graphics2D g2d,</span>
+<span class="source-line-no">4783</span><span id="line-4783">                                     String str,</span>
+<span class="source-line-no">4784</span><span id="line-4784">                                     Font font,</span>
+<span class="source-line-no">4785</span><span id="line-4785">                                     AffineTransform tx) {</span>
+<span class="source-line-no">4786</span><span id="line-4786">        TextLayout tl = null;</span>
+<span class="source-line-no">4787</span><span id="line-4787">        FontRenderContext frc = null;</span>
+<span class="source-line-no">4788</span><span id="line-4788">        try {</span>
+<span class="source-line-no">4789</span><span id="line-4789">            frc = g2d.getFontRenderContext();</span>
+<span class="source-line-no">4790</span><span id="line-4790">            tl = new TextLayout(str, font, frc);</span>
 <span class="source-line-no">4791</span><span id="line-4791">        } catch (Exception exc) {</span>
-<span class="source-line-no">4792</span><span id="line-4792">            ErrorLogger.LogException(_className, "createTextOutline",</span>
-<span class="source-line-no">4793</span><span id="line-4793">                    new RendererException("Failed inside createTextOutline", exc));</span>
+<span class="source-line-no">4792</span><span id="line-4792">            ErrorLogger.LogException(_className, "getTextShape",</span>
+<span class="source-line-no">4793</span><span id="line-4793">                    new RendererException("Failed inside getTextShape", exc));</span>
 <span class="source-line-no">4794</span><span id="line-4794">        }</span>
-<span class="source-line-no">4795</span><span id="line-4795">        return siOutline;</span>
+<span class="source-line-no">4795</span><span id="line-4795">        return tl.getOutline(tx);</span>
 <span class="source-line-no">4796</span><span id="line-4796">    }</span>
 <span class="source-line-no">4797</span><span id="line-4797"></span>
 <span class="source-line-no">4798</span><span id="line-4798">    /**</span>
-<span class="source-line-no">4799</span><span id="line-4799">     * Channels don't return points in tg.Pixels. For Channels modifiers we only</span>
-<span class="source-line-no">4800</span><span id="line-4800">     * need to collect the points, don't need internal arrays, and can calculate</span>
-<span class="source-line-no">4801</span><span id="line-4801">     * on which segments the modifiers lie.</span>
-<span class="source-line-no">4802</span><span id="line-4802">     *</span>
-<span class="source-line-no">4803</span><span id="line-4803">     * @param shape</span>
-<span class="source-line-no">4804</span><span id="line-4804">     * @return</span>
-<span class="source-line-no">4805</span><span id="line-4805">     */</span>
-<span class="source-line-no">4806</span><span id="line-4806">    private static ArrayList&lt;POINT2&gt; getShapePoints(Shape shape) {</span>
-<span class="source-line-no">4807</span><span id="line-4807">        try {</span>
-<span class="source-line-no">4808</span><span id="line-4808">            ArrayList&lt;Point2D&gt; ptsPoly = new ArrayList();</span>
-<span class="source-line-no">4809</span><span id="line-4809">            Point2D ptPoly = null;</span>
-<span class="source-line-no">4810</span><span id="line-4810">            double[] coords = new double[6];</span>
-<span class="source-line-no">4811</span><span id="line-4811">            int zeros = 0;</span>
-<span class="source-line-no">4812</span><span id="line-4812">            for (PathIterator i = shape.getPathIterator(null); !i.isDone(); i.next()) {</span>
-<span class="source-line-no">4813</span><span id="line-4813">                int type = i.currentSegment(coords);</span>
-<span class="source-line-no">4814</span><span id="line-4814">                if (type == 0 &amp;&amp; zeros == 2) {</span>
-<span class="source-line-no">4815</span><span id="line-4815">                    break;</span>
-<span class="source-line-no">4816</span><span id="line-4816">                }</span>
-<span class="source-line-no">4817</span><span id="line-4817">                switch (type) {</span>
-<span class="source-line-no">4818</span><span id="line-4818">                    case PathIterator.SEG_MOVETO:</span>
-<span class="source-line-no">4819</span><span id="line-4819">                        ptPoly = new Point2D.Double(coords[0], coords[1]);</span>
-<span class="source-line-no">4820</span><span id="line-4820">                        ptsPoly.add(ptPoly);</span>
-<span class="source-line-no">4821</span><span id="line-4821">                        zeros++;</span>
-<span class="source-line-no">4822</span><span id="line-4822">                        break;</span>
-<span class="source-line-no">4823</span><span id="line-4823">                    case PathIterator.SEG_LINETO:</span>
-<span class="source-line-no">4824</span><span id="line-4824">                        ptPoly = new Point2D.Double(coords[0], coords[1]);</span>
-<span class="source-line-no">4825</span><span id="line-4825">                        ptsPoly.add(ptPoly);</span>
-<span class="source-line-no">4826</span><span id="line-4826">                        break;</span>
-<span class="source-line-no">4827</span><span id="line-4827">                    case PathIterator.SEG_QUADTO: //quadTo was never used</span>
-<span class="source-line-no">4828</span><span id="line-4828">                        break;</span>
-<span class="source-line-no">4829</span><span id="line-4829">                    case PathIterator.SEG_CUBICTO:  //curveTo was used for some METOC's</span>
-<span class="source-line-no">4830</span><span id="line-4830">                        break;</span>
-<span class="source-line-no">4831</span><span id="line-4831">                    case PathIterator.SEG_CLOSE:    //closePath was never used</span>
-<span class="source-line-no">4832</span><span id="line-4832">                        break;</span>
-<span class="source-line-no">4833</span><span id="line-4833">                }</span>
-<span class="source-line-no">4834</span><span id="line-4834">            }</span>
-<span class="source-line-no">4835</span><span id="line-4835">            if (ptsPoly.size() &gt; 0) {</span>
-<span class="source-line-no">4836</span><span id="line-4836">                ArrayList&lt;POINT2&gt; pts = null;</span>
-<span class="source-line-no">4837</span><span id="line-4837">                pts = new ArrayList();</span>
-<span class="source-line-no">4838</span><span id="line-4838">                for (int j = 0; j &lt; ptsPoly.size(); j++) {</span>
-<span class="source-line-no">4839</span><span id="line-4839">                    Point2D pt2d = ptsPoly.get(j);</span>
-<span class="source-line-no">4840</span><span id="line-4840">                    POINT2 pt = new POINT2(pt2d.getX(), pt2d.getY());</span>
-<span class="source-line-no">4841</span><span id="line-4841">                    pts.add(pt);</span>
-<span class="source-line-no">4842</span><span id="line-4842">                }</span>
-<span class="source-line-no">4843</span><span id="line-4843">                return pts;</span>
-<span class="source-line-no">4844</span><span id="line-4844">            }</span>
-<span class="source-line-no">4845</span><span id="line-4845">        } catch (Exception exc) {</span>
-<span class="source-line-no">4846</span><span id="line-4846">            ErrorLogger.LogException(_className, "getshapePoints",</span>
-<span class="source-line-no">4847</span><span id="line-4847">                    new RendererException("Failed inside getShapePoints", exc));</span>
-<span class="source-line-no">4848</span><span id="line-4848">        }</span>
-<span class="source-line-no">4849</span><span id="line-4849">        return null;</span>
-<span class="source-line-no">4850</span><span id="line-4850">    }</span>
-<span class="source-line-no">4851</span><span id="line-4851"></span>
-<span class="source-line-no">4852</span><span id="line-4852">    private static Bitmap getImageModifier(TGLight tg) {</span>
-<span class="source-line-no">4853</span><span id="line-4853">        String symbolID = tg.get_SymbolId();</span>
-<span class="source-line-no">4854</span><span id="line-4854">        ImageInfo symbol = null;</span>
-<span class="source-line-no">4855</span><span id="line-4855">        Map&lt;String,String&gt; mods = new HashMap&lt;&gt;();</span>
-<span class="source-line-no">4856</span><span id="line-4856">        Map&lt;String,String&gt; sa = new HashMap&lt;&gt;();</span>
-<span class="source-line-no">4857</span><span id="line-4857">        sa.put(MilStdAttributes.PixelSize, String.valueOf(tg.get_IconSize()));</span>
-<span class="source-line-no">4858</span><span id="line-4858">        int contaminationCode = EntityCode.getSymbolForContaminationArea(SymbolID.getEntityCode(symbolID));</span>
-<span class="source-line-no">4859</span><span id="line-4859">        int modifier1Code = SymbolID.getModifier1(symbolID);</span>
-<span class="source-line-no">4860</span><span id="line-4860">        int lineType = GetLinetypeFromString(symbolID);</span>
-<span class="source-line-no">4861</span><span id="line-4861">        if (contaminationCode &gt; 0) {</span>
-<span class="source-line-no">4862</span><span id="line-4862">            sa.put(MilStdAttributes.OutlineSymbol, "true");</span>
-<span class="source-line-no">4863</span><span id="line-4863">            sa.put(MilStdAttributes.FillColor, RendererUtilities.colorToHexString(tg.get_FillColor(), true));</span>
-<span class="source-line-no">4864</span><span id="line-4864">            sa.put(MilStdAttributes.LineColor, RendererUtilities.colorToHexString(tg.get_LineColor(), true));</span>
-<span class="source-line-no">4865</span><span id="line-4865">            String contaminationSP = SymbolID.setEntityCode(symbolID, contaminationCode);</span>
-<span class="source-line-no">4866</span><span id="line-4866">            contaminationSP = SymbolID.setHQTFD(contaminationSP, 0); // Remove dummy modifier if necessary</span>
-<span class="source-line-no">4867</span><span id="line-4867">            symbol = SinglePointRenderer.getInstance().RenderSP(contaminationSP, mods, sa);</span>
-<span class="source-line-no">4868</span><span id="line-4868">        } else if (lineType == TacticalLines.DEPICT || lineType == TacticalLines.MINED || lineType == TacticalLines.FENCED || lineType == TacticalLines.MINE_LINE) {</span>
-<span class="source-line-no">4869</span><span id="line-4869">            if (modifier1Code &lt; 13 || modifier1Code &gt; 50) {</span>
-<span class="source-line-no">4870</span><span id="line-4870">                // Invalid mine type</span>
-<span class="source-line-no">4871</span><span id="line-4871">                modifier1Code = 13;//unspecified mine (default value if not specified as per MilStd 2525)</span>
-<span class="source-line-no">4872</span><span id="line-4872">                symbolID = SymbolID.setModifier1(symbolID, modifier1Code);</span>
-<span class="source-line-no">4873</span><span id="line-4873">            }</span>
-<span class="source-line-no">4874</span><span id="line-4874">            if (tg.get_KeepUnitRation()) {</span>
-<span class="source-line-no">4875</span><span id="line-4875">                sa.put(MilStdAttributes.PixelSize, String.valueOf((int) (tg.get_IconSize() * 1.5)));</span>
-<span class="source-line-no">4876</span><span id="line-4876">            }</span>
-<span class="source-line-no">4877</span><span id="line-4877">            sa.put(MilStdAttributes.OutlineSymbol, "true");</span>
-<span class="source-line-no">4878</span><span id="line-4878">            symbol = SinglePointRenderer.getInstance().RenderModifier(symbolID, sa);</span>
-<span class="source-line-no">4879</span><span id="line-4879">        } else if (lineType == TacticalLines.LAA &amp;&amp; modifier1Code &gt; 0) {</span>
-<span class="source-line-no">4880</span><span id="line-4880">            sa.put(MilStdAttributes.OutlineSymbol, "true");</span>
-<span class="source-line-no">4881</span><span id="line-4881">            sa.put(MilStdAttributes.FillColor, RendererUtilities.colorToHexString(tg.get_FillColor(), true));</span>
-<span class="source-line-no">4882</span><span id="line-4882">            sa.put(MilStdAttributes.LineColor, RendererUtilities.colorToHexString(tg.get_LineColor(), true));</span>
-<span class="source-line-no">4883</span><span id="line-4883">            if (tg.get_KeepUnitRation()) {</span>
-<span class="source-line-no">4884</span><span id="line-4884">                sa.put(MilStdAttributes.PixelSize, String.valueOf((int) (tg.get_IconSize() * 1.5)));</span>
-<span class="source-line-no">4885</span><span id="line-4885">            }</span>
-<span class="source-line-no">4886</span><span id="line-4886">            symbol = SinglePointRenderer.getInstance().RenderModifier(symbolID, sa);</span>
-<span class="source-line-no">4887</span><span id="line-4887">        }</span>
-<span class="source-line-no">4888</span><span id="line-4888">        else if (lineType == TacticalLines.DECISION_LINE) {</span>
-<span class="source-line-no">4889</span><span id="line-4889"></span>
-<span class="source-line-no">4890</span><span id="line-4890">            sa.put(MilStdAttributes.PixelSize, String.valueOf((int) (tg.get_IconSize() * 1.5)));</span>
-<span class="source-line-no">4891</span><span id="line-4891">            sa.put(MilStdAttributes.KeepUnitRatio, String.valueOf((tg.get_KeepUnitRation())));</span>
-<span class="source-line-no">4892</span><span id="line-4892">            sa.put(MilStdAttributes.FillColor, RendererUtilities.colorToHexString(tg.get_FillColor(), true));</span>
-<span class="source-line-no">4893</span><span id="line-4893">            sa.put(MilStdAttributes.LineColor, RendererUtilities.colorToHexString(tg.get_LineColor(), true));</span>
-<span class="source-line-no">4894</span><span id="line-4894">            sa.put(MilStdAttributes.OutlineSymbol, "false");</span>
-<span class="source-line-no">4895</span><span id="line-4895">            mods.put(Modifiers.T_UNIQUE_DESIGNATION_1, (tg.get_Name()));</span>
-<span class="source-line-no">4896</span><span id="line-4896"></span>
-<span class="source-line-no">4897</span><span id="line-4897">            String decisionPoint = SymbolID.setEntityCode(symbolID, EntityCode.EntityCode_Decision_Point);</span>
-<span class="source-line-no">4898</span><span id="line-4898">            symbol = SinglePointRenderer.getInstance().RenderSP(decisionPoint, mods, sa);</span>
-<span class="source-line-no">4899</span><span id="line-4899">        }</span>
-<span class="source-line-no">4900</span><span id="line-4900">        else if (lineType == TacticalLines.ANCHORAGE_LINE || lineType == TacticalLines.ANCHORAGE_AREA) {</span>
-<span class="source-line-no">4901</span><span id="line-4901">            sa.put(MilStdAttributes.OutlineSymbol, "false");</span>
-<span class="source-line-no">4902</span><span id="line-4902">            String anchorPoint = SymbolID.setEntityCode(symbolID, EntityCode.EntityCode_AnchoragePoint);</span>
-<span class="source-line-no">4903</span><span id="line-4903">            symbol = SinglePointRenderer.getInstance().RenderSP(anchorPoint, mods, sa);</span>
-<span class="source-line-no">4904</span><span id="line-4904">        }</span>
-<span class="source-line-no">4905</span><span id="line-4905"></span>
-<span class="source-line-no">4906</span><span id="line-4906">        if (symbol != null)</span>
-<span class="source-line-no">4907</span><span id="line-4907">            return symbol.getImage();</span>
-<span class="source-line-no">4908</span><span id="line-4908">        else</span>
-<span class="source-line-no">4909</span><span id="line-4909">            return null;</span>
-<span class="source-line-no">4910</span><span id="line-4910">    }</span>
-<span class="source-line-no">4911</span><span id="line-4911"></span>
-<span class="source-line-no">4912</span><span id="line-4912">    private static String removeDecimal(double doubleVal) {</span>
-<span class="source-line-no">4913</span><span id="line-4913">        return String.valueOf(Math.round(doubleVal));</span>
-<span class="source-line-no">4914</span><span id="line-4914">    }</span>
-<span class="source-line-no">4915</span><span id="line-4915"></span>
-<span class="source-line-no">4916</span><span id="line-4916">    private static String removeDecimal(String strDoubleVal) {</span>
-<span class="source-line-no">4917</span><span id="line-4917">        if (strDoubleVal.indexOf(" ") &gt; 0) // String contains unit</span>
-<span class="source-line-no">4918</span><span id="line-4918">            return removeDecimal(Double.parseDouble(strDoubleVal.substring(0, strDoubleVal.indexOf(" ")))) + strDoubleVal.substring(strDoubleVal.indexOf(" "));</span>
-<span class="source-line-no">4919</span><span id="line-4919">        else</span>
-<span class="source-line-no">4920</span><span id="line-4920">            return removeDecimal(Double.parseDouble(strDoubleVal));</span>
-<span class="source-line-no">4921</span><span id="line-4921">    }</span>
-<span class="source-line-no">4922</span><span id="line-4922">}</span>
+<span class="source-line-no">4799</span><span id="line-4799">     * Creates text outline as a shape</span>
+<span class="source-line-no">4800</span><span id="line-4800">     *</span>
+<span class="source-line-no">4801</span><span id="line-4801">     * @param originalText the original text</span>
+<span class="source-line-no">4802</span><span id="line-4802">     * @return text shape</span>
+<span class="source-line-no">4803</span><span id="line-4803">     */</span>
+<span class="source-line-no">4804</span><span id="line-4804">    public static Shape2 createTextOutline(Shape2 originalText) {</span>
+<span class="source-line-no">4805</span><span id="line-4805">        Shape2 siOutline = null;</span>
+<span class="source-line-no">4806</span><span id="line-4806">        try {</span>
+<span class="source-line-no">4807</span><span id="line-4807">            Shape outline = originalText.getShape();</span>
+<span class="source-line-no">4808</span><span id="line-4808"></span>
+<span class="source-line-no">4809</span><span id="line-4809">            siOutline = new Shape2(Shape2.SHAPE_TYPE_MODIFIER_FILL);</span>
+<span class="source-line-no">4810</span><span id="line-4810">            siOutline.setShape(outline);</span>
+<span class="source-line-no">4811</span><span id="line-4811"></span>
+<span class="source-line-no">4812</span><span id="line-4812">            if (originalText.getFillColor().getRed() == 255</span>
+<span class="source-line-no">4813</span><span id="line-4813">                    &amp;&amp; originalText.getFillColor().getGreen() == 255</span>
+<span class="source-line-no">4814</span><span id="line-4814">                    &amp;&amp; originalText.getFillColor().getBlue() == 255) {</span>
+<span class="source-line-no">4815</span><span id="line-4815">                siOutline.setLineColor(Color.BLACK);</span>
+<span class="source-line-no">4816</span><span id="line-4816">            } else {</span>
+<span class="source-line-no">4817</span><span id="line-4817">                siOutline.setLineColor(Color.WHITE);</span>
+<span class="source-line-no">4818</span><span id="line-4818">            }</span>
+<span class="source-line-no">4819</span><span id="line-4819"></span>
+<span class="source-line-no">4820</span><span id="line-4820">            int width = RendererSettings.getInstance().getTextOutlineWidth();</span>
+<span class="source-line-no">4821</span><span id="line-4821"></span>
+<span class="source-line-no">4822</span><span id="line-4822">            siOutline.setStroke(new BasicStroke(width, BasicStroke.CAP_ROUND,</span>
+<span class="source-line-no">4823</span><span id="line-4823">                    BasicStroke.JOIN_ROUND, 3));</span>
+<span class="source-line-no">4824</span><span id="line-4824"></span>
+<span class="source-line-no">4825</span><span id="line-4825">        } catch (Exception exc) {</span>
+<span class="source-line-no">4826</span><span id="line-4826">            ErrorLogger.LogException(_className, "createTextOutline",</span>
+<span class="source-line-no">4827</span><span id="line-4827">                    new RendererException("Failed inside createTextOutline", exc));</span>
+<span class="source-line-no">4828</span><span id="line-4828">        }</span>
+<span class="source-line-no">4829</span><span id="line-4829">        return siOutline;</span>
+<span class="source-line-no">4830</span><span id="line-4830">    }</span>
+<span class="source-line-no">4831</span><span id="line-4831"></span>
+<span class="source-line-no">4832</span><span id="line-4832">    /**</span>
+<span class="source-line-no">4833</span><span id="line-4833">     * Channels don't return points in tg.Pixels. For Channels modifiers we only</span>
+<span class="source-line-no">4834</span><span id="line-4834">     * need to collect the points, don't need internal arrays, and can calculate</span>
+<span class="source-line-no">4835</span><span id="line-4835">     * on which segments the modifiers lie.</span>
+<span class="source-line-no">4836</span><span id="line-4836">     *</span>
+<span class="source-line-no">4837</span><span id="line-4837">     * @param shape</span>
+<span class="source-line-no">4838</span><span id="line-4838">     * @return</span>
+<span class="source-line-no">4839</span><span id="line-4839">     */</span>
+<span class="source-line-no">4840</span><span id="line-4840">    private static ArrayList&lt;POINT2&gt; getShapePoints(Shape shape) {</span>
+<span class="source-line-no">4841</span><span id="line-4841">        try {</span>
+<span class="source-line-no">4842</span><span id="line-4842">            ArrayList&lt;Point2D&gt; ptsPoly = new ArrayList();</span>
+<span class="source-line-no">4843</span><span id="line-4843">            Point2D ptPoly = null;</span>
+<span class="source-line-no">4844</span><span id="line-4844">            double[] coords = new double[6];</span>
+<span class="source-line-no">4845</span><span id="line-4845">            int zeros = 0;</span>
+<span class="source-line-no">4846</span><span id="line-4846">            for (PathIterator i = shape.getPathIterator(null); !i.isDone(); i.next()) {</span>
+<span class="source-line-no">4847</span><span id="line-4847">                int type = i.currentSegment(coords);</span>
+<span class="source-line-no">4848</span><span id="line-4848">                if (type == 0 &amp;&amp; zeros == 2) {</span>
+<span class="source-line-no">4849</span><span id="line-4849">                    break;</span>
+<span class="source-line-no">4850</span><span id="line-4850">                }</span>
+<span class="source-line-no">4851</span><span id="line-4851">                switch (type) {</span>
+<span class="source-line-no">4852</span><span id="line-4852">                    case PathIterator.SEG_MOVETO:</span>
+<span class="source-line-no">4853</span><span id="line-4853">                        ptPoly = new Point2D.Double(coords[0], coords[1]);</span>
+<span class="source-line-no">4854</span><span id="line-4854">                        ptsPoly.add(ptPoly);</span>
+<span class="source-line-no">4855</span><span id="line-4855">                        zeros++;</span>
+<span class="source-line-no">4856</span><span id="line-4856">                        break;</span>
+<span class="source-line-no">4857</span><span id="line-4857">                    case PathIterator.SEG_LINETO:</span>
+<span class="source-line-no">4858</span><span id="line-4858">                        ptPoly = new Point2D.Double(coords[0], coords[1]);</span>
+<span class="source-line-no">4859</span><span id="line-4859">                        ptsPoly.add(ptPoly);</span>
+<span class="source-line-no">4860</span><span id="line-4860">                        break;</span>
+<span class="source-line-no">4861</span><span id="line-4861">                    case PathIterator.SEG_QUADTO: //quadTo was never used</span>
+<span class="source-line-no">4862</span><span id="line-4862">                        break;</span>
+<span class="source-line-no">4863</span><span id="line-4863">                    case PathIterator.SEG_CUBICTO:  //curveTo was used for some METOC's</span>
+<span class="source-line-no">4864</span><span id="line-4864">                        break;</span>
+<span class="source-line-no">4865</span><span id="line-4865">                    case PathIterator.SEG_CLOSE:    //closePath was never used</span>
+<span class="source-line-no">4866</span><span id="line-4866">                        break;</span>
+<span class="source-line-no">4867</span><span id="line-4867">                }</span>
+<span class="source-line-no">4868</span><span id="line-4868">            }</span>
+<span class="source-line-no">4869</span><span id="line-4869">            if (ptsPoly.size() &gt; 0) {</span>
+<span class="source-line-no">4870</span><span id="line-4870">                ArrayList&lt;POINT2&gt; pts = null;</span>
+<span class="source-line-no">4871</span><span id="line-4871">                pts = new ArrayList();</span>
+<span class="source-line-no">4872</span><span id="line-4872">                for (int j = 0; j &lt; ptsPoly.size(); j++) {</span>
+<span class="source-line-no">4873</span><span id="line-4873">                    Point2D pt2d = ptsPoly.get(j);</span>
+<span class="source-line-no">4874</span><span id="line-4874">                    POINT2 pt = new POINT2(pt2d.getX(), pt2d.getY());</span>
+<span class="source-line-no">4875</span><span id="line-4875">                    pts.add(pt);</span>
+<span class="source-line-no">4876</span><span id="line-4876">                }</span>
+<span class="source-line-no">4877</span><span id="line-4877">                return pts;</span>
+<span class="source-line-no">4878</span><span id="line-4878">            }</span>
+<span class="source-line-no">4879</span><span id="line-4879">        } catch (Exception exc) {</span>
+<span class="source-line-no">4880</span><span id="line-4880">            ErrorLogger.LogException(_className, "getshapePoints",</span>
+<span class="source-line-no">4881</span><span id="line-4881">                    new RendererException("Failed inside getShapePoints", exc));</span>
+<span class="source-line-no">4882</span><span id="line-4882">        }</span>
+<span class="source-line-no">4883</span><span id="line-4883">        return null;</span>
+<span class="source-line-no">4884</span><span id="line-4884">    }</span>
+<span class="source-line-no">4885</span><span id="line-4885"></span>
+<span class="source-line-no">4886</span><span id="line-4886">    private static Bitmap getImageModifier(TGLight tg) {</span>
+<span class="source-line-no">4887</span><span id="line-4887">        String symbolID = tg.get_SymbolId();</span>
+<span class="source-line-no">4888</span><span id="line-4888">        ImageInfo symbol = null;</span>
+<span class="source-line-no">4889</span><span id="line-4889">        Map&lt;String,String&gt; mods = new HashMap&lt;&gt;();</span>
+<span class="source-line-no">4890</span><span id="line-4890">        Map&lt;String,String&gt; sa = new HashMap&lt;&gt;();</span>
+<span class="source-line-no">4891</span><span id="line-4891">        sa.put(MilStdAttributes.PixelSize, String.valueOf(tg.get_IconSize()));</span>
+<span class="source-line-no">4892</span><span id="line-4892">        int contaminationCode = EntityCode.getSymbolForContaminationArea(SymbolID.getEntityCode(symbolID));</span>
+<span class="source-line-no">4893</span><span id="line-4893">        int modifier1Code = SymbolID.getModifier1(symbolID);</span>
+<span class="source-line-no">4894</span><span id="line-4894">        int lineType = GetLinetypeFromString(symbolID);</span>
+<span class="source-line-no">4895</span><span id="line-4895">        if (contaminationCode &gt; 0) {</span>
+<span class="source-line-no">4896</span><span id="line-4896">            sa.put(MilStdAttributes.OutlineSymbol, "true");</span>
+<span class="source-line-no">4897</span><span id="line-4897">            sa.put(MilStdAttributes.FillColor, RendererUtilities.colorToHexString(tg.get_FillColor(), true));</span>
+<span class="source-line-no">4898</span><span id="line-4898">            sa.put(MilStdAttributes.LineColor, RendererUtilities.colorToHexString(tg.get_LineColor(), true));</span>
+<span class="source-line-no">4899</span><span id="line-4899">            String contaminationSP = SymbolID.setEntityCode(symbolID, contaminationCode);</span>
+<span class="source-line-no">4900</span><span id="line-4900">            contaminationSP = SymbolID.setHQTFD(contaminationSP, 0); // Remove dummy modifier if necessary</span>
+<span class="source-line-no">4901</span><span id="line-4901">            symbol = SinglePointRenderer.getInstance().RenderSP(contaminationSP, mods, sa);</span>
+<span class="source-line-no">4902</span><span id="line-4902">        } else if (lineType == TacticalLines.DEPICT || lineType == TacticalLines.MINED || lineType == TacticalLines.FENCED || lineType == TacticalLines.MINE_LINE) {</span>
+<span class="source-line-no">4903</span><span id="line-4903">            if (modifier1Code &lt; 13 || modifier1Code &gt; 50) {</span>
+<span class="source-line-no">4904</span><span id="line-4904">                // Invalid mine type</span>
+<span class="source-line-no">4905</span><span id="line-4905">                modifier1Code = 13;//unspecified mine (default value if not specified as per MilStd 2525)</span>
+<span class="source-line-no">4906</span><span id="line-4906">                symbolID = SymbolID.setModifier1(symbolID, modifier1Code);</span>
+<span class="source-line-no">4907</span><span id="line-4907">            }</span>
+<span class="source-line-no">4908</span><span id="line-4908">            if (tg.get_KeepUnitRation()) {</span>
+<span class="source-line-no">4909</span><span id="line-4909">                sa.put(MilStdAttributes.PixelSize, String.valueOf((int) (tg.get_IconSize() * 1.5)));</span>
+<span class="source-line-no">4910</span><span id="line-4910">            }</span>
+<span class="source-line-no">4911</span><span id="line-4911">            sa.put(MilStdAttributes.OutlineSymbol, "true");</span>
+<span class="source-line-no">4912</span><span id="line-4912">            symbol = SinglePointRenderer.getInstance().RenderModifier(symbolID, sa);</span>
+<span class="source-line-no">4913</span><span id="line-4913">        } else if (lineType == TacticalLines.LAA &amp;&amp; modifier1Code &gt; 0) {</span>
+<span class="source-line-no">4914</span><span id="line-4914">            sa.put(MilStdAttributes.OutlineSymbol, "true");</span>
+<span class="source-line-no">4915</span><span id="line-4915">            sa.put(MilStdAttributes.FillColor, RendererUtilities.colorToHexString(tg.get_FillColor(), true));</span>
+<span class="source-line-no">4916</span><span id="line-4916">            sa.put(MilStdAttributes.LineColor, RendererUtilities.colorToHexString(tg.get_LineColor(), true));</span>
+<span class="source-line-no">4917</span><span id="line-4917">            if (tg.get_KeepUnitRation()) {</span>
+<span class="source-line-no">4918</span><span id="line-4918">                sa.put(MilStdAttributes.PixelSize, String.valueOf((int) (tg.get_IconSize() * 1.5)));</span>
+<span class="source-line-no">4919</span><span id="line-4919">            }</span>
+<span class="source-line-no">4920</span><span id="line-4920">            symbol = SinglePointRenderer.getInstance().RenderModifier(symbolID, sa);</span>
+<span class="source-line-no">4921</span><span id="line-4921">        }</span>
+<span class="source-line-no">4922</span><span id="line-4922">        else if (lineType == TacticalLines.DECISION_LINE) {</span>
+<span class="source-line-no">4923</span><span id="line-4923"></span>
+<span class="source-line-no">4924</span><span id="line-4924">            sa.put(MilStdAttributes.PixelSize, String.valueOf((int) (tg.get_IconSize() * 1.5)));</span>
+<span class="source-line-no">4925</span><span id="line-4925">            sa.put(MilStdAttributes.KeepUnitRatio, String.valueOf((tg.get_KeepUnitRation())));</span>
+<span class="source-line-no">4926</span><span id="line-4926">            sa.put(MilStdAttributes.FillColor, RendererUtilities.colorToHexString(tg.get_FillColor(), true));</span>
+<span class="source-line-no">4927</span><span id="line-4927">            sa.put(MilStdAttributes.LineColor, RendererUtilities.colorToHexString(tg.get_LineColor(), true));</span>
+<span class="source-line-no">4928</span><span id="line-4928">            sa.put(MilStdAttributes.OutlineSymbol, "false");</span>
+<span class="source-line-no">4929</span><span id="line-4929">            mods.put(Modifiers.T_UNIQUE_DESIGNATION_1, (tg.get_Name()));</span>
+<span class="source-line-no">4930</span><span id="line-4930"></span>
+<span class="source-line-no">4931</span><span id="line-4931">            String decisionPoint = SymbolID.setEntityCode(symbolID, EntityCode.EntityCode_Decision_Point);</span>
+<span class="source-line-no">4932</span><span id="line-4932">            symbol = SinglePointRenderer.getInstance().RenderSP(decisionPoint, mods, sa);</span>
+<span class="source-line-no">4933</span><span id="line-4933">        }</span>
+<span class="source-line-no">4934</span><span id="line-4934">        else if (lineType == TacticalLines.ANCHORAGE_LINE || lineType == TacticalLines.ANCHORAGE_AREA) {</span>
+<span class="source-line-no">4935</span><span id="line-4935">            sa.put(MilStdAttributes.OutlineSymbol, "false");</span>
+<span class="source-line-no">4936</span><span id="line-4936">            String anchorPoint = SymbolID.setEntityCode(symbolID, EntityCode.EntityCode_AnchoragePoint);</span>
+<span class="source-line-no">4937</span><span id="line-4937">            symbol = SinglePointRenderer.getInstance().RenderSP(anchorPoint, mods, sa);</span>
+<span class="source-line-no">4938</span><span id="line-4938">        }</span>
+<span class="source-line-no">4939</span><span id="line-4939"></span>
+<span class="source-line-no">4940</span><span id="line-4940">        if (symbol != null)</span>
+<span class="source-line-no">4941</span><span id="line-4941">            return symbol.getImage();</span>
+<span class="source-line-no">4942</span><span id="line-4942">        else</span>
+<span class="source-line-no">4943</span><span id="line-4943">            return null;</span>
+<span class="source-line-no">4944</span><span id="line-4944">    }</span>
+<span class="source-line-no">4945</span><span id="line-4945"></span>
+<span class="source-line-no">4946</span><span id="line-4946">    private static String removeDecimal(double doubleVal) {</span>
+<span class="source-line-no">4947</span><span id="line-4947">        return String.valueOf(Math.round(doubleVal));</span>
+<span class="source-line-no">4948</span><span id="line-4948">    }</span>
+<span class="source-line-no">4949</span><span id="line-4949"></span>
+<span class="source-line-no">4950</span><span id="line-4950">    private static String removeDecimal(String strDoubleVal) {</span>
+<span class="source-line-no">4951</span><span id="line-4951">        if (strDoubleVal.indexOf(" ") &gt; 0) // String contains unit</span>
+<span class="source-line-no">4952</span><span id="line-4952">            return removeDecimal(Double.parseDouble(strDoubleVal.substring(0, strDoubleVal.indexOf(" ")))) + strDoubleVal.substring(strDoubleVal.indexOf(" "));</span>
+<span class="source-line-no">4953</span><span id="line-4953">        else</span>
+<span class="source-line-no">4954</span><span id="line-4954">            return removeDecimal(Double.parseDouble(strDoubleVal));</span>
+<span class="source-line-no">4955</span><span id="line-4955">    }</span>
+<span class="source-line-no">4956</span><span id="line-4956">}</span>
 
 
 

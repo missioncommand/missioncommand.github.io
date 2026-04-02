@@ -721,7 +721,7 @@
 <span class="source-line-no">708</span><span id="line-708">    public static boolean isActionPoint(String symbolID)</span>
 <span class="source-line-no">709</span><span id="line-709">    {</span>
 <span class="source-line-no">710</span><span id="line-710">        MSInfo msi = MSLookup.getInstance().getMSLInfo(symbolID);</span>
-<span class="source-line-no">711</span><span id="line-711">        if(msi.getDrawRule()==DrawRules.POINT1)</span>
+<span class="source-line-no">711</span><span id="line-711">        if(msi != null &amp;&amp; msi.getDrawRule()==DrawRules.POINT1)</span>
 <span class="source-line-no">712</span><span id="line-712">        {</span>
 <span class="source-line-no">713</span><span id="line-713">            int ec = SymbolID.getEntityCode(symbolID);</span>
 <span class="source-line-no">714</span><span id="line-714">            if(ec != 131300 &amp;&amp; ec != 131301 &amp;&amp; ec != 182600 &amp;&amp; ec != 212800</span>
