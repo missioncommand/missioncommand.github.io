@@ -43,7 +43,7 @@ var e.data = {};
 
 
 //importScripts('dist/C5RenDebug.js');
-importScripts('dist/C5Ren.js');
+importScripts('dist/C5Ren.umd.js');
 
 let path = "/js-samples/dist/";
 //let path = self.location;
