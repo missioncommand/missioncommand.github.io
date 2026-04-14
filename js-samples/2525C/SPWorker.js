@@ -36,7 +36,7 @@ var e.data = {};
 
 
 
-importScripts('sv-c.js');
+importScripts('sv-c.min.js');
 
 
 	armyc2.c2sd.renderer.utilities.ErrorLogger = {};

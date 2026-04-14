@@ -59,7 +59,7 @@ var e.data = {};
 
 
 //GeoCanvas doesn't work in a web worker due to its need for the DOM.
-importScripts('m-c.js');//for strictly KML, GeoJSON and SVG(with hatch line and metoc fills, but no symbol fills)
+importScripts('m-c.min.js');//for strictly KML, GeoJSON and SVG(with hatch line and metoc fills, but no symbol fills)
 //importScripts('svm-bc.js');//for strictly KML, GeoJSON and SVG(with hatch line and metoc fills, and symbol fills)
 
 var rendererMP = sec.web.renderer.SECWebRenderer;
