@@ -27,7 +27,7 @@
 <span class="source-line-no">014</span><span id="line-14">        </span>
 <span class="source-line-no">015</span><span id="line-15">        public static Rect makeRect(float x, float y, float w, float h)</span>
 <span class="source-line-no">016</span><span id="line-16">        {</span>
-<span class="source-line-no">017</span><span id="line-17">                return new Rect((int)x, (int)y, (int)(w+0.5f), (int)(h+0.5f));</span>
+<span class="source-line-no">017</span><span id="line-17">                return new Rect((int)x, (int)y, (int)(x + w + 0.5f), (int)(y + h + 0.5f));</span>
 <span class="source-line-no">018</span><span id="line-18">        }</span>
 <span class="source-line-no">019</span><span id="line-19">        </span>
 <span class="source-line-no">020</span><span id="line-20">        public static RectF makeRectF(float x, float y, float w, float h)</span>

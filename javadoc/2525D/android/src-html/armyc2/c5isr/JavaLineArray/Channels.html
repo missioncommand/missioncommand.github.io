@@ -2545,278 +2545,281 @@
 <span class="source-line-no">2532</span><span id="line-2532">                }//end switch</span>
 <span class="source-line-no">2533</span><span id="line-2533">            }   //end for</span>
 <span class="source-line-no">2534</span><span id="line-2534">            //a requirement was added to enable fill for the axis of advance line types</span>
-<span class="source-line-no">2535</span><span id="line-2535">            ArrayList&lt;Shape2&gt;fillShapes=getAXADFillShapes(vbiDrawThis, pLinePoints);</span>
-<span class="source-line-no">2536</span><span id="line-2536">            if(fillShapes != null &amp;&amp; fillShapes.size()&gt;0)</span>
-<span class="source-line-no">2537</span><span id="line-2537">                shapes.addAll(0,fillShapes);</span>
-<span class="source-line-no">2538</span><span id="line-2538"></span>
-<span class="source-line-no">2539</span><span id="line-2539">            //diagnostic</span>
-<span class="source-line-no">2540</span><span id="line-2540">            if(vbiDrawThis==TacticalLines.BBS_LINE)</span>
-<span class="source-line-no">2541</span><span id="line-2541">            {</span>
-<span class="source-line-no">2542</span><span id="line-2542">                //shapes.remove(1);</span>
-<span class="source-line-no">2543</span><span id="line-2543">                shape=new Shape2(Shape2.SHAPE_TYPE_POLYLINE);</span>
-<span class="source-line-no">2544</span><span id="line-2544">                shape.moveTo(pOriginalLinePoints[0]);</span>
-<span class="source-line-no">2545</span><span id="line-2545">                for(j=1;j&lt;pOriginalLinePoints.length;j++)</span>
-<span class="source-line-no">2546</span><span id="line-2546">                    shape.lineTo(pOriginalLinePoints[j]);</span>
-<span class="source-line-no">2547</span><span id="line-2547">                shapes.add(shape);</span>
-<span class="source-line-no">2548</span><span id="line-2548">            }</span>
-<span class="source-line-no">2549</span><span id="line-2549">            //end section</span>
-<span class="source-line-no">2550</span><span id="line-2550"></span>
-<span class="source-line-no">2551</span><span id="line-2551">            lResult=lResultCounter;</span>
-<span class="source-line-no">2552</span><span id="line-2552">            //FillPoints(pLinePoints,pLinePoints.length);</span>
-<span class="source-line-no">2553</span><span id="line-2553">            //clean up</span>
-<span class="source-line-no">2554</span><span id="line-2554">            pLinePoints = null;</span>
-<span class="source-line-no">2555</span><span id="line-2555">            pLowerLinePoints = null;</span>
-<span class="source-line-no">2556</span><span id="line-2556">            pUpperLinePoints = null;</span>
-<span class="source-line-no">2557</span><span id="line-2557">            pArrowLinePoints = null;</span>
-<span class="source-line-no">2558</span><span id="line-2558">            pUpperFlotPoints = null;</span>
-<span class="source-line-no">2559</span><span id="line-2559">            arrowPts = null;</span>
-<span class="source-line-no">2560</span><span id="line-2560">            XPoints = null;</span>
-<span class="source-line-no">2561</span><span id="line-2561">            pEllipsePoints2 = null;</span>
-<span class="source-line-no">2562</span><span id="line-2562">            pOriginalLinePoints = null;</span>
-<span class="source-line-no">2563</span><span id="line-2563">            pOriginalLinePoints2 = null;</span>
-<span class="source-line-no">2564</span><span id="line-2564">        }</span>
-<span class="source-line-no">2565</span><span id="line-2565">        catch (Exception exc) {</span>
-<span class="source-line-no">2566</span><span id="line-2566">            ErrorLogger.LogException(_className ,"GetChannel1Double",</span>
-<span class="source-line-no">2567</span><span id="line-2567">                    new RendererException("Failed inside GetChannel1Double " + Integer.toString(tg.get_LineType()), exc));</span>
-<span class="source-line-no">2568</span><span id="line-2568">        }</span>
-<span class="source-line-no">2569</span><span id="line-2569">        return lResult;</span>
-<span class="source-line-no">2570</span><span id="line-2570">    }</span>
-<span class="source-line-no">2571</span><span id="line-2571">    /**</span>
-<span class="source-line-no">2572</span><span id="line-2572">     * They decided that axis of advance must enable fill</span>
-<span class="source-line-no">2573</span><span id="line-2573">     * @param lineType</span>
-<span class="source-line-no">2574</span><span id="line-2574">     * @param pLinePoints</span>
-<span class="source-line-no">2575</span><span id="line-2575">     * @return</span>
-<span class="source-line-no">2576</span><span id="line-2576">     */</span>
-<span class="source-line-no">2577</span><span id="line-2577">    private static ArrayList&lt;Shape2&gt; getAXADFillShapes(int lineType, POINT2[]pLinePoints)</span>
-<span class="source-line-no">2578</span><span id="line-2578">    {</span>
-<span class="source-line-no">2579</span><span id="line-2579">        ArrayList&lt;Shape2&gt;shapes=null;</span>
-<span class="source-line-no">2580</span><span id="line-2580">        try</span>
-<span class="source-line-no">2581</span><span id="line-2581">        {</span>
-<span class="source-line-no">2582</span><span id="line-2582">            ArrayList&lt;POINT2&gt;newPts=new ArrayList();</span>
-<span class="source-line-no">2583</span><span id="line-2583">            int j=0;</span>
-<span class="source-line-no">2584</span><span id="line-2584">            Shape2 shape=null;</span>
-<span class="source-line-no">2585</span><span id="line-2585">            int n=pLinePoints.length;</span>
-<span class="source-line-no">2586</span><span id="line-2586">            switch(lineType)</span>
-<span class="source-line-no">2587</span><span id="line-2587">            {</span>
-<span class="source-line-no">2588</span><span id="line-2588">                case TacticalLines.BBS_LINE:</span>
-<span class="source-line-no">2589</span><span id="line-2589">                    shape=new Shape2(Shape2.SHAPE_TYPE_FILL);</span>
-<span class="source-line-no">2590</span><span id="line-2590">                    shape.moveTo(pLinePoints[0]);</span>
-<span class="source-line-no">2591</span><span id="line-2591">                    //for(j=1;j&lt;pLinePoints.length;j++)</span>
-<span class="source-line-no">2592</span><span id="line-2592">                    for(j=1;j&lt;n;j++)</span>
-<span class="source-line-no">2593</span><span id="line-2593">                    {</span>
-<span class="source-line-no">2594</span><span id="line-2594">                        shape.lineTo(pLinePoints[j]);</span>
-<span class="source-line-no">2595</span><span id="line-2595">                    }</span>
-<span class="source-line-no">2596</span><span id="line-2596">                    break;</span>
-<span class="source-line-no">2597</span><span id="line-2597">                case TacticalLines.CHANNEL:</span>
-<span class="source-line-no">2598</span><span id="line-2598">                case TacticalLines.CHANNEL_FLARED:</span>
-<span class="source-line-no">2599</span><span id="line-2599">                case TacticalLines.CHANNEL_DASHED:</span>
-<span class="source-line-no">2600</span><span id="line-2600">                    for(j=0;j&lt;n/2;j++)</span>
-<span class="source-line-no">2601</span><span id="line-2601">                    {</span>
-<span class="source-line-no">2602</span><span id="line-2602">                        newPts.add(pLinePoints[j]);</span>
-<span class="source-line-no">2603</span><span id="line-2603">                    }</span>
-<span class="source-line-no">2604</span><span id="line-2604">                    for(j=n-1;j&gt;=n/2;j--)</span>
-<span class="source-line-no">2605</span><span id="line-2605">                    {</span>
-<span class="source-line-no">2606</span><span id="line-2606">                        newPts.add(pLinePoints[j]);</span>
-<span class="source-line-no">2607</span><span id="line-2607">                    }</span>
-<span class="source-line-no">2608</span><span id="line-2608">                    shape=new Shape2(Shape2.SHAPE_TYPE_FILL);</span>
-<span class="source-line-no">2609</span><span id="line-2609">                    shape.moveTo(newPts.get(0));</span>
-<span class="source-line-no">2610</span><span id="line-2610">                    int t=newPts.size();</span>
-<span class="source-line-no">2611</span><span id="line-2611">                    //for(j=1;j&lt;newPts.size();j++)</span>
-<span class="source-line-no">2612</span><span id="line-2612">                    for(j=1;j&lt;t;j++)</span>
-<span class="source-line-no">2613</span><span id="line-2613">                    {</span>
-<span class="source-line-no">2614</span><span id="line-2614">                        shape.lineTo(newPts.get(j));</span>
-<span class="source-line-no">2615</span><span id="line-2615">                    }</span>
-<span class="source-line-no">2616</span><span id="line-2616">                    break;</span>
-<span class="source-line-no">2617</span><span id="line-2617">                case TacticalLines.AIRAOA:</span>
-<span class="source-line-no">2618</span><span id="line-2618">                case TacticalLines.SPT:</span>
-<span class="source-line-no">2619</span><span id="line-2619">                case TacticalLines.CATK:</span>
-<span class="source-line-no">2620</span><span id="line-2620">                case TacticalLines.SPT_STRAIGHT:</span>
-<span class="source-line-no">2621</span><span id="line-2621">                    //add the upper (lower) channel points</span>
-<span class="source-line-no">2622</span><span id="line-2622">                    //for(j=0;j&lt;(pLinePoints.length-8)/2;j++)</span>
-<span class="source-line-no">2623</span><span id="line-2623">                    for(j=0;j&lt;(n-8)/2;j++)</span>
-<span class="source-line-no">2624</span><span id="line-2624">                    {</span>
-<span class="source-line-no">2625</span><span id="line-2625">                        newPts.add(pLinePoints[j]);</span>
-<span class="source-line-no">2626</span><span id="line-2626">                    }</span>
-<span class="source-line-no">2627</span><span id="line-2627">                    //add the arrow outline</span>
-<span class="source-line-no">2628</span><span id="line-2628">                    newPts.add(pLinePoints[n-6]);</span>
-<span class="source-line-no">2629</span><span id="line-2629">                    newPts.add(pLinePoints[n-7]);</span>
-<span class="source-line-no">2630</span><span id="line-2630">                    newPts.add(pLinePoints[n-8]);</span>
-<span class="source-line-no">2631</span><span id="line-2631">                    newPts.add(pLinePoints[n-3]);</span>
-<span class="source-line-no">2632</span><span id="line-2632">                    newPts.add(pLinePoints[n-4]);</span>
-<span class="source-line-no">2633</span><span id="line-2633">                    //add the upper (lower) channel points</span>
-<span class="source-line-no">2634</span><span id="line-2634">                    for(j=n-9;j&gt;=(n-8)/2;j--)</span>
-<span class="source-line-no">2635</span><span id="line-2635">                    {</span>
-<span class="source-line-no">2636</span><span id="line-2636">                        newPts.add(pLinePoints[j]);</span>
-<span class="source-line-no">2637</span><span id="line-2637">                    }</span>
-<span class="source-line-no">2638</span><span id="line-2638">                    //newPts.add(pLinePoints[0]);</span>
-<span class="source-line-no">2639</span><span id="line-2639">                    shape=new Shape2(Shape2.SHAPE_TYPE_FILL);</span>
-<span class="source-line-no">2640</span><span id="line-2640">                    //shape.moveTo(newPts.get(0).x,newPts.get(0).y);</span>
-<span class="source-line-no">2641</span><span id="line-2641">                    shape.moveTo(newPts.get(0));</span>
-<span class="source-line-no">2642</span><span id="line-2642">                    t=newPts.size();</span>
-<span class="source-line-no">2643</span><span id="line-2643">                    //for(j=1;j&lt;newPts.size();j++)</span>
-<span class="source-line-no">2644</span><span id="line-2644">                    for(j=1;j&lt;t;j++)</span>
-<span class="source-line-no">2645</span><span id="line-2645">                    {</span>
-<span class="source-line-no">2646</span><span id="line-2646">                        shape.lineTo(newPts.get(j));</span>
-<span class="source-line-no">2647</span><span id="line-2647">                    }</span>
-<span class="source-line-no">2648</span><span id="line-2648">                    break;</span>
-<span class="source-line-no">2649</span><span id="line-2649">                case TacticalLines.MAIN_STRAIGHT:</span>
-<span class="source-line-no">2650</span><span id="line-2650">                case TacticalLines.MAIN:</span>
-<span class="source-line-no">2651</span><span id="line-2651">                    //for(j=0;j&lt;(pLinePoints.length-8)/2;j++)</span>
-<span class="source-line-no">2652</span><span id="line-2652">                    for(j=0;j&lt;(n-8)/2;j++)</span>
-<span class="source-line-no">2653</span><span id="line-2653">                    {</span>
-<span class="source-line-no">2654</span><span id="line-2654">                        newPts.add(pLinePoints[j]);</span>
-<span class="source-line-no">2655</span><span id="line-2655">                    }</span>
-<span class="source-line-no">2656</span><span id="line-2656">                    //add the arrow outline</span>
-<span class="source-line-no">2657</span><span id="line-2657">                    newPts.add(pLinePoints[n-6]);</span>
-<span class="source-line-no">2658</span><span id="line-2658">                    newPts.add(pLinePoints[n-5]);</span>
-<span class="source-line-no">2659</span><span id="line-2659">                    for(j=n-9;j&gt;=(n-8)/2;j--)</span>
-<span class="source-line-no">2660</span><span id="line-2660">                    {</span>
-<span class="source-line-no">2661</span><span id="line-2661">                        newPts.add(pLinePoints[j]);</span>
-<span class="source-line-no">2662</span><span id="line-2662">                    }</span>
-<span class="source-line-no">2663</span><span id="line-2663">                    shape=new Shape2(Shape2.SHAPE_TYPE_FILL);</span>
-<span class="source-line-no">2664</span><span id="line-2664">                    shape.moveTo(newPts.get(0));</span>
-<span class="source-line-no">2665</span><span id="line-2665">                    t=newPts.size();</span>
-<span class="source-line-no">2666</span><span id="line-2666">                    //for(j=1;j&lt;newPts.size();j++)</span>
-<span class="source-line-no">2667</span><span id="line-2667">                    for(j=1;j&lt;t;j++)</span>
-<span class="source-line-no">2668</span><span id="line-2668">                    {</span>
-<span class="source-line-no">2669</span><span id="line-2669">                        shape.lineTo(newPts.get(j));</span>
-<span class="source-line-no">2670</span><span id="line-2670">                    }</span>
-<span class="source-line-no">2671</span><span id="line-2671">                    break;</span>
-<span class="source-line-no">2672</span><span id="line-2672">                case TacticalLines.AAAAA:</span>
-<span class="source-line-no">2673</span><span id="line-2673">                    //for(j=0;j&lt;(pLinePoints.length-19)/2;j++)</span>
-<span class="source-line-no">2674</span><span id="line-2674">                    for(j=0;j&lt;(n-19)/2;j++)</span>
-<span class="source-line-no">2675</span><span id="line-2675">                    {</span>
-<span class="source-line-no">2676</span><span id="line-2676">                        newPts.add(pLinePoints[j]);</span>
-<span class="source-line-no">2677</span><span id="line-2677">                    }</span>
-<span class="source-line-no">2678</span><span id="line-2678">                    //add the arrow outline</span>
-<span class="source-line-no">2679</span><span id="line-2679">                    newPts.add(pLinePoints[n-17]);</span>
-<span class="source-line-no">2680</span><span id="line-2680">                    newPts.add(pLinePoints[n-18]);</span>
-<span class="source-line-no">2681</span><span id="line-2681">                    newPts.add(pLinePoints[n-19]);</span>
-<span class="source-line-no">2682</span><span id="line-2682">                    newPts.add(pLinePoints[n-14]);</span>
-<span class="source-line-no">2683</span><span id="line-2683">                    newPts.add(pLinePoints[n-15]);</span>
-<span class="source-line-no">2684</span><span id="line-2684"></span>
-<span class="source-line-no">2685</span><span id="line-2685">                    for(j=n-20;j&gt;=(n-19)/2;j--)</span>
-<span class="source-line-no">2686</span><span id="line-2686">                    {</span>
-<span class="source-line-no">2687</span><span id="line-2687">                        newPts.add(pLinePoints[j]);</span>
-<span class="source-line-no">2688</span><span id="line-2688">                    }</span>
-<span class="source-line-no">2689</span><span id="line-2689">                    shape=new Shape2(Shape2.SHAPE_TYPE_FILL);</span>
-<span class="source-line-no">2690</span><span id="line-2690">                    shape.moveTo(newPts.get(0));</span>
-<span class="source-line-no">2691</span><span id="line-2691">                    t=newPts.size();</span>
-<span class="source-line-no">2692</span><span id="line-2692">                    //for(j=1;j&lt;newPts.size();j++)</span>
-<span class="source-line-no">2693</span><span id="line-2693">                    for(j=1;j&lt;t;j++)</span>
-<span class="source-line-no">2694</span><span id="line-2694">                    {</span>
-<span class="source-line-no">2695</span><span id="line-2695">                        shape.lineTo(newPts.get(j));</span>
-<span class="source-line-no">2696</span><span id="line-2696">                    }</span>
-<span class="source-line-no">2697</span><span id="line-2697">                    break;</span>
-<span class="source-line-no">2698</span><span id="line-2698">                case TacticalLines.FRONTAL_ATTACK:</span>
-<span class="source-line-no">2699</span><span id="line-2699">                case TacticalLines.TURNING_MOVEMENT:</span>
-<span class="source-line-no">2700</span><span id="line-2700">                    for(j=0;j&lt;(n-10)/2;j++)</span>
-<span class="source-line-no">2701</span><span id="line-2701">                    {</span>
-<span class="source-line-no">2702</span><span id="line-2702">                        newPts.add(pLinePoints[j]);</span>
-<span class="source-line-no">2703</span><span id="line-2703">                    }</span>
-<span class="source-line-no">2704</span><span id="line-2704">                    //add the arrow outline</span>
-<span class="source-line-no">2705</span><span id="line-2705">                    newPts.add(pLinePoints[n-8]);</span>
-<span class="source-line-no">2706</span><span id="line-2706">                    newPts.add(pLinePoints[n-9]);</span>
-<span class="source-line-no">2707</span><span id="line-2707">                    newPts.add(pLinePoints[n-10]);</span>
-<span class="source-line-no">2708</span><span id="line-2708">                    newPts.add(pLinePoints[n-5]);</span>
-<span class="source-line-no">2709</span><span id="line-2709">                    newPts.add(pLinePoints[n-6]);</span>
-<span class="source-line-no">2710</span><span id="line-2710"></span>
-<span class="source-line-no">2711</span><span id="line-2711">                    for(j=n-11;j&gt;=(n-10)/2;j--)</span>
-<span class="source-line-no">2712</span><span id="line-2712">                    {</span>
-<span class="source-line-no">2713</span><span id="line-2713">                        newPts.add(pLinePoints[j]);</span>
-<span class="source-line-no">2714</span><span id="line-2714">                    }</span>
-<span class="source-line-no">2715</span><span id="line-2715">                    shape=new Shape2(Shape2.SHAPE_TYPE_FILL);</span>
-<span class="source-line-no">2716</span><span id="line-2716">                    shape.moveTo(newPts.get(0));</span>
-<span class="source-line-no">2717</span><span id="line-2717">                    t=newPts.size();</span>
-<span class="source-line-no">2718</span><span id="line-2718">                    for(j=1;j&lt;t;j++)</span>
-<span class="source-line-no">2719</span><span id="line-2719">                    {</span>
-<span class="source-line-no">2720</span><span id="line-2720">                        shape.lineTo(newPts.get(j));</span>
-<span class="source-line-no">2721</span><span id="line-2721">                    }</span>
-<span class="source-line-no">2722</span><span id="line-2722">                    break;</span>
-<span class="source-line-no">2723</span><span id="line-2723">                case TacticalLines.MOVEMENT_TO_CONTACT:</span>
-<span class="source-line-no">2724</span><span id="line-2724">                    for(j=0;j&lt;(n-24)/2;j++)</span>
-<span class="source-line-no">2725</span><span id="line-2725">                    {</span>
-<span class="source-line-no">2726</span><span id="line-2726">                        newPts.add(pLinePoints[j]);</span>
-<span class="source-line-no">2727</span><span id="line-2727">                    }</span>
-<span class="source-line-no">2728</span><span id="line-2728">                    //add the arrow outline</span>
-<span class="source-line-no">2729</span><span id="line-2729">                    newPts.add(pLinePoints[n-22]);</span>
-<span class="source-line-no">2730</span><span id="line-2730">                    newPts.add(pLinePoints[n-23]);</span>
-<span class="source-line-no">2731</span><span id="line-2731">                    newPts.add(pLinePoints[n-24]);</span>
-<span class="source-line-no">2732</span><span id="line-2732">                    newPts.add(pLinePoints[n-19]);</span>
-<span class="source-line-no">2733</span><span id="line-2733">                    newPts.add(pLinePoints[n-20]);</span>
-<span class="source-line-no">2734</span><span id="line-2734"></span>
-<span class="source-line-no">2735</span><span id="line-2735">                    for(j=n-25;j&gt;=(n-24)/2;j--)</span>
-<span class="source-line-no">2736</span><span id="line-2736">                    {</span>
-<span class="source-line-no">2737</span><span id="line-2737">                        newPts.add(pLinePoints[j]);</span>
-<span class="source-line-no">2738</span><span id="line-2738">                    }</span>
-<span class="source-line-no">2739</span><span id="line-2739">                    shape=new Shape2(Shape2.SHAPE_TYPE_FILL);</span>
-<span class="source-line-no">2740</span><span id="line-2740">                    shape.moveTo(newPts.get(0));</span>
-<span class="source-line-no">2741</span><span id="line-2741">                    t=newPts.size();</span>
-<span class="source-line-no">2742</span><span id="line-2742">                    for(j=1;j&lt;t;j++)</span>
-<span class="source-line-no">2743</span><span id="line-2743">                    {</span>
-<span class="source-line-no">2744</span><span id="line-2744">                        shape.lineTo(newPts.get(j));</span>
-<span class="source-line-no">2745</span><span id="line-2745">                    }</span>
-<span class="source-line-no">2746</span><span id="line-2746">                    break;</span>
-<span class="source-line-no">2747</span><span id="line-2747">                case TacticalLines.CATKBYFIRE:</span>
-<span class="source-line-no">2748</span><span id="line-2748">                    //for(j=0;j&lt;(pLinePoints.length-17)/2;j++)</span>
-<span class="source-line-no">2749</span><span id="line-2749">                    for(j=0;j&lt;(n-17)/2;j++)</span>
-<span class="source-line-no">2750</span><span id="line-2750">                    {</span>
-<span class="source-line-no">2751</span><span id="line-2751">                        newPts.add(pLinePoints[j]);</span>
-<span class="source-line-no">2752</span><span id="line-2752">                    }</span>
-<span class="source-line-no">2753</span><span id="line-2753">                    //add the arrow outline</span>
-<span class="source-line-no">2754</span><span id="line-2754">                    newPts.add(pLinePoints[n-15]);</span>
-<span class="source-line-no">2755</span><span id="line-2755">                    newPts.add(pLinePoints[n-16]);</span>
-<span class="source-line-no">2756</span><span id="line-2756">                    newPts.add(pLinePoints[n-17]);</span>
-<span class="source-line-no">2757</span><span id="line-2757">                    newPts.add(pLinePoints[n-12]);</span>
-<span class="source-line-no">2758</span><span id="line-2758">                    newPts.add(pLinePoints[n-13]);</span>
-<span class="source-line-no">2759</span><span id="line-2759">                    for(j=n-18;j&gt;=(n-17)/2;j--)</span>
-<span class="source-line-no">2760</span><span id="line-2760">                    {</span>
-<span class="source-line-no">2761</span><span id="line-2761">                        newPts.add(pLinePoints[j]);</span>
-<span class="source-line-no">2762</span><span id="line-2762">                    }</span>
-<span class="source-line-no">2763</span><span id="line-2763">                    shape=new Shape2(Shape2.SHAPE_TYPE_FILL);</span>
-<span class="source-line-no">2764</span><span id="line-2764">                    shape.moveTo(newPts.get(0));</span>
-<span class="source-line-no">2765</span><span id="line-2765">                    t=newPts.size();</span>
-<span class="source-line-no">2766</span><span id="line-2766">                    //for(j=1;j&lt;newPts.size();j++)</span>
-<span class="source-line-no">2767</span><span id="line-2767">                    for(j=1;j&lt;t;j++)</span>
-<span class="source-line-no">2768</span><span id="line-2768">                    {</span>
-<span class="source-line-no">2769</span><span id="line-2769">                        shape.lineTo(newPts.get(j));</span>
-<span class="source-line-no">2770</span><span id="line-2770">                    }</span>
-<span class="source-line-no">2771</span><span id="line-2771">                    break;</span>
-<span class="source-line-no">2772</span><span id="line-2772">                default:</span>
-<span class="source-line-no">2773</span><span id="line-2773">                    break;</span>
-<span class="source-line-no">2774</span><span id="line-2774">            }</span>
-<span class="source-line-no">2775</span><span id="line-2775">            if(shape!=null)</span>
-<span class="source-line-no">2776</span><span id="line-2776">            {</span>
-<span class="source-line-no">2777</span><span id="line-2777">                shapes=new ArrayList();</span>
-<span class="source-line-no">2778</span><span id="line-2778">                shape.setLineColor(null);</span>
-<span class="source-line-no">2779</span><span id="line-2779">                shapes.add(shape);</span>
-<span class="source-line-no">2780</span><span id="line-2780">            }</span>
-<span class="source-line-no">2781</span><span id="line-2781">        }</span>
-<span class="source-line-no">2782</span><span id="line-2782">        catch (Exception exc) {</span>
-<span class="source-line-no">2783</span><span id="line-2783">            ErrorLogger.LogException(_className ,"getAXADfillShapes",</span>
-<span class="source-line-no">2784</span><span id="line-2784">                    new RendererException("Failed inside getAXADFillShapes", exc));</span>
-<span class="source-line-no">2785</span><span id="line-2785">        }</span>
-<span class="source-line-no">2786</span><span id="line-2786">        return shapes;</span>
-<span class="source-line-no">2787</span><span id="line-2787">    }</span>
-<span class="source-line-no">2788</span><span id="line-2788">    /*</span>
-<span class="source-line-no">2789</span><span id="line-2789">     * sets shape2 properties to those of shape1</span>
-<span class="source-line-no">2790</span><span id="line-2790">     * @param shape1</span>
-<span class="source-line-no">2791</span><span id="line-2791">     * @param shape2</span>
-<span class="source-line-no">2792</span><span id="line-2792">     */</span>
-<span class="source-line-no">2793</span><span id="line-2793">//    private static void SetShapeProperties(Shape2 shape1, Shape2 shape2)</span>
-<span class="source-line-no">2794</span><span id="line-2794">//    {</span>
-<span class="source-line-no">2795</span><span id="line-2795">//        try</span>
-<span class="source-line-no">2796</span><span id="line-2796">//        {</span>
-<span class="source-line-no">2797</span><span id="line-2797">//            shape2.setLineColor(shape1.getLineColor());</span>
-<span class="source-line-no">2798</span><span id="line-2798">//            shape2.setStroke(shape1.getStroke());</span>
-<span class="source-line-no">2799</span><span id="line-2799">//            shape2.setFillColor(shape1.getFillColor());</span>
-<span class="source-line-no">2800</span><span id="line-2800">//        }</span>
-<span class="source-line-no">2801</span><span id="line-2801">//        catch (Exception exc) {</span>
-<span class="source-line-no">2802</span><span id="line-2802">//            ErrorLogger.LogException(_className ,"GetChannel1Double",</span>
-<span class="source-line-no">2803</span><span id="line-2803">//                    new RendererException("Failed inside SetShapeProperties", exc));</span>
-<span class="source-line-no">2804</span><span id="line-2804">//        }</span>
-<span class="source-line-no">2805</span><span id="line-2805">//    }</span>
-<span class="source-line-no">2806</span><span id="line-2806">}</span>
+<span class="source-line-no">2535</span><span id="line-2535">            if(tg.get_FillColor() != null)//if there's a fill color, create fill shape</span>
+<span class="source-line-no">2536</span><span id="line-2536">            {</span>
+<span class="source-line-no">2537</span><span id="line-2537">                ArrayList&lt;Shape2&gt; fillShapes = getAXADFillShapes(vbiDrawThis, pLinePoints);</span>
+<span class="source-line-no">2538</span><span id="line-2538">                if (fillShapes != null &amp;&amp; !fillShapes.isEmpty())</span>
+<span class="source-line-no">2539</span><span id="line-2539">                    shapes.addAll(0, fillShapes);</span>
+<span class="source-line-no">2540</span><span id="line-2540">            }</span>
+<span class="source-line-no">2541</span><span id="line-2541"></span>
+<span class="source-line-no">2542</span><span id="line-2542">            //diagnostic</span>
+<span class="source-line-no">2543</span><span id="line-2543">            if(vbiDrawThis==TacticalLines.BBS_LINE)</span>
+<span class="source-line-no">2544</span><span id="line-2544">            {</span>
+<span class="source-line-no">2545</span><span id="line-2545">                //shapes.remove(1);</span>
+<span class="source-line-no">2546</span><span id="line-2546">                shape=new Shape2(Shape2.SHAPE_TYPE_POLYLINE);</span>
+<span class="source-line-no">2547</span><span id="line-2547">                shape.moveTo(pOriginalLinePoints[0]);</span>
+<span class="source-line-no">2548</span><span id="line-2548">                for(j=1;j&lt;pOriginalLinePoints.length;j++)</span>
+<span class="source-line-no">2549</span><span id="line-2549">                    shape.lineTo(pOriginalLinePoints[j]);</span>
+<span class="source-line-no">2550</span><span id="line-2550">                shapes.add(shape);</span>
+<span class="source-line-no">2551</span><span id="line-2551">            }</span>
+<span class="source-line-no">2552</span><span id="line-2552">            //end section</span>
+<span class="source-line-no">2553</span><span id="line-2553"></span>
+<span class="source-line-no">2554</span><span id="line-2554">            lResult=lResultCounter;</span>
+<span class="source-line-no">2555</span><span id="line-2555">            //FillPoints(pLinePoints,pLinePoints.length);</span>
+<span class="source-line-no">2556</span><span id="line-2556">            //clean up</span>
+<span class="source-line-no">2557</span><span id="line-2557">            pLinePoints = null;</span>
+<span class="source-line-no">2558</span><span id="line-2558">            pLowerLinePoints = null;</span>
+<span class="source-line-no">2559</span><span id="line-2559">            pUpperLinePoints = null;</span>
+<span class="source-line-no">2560</span><span id="line-2560">            pArrowLinePoints = null;</span>
+<span class="source-line-no">2561</span><span id="line-2561">            pUpperFlotPoints = null;</span>
+<span class="source-line-no">2562</span><span id="line-2562">            arrowPts = null;</span>
+<span class="source-line-no">2563</span><span id="line-2563">            XPoints = null;</span>
+<span class="source-line-no">2564</span><span id="line-2564">            pEllipsePoints2 = null;</span>
+<span class="source-line-no">2565</span><span id="line-2565">            pOriginalLinePoints = null;</span>
+<span class="source-line-no">2566</span><span id="line-2566">            pOriginalLinePoints2 = null;</span>
+<span class="source-line-no">2567</span><span id="line-2567">        }</span>
+<span class="source-line-no">2568</span><span id="line-2568">        catch (Exception exc) {</span>
+<span class="source-line-no">2569</span><span id="line-2569">            ErrorLogger.LogException(_className ,"GetChannel1Double",</span>
+<span class="source-line-no">2570</span><span id="line-2570">                    new RendererException("Failed inside GetChannel1Double " + Integer.toString(tg.get_LineType()), exc));</span>
+<span class="source-line-no">2571</span><span id="line-2571">        }</span>
+<span class="source-line-no">2572</span><span id="line-2572">        return lResult;</span>
+<span class="source-line-no">2573</span><span id="line-2573">    }</span>
+<span class="source-line-no">2574</span><span id="line-2574">    /**</span>
+<span class="source-line-no">2575</span><span id="line-2575">     * They decided that axis of advance must enable fill</span>
+<span class="source-line-no">2576</span><span id="line-2576">     * @param lineType</span>
+<span class="source-line-no">2577</span><span id="line-2577">     * @param pLinePoints</span>
+<span class="source-line-no">2578</span><span id="line-2578">     * @return</span>
+<span class="source-line-no">2579</span><span id="line-2579">     */</span>
+<span class="source-line-no">2580</span><span id="line-2580">    private static ArrayList&lt;Shape2&gt; getAXADFillShapes(int lineType, POINT2[]pLinePoints)</span>
+<span class="source-line-no">2581</span><span id="line-2581">    {</span>
+<span class="source-line-no">2582</span><span id="line-2582">        ArrayList&lt;Shape2&gt;shapes=null;</span>
+<span class="source-line-no">2583</span><span id="line-2583">        try</span>
+<span class="source-line-no">2584</span><span id="line-2584">        {</span>
+<span class="source-line-no">2585</span><span id="line-2585">            ArrayList&lt;POINT2&gt;newPts=new ArrayList();</span>
+<span class="source-line-no">2586</span><span id="line-2586">            int j=0;</span>
+<span class="source-line-no">2587</span><span id="line-2587">            Shape2 shape=null;</span>
+<span class="source-line-no">2588</span><span id="line-2588">            int n=pLinePoints.length;</span>
+<span class="source-line-no">2589</span><span id="line-2589">            switch(lineType)</span>
+<span class="source-line-no">2590</span><span id="line-2590">            {</span>
+<span class="source-line-no">2591</span><span id="line-2591">                case TacticalLines.BBS_LINE:</span>
+<span class="source-line-no">2592</span><span id="line-2592">                    shape=new Shape2(Shape2.SHAPE_TYPE_FILL);</span>
+<span class="source-line-no">2593</span><span id="line-2593">                    shape.moveTo(pLinePoints[0]);</span>
+<span class="source-line-no">2594</span><span id="line-2594">                    //for(j=1;j&lt;pLinePoints.length;j++)</span>
+<span class="source-line-no">2595</span><span id="line-2595">                    for(j=1;j&lt;n;j++)</span>
+<span class="source-line-no">2596</span><span id="line-2596">                    {</span>
+<span class="source-line-no">2597</span><span id="line-2597">                        shape.lineTo(pLinePoints[j]);</span>
+<span class="source-line-no">2598</span><span id="line-2598">                    }</span>
+<span class="source-line-no">2599</span><span id="line-2599">                    break;</span>
+<span class="source-line-no">2600</span><span id="line-2600">                case TacticalLines.CHANNEL:</span>
+<span class="source-line-no">2601</span><span id="line-2601">                case TacticalLines.CHANNEL_FLARED:</span>
+<span class="source-line-no">2602</span><span id="line-2602">                case TacticalLines.CHANNEL_DASHED:</span>
+<span class="source-line-no">2603</span><span id="line-2603">                    for(j=0;j&lt;n/2;j++)</span>
+<span class="source-line-no">2604</span><span id="line-2604">                    {</span>
+<span class="source-line-no">2605</span><span id="line-2605">                        newPts.add(pLinePoints[j]);</span>
+<span class="source-line-no">2606</span><span id="line-2606">                    }</span>
+<span class="source-line-no">2607</span><span id="line-2607">                    for(j=n-1;j&gt;=n/2;j--)</span>
+<span class="source-line-no">2608</span><span id="line-2608">                    {</span>
+<span class="source-line-no">2609</span><span id="line-2609">                        newPts.add(pLinePoints[j]);</span>
+<span class="source-line-no">2610</span><span id="line-2610">                    }</span>
+<span class="source-line-no">2611</span><span id="line-2611">                    shape=new Shape2(Shape2.SHAPE_TYPE_FILL);</span>
+<span class="source-line-no">2612</span><span id="line-2612">                    shape.moveTo(newPts.get(0));</span>
+<span class="source-line-no">2613</span><span id="line-2613">                    int t=newPts.size();</span>
+<span class="source-line-no">2614</span><span id="line-2614">                    //for(j=1;j&lt;newPts.size();j++)</span>
+<span class="source-line-no">2615</span><span id="line-2615">                    for(j=1;j&lt;t;j++)</span>
+<span class="source-line-no">2616</span><span id="line-2616">                    {</span>
+<span class="source-line-no">2617</span><span id="line-2617">                        shape.lineTo(newPts.get(j));</span>
+<span class="source-line-no">2618</span><span id="line-2618">                    }</span>
+<span class="source-line-no">2619</span><span id="line-2619">                    break;</span>
+<span class="source-line-no">2620</span><span id="line-2620">                case TacticalLines.AIRAOA:</span>
+<span class="source-line-no">2621</span><span id="line-2621">                case TacticalLines.SPT:</span>
+<span class="source-line-no">2622</span><span id="line-2622">                case TacticalLines.CATK:</span>
+<span class="source-line-no">2623</span><span id="line-2623">                case TacticalLines.SPT_STRAIGHT:</span>
+<span class="source-line-no">2624</span><span id="line-2624">                    //add the upper (lower) channel points</span>
+<span class="source-line-no">2625</span><span id="line-2625">                    //for(j=0;j&lt;(pLinePoints.length-8)/2;j++)</span>
+<span class="source-line-no">2626</span><span id="line-2626">                    for(j=0;j&lt;(n-8)/2;j++)</span>
+<span class="source-line-no">2627</span><span id="line-2627">                    {</span>
+<span class="source-line-no">2628</span><span id="line-2628">                        newPts.add(pLinePoints[j]);</span>
+<span class="source-line-no">2629</span><span id="line-2629">                    }</span>
+<span class="source-line-no">2630</span><span id="line-2630">                    //add the arrow outline</span>
+<span class="source-line-no">2631</span><span id="line-2631">                    newPts.add(pLinePoints[n-6]);</span>
+<span class="source-line-no">2632</span><span id="line-2632">                    newPts.add(pLinePoints[n-7]);</span>
+<span class="source-line-no">2633</span><span id="line-2633">                    newPts.add(pLinePoints[n-8]);</span>
+<span class="source-line-no">2634</span><span id="line-2634">                    newPts.add(pLinePoints[n-3]);</span>
+<span class="source-line-no">2635</span><span id="line-2635">                    newPts.add(pLinePoints[n-4]);</span>
+<span class="source-line-no">2636</span><span id="line-2636">                    //add the upper (lower) channel points</span>
+<span class="source-line-no">2637</span><span id="line-2637">                    for(j=n-9;j&gt;=(n-8)/2;j--)</span>
+<span class="source-line-no">2638</span><span id="line-2638">                    {</span>
+<span class="source-line-no">2639</span><span id="line-2639">                        newPts.add(pLinePoints[j]);</span>
+<span class="source-line-no">2640</span><span id="line-2640">                    }</span>
+<span class="source-line-no">2641</span><span id="line-2641">                    //newPts.add(pLinePoints[0]);</span>
+<span class="source-line-no">2642</span><span id="line-2642">                    shape=new Shape2(Shape2.SHAPE_TYPE_FILL);</span>
+<span class="source-line-no">2643</span><span id="line-2643">                    //shape.moveTo(newPts.get(0).x,newPts.get(0).y);</span>
+<span class="source-line-no">2644</span><span id="line-2644">                    shape.moveTo(newPts.get(0));</span>
+<span class="source-line-no">2645</span><span id="line-2645">                    t=newPts.size();</span>
+<span class="source-line-no">2646</span><span id="line-2646">                    //for(j=1;j&lt;newPts.size();j++)</span>
+<span class="source-line-no">2647</span><span id="line-2647">                    for(j=1;j&lt;t;j++)</span>
+<span class="source-line-no">2648</span><span id="line-2648">                    {</span>
+<span class="source-line-no">2649</span><span id="line-2649">                        shape.lineTo(newPts.get(j));</span>
+<span class="source-line-no">2650</span><span id="line-2650">                    }</span>
+<span class="source-line-no">2651</span><span id="line-2651">                    break;</span>
+<span class="source-line-no">2652</span><span id="line-2652">                case TacticalLines.MAIN_STRAIGHT:</span>
+<span class="source-line-no">2653</span><span id="line-2653">                case TacticalLines.MAIN:</span>
+<span class="source-line-no">2654</span><span id="line-2654">                    //for(j=0;j&lt;(pLinePoints.length-8)/2;j++)</span>
+<span class="source-line-no">2655</span><span id="line-2655">                    for(j=0;j&lt;(n-8)/2;j++)</span>
+<span class="source-line-no">2656</span><span id="line-2656">                    {</span>
+<span class="source-line-no">2657</span><span id="line-2657">                        newPts.add(pLinePoints[j]);</span>
+<span class="source-line-no">2658</span><span id="line-2658">                    }</span>
+<span class="source-line-no">2659</span><span id="line-2659">                    //add the arrow outline</span>
+<span class="source-line-no">2660</span><span id="line-2660">                    newPts.add(pLinePoints[n-6]);</span>
+<span class="source-line-no">2661</span><span id="line-2661">                    newPts.add(pLinePoints[n-5]);</span>
+<span class="source-line-no">2662</span><span id="line-2662">                    for(j=n-9;j&gt;=(n-8)/2;j--)</span>
+<span class="source-line-no">2663</span><span id="line-2663">                    {</span>
+<span class="source-line-no">2664</span><span id="line-2664">                        newPts.add(pLinePoints[j]);</span>
+<span class="source-line-no">2665</span><span id="line-2665">                    }</span>
+<span class="source-line-no">2666</span><span id="line-2666">                    shape=new Shape2(Shape2.SHAPE_TYPE_FILL);</span>
+<span class="source-line-no">2667</span><span id="line-2667">                    shape.moveTo(newPts.get(0));</span>
+<span class="source-line-no">2668</span><span id="line-2668">                    t=newPts.size();</span>
+<span class="source-line-no">2669</span><span id="line-2669">                    //for(j=1;j&lt;newPts.size();j++)</span>
+<span class="source-line-no">2670</span><span id="line-2670">                    for(j=1;j&lt;t;j++)</span>
+<span class="source-line-no">2671</span><span id="line-2671">                    {</span>
+<span class="source-line-no">2672</span><span id="line-2672">                        shape.lineTo(newPts.get(j));</span>
+<span class="source-line-no">2673</span><span id="line-2673">                    }</span>
+<span class="source-line-no">2674</span><span id="line-2674">                    break;</span>
+<span class="source-line-no">2675</span><span id="line-2675">                case TacticalLines.AAAAA:</span>
+<span class="source-line-no">2676</span><span id="line-2676">                    //for(j=0;j&lt;(pLinePoints.length-19)/2;j++)</span>
+<span class="source-line-no">2677</span><span id="line-2677">                    for(j=0;j&lt;(n-19)/2;j++)</span>
+<span class="source-line-no">2678</span><span id="line-2678">                    {</span>
+<span class="source-line-no">2679</span><span id="line-2679">                        newPts.add(pLinePoints[j]);</span>
+<span class="source-line-no">2680</span><span id="line-2680">                    }</span>
+<span class="source-line-no">2681</span><span id="line-2681">                    //add the arrow outline</span>
+<span class="source-line-no">2682</span><span id="line-2682">                    newPts.add(pLinePoints[n-17]);</span>
+<span class="source-line-no">2683</span><span id="line-2683">                    newPts.add(pLinePoints[n-18]);</span>
+<span class="source-line-no">2684</span><span id="line-2684">                    newPts.add(pLinePoints[n-19]);</span>
+<span class="source-line-no">2685</span><span id="line-2685">                    newPts.add(pLinePoints[n-14]);</span>
+<span class="source-line-no">2686</span><span id="line-2686">                    newPts.add(pLinePoints[n-15]);</span>
+<span class="source-line-no">2687</span><span id="line-2687"></span>
+<span class="source-line-no">2688</span><span id="line-2688">                    for(j=n-20;j&gt;=(n-19)/2;j--)</span>
+<span class="source-line-no">2689</span><span id="line-2689">                    {</span>
+<span class="source-line-no">2690</span><span id="line-2690">                        newPts.add(pLinePoints[j]);</span>
+<span class="source-line-no">2691</span><span id="line-2691">                    }</span>
+<span class="source-line-no">2692</span><span id="line-2692">                    shape=new Shape2(Shape2.SHAPE_TYPE_FILL);</span>
+<span class="source-line-no">2693</span><span id="line-2693">                    shape.moveTo(newPts.get(0));</span>
+<span class="source-line-no">2694</span><span id="line-2694">                    t=newPts.size();</span>
+<span class="source-line-no">2695</span><span id="line-2695">                    //for(j=1;j&lt;newPts.size();j++)</span>
+<span class="source-line-no">2696</span><span id="line-2696">                    for(j=1;j&lt;t;j++)</span>
+<span class="source-line-no">2697</span><span id="line-2697">                    {</span>
+<span class="source-line-no">2698</span><span id="line-2698">                        shape.lineTo(newPts.get(j));</span>
+<span class="source-line-no">2699</span><span id="line-2699">                    }</span>
+<span class="source-line-no">2700</span><span id="line-2700">                    break;</span>
+<span class="source-line-no">2701</span><span id="line-2701">                case TacticalLines.FRONTAL_ATTACK:</span>
+<span class="source-line-no">2702</span><span id="line-2702">                case TacticalLines.TURNING_MOVEMENT:</span>
+<span class="source-line-no">2703</span><span id="line-2703">                    for(j=0;j&lt;(n-10)/2;j++)</span>
+<span class="source-line-no">2704</span><span id="line-2704">                    {</span>
+<span class="source-line-no">2705</span><span id="line-2705">                        newPts.add(pLinePoints[j]);</span>
+<span class="source-line-no">2706</span><span id="line-2706">                    }</span>
+<span class="source-line-no">2707</span><span id="line-2707">                    //add the arrow outline</span>
+<span class="source-line-no">2708</span><span id="line-2708">                    newPts.add(pLinePoints[n-8]);</span>
+<span class="source-line-no">2709</span><span id="line-2709">                    newPts.add(pLinePoints[n-9]);</span>
+<span class="source-line-no">2710</span><span id="line-2710">                    newPts.add(pLinePoints[n-10]);</span>
+<span class="source-line-no">2711</span><span id="line-2711">                    newPts.add(pLinePoints[n-5]);</span>
+<span class="source-line-no">2712</span><span id="line-2712">                    newPts.add(pLinePoints[n-6]);</span>
+<span class="source-line-no">2713</span><span id="line-2713"></span>
+<span class="source-line-no">2714</span><span id="line-2714">                    for(j=n-11;j&gt;=(n-10)/2;j--)</span>
+<span class="source-line-no">2715</span><span id="line-2715">                    {</span>
+<span class="source-line-no">2716</span><span id="line-2716">                        newPts.add(pLinePoints[j]);</span>
+<span class="source-line-no">2717</span><span id="line-2717">                    }</span>
+<span class="source-line-no">2718</span><span id="line-2718">                    shape=new Shape2(Shape2.SHAPE_TYPE_FILL);</span>
+<span class="source-line-no">2719</span><span id="line-2719">                    shape.moveTo(newPts.get(0));</span>
+<span class="source-line-no">2720</span><span id="line-2720">                    t=newPts.size();</span>
+<span class="source-line-no">2721</span><span id="line-2721">                    for(j=1;j&lt;t;j++)</span>
+<span class="source-line-no">2722</span><span id="line-2722">                    {</span>
+<span class="source-line-no">2723</span><span id="line-2723">                        shape.lineTo(newPts.get(j));</span>
+<span class="source-line-no">2724</span><span id="line-2724">                    }</span>
+<span class="source-line-no">2725</span><span id="line-2725">                    break;</span>
+<span class="source-line-no">2726</span><span id="line-2726">                case TacticalLines.MOVEMENT_TO_CONTACT:</span>
+<span class="source-line-no">2727</span><span id="line-2727">                    for(j=0;j&lt;(n-24)/2;j++)</span>
+<span class="source-line-no">2728</span><span id="line-2728">                    {</span>
+<span class="source-line-no">2729</span><span id="line-2729">                        newPts.add(pLinePoints[j]);</span>
+<span class="source-line-no">2730</span><span id="line-2730">                    }</span>
+<span class="source-line-no">2731</span><span id="line-2731">                    //add the arrow outline</span>
+<span class="source-line-no">2732</span><span id="line-2732">                    newPts.add(pLinePoints[n-22]);</span>
+<span class="source-line-no">2733</span><span id="line-2733">                    newPts.add(pLinePoints[n-23]);</span>
+<span class="source-line-no">2734</span><span id="line-2734">                    newPts.add(pLinePoints[n-24]);</span>
+<span class="source-line-no">2735</span><span id="line-2735">                    newPts.add(pLinePoints[n-19]);</span>
+<span class="source-line-no">2736</span><span id="line-2736">                    newPts.add(pLinePoints[n-20]);</span>
+<span class="source-line-no">2737</span><span id="line-2737"></span>
+<span class="source-line-no">2738</span><span id="line-2738">                    for(j=n-25;j&gt;=(n-24)/2;j--)</span>
+<span class="source-line-no">2739</span><span id="line-2739">                    {</span>
+<span class="source-line-no">2740</span><span id="line-2740">                        newPts.add(pLinePoints[j]);</span>
+<span class="source-line-no">2741</span><span id="line-2741">                    }</span>
+<span class="source-line-no">2742</span><span id="line-2742">                    shape=new Shape2(Shape2.SHAPE_TYPE_FILL);</span>
+<span class="source-line-no">2743</span><span id="line-2743">                    shape.moveTo(newPts.get(0));</span>
+<span class="source-line-no">2744</span><span id="line-2744">                    t=newPts.size();</span>
+<span class="source-line-no">2745</span><span id="line-2745">                    for(j=1;j&lt;t;j++)</span>
+<span class="source-line-no">2746</span><span id="line-2746">                    {</span>
+<span class="source-line-no">2747</span><span id="line-2747">                        shape.lineTo(newPts.get(j));</span>
+<span class="source-line-no">2748</span><span id="line-2748">                    }</span>
+<span class="source-line-no">2749</span><span id="line-2749">                    break;</span>
+<span class="source-line-no">2750</span><span id="line-2750">                case TacticalLines.CATKBYFIRE:</span>
+<span class="source-line-no">2751</span><span id="line-2751">                    //for(j=0;j&lt;(pLinePoints.length-17)/2;j++)</span>
+<span class="source-line-no">2752</span><span id="line-2752">                    for(j=0;j&lt;(n-17)/2;j++)</span>
+<span class="source-line-no">2753</span><span id="line-2753">                    {</span>
+<span class="source-line-no">2754</span><span id="line-2754">                        newPts.add(pLinePoints[j]);</span>
+<span class="source-line-no">2755</span><span id="line-2755">                    }</span>
+<span class="source-line-no">2756</span><span id="line-2756">                    //add the arrow outline</span>
+<span class="source-line-no">2757</span><span id="line-2757">                    newPts.add(pLinePoints[n-15]);</span>
+<span class="source-line-no">2758</span><span id="line-2758">                    newPts.add(pLinePoints[n-16]);</span>
+<span class="source-line-no">2759</span><span id="line-2759">                    newPts.add(pLinePoints[n-17]);</span>
+<span class="source-line-no">2760</span><span id="line-2760">                    newPts.add(pLinePoints[n-12]);</span>
+<span class="source-line-no">2761</span><span id="line-2761">                    newPts.add(pLinePoints[n-13]);</span>
+<span class="source-line-no">2762</span><span id="line-2762">                    for(j=n-18;j&gt;=(n-17)/2;j--)</span>
+<span class="source-line-no">2763</span><span id="line-2763">                    {</span>
+<span class="source-line-no">2764</span><span id="line-2764">                        newPts.add(pLinePoints[j]);</span>
+<span class="source-line-no">2765</span><span id="line-2765">                    }</span>
+<span class="source-line-no">2766</span><span id="line-2766">                    shape=new Shape2(Shape2.SHAPE_TYPE_FILL);</span>
+<span class="source-line-no">2767</span><span id="line-2767">                    shape.moveTo(newPts.get(0));</span>
+<span class="source-line-no">2768</span><span id="line-2768">                    t=newPts.size();</span>
+<span class="source-line-no">2769</span><span id="line-2769">                    //for(j=1;j&lt;newPts.size();j++)</span>
+<span class="source-line-no">2770</span><span id="line-2770">                    for(j=1;j&lt;t;j++)</span>
+<span class="source-line-no">2771</span><span id="line-2771">                    {</span>
+<span class="source-line-no">2772</span><span id="line-2772">                        shape.lineTo(newPts.get(j));</span>
+<span class="source-line-no">2773</span><span id="line-2773">                    }</span>
+<span class="source-line-no">2774</span><span id="line-2774">                    break;</span>
+<span class="source-line-no">2775</span><span id="line-2775">                default:</span>
+<span class="source-line-no">2776</span><span id="line-2776">                    break;</span>
+<span class="source-line-no">2777</span><span id="line-2777">            }</span>
+<span class="source-line-no">2778</span><span id="line-2778">            if(shape!=null)</span>
+<span class="source-line-no">2779</span><span id="line-2779">            {</span>
+<span class="source-line-no">2780</span><span id="line-2780">                shapes=new ArrayList();</span>
+<span class="source-line-no">2781</span><span id="line-2781">                shape.setLineColor(null);</span>
+<span class="source-line-no">2782</span><span id="line-2782">                shapes.add(shape);</span>
+<span class="source-line-no">2783</span><span id="line-2783">            }</span>
+<span class="source-line-no">2784</span><span id="line-2784">        }</span>
+<span class="source-line-no">2785</span><span id="line-2785">        catch (Exception exc) {</span>
+<span class="source-line-no">2786</span><span id="line-2786">            ErrorLogger.LogException(_className ,"getAXADfillShapes",</span>
+<span class="source-line-no">2787</span><span id="line-2787">                    new RendererException("Failed inside getAXADFillShapes", exc));</span>
+<span class="source-line-no">2788</span><span id="line-2788">        }</span>
+<span class="source-line-no">2789</span><span id="line-2789">        return shapes;</span>
+<span class="source-line-no">2790</span><span id="line-2790">    }</span>
+<span class="source-line-no">2791</span><span id="line-2791">    /*</span>
+<span class="source-line-no">2792</span><span id="line-2792">     * sets shape2 properties to those of shape1</span>
+<span class="source-line-no">2793</span><span id="line-2793">     * @param shape1</span>
+<span class="source-line-no">2794</span><span id="line-2794">     * @param shape2</span>
+<span class="source-line-no">2795</span><span id="line-2795">     */</span>
+<span class="source-line-no">2796</span><span id="line-2796">//    private static void SetShapeProperties(Shape2 shape1, Shape2 shape2)</span>
+<span class="source-line-no">2797</span><span id="line-2797">//    {</span>
+<span class="source-line-no">2798</span><span id="line-2798">//        try</span>
+<span class="source-line-no">2799</span><span id="line-2799">//        {</span>
+<span class="source-line-no">2800</span><span id="line-2800">//            shape2.setLineColor(shape1.getLineColor());</span>
+<span class="source-line-no">2801</span><span id="line-2801">//            shape2.setStroke(shape1.getStroke());</span>
+<span class="source-line-no">2802</span><span id="line-2802">//            shape2.setFillColor(shape1.getFillColor());</span>
+<span class="source-line-no">2803</span><span id="line-2803">//        }</span>
+<span class="source-line-no">2804</span><span id="line-2804">//        catch (Exception exc) {</span>
+<span class="source-line-no">2805</span><span id="line-2805">//            ErrorLogger.LogException(_className ,"GetChannel1Double",</span>
+<span class="source-line-no">2806</span><span id="line-2806">//                    new RendererException("Failed inside SetShapeProperties", exc));</span>
+<span class="source-line-no">2807</span><span id="line-2807">//        }</span>
+<span class="source-line-no">2808</span><span id="line-2808">//    }</span>
+<span class="source-line-no">2809</span><span id="line-2809">}</span>
 
 
 

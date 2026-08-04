@@ -17,652 +17,669 @@
 <span class="source-line-no">004</span><span id="line-4">import android.graphics.Paint;</span>
 <span class="source-line-no">005</span><span id="line-5">import android.graphics.Paint.Style;</span>
 <span class="source-line-no">006</span><span id="line-6">import android.graphics.Point;</span>
-<span class="source-line-no">007</span><span id="line-7">import android.graphics.RectF;</span>
-<span class="source-line-no">008</span><span id="line-8">import android.util.SparseArray;</span>
-<span class="source-line-no">009</span><span id="line-9"></span>
-<span class="source-line-no">010</span><span id="line-10">import java.util.Map;</span>
-<span class="source-line-no">011</span><span id="line-11">import java.util.TreeSet;</span>
-<span class="source-line-no">012</span><span id="line-12">import java.util.logging.Level;</span>
-<span class="source-line-no">013</span><span id="line-13">import java.util.regex.Matcher;</span>
-<span class="source-line-no">014</span><span id="line-14">import java.util.regex.Pattern;</span>
-<span class="source-line-no">015</span><span id="line-15"></span>
-<span class="source-line-no">016</span><span id="line-16">public class RendererUtilities {</span>
-<span class="source-line-no">017</span><span id="line-17"></span>
-<span class="source-line-no">018</span><span id="line-18">    private static final float OUTLINE_SCALING_FACTOR = 2.5f;</span>
-<span class="source-line-no">019</span><span id="line-19">        private static SparseArray&lt;Color&gt; pastIdealOutlineColors = new SparseArray&lt;Color&gt;();</span>
-<span class="source-line-no">020</span><span id="line-20">        /**</span>
-<span class="source-line-no">021</span><span id="line-21">     * </span>
-<span class="source-line-no">022</span><span id="line-22">     * @param color {String} color like "#FFFFFF"</span>
-<span class="source-line-no">023</span><span id="line-23">     * @return {String}</span>
-<span class="source-line-no">024</span><span id="line-24">     */</span>
-<span class="source-line-no">025</span><span id="line-25">    public static Color getIdealOutlineColor(Color color){</span>
-<span class="source-line-no">026</span><span id="line-26">        Color idealColor = Color.white;</span>
-<span class="source-line-no">027</span><span id="line-27">        </span>
-<span class="source-line-no">028</span><span id="line-28">        if(color != null &amp;&amp; pastIdealOutlineColors.indexOfKey(color.toInt())&gt;=0)</span>
-<span class="source-line-no">029</span><span id="line-29">        {</span>
-<span class="source-line-no">030</span><span id="line-30">            return pastIdealOutlineColors.get(color.toInt());</span>
-<span class="source-line-no">031</span><span id="line-31">        }//*/</span>
-<span class="source-line-no">032</span><span id="line-32">        </span>
-<span class="source-line-no">033</span><span id="line-33">        if(color != null)</span>
-<span class="source-line-no">034</span><span id="line-34">        {</span>
-<span class="source-line-no">035</span><span id="line-35">                </span>
-<span class="source-line-no">036</span><span id="line-36">                int threshold = RendererSettings.getInstance().getTextBackgroundAutoColorThreshold();</span>
-<span class="source-line-no">037</span><span id="line-37">                        </span>
-<span class="source-line-no">038</span><span id="line-38">            int r = color.getRed();</span>
-<span class="source-line-no">039</span><span id="line-39">            int g = color.getGreen();</span>
-<span class="source-line-no">040</span><span id="line-40">            int b = color.getBlue();</span>
-<span class="source-line-no">041</span><span id="line-41">        </span>
-<span class="source-line-no">042</span><span id="line-42">            float delta = ((r * 0.299f) + (g * 0.587f) + (b * 0.114f));</span>
-<span class="source-line-no">043</span><span id="line-43">            </span>
-<span class="source-line-no">044</span><span id="line-44">            if((255 - delta &lt; threshold))</span>
-<span class="source-line-no">045</span><span id="line-45">            {</span>
-<span class="source-line-no">046</span><span id="line-46">                idealColor = Color.black;</span>
-<span class="source-line-no">047</span><span id="line-47">            }</span>
-<span class="source-line-no">048</span><span id="line-48">            else</span>
-<span class="source-line-no">049</span><span id="line-49">            {</span>
-<span class="source-line-no">050</span><span id="line-50">                idealColor = Color.white;</span>
-<span class="source-line-no">051</span><span id="line-51">            }</span>
-<span class="source-line-no">052</span><span id="line-52">        }</span>
-<span class="source-line-no">053</span><span id="line-53">        </span>
-<span class="source-line-no">054</span><span id="line-54">        if(color != null)</span>
-<span class="source-line-no">055</span><span id="line-55">                pastIdealOutlineColors.put(color.toInt(),idealColor);</span>
-<span class="source-line-no">056</span><span id="line-56">        </span>
-<span class="source-line-no">057</span><span id="line-57">        return idealColor;</span>
-<span class="source-line-no">058</span><span id="line-58">    }</span>
-<span class="source-line-no">059</span><span id="line-59">    </span>
-<span class="source-line-no">060</span><span id="line-60">    public static void renderSymbolCharacter(Canvas ctx, String symbol, int x, int y, Paint paint, Color color, int outlineWidth)</span>
-<span class="source-line-no">061</span><span id="line-61">    {</span>
-<span class="source-line-no">062</span><span id="line-62">        int tbm = RendererSettings.getInstance().getTextBackgroundMethod();</span>
-<span class="source-line-no">063</span><span id="line-63"></span>
-<span class="source-line-no">064</span><span id="line-64">        Color outlineColor = RendererUtilities.getIdealOutlineColor(color);</span>
-<span class="source-line-no">065</span><span id="line-65"></span>
-<span class="source-line-no">066</span><span id="line-66">        //if(tbm == RendererSettings.TextBackgroundMethod_OUTLINE_QUICK)</span>
-<span class="source-line-no">067</span><span id="line-67">        //{    </span>
-<span class="source-line-no">068</span><span id="line-68">            //draw symbol outline</span>
-<span class="source-line-no">069</span><span id="line-69">                paint.setStyle(Style.FILL);</span>
-<span class="source-line-no">070</span><span id="line-70"></span>
-<span class="source-line-no">071</span><span id="line-71">                paint.setColor(outlineColor.toInt());</span>
-<span class="source-line-no">072</span><span id="line-72">            if(outlineWidth &gt; 0)</span>
-<span class="source-line-no">073</span><span id="line-73">            {</span>
-<span class="source-line-no">074</span><span id="line-74">                for(int i = 1; i &lt;= outlineWidth; i++)</span>
-<span class="source-line-no">075</span><span id="line-75">                {</span>
-<span class="source-line-no">076</span><span id="line-76">                        if(i % 2 == 1)</span>
-<span class="source-line-no">077</span><span id="line-77">                        {</span>
-<span class="source-line-no">078</span><span id="line-78">                                ctx.drawText(symbol, x - i, y, paint);</span>
-<span class="source-line-no">079</span><span id="line-79">                        ctx.drawText(symbol, x + i, y, paint);</span>
-<span class="source-line-no">080</span><span id="line-80">                        ctx.drawText(symbol, x, y + i, paint);</span>
-<span class="source-line-no">081</span><span id="line-81">                        ctx.drawText(symbol, x, y - i, paint);</span>
-<span class="source-line-no">082</span><span id="line-82">                        }</span>
-<span class="source-line-no">083</span><span id="line-83">                        else</span>
-<span class="source-line-no">084</span><span id="line-84">                        {</span>
-<span class="source-line-no">085</span><span id="line-85">                                ctx.drawText(symbol, x - i, y - i, paint);</span>
-<span class="source-line-no">086</span><span id="line-86">                        ctx.drawText(symbol, x + i, y - i, paint);</span>
-<span class="source-line-no">087</span><span id="line-87">                        ctx.drawText(symbol, x - i, y + i, paint);</span>
-<span class="source-line-no">088</span><span id="line-88">                        ctx.drawText(symbol, x + i, y + i, paint);</span>
-<span class="source-line-no">089</span><span id="line-89">                        }</span>
-<span class="source-line-no">090</span><span id="line-90">                        </span>
-<span class="source-line-no">091</span><span id="line-91">                }</span>
-<span class="source-line-no">092</span><span id="line-92">                </span>
-<span class="source-line-no">093</span><span id="line-93">            }</span>
-<span class="source-line-no">094</span><span id="line-94">            //draw symbol</span>
-<span class="source-line-no">095</span><span id="line-95">            paint.setColor(color.toInt());</span>
-<span class="source-line-no">096</span><span id="line-96">            </span>
-<span class="source-line-no">097</span><span id="line-97">                ctx.drawText(symbol, x, y, paint);</span>
-<span class="source-line-no">098</span><span id="line-98">            </span>
-<span class="source-line-no">099</span><span id="line-99">        /*}</span>
-<span class="source-line-no">100</span><span id="line-100">        else</span>
-<span class="source-line-no">101</span><span id="line-101">        {</span>
-<span class="source-line-no">102</span><span id="line-102">            //draw text outline</span>
-<span class="source-line-no">103</span><span id="line-103">                paint.setStyle(Style.STROKE);</span>
-<span class="source-line-no">104</span><span id="line-104">                paint.setStrokeWidth(RendererSettings.getInstance().getTextOutlineWidth());</span>
-<span class="source-line-no">105</span><span id="line-105">                paint.setColor(outlineColor.toInt());</span>
-<span class="source-line-no">106</span><span id="line-106">            if(outlineWidth &gt; 0)</span>
-<span class="source-line-no">107</span><span id="line-107">            {</span>
-<span class="source-line-no">108</span><span id="line-108">                </span>
-<span class="source-line-no">109</span><span id="line-109">                ctx.drawText(symbol, x, y, paint);</span>
-<span class="source-line-no">110</span><span id="line-110">                </span>
-<span class="source-line-no">111</span><span id="line-111">            }</span>
-<span class="source-line-no">112</span><span id="line-112">            //draw text</span>
-<span class="source-line-no">113</span><span id="line-113">            paint.setColor(color.toInt());</span>
-<span class="source-line-no">114</span><span id="line-114">            paint.setStyle(Style.FILL);</span>
-<span class="source-line-no">115</span><span id="line-115">            </span>
-<span class="source-line-no">116</span><span id="line-116">                ctx.drawText(symbol, x, y, paint);</span>
-<span class="source-line-no">117</span><span id="line-117">        }//*/     </span>
-<span class="source-line-no">118</span><span id="line-118">    }</span>
-<span class="source-line-no">119</span><span id="line-119"></span>
-<span class="source-line-no">120</span><span id="line-120">    /**</span>
-<span class="source-line-no">121</span><span id="line-121">     * Create a copy of the {@Color} object with the passed alpha value.</span>
-<span class="source-line-no">122</span><span id="line-122">     * @param color {@Color} object used for RGB values</span>
-<span class="source-line-no">123</span><span id="line-123">     * @param alpha {@float} value between 0 and 1</span>
-<span class="source-line-no">124</span><span id="line-124">     * @return</span>
-<span class="source-line-no">125</span><span id="line-125">     */</span>
-<span class="source-line-no">126</span><span id="line-126">    public static Color setColorAlpha(Color color, float alpha) {</span>
-<span class="source-line-no">127</span><span id="line-127">        if (color != null)</span>
-<span class="source-line-no">128</span><span id="line-128">        {</span>
-<span class="source-line-no">129</span><span id="line-129">            if(alpha &gt;= 0 &amp;&amp; alpha &lt;= 1)</span>
-<span class="source-line-no">130</span><span id="line-130">                return new Color(color.getRed(),color.getGreen(),color.getBlue(),(int)(alpha*255f));</span>
-<span class="source-line-no">131</span><span id="line-131">            else</span>
-<span class="source-line-no">132</span><span id="line-132">                return color;</span>
-<span class="source-line-no">133</span><span id="line-133">        }</span>
-<span class="source-line-no">134</span><span id="line-134">        else</span>
-<span class="source-line-no">135</span><span id="line-135">            return null;</span>
-<span class="source-line-no">136</span><span id="line-136">    }</span>
-<span class="source-line-no">137</span><span id="line-137">    public static String colorToHexString(Color color, Boolean withAlpha)</span>
-<span class="source-line-no">138</span><span id="line-138">    {</span>
-<span class="source-line-no">139</span><span id="line-139">        if(color != null)</span>
-<span class="source-line-no">140</span><span id="line-140">        {</span>
-<span class="source-line-no">141</span><span id="line-141">            String hex = color.toHexString();</span>
-<span class="source-line-no">142</span><span id="line-142">            hex = hex.toUpperCase();</span>
-<span class="source-line-no">143</span><span id="line-143">            if(withAlpha)</span>
-<span class="source-line-no">144</span><span id="line-144">                return "#" + hex;</span>
-<span class="source-line-no">145</span><span id="line-145">            else</span>
-<span class="source-line-no">146</span><span id="line-146">                return "#" + hex.substring(2);</span>
-<span class="source-line-no">147</span><span id="line-147">        }</span>
-<span class="source-line-no">148</span><span id="line-148">        return null;</span>
-<span class="source-line-no">149</span><span id="line-149">    }</span>
-<span class="source-line-no">150</span><span id="line-150"></span>
-<span class="source-line-no">151</span><span id="line-151">    /**</span>
-<span class="source-line-no">152</span><span id="line-152">     *</span>
-<span class="source-line-no">153</span><span id="line-153">     * @param hexValue - String representing hex value (formatted "0xRRGGBB"</span>
-<span class="source-line-no">154</span><span id="line-154">     * i.e. "0xFFFFFF") OR formatted "0xAARRGGBB" i.e. "0x00FFFFFF" for a color</span>
-<span class="source-line-no">155</span><span id="line-155">     * with an alpha value I will also put up with "RRGGBB" and "AARRGGBB"</span>
-<span class="source-line-no">156</span><span id="line-156">     * without the starting "0x"</span>
-<span class="source-line-no">157</span><span id="line-157">     * @return</span>
-<span class="source-line-no">158</span><span id="line-158">     */</span>
-<span class="source-line-no">159</span><span id="line-159">    public static Color getColorFromHexString(String hexValue)</span>
-<span class="source-line-no">160</span><span id="line-160">    {</span>
-<span class="source-line-no">161</span><span id="line-161">        try</span>
-<span class="source-line-no">162</span><span id="line-162">        {</span>
-<span class="source-line-no">163</span><span id="line-163">            if(hexValue==null || hexValue.isEmpty())</span>
-<span class="source-line-no">164</span><span id="line-164">                return null;</span>
-<span class="source-line-no">165</span><span id="line-165">            String hexOriginal = hexValue;</span>
-<span class="source-line-no">166</span><span id="line-166"></span>
-<span class="source-line-no">167</span><span id="line-167">            String hexAlphabet = "0123456789ABCDEF";</span>
-<span class="source-line-no">168</span><span id="line-168"></span>
-<span class="source-line-no">169</span><span id="line-169">            if (hexValue.charAt(0) == '#')</span>
-<span class="source-line-no">170</span><span id="line-170">            {</span>
-<span class="source-line-no">171</span><span id="line-171">                hexValue = hexValue.substring(1);</span>
-<span class="source-line-no">172</span><span id="line-172">            }</span>
-<span class="source-line-no">173</span><span id="line-173">            if (hexValue.substring(0, 2).equals("0x") || hexValue.substring(0, 2).equals("0X"))</span>
-<span class="source-line-no">174</span><span id="line-174">            {</span>
-<span class="source-line-no">175</span><span id="line-175">                hexValue = hexValue.substring(2);</span>
-<span class="source-line-no">176</span><span id="line-176">            }</span>
-<span class="source-line-no">177</span><span id="line-177"></span>
-<span class="source-line-no">178</span><span id="line-178">            hexValue = hexValue.toUpperCase();</span>
-<span class="source-line-no">179</span><span id="line-179"></span>
-<span class="source-line-no">180</span><span id="line-180">            int count = hexValue.length();</span>
-<span class="source-line-no">181</span><span id="line-181">            int[] value = null;</span>
-<span class="source-line-no">182</span><span id="line-182">            int k = 0;</span>
-<span class="source-line-no">183</span><span id="line-183">            int int1 = 0;</span>
-<span class="source-line-no">184</span><span id="line-184">            int int2 = 0;</span>
-<span class="source-line-no">185</span><span id="line-185"></span>
-<span class="source-line-no">186</span><span id="line-186">            if (count == 8 || count == 6)</span>
-<span class="source-line-no">187</span><span id="line-187">            {</span>
-<span class="source-line-no">188</span><span id="line-188">                value = new int[(count / 2)];</span>
-<span class="source-line-no">189</span><span id="line-189">                for (int i = 0; i &lt; count; i += 2)</span>
-<span class="source-line-no">190</span><span id="line-190">                {</span>
-<span class="source-line-no">191</span><span id="line-191">                    int1 = hexAlphabet.indexOf(hexValue.charAt(i));</span>
-<span class="source-line-no">192</span><span id="line-192">                    int2 = hexAlphabet.indexOf(hexValue.charAt(i + 1));</span>
-<span class="source-line-no">193</span><span id="line-193"></span>
-<span class="source-line-no">194</span><span id="line-194">                    if(int1 == -1 || int2 == -1)</span>
-<span class="source-line-no">195</span><span id="line-195">                    {</span>
-<span class="source-line-no">196</span><span id="line-196">                        ErrorLogger.LogMessage("RendererUtilities", "getColorFromHexString", "Bad hex value: " + hexOriginal, Level.WARNING);</span>
-<span class="source-line-no">197</span><span id="line-197">                        return null;</span>
-<span class="source-line-no">198</span><span id="line-198">                    }</span>
-<span class="source-line-no">199</span><span id="line-199"></span>
-<span class="source-line-no">200</span><span id="line-200">                    value[k] = (int1 * 16) + int2;</span>
-<span class="source-line-no">201</span><span id="line-201">                    k++;</span>
-<span class="source-line-no">202</span><span id="line-202">                }</span>
-<span class="source-line-no">203</span><span id="line-203"></span>
-<span class="source-line-no">204</span><span id="line-204">                if (count == 8)</span>
-<span class="source-line-no">205</span><span id="line-205">                {</span>
-<span class="source-line-no">206</span><span id="line-206">                    return new Color(value[1], value[2], value[3], value[0]);</span>
-<span class="source-line-no">207</span><span id="line-207">                }</span>
-<span class="source-line-no">208</span><span id="line-208">                else if (count == 6)</span>
-<span class="source-line-no">209</span><span id="line-209">                {</span>
-<span class="source-line-no">210</span><span id="line-210">                    return new Color(value[0], value[1], value[2]);</span>
-<span class="source-line-no">211</span><span id="line-211">                }</span>
-<span class="source-line-no">212</span><span id="line-212">            }</span>
-<span class="source-line-no">213</span><span id="line-213">            else</span>
-<span class="source-line-no">214</span><span id="line-214">            {</span>
-<span class="source-line-no">215</span><span id="line-215">                ErrorLogger.LogMessage("RendererUtilities", "getColorFromHexString", "Bad hex value: " + hexOriginal, Level.WARNING);</span>
-<span class="source-line-no">216</span><span id="line-216">            }</span>
-<span class="source-line-no">217</span><span id="line-217">            return null;</span>
-<span class="source-line-no">218</span><span id="line-218">        }</span>
-<span class="source-line-no">219</span><span id="line-219">        catch (Exception exc)</span>
-<span class="source-line-no">220</span><span id="line-220">        {</span>
-<span class="source-line-no">221</span><span id="line-221">            ErrorLogger.LogException("RendererUtilities", "getColorFromHexString", exc);</span>
-<span class="source-line-no">222</span><span id="line-222">            return null;</span>
-<span class="source-line-no">223</span><span id="line-223">        }</span>
-<span class="source-line-no">224</span><span id="line-224">    }</span>
-<span class="source-line-no">225</span><span id="line-225"></span>
-<span class="source-line-no">226</span><span id="line-226">    /**</span>
-<span class="source-line-no">227</span><span id="line-227">     * For Renderer Use Only</span>
-<span class="source-line-no">228</span><span id="line-228">     * Assumes a fresh SVG String from the SVGLookup with its default values</span>
-<span class="source-line-no">229</span><span id="line-229">     * @param symbolID</span>
-<span class="source-line-no">230</span><span id="line-230">     * @param svg</span>
-<span class="source-line-no">231</span><span id="line-231">     * @param strokeColor hex value like "#FF0000";</span>
-<span class="source-line-no">232</span><span id="line-232">     * @param fillColor hex value like "#FF0000";</span>
-<span class="source-line-no">233</span><span id="line-233">     * @return SVG String</span>
-<span class="source-line-no">234</span><span id="line-234">     */</span>
-<span class="source-line-no">235</span><span id="line-235">    public static String setSVGFrameColors(String symbolID, String svg, Color strokeColor, Color fillColor)</span>
-<span class="source-line-no">236</span><span id="line-236">    {</span>
-<span class="source-line-no">237</span><span id="line-237">        String returnSVG = null;</span>
-<span class="source-line-no">238</span><span id="line-238">        String hexStrokeColor = null;</span>
-<span class="source-line-no">239</span><span id="line-239">        String hexFillColor = null;</span>
-<span class="source-line-no">240</span><span id="line-240">        float strokeAlpha = 1;</span>
-<span class="source-line-no">241</span><span id="line-241">        float fillAlpha = 1;</span>
-<span class="source-line-no">242</span><span id="line-242">        String strokeOpacity = "";</span>
-<span class="source-line-no">243</span><span id="line-243">        String fillOpacity = "";</span>
-<span class="source-line-no">244</span><span id="line-244"></span>
-<span class="source-line-no">245</span><span id="line-245">        int ss = SymbolID.getSymbolSet(symbolID);</span>
-<span class="source-line-no">246</span><span id="line-246">        int ver = SymbolID.getVersion(symbolID);</span>
-<span class="source-line-no">247</span><span id="line-247">        int affiliation = SymbolID.getAffiliation(symbolID);</span>
-<span class="source-line-no">248</span><span id="line-248">        String defaultFillColor = null;</span>
-<span class="source-line-no">249</span><span id="line-249">        returnSVG = svg;</span>
-<span class="source-line-no">250</span><span id="line-250">        if(strokeColor != null)</span>
-<span class="source-line-no">251</span><span id="line-251">        {</span>
-<span class="source-line-no">252</span><span id="line-252">            if(strokeColor.getAlpha() != 255)</span>
-<span class="source-line-no">253</span><span id="line-253">            {</span>
-<span class="source-line-no">254</span><span id="line-254">                strokeAlpha = strokeColor.getAlpha() / 255.0f;</span>
-<span class="source-line-no">255</span><span id="line-255">                strokeOpacity =  " stroke-opacity=\"" + String.valueOf(strokeAlpha) + "\"";</span>
-<span class="source-line-no">256</span><span id="line-256">                fillOpacity =  " fill-opacity=\"" + String.valueOf(strokeAlpha) + "\"";</span>
-<span class="source-line-no">257</span><span id="line-257">            }</span>
-<span class="source-line-no">258</span><span id="line-258"></span>
-<span class="source-line-no">259</span><span id="line-259">            hexStrokeColor = colorToHexString(strokeColor,false);</span>
-<span class="source-line-no">260</span><span id="line-260">            returnSVG = svg.replaceAll("stroke=\"#000000\"", "stroke=\"" + hexStrokeColor + "\"" + strokeOpacity);</span>
-<span class="source-line-no">261</span><span id="line-261">            returnSVG = returnSVG.replaceAll("fill=\"#000000\"", "fill=\"" + hexStrokeColor + "\"" + fillOpacity);</span>
-<span class="source-line-no">262</span><span id="line-262"></span>
-<span class="source-line-no">263</span><span id="line-263">            if(ss == SymbolID.SymbolSet_LandInstallation ||</span>
-<span class="source-line-no">264</span><span id="line-264">                    ss == SymbolID.SymbolSet_Space ||</span>
-<span class="source-line-no">265</span><span id="line-265">                    ss == SymbolID.SymbolSet_CyberSpace ||</span>
-<span class="source-line-no">266</span><span id="line-266">                    ss == SymbolID.SymbolSet_Activities)</span>
-<span class="source-line-no">267</span><span id="line-267">            {//add group fill so the extra shapes in these frames have the new frame color</span>
-<span class="source-line-no">268</span><span id="line-268">                String svgStart =  "&lt;g id=\"" + SVGLookup.getFrameID(symbolID) + "\"&gt;";</span>
-<span class="source-line-no">269</span><span id="line-269">                String svgStartReplace = svgStart.substring(0,svgStart.length()-1) + " fill=\"" + hexStrokeColor + "\"" + fillOpacity + "&gt;";</span>
-<span class="source-line-no">270</span><span id="line-270">                returnSVG = returnSVG.replace(svgStart,svgStartReplace);</span>
-<span class="source-line-no">271</span><span id="line-271">            }</span>
-<span class="source-line-no">272</span><span id="line-272"></span>
-<span class="source-line-no">273</span><span id="line-273">            if((SymbolID.getSymbolSet(symbolID)==SymbolID.SymbolSet_LandInstallation &amp;&amp; SymbolID.getFrameShape(symbolID)=='0') ||</span>
-<span class="source-line-no">274</span><span id="line-274">                    SymbolID.getFrameShape(symbolID)==SymbolID.FrameShape_LandInstallation)</span>
-<span class="source-line-no">275</span><span id="line-275">            {</span>
-<span class="source-line-no">276</span><span id="line-276">                int i1 = findInstIndIndex(returnSVG)+5;</span>
-<span class="source-line-no">277</span><span id="line-277">                //make sure installation indicator matches line color</span>
-<span class="source-line-no">278</span><span id="line-278">                returnSVG = returnSVG.substring(0,i1) + " fill=\"" + hexStrokeColor + "\"" + returnSVG.substring(i1);</span>
-<span class="source-line-no">279</span><span id="line-279">            }</span>
-<span class="source-line-no">280</span><span id="line-280"></span>
-<span class="source-line-no">281</span><span id="line-281">        }</span>
-<span class="source-line-no">282</span><span id="line-282">        else if((SymbolID.getSymbolSet(symbolID)==SymbolID.SymbolSet_LandInstallation &amp;&amp; SymbolID.getFrameShape(symbolID)=='0') ||</span>
-<span class="source-line-no">283</span><span id="line-283">                SymbolID.getFrameShape(symbolID)==SymbolID.FrameShape_LandInstallation)</span>
-<span class="source-line-no">284</span><span id="line-284">        {</span>
-<span class="source-line-no">285</span><span id="line-285">            int i1 = findInstIndIndex(returnSVG)+5;</span>
-<span class="source-line-no">286</span><span id="line-286">            //No line color change so make sure installation indicator stays black</span>
-<span class="source-line-no">287</span><span id="line-287">            returnSVG = returnSVG.substring(0,i1) + " fill=\"#000000\"" + returnSVG.substring(i1);</span>
-<span class="source-line-no">288</span><span id="line-288">        }</span>
-<span class="source-line-no">289</span><span id="line-289"></span>
-<span class="source-line-no">290</span><span id="line-290">        if(fillColor != null)</span>
-<span class="source-line-no">291</span><span id="line-291">        {</span>
-<span class="source-line-no">292</span><span id="line-292">            if(fillColor.getAlpha() != 255)</span>
-<span class="source-line-no">293</span><span id="line-293">            {</span>
-<span class="source-line-no">294</span><span id="line-294">                fillAlpha = fillColor.getAlpha() / 255.0f;</span>
-<span class="source-line-no">295</span><span id="line-295">                fillOpacity =  " fill-opacity=\"" + String.valueOf(fillAlpha) + "\"";</span>
-<span class="source-line-no">296</span><span id="line-296">            }</span>
-<span class="source-line-no">297</span><span id="line-297"></span>
-<span class="source-line-no">298</span><span id="line-298">            hexFillColor = colorToHexString(fillColor,false);</span>
-<span class="source-line-no">299</span><span id="line-299">            switch(affiliation)</span>
-<span class="source-line-no">300</span><span id="line-300">            {</span>
-<span class="source-line-no">301</span><span id="line-301">                case SymbolID.StandardIdentity_Affiliation_Friend:</span>
-<span class="source-line-no">302</span><span id="line-302">                case SymbolID.StandardIdentity_Affiliation_AssumedFriend:</span>
-<span class="source-line-no">303</span><span id="line-303">                    defaultFillColor = "fill=\"#80E0FF\"";//friendly frame fill</span>
-<span class="source-line-no">304</span><span id="line-304">                    break;</span>
-<span class="source-line-no">305</span><span id="line-305">                case SymbolID.StandardIdentity_Affiliation_Hostile_Faker:</span>
-<span class="source-line-no">306</span><span id="line-306">                    defaultFillColor = "fill=\"#FF8080\"";//hostile frame fill</span>
-<span class="source-line-no">307</span><span id="line-307">                    break;</span>
-<span class="source-line-no">308</span><span id="line-308">                case SymbolID.StandardIdentity_Affiliation_Suspect_Joker:</span>
-<span class="source-line-no">309</span><span id="line-309">                    if(SymbolID.getVersion(symbolID) &gt;= SymbolID.Version_2525E)</span>
-<span class="source-line-no">310</span><span id="line-310">                        defaultFillColor = "fill=\"#FFE599\"";//suspect frame fill</span>
-<span class="source-line-no">311</span><span id="line-311">                    else</span>
-<span class="source-line-no">312</span><span id="line-312">                        defaultFillColor = "fill=\"#FF8080\"";//hostile frame fill</span>
-<span class="source-line-no">313</span><span id="line-313">                    break;</span>
-<span class="source-line-no">314</span><span id="line-314">                case SymbolID.StandardIdentity_Affiliation_Unknown:</span>
-<span class="source-line-no">315</span><span id="line-315">                case SymbolID.StandardIdentity_Affiliation_Pending:</span>
-<span class="source-line-no">316</span><span id="line-316">                    defaultFillColor = "fill=\"#FFFF80\"";//unknown frame fill</span>
-<span class="source-line-no">317</span><span id="line-317">                    break;</span>
-<span class="source-line-no">318</span><span id="line-318">                case SymbolID.StandardIdentity_Affiliation_Neutral:</span>
-<span class="source-line-no">319</span><span id="line-319">                    defaultFillColor = "fill=\"#AAFFAA\"";//neutral frame fill</span>
-<span class="source-line-no">320</span><span id="line-320">                    break;</span>
-<span class="source-line-no">321</span><span id="line-321">                default:</span>
-<span class="source-line-no">322</span><span id="line-322">                    defaultFillColor = "fill=\"#80E0FF\"";//friendly frame fill</span>
-<span class="source-line-no">323</span><span id="line-323">                    break;</span>
-<span class="source-line-no">324</span><span id="line-324">            }</span>
-<span class="source-line-no">325</span><span id="line-325"></span>
-<span class="source-line-no">326</span><span id="line-326">            int fillIndex = returnSVG.lastIndexOf(defaultFillColor);</span>
-<span class="source-line-no">327</span><span id="line-327">            if(fillIndex != -1)</span>
-<span class="source-line-no">328</span><span id="line-328">                returnSVG = returnSVG.substring(0,fillIndex) + "fill=\"" + hexFillColor + "\"" + fillOpacity + returnSVG.substring(fillIndex + defaultFillColor.length());</span>
-<span class="source-line-no">329</span><span id="line-329"></span>
-<span class="source-line-no">330</span><span id="line-330">            //returnSVG = returnSVG.replaceFirst(defaultFillColor, "fill=\"" + hexFillColor + "\"" + fillOpacity);</span>
-<span class="source-line-no">331</span><span id="line-331">        }</span>
-<span class="source-line-no">332</span><span id="line-332"></span>
-<span class="source-line-no">333</span><span id="line-333">        if(returnSVG != null)</span>
-<span class="source-line-no">334</span><span id="line-334">            return returnSVG;</span>
-<span class="source-line-no">335</span><span id="line-335">        else</span>
-<span class="source-line-no">336</span><span id="line-336">            return svg;</span>
-<span class="source-line-no">337</span><span id="line-337">    }</span>
-<span class="source-line-no">338</span><span id="line-338"></span>
-<span class="source-line-no">339</span><span id="line-339">    /**</span>
-<span class="source-line-no">340</span><span id="line-340">     * For Renderer Use Only</span>
-<span class="source-line-no">341</span><span id="line-341">     * Changes colors for single point control measures</span>
-<span class="source-line-no">342</span><span id="line-342">     * @param symbolID</span>
-<span class="source-line-no">343</span><span id="line-343">     * @param svg</span>
-<span class="source-line-no">344</span><span id="line-344">     * @param strokeColor hex value like "#FF0000";</span>
-<span class="source-line-no">345</span><span id="line-345">     * @param fillColor hex value like "#FF0000";</span>
-<span class="source-line-no">346</span><span id="line-346">     * @param isOutline true if this represents a thicker outline to render first beneath the normal symbol (the function must be called twice)</span>
-<span class="source-line-no">347</span><span id="line-347">     * @return SVG String</span>
-<span class="source-line-no">348</span><span id="line-348">     */</span>
-<span class="source-line-no">349</span><span id="line-349">    public static String setSVGSPCMColors(String symbolID, String svg, Color strokeColor, Color fillColor, boolean isOutline)</span>
-<span class="source-line-no">350</span><span id="line-350">    {</span>
-<span class="source-line-no">351</span><span id="line-351">        String returnSVG = svg;</span>
-<span class="source-line-no">352</span><span id="line-352">        String hexStrokeColor = null;</span>
-<span class="source-line-no">353</span><span id="line-353">        String hexFillColor = null;</span>
-<span class="source-line-no">354</span><span id="line-354">        float strokeAlpha = 1;</span>
-<span class="source-line-no">355</span><span id="line-355">        float fillAlpha = 1;</span>
-<span class="source-line-no">356</span><span id="line-356">        String strokeOpacity = "";</span>
-<span class="source-line-no">357</span><span id="line-357">        String fillOpacity = "";</span>
-<span class="source-line-no">358</span><span id="line-358">        String strokeCapSquare = " stroke-linecap=\"square\"";</span>
-<span class="source-line-no">359</span><span id="line-359">        String strokeCapButt = " stroke-linecap=\"butt\"";</span>
-<span class="source-line-no">360</span><span id="line-360">        String strokeCapRound = " stroke-linecap=\"round\"";</span>
-<span class="source-line-no">361</span><span id="line-361">        int outlineSize = 15;</span>
-<span class="source-line-no">362</span><span id="line-362"></span>
-<span class="source-line-no">363</span><span id="line-363">        int affiliation = SymbolID.getAffiliation(symbolID);</span>
-<span class="source-line-no">364</span><span id="line-364">        String defaultFillColor = null;</span>
-<span class="source-line-no">365</span><span id="line-365">        if(strokeColor != null)</span>
-<span class="source-line-no">366</span><span id="line-366">        {</span>
-<span class="source-line-no">367</span><span id="line-367">            if(strokeColor.getAlpha() != 255)</span>
-<span class="source-line-no">368</span><span id="line-368">            {</span>
-<span class="source-line-no">369</span><span id="line-369">                strokeAlpha = strokeColor.getAlpha() / 255.0f;</span>
-<span class="source-line-no">370</span><span id="line-370">                strokeOpacity =  " stroke-opacity=\"" + strokeAlpha + "\"";</span>
-<span class="source-line-no">371</span><span id="line-371">                fillOpacity =  " fill-opacity=\"" + strokeAlpha + "\"";</span>
-<span class="source-line-no">372</span><span id="line-372">            }</span>
-<span class="source-line-no">373</span><span id="line-373"></span>
-<span class="source-line-no">374</span><span id="line-374">            hexStrokeColor = colorToHexString(strokeColor,false);</span>
-<span class="source-line-no">375</span><span id="line-375">            String defaultStrokeColor = "#000000";</span>
-<span class="source-line-no">376</span><span id="line-376">            if(symbolID.length()==5)</span>
-<span class="source-line-no">377</span><span id="line-377">            {</span>
-<span class="source-line-no">378</span><span id="line-378">                int mod = Integer.valueOf(symbolID.substring(2,4));</span>
-<span class="source-line-no">379</span><span id="line-379">                if(mod &gt;= 13)</span>
-<span class="source-line-no">380</span><span id="line-380">                    defaultStrokeColor = "#00A651";</span>
-<span class="source-line-no">381</span><span id="line-381"></span>
-<span class="source-line-no">382</span><span id="line-382">            }</span>
-<span class="source-line-no">383</span><span id="line-383"></span>
-<span class="source-line-no">384</span><span id="line-384">            if(symbolID.length() &gt;= 20)</span>
-<span class="source-line-no">385</span><span id="line-385">            {</span>
-<span class="source-line-no">386</span><span id="line-386">                if(SymbolUtilities.getBasicSymbolID(symbolID).equals("25132100") &amp;&amp; //key terrain</span>
-<span class="source-line-no">387</span><span id="line-387">                        SymbolID.getVersion(symbolID) &gt;= SymbolID.Version_2525E)</span>
-<span class="source-line-no">388</span><span id="line-388">                    defaultStrokeColor = "#800080";</span>
-<span class="source-line-no">389</span><span id="line-389">                else if(isOutline &amp;&amp; SymbolUtilities.getBasicSymbolID(symbolID).startsWith("2535"))//space debris doesn't change color</span>
-<span class="source-line-no">390</span><span id="line-390">                    defaultStrokeColor = "black";</span>
-<span class="source-line-no">391</span><span id="line-391">            }</span>
-<span class="source-line-no">392</span><span id="line-392">            returnSVG = returnSVG.replaceAll("stroke=\"" + defaultStrokeColor + "\"", "stroke=\"" + hexStrokeColor + "\"" + strokeOpacity);</span>
-<span class="source-line-no">393</span><span id="line-393">            returnSVG = returnSVG.replaceAll("fill=\"" + defaultStrokeColor + "\"", "fill=\"" + hexStrokeColor + "\"" + fillOpacity);</span>
-<span class="source-line-no">394</span><span id="line-394">        }</span>
-<span class="source-line-no">395</span><span id="line-395">        else</span>
-<span class="source-line-no">396</span><span id="line-396">        {</span>
-<span class="source-line-no">397</span><span id="line-397">            strokeColor = Color.BLACK;</span>
-<span class="source-line-no">398</span><span id="line-398">        }</span>
-<span class="source-line-no">399</span><span id="line-399"></span>
-<span class="source-line-no">400</span><span id="line-400">        if (isOutline) {</span>
-<span class="source-line-no">401</span><span id="line-401">            //increase stroke-width so the white outline shows around the symbol</span>
-<span class="source-line-no">402</span><span id="line-402">            returnSVG = increaseStrokeWidth(returnSVG,(outlineSize));</span>
-<span class="source-line-no">403</span><span id="line-403">            //set the stroke color for the group so filled shapes without stokes get outlined as well.</span>
-<span class="source-line-no">404</span><span id="line-404">            returnSVG = returnSVG.replaceFirst("&lt;g", "&lt;g stroke=\"" + hexStrokeColor + "\" " + strokeOpacity + " stroke-linecap=\"square\"");</span>
-<span class="source-line-no">405</span><span id="line-405"></span>
-<span class="source-line-no">406</span><span id="line-406">        }</span>
-<span class="source-line-no">407</span><span id="line-407">        else</span>
-<span class="source-line-no">408</span><span id="line-408">        {</span>
-<span class="source-line-no">409</span><span id="line-409">            /*</span>
-<span class="source-line-no">410</span><span id="line-410">            Pattern pattern = Pattern.compile("(font-size=\"\\d+\\.?\\d*)\"");</span>
-<span class="source-line-no">411</span><span id="line-411">            Matcher m = pattern.matcher(svg);</span>
-<span class="source-line-no">412</span><span id="line-412">            TreeSet&lt;String&gt; fontStrings = new TreeSet&lt;&gt;();</span>
-<span class="source-line-no">413</span><span id="line-413">            while (m.find()) {</span>
-<span class="source-line-no">414</span><span id="line-414">                fontStrings.add(m.group(0));</span>
-<span class="source-line-no">415</span><span id="line-415">            }</span>
-<span class="source-line-no">416</span><span id="line-416">            for (String target : fontStrings) {</span>
-<span class="source-line-no">417</span><span id="line-417">                String replacement = target + " fill=\"#" + strokeColor.toHexString().substring(2) + "\" ";</span>
-<span class="source-line-no">418</span><span id="line-418">                returnSVG = returnSVG.replace(target, replacement);</span>
-<span class="source-line-no">419</span><span id="line-419">            }//*/</span>
-<span class="source-line-no">420</span><span id="line-420"></span>
-<span class="source-line-no">421</span><span id="line-421">            String replacement = " fill=\"" + colorToHexString(strokeColor,false) + "\" ";</span>
-<span class="source-line-no">422</span><span id="line-422">            returnSVG = returnSVG.replace("fill=\"#000000\"",replacement);//only replace black fills, leave white fills alone.</span>
-<span class="source-line-no">423</span><span id="line-423"></span>
-<span class="source-line-no">424</span><span id="line-424">            //In case there are lines that don't have stroke defined, apply stroke color to the top level group.</span>
-<span class="source-line-no">425</span><span id="line-425">            String topGroupTag = "&lt;g id=\"" + SymbolUtilities.getBasicSymbolID(symbolID) + "\"&gt;";//&lt;g id="25212902"&gt;</span>
-<span class="source-line-no">426</span><span id="line-426">            String newGroupTag = "&lt;g id=\"" + SymbolUtilities.getBasicSymbolID(symbolID) + "\" stroke=\"" + hexStrokeColor + "\"" + strokeOpacity + " " + replacement + "&gt;";</span>
-<span class="source-line-no">427</span><span id="line-427">            returnSVG = returnSVG.replace(topGroupTag,newGroupTag);</span>
-<span class="source-line-no">428</span><span id="line-428">        }</span>
-<span class="source-line-no">429</span><span id="line-429"></span>
-<span class="source-line-no">430</span><span id="line-430">        if(fillColor != null)</span>
-<span class="source-line-no">431</span><span id="line-431">        {</span>
-<span class="source-line-no">432</span><span id="line-432">            if(fillColor.getAlpha() != 255)</span>
-<span class="source-line-no">433</span><span id="line-433">            {</span>
-<span class="source-line-no">434</span><span id="line-434">                fillAlpha = fillColor.getAlpha() / 255.0f;</span>
-<span class="source-line-no">435</span><span id="line-435">                fillOpacity =  " fill-opacity=\"" + fillAlpha + "\"";</span>
-<span class="source-line-no">436</span><span id="line-436">            }</span>
-<span class="source-line-no">437</span><span id="line-437"></span>
-<span class="source-line-no">438</span><span id="line-438">            hexFillColor = colorToHexString(fillColor,false);</span>
-<span class="source-line-no">439</span><span id="line-439">            defaultFillColor = "fill=\"#000000\"";</span>
-<span class="source-line-no">440</span><span id="line-440"></span>
-<span class="source-line-no">441</span><span id="line-441">            returnSVG = returnSVG.replaceAll(defaultFillColor, "fill=\"" + hexFillColor + "\"" + fillOpacity);</span>
-<span class="source-line-no">442</span><span id="line-442">        }</span>
-<span class="source-line-no">443</span><span id="line-443"></span>
-<span class="source-line-no">444</span><span id="line-444">        return returnSVG;</span>
-<span class="source-line-no">445</span><span id="line-445">    }</span>
-<span class="source-line-no">446</span><span id="line-446"></span>
-<span class="source-line-no">447</span><span id="line-447">    /**</span>
-<span class="source-line-no">448</span><span id="line-448">     * Sets SVG stroke-dasharray when action points are in planned status</span>
-<span class="source-line-no">449</span><span id="line-449">     * @param symbolID</span>
-<span class="source-line-no">450</span><span id="line-450">     * @param siIcon</span>
-<span class="source-line-no">451</span><span id="line-451">     * @return</span>
-<span class="source-line-no">452</span><span id="line-452">     */</span>
-<span class="source-line-no">453</span><span id="line-453">    public static SVGInfo setAffiliationDashArray(String symbolID, SVGInfo siIcon)</span>
-<span class="source-line-no">454</span><span id="line-454">    {</span>
-<span class="source-line-no">455</span><span id="line-455">        String svg = siIcon.getSVG();</span>
-<span class="source-line-no">456</span><span id="line-456">        int status = SymbolID.getStatus(symbolID);</span>
-<span class="source-line-no">457</span><span id="line-457">        int aff = SymbolID.getAffiliation(symbolID);</span>
-<span class="source-line-no">458</span><span id="line-458">        SVGInfo returnVal = siIcon;</span>
-<span class="source-line-no">459</span><span id="line-459">        if(status == SymbolID.Status_Planned_Anticipated_Suspect)</span>
-<span class="source-line-no">460</span><span id="line-460">        {</span>
-<span class="source-line-no">461</span><span id="line-461">            if(SymbolUtilities.isActionPoint(symbolID))</span>
-<span class="source-line-no">462</span><span id="line-462">            {</span>
-<span class="source-line-no">463</span><span id="line-463">                svg = svg.replaceFirst("&lt;rect ","&lt;rect stroke-dasharray=\"20 19\" ");</span>
-<span class="source-line-no">464</span><span id="line-464">                svg = svg.replaceFirst("&lt;polygon ","&lt;polygon stroke-dasharray=\"20 20\" ");</span>
-<span class="source-line-no">465</span><span id="line-465">                returnVal = new SVGInfo(siIcon.getID(),siIcon.getBbox(), svg);</span>
-<span class="source-line-no">466</span><span id="line-466">            }</span>
-<span class="source-line-no">467</span><span id="line-467">        }</span>
-<span class="source-line-no">468</span><span id="line-468">        /*else if(aff == SymbolID.StandardIdentity_Affiliation_Pending ||</span>
-<span class="source-line-no">469</span><span id="line-469">                aff == SymbolID.StandardIdentity_Affiliation_AssumedFriend ||</span>
-<span class="source-line-no">470</span><span id="line-470">                aff == SymbolID.StandardIdentity_Affiliation_Suspect_Joker)</span>
-<span class="source-line-no">471</span><span id="line-471">        {</span>
-<span class="source-line-no">472</span><span id="line-472">            //Dot pattern if Control Measures use it?</span>
-<span class="source-line-no">473</span><span id="line-473">        }//*/</span>
-<span class="source-line-no">474</span><span id="line-474"></span>
-<span class="source-line-no">475</span><span id="line-475">        return returnVal;</span>
-<span class="source-line-no">476</span><span id="line-476">    }</span>
-<span class="source-line-no">477</span><span id="line-477">    public static float findWidestStrokeWidth(String svg) {</span>
-<span class="source-line-no">478</span><span id="line-478">        Pattern pattern = Pattern.compile("(stroke-width=\")(\\d+\\.?\\d*)\"");</span>
-<span class="source-line-no">479</span><span id="line-479">        Matcher m = pattern.matcher(svg);</span>
-<span class="source-line-no">480</span><span id="line-480">        TreeSet&lt;Float&gt; strokeWidths = new TreeSet&lt;&gt;();</span>
-<span class="source-line-no">481</span><span id="line-481">        while (m.find()) {</span>
-<span class="source-line-no">482</span><span id="line-482">            // Log.d("found stroke width", m.group(0));</span>
-<span class="source-line-no">483</span><span id="line-483">            strokeWidths.add(Float.valueOf(m.group(2)));</span>
-<span class="source-line-no">484</span><span id="line-484">        }</span>
-<span class="source-line-no">485</span><span id="line-485"></span>
-<span class="source-line-no">486</span><span id="line-486">        float largest = 4.0f;</span>
-<span class="source-line-no">487</span><span id="line-487">        if (!strokeWidths.isEmpty()) {</span>
-<span class="source-line-no">488</span><span id="line-488">            largest = strokeWidths.descendingSet().first();</span>
-<span class="source-line-no">489</span><span id="line-489">        }</span>
-<span class="source-line-no">490</span><span id="line-490">        return largest * OUTLINE_SCALING_FACTOR;</span>
-<span class="source-line-no">491</span><span id="line-491">    }</span>
-<span class="source-line-no">492</span><span id="line-492"></span>
-<span class="source-line-no">493</span><span id="line-493">    public static int findInstIndIndex(String svg)</span>
-<span class="source-line-no">494</span><span id="line-494">    {</span>
-<span class="source-line-no">495</span><span id="line-495">        int start = -1;</span>
-<span class="source-line-no">496</span><span id="line-496">        int stop = -1;</span>
-<span class="source-line-no">497</span><span id="line-497"></span>
-<span class="source-line-no">498</span><span id="line-498">        start = svg.indexOf("&lt;rect");</span>
-<span class="source-line-no">499</span><span id="line-499">        stop = svg.indexOf("&gt;",start);</span>
-<span class="source-line-no">500</span><span id="line-500"></span>
-<span class="source-line-no">501</span><span id="line-501">        String rect = svg.substring(start,stop+1);</span>
-<span class="source-line-no">502</span><span id="line-502">        if(!rect.contains("fill"))//no set fill so it's the indicator</span>
+<span class="source-line-no">007</span><span id="line-7">import android.graphics.Rect;</span>
+<span class="source-line-no">008</span><span id="line-8">import android.graphics.RectF;</span>
+<span class="source-line-no">009</span><span id="line-9">import android.util.SparseArray;</span>
+<span class="source-line-no">010</span><span id="line-10"></span>
+<span class="source-line-no">011</span><span id="line-11">import java.util.Map;</span>
+<span class="source-line-no">012</span><span id="line-12">import java.util.TreeSet;</span>
+<span class="source-line-no">013</span><span id="line-13">import java.util.logging.Level;</span>
+<span class="source-line-no">014</span><span id="line-14">import java.util.regex.Matcher;</span>
+<span class="source-line-no">015</span><span id="line-15">import java.util.regex.Pattern;</span>
+<span class="source-line-no">016</span><span id="line-16"></span>
+<span class="source-line-no">017</span><span id="line-17">public class RendererUtilities {</span>
+<span class="source-line-no">018</span><span id="line-18"></span>
+<span class="source-line-no">019</span><span id="line-19">    private static final float OUTLINE_SCALING_FACTOR = 2.5f;</span>
+<span class="source-line-no">020</span><span id="line-20">        private static SparseArray&lt;Color&gt; pastIdealOutlineColors = new SparseArray&lt;Color&gt;();</span>
+<span class="source-line-no">021</span><span id="line-21">        /**</span>
+<span class="source-line-no">022</span><span id="line-22">     * </span>
+<span class="source-line-no">023</span><span id="line-23">     * @param color {String} color like "#FFFFFF"</span>
+<span class="source-line-no">024</span><span id="line-24">     * @return {String}</span>
+<span class="source-line-no">025</span><span id="line-25">     */</span>
+<span class="source-line-no">026</span><span id="line-26">    public static Color getIdealOutlineColor(Color color){</span>
+<span class="source-line-no">027</span><span id="line-27">        Color idealColor = Color.white;</span>
+<span class="source-line-no">028</span><span id="line-28">        </span>
+<span class="source-line-no">029</span><span id="line-29">        if(color != null &amp;&amp; pastIdealOutlineColors.indexOfKey(color.toInt())&gt;=0)</span>
+<span class="source-line-no">030</span><span id="line-30">        {</span>
+<span class="source-line-no">031</span><span id="line-31">            return pastIdealOutlineColors.get(color.toInt());</span>
+<span class="source-line-no">032</span><span id="line-32">        }//*/</span>
+<span class="source-line-no">033</span><span id="line-33">        </span>
+<span class="source-line-no">034</span><span id="line-34">        if(color != null)</span>
+<span class="source-line-no">035</span><span id="line-35">        {</span>
+<span class="source-line-no">036</span><span id="line-36">                </span>
+<span class="source-line-no">037</span><span id="line-37">                int threshold = RendererSettings.getInstance().getTextBackgroundAutoColorThreshold();</span>
+<span class="source-line-no">038</span><span id="line-38">                        </span>
+<span class="source-line-no">039</span><span id="line-39">            int r = color.getRed();</span>
+<span class="source-line-no">040</span><span id="line-40">            int g = color.getGreen();</span>
+<span class="source-line-no">041</span><span id="line-41">            int b = color.getBlue();</span>
+<span class="source-line-no">042</span><span id="line-42">        </span>
+<span class="source-line-no">043</span><span id="line-43">            float delta = ((r * 0.299f) + (g * 0.587f) + (b * 0.114f));</span>
+<span class="source-line-no">044</span><span id="line-44">            </span>
+<span class="source-line-no">045</span><span id="line-45">            if((255 - delta &lt; threshold))</span>
+<span class="source-line-no">046</span><span id="line-46">            {</span>
+<span class="source-line-no">047</span><span id="line-47">                idealColor = Color.black;</span>
+<span class="source-line-no">048</span><span id="line-48">            }</span>
+<span class="source-line-no">049</span><span id="line-49">            else</span>
+<span class="source-line-no">050</span><span id="line-50">            {</span>
+<span class="source-line-no">051</span><span id="line-51">                idealColor = Color.white;</span>
+<span class="source-line-no">052</span><span id="line-52">            }</span>
+<span class="source-line-no">053</span><span id="line-53">        }</span>
+<span class="source-line-no">054</span><span id="line-54">        </span>
+<span class="source-line-no">055</span><span id="line-55">        if(color != null)</span>
+<span class="source-line-no">056</span><span id="line-56">                pastIdealOutlineColors.put(color.toInt(),idealColor);</span>
+<span class="source-line-no">057</span><span id="line-57">        </span>
+<span class="source-line-no">058</span><span id="line-58">        return idealColor;</span>
+<span class="source-line-no">059</span><span id="line-59">    }</span>
+<span class="source-line-no">060</span><span id="line-60">    </span>
+<span class="source-line-no">061</span><span id="line-61">    public static void renderSymbolCharacter(Canvas ctx, String symbol, int x, int y, Paint paint, Color color, int outlineWidth)</span>
+<span class="source-line-no">062</span><span id="line-62">    {</span>
+<span class="source-line-no">063</span><span id="line-63">        int tbm = RendererSettings.getInstance().getTextBackgroundMethod();</span>
+<span class="source-line-no">064</span><span id="line-64"></span>
+<span class="source-line-no">065</span><span id="line-65">        Color outlineColor = RendererUtilities.getIdealOutlineColor(color);</span>
+<span class="source-line-no">066</span><span id="line-66"></span>
+<span class="source-line-no">067</span><span id="line-67">        //if(tbm == RendererSettings.TextBackgroundMethod_OUTLINE_QUICK)</span>
+<span class="source-line-no">068</span><span id="line-68">        //{    </span>
+<span class="source-line-no">069</span><span id="line-69">            //draw symbol outline</span>
+<span class="source-line-no">070</span><span id="line-70">                paint.setStyle(Style.FILL);</span>
+<span class="source-line-no">071</span><span id="line-71"></span>
+<span class="source-line-no">072</span><span id="line-72">                paint.setColor(outlineColor.toInt());</span>
+<span class="source-line-no">073</span><span id="line-73">            if(outlineWidth &gt; 0)</span>
+<span class="source-line-no">074</span><span id="line-74">            {</span>
+<span class="source-line-no">075</span><span id="line-75">                for(int i = 1; i &lt;= outlineWidth; i++)</span>
+<span class="source-line-no">076</span><span id="line-76">                {</span>
+<span class="source-line-no">077</span><span id="line-77">                        if(i % 2 == 1)</span>
+<span class="source-line-no">078</span><span id="line-78">                        {</span>
+<span class="source-line-no">079</span><span id="line-79">                                ctx.drawText(symbol, x - i, y, paint);</span>
+<span class="source-line-no">080</span><span id="line-80">                        ctx.drawText(symbol, x + i, y, paint);</span>
+<span class="source-line-no">081</span><span id="line-81">                        ctx.drawText(symbol, x, y + i, paint);</span>
+<span class="source-line-no">082</span><span id="line-82">                        ctx.drawText(symbol, x, y - i, paint);</span>
+<span class="source-line-no">083</span><span id="line-83">                        }</span>
+<span class="source-line-no">084</span><span id="line-84">                        else</span>
+<span class="source-line-no">085</span><span id="line-85">                        {</span>
+<span class="source-line-no">086</span><span id="line-86">                                ctx.drawText(symbol, x - i, y - i, paint);</span>
+<span class="source-line-no">087</span><span id="line-87">                        ctx.drawText(symbol, x + i, y - i, paint);</span>
+<span class="source-line-no">088</span><span id="line-88">                        ctx.drawText(symbol, x - i, y + i, paint);</span>
+<span class="source-line-no">089</span><span id="line-89">                        ctx.drawText(symbol, x + i, y + i, paint);</span>
+<span class="source-line-no">090</span><span id="line-90">                        }</span>
+<span class="source-line-no">091</span><span id="line-91">                        </span>
+<span class="source-line-no">092</span><span id="line-92">                }</span>
+<span class="source-line-no">093</span><span id="line-93">                </span>
+<span class="source-line-no">094</span><span id="line-94">            }</span>
+<span class="source-line-no">095</span><span id="line-95">            //draw symbol</span>
+<span class="source-line-no">096</span><span id="line-96">            paint.setColor(color.toInt());</span>
+<span class="source-line-no">097</span><span id="line-97">            </span>
+<span class="source-line-no">098</span><span id="line-98">                ctx.drawText(symbol, x, y, paint);</span>
+<span class="source-line-no">099</span><span id="line-99">            </span>
+<span class="source-line-no">100</span><span id="line-100">        /*}</span>
+<span class="source-line-no">101</span><span id="line-101">        else</span>
+<span class="source-line-no">102</span><span id="line-102">        {</span>
+<span class="source-line-no">103</span><span id="line-103">            //draw text outline</span>
+<span class="source-line-no">104</span><span id="line-104">                paint.setStyle(Style.STROKE);</span>
+<span class="source-line-no">105</span><span id="line-105">                paint.setStrokeWidth(RendererSettings.getInstance().getTextOutlineWidth());</span>
+<span class="source-line-no">106</span><span id="line-106">                paint.setColor(outlineColor.toInt());</span>
+<span class="source-line-no">107</span><span id="line-107">            if(outlineWidth &gt; 0)</span>
+<span class="source-line-no">108</span><span id="line-108">            {</span>
+<span class="source-line-no">109</span><span id="line-109">                </span>
+<span class="source-line-no">110</span><span id="line-110">                ctx.drawText(symbol, x, y, paint);</span>
+<span class="source-line-no">111</span><span id="line-111">                </span>
+<span class="source-line-no">112</span><span id="line-112">            }</span>
+<span class="source-line-no">113</span><span id="line-113">            //draw text</span>
+<span class="source-line-no">114</span><span id="line-114">            paint.setColor(color.toInt());</span>
+<span class="source-line-no">115</span><span id="line-115">            paint.setStyle(Style.FILL);</span>
+<span class="source-line-no">116</span><span id="line-116">            </span>
+<span class="source-line-no">117</span><span id="line-117">                ctx.drawText(symbol, x, y, paint);</span>
+<span class="source-line-no">118</span><span id="line-118">        }//*/     </span>
+<span class="source-line-no">119</span><span id="line-119">    }</span>
+<span class="source-line-no">120</span><span id="line-120"></span>
+<span class="source-line-no">121</span><span id="line-121">    /**</span>
+<span class="source-line-no">122</span><span id="line-122">     * Create a copy of the {@Color} object with the passed alpha value.</span>
+<span class="source-line-no">123</span><span id="line-123">     * @param color {@Color} object used for RGB values</span>
+<span class="source-line-no">124</span><span id="line-124">     * @param alpha {@float} value between 0 and 1</span>
+<span class="source-line-no">125</span><span id="line-125">     * @return</span>
+<span class="source-line-no">126</span><span id="line-126">     */</span>
+<span class="source-line-no">127</span><span id="line-127">    public static Color setColorAlpha(Color color, float alpha) {</span>
+<span class="source-line-no">128</span><span id="line-128">        if (color != null)</span>
+<span class="source-line-no">129</span><span id="line-129">        {</span>
+<span class="source-line-no">130</span><span id="line-130">            if(alpha &gt;= 0 &amp;&amp; alpha &lt;= 1)</span>
+<span class="source-line-no">131</span><span id="line-131">                return new Color(color.getRed(),color.getGreen(),color.getBlue(),(int)(alpha*255f));</span>
+<span class="source-line-no">132</span><span id="line-132">            else</span>
+<span class="source-line-no">133</span><span id="line-133">                return color;</span>
+<span class="source-line-no">134</span><span id="line-134">        }</span>
+<span class="source-line-no">135</span><span id="line-135">        else</span>
+<span class="source-line-no">136</span><span id="line-136">            return null;</span>
+<span class="source-line-no">137</span><span id="line-137">    }</span>
+<span class="source-line-no">138</span><span id="line-138">    public static String colorToHexString(Color color, Boolean withAlpha)</span>
+<span class="source-line-no">139</span><span id="line-139">    {</span>
+<span class="source-line-no">140</span><span id="line-140">        if(color != null)</span>
+<span class="source-line-no">141</span><span id="line-141">        {</span>
+<span class="source-line-no">142</span><span id="line-142">            String hex = color.toHexString();</span>
+<span class="source-line-no">143</span><span id="line-143">            hex = hex.toUpperCase();</span>
+<span class="source-line-no">144</span><span id="line-144">            if(withAlpha)</span>
+<span class="source-line-no">145</span><span id="line-145">                return "#" + hex;</span>
+<span class="source-line-no">146</span><span id="line-146">            else</span>
+<span class="source-line-no">147</span><span id="line-147">                return "#" + hex.substring(2);</span>
+<span class="source-line-no">148</span><span id="line-148">        }</span>
+<span class="source-line-no">149</span><span id="line-149">        return null;</span>
+<span class="source-line-no">150</span><span id="line-150">    }</span>
+<span class="source-line-no">151</span><span id="line-151"></span>
+<span class="source-line-no">152</span><span id="line-152">    /**</span>
+<span class="source-line-no">153</span><span id="line-153">     *</span>
+<span class="source-line-no">154</span><span id="line-154">     * @param hexValue - String representing hex value (formatted "0xRRGGBB"</span>
+<span class="source-line-no">155</span><span id="line-155">     * i.e. "0xFFFFFF") OR formatted "0xAARRGGBB" i.e. "0x00FFFFFF" for a color</span>
+<span class="source-line-no">156</span><span id="line-156">     * with an alpha value I will also put up with "RRGGBB" and "AARRGGBB"</span>
+<span class="source-line-no">157</span><span id="line-157">     * without the starting "0x"</span>
+<span class="source-line-no">158</span><span id="line-158">     * @return</span>
+<span class="source-line-no">159</span><span id="line-159">     */</span>
+<span class="source-line-no">160</span><span id="line-160">    public static Color getColorFromHexString(String hexValue)</span>
+<span class="source-line-no">161</span><span id="line-161">    {</span>
+<span class="source-line-no">162</span><span id="line-162">        try</span>
+<span class="source-line-no">163</span><span id="line-163">        {</span>
+<span class="source-line-no">164</span><span id="line-164">            if(hexValue==null || hexValue.isEmpty())</span>
+<span class="source-line-no">165</span><span id="line-165">                return null;</span>
+<span class="source-line-no">166</span><span id="line-166">            String hexOriginal = hexValue;</span>
+<span class="source-line-no">167</span><span id="line-167"></span>
+<span class="source-line-no">168</span><span id="line-168">            String hexAlphabet = "0123456789ABCDEF";</span>
+<span class="source-line-no">169</span><span id="line-169"></span>
+<span class="source-line-no">170</span><span id="line-170">            if (hexValue.charAt(0) == '#')</span>
+<span class="source-line-no">171</span><span id="line-171">            {</span>
+<span class="source-line-no">172</span><span id="line-172">                hexValue = hexValue.substring(1);</span>
+<span class="source-line-no">173</span><span id="line-173">            }</span>
+<span class="source-line-no">174</span><span id="line-174">            if (hexValue.substring(0, 2).equals("0x") || hexValue.substring(0, 2).equals("0X"))</span>
+<span class="source-line-no">175</span><span id="line-175">            {</span>
+<span class="source-line-no">176</span><span id="line-176">                hexValue = hexValue.substring(2);</span>
+<span class="source-line-no">177</span><span id="line-177">            }</span>
+<span class="source-line-no">178</span><span id="line-178"></span>
+<span class="source-line-no">179</span><span id="line-179">            hexValue = hexValue.toUpperCase();</span>
+<span class="source-line-no">180</span><span id="line-180"></span>
+<span class="source-line-no">181</span><span id="line-181">            int count = hexValue.length();</span>
+<span class="source-line-no">182</span><span id="line-182">            int[] value = null;</span>
+<span class="source-line-no">183</span><span id="line-183">            int k = 0;</span>
+<span class="source-line-no">184</span><span id="line-184">            int int1 = 0;</span>
+<span class="source-line-no">185</span><span id="line-185">            int int2 = 0;</span>
+<span class="source-line-no">186</span><span id="line-186"></span>
+<span class="source-line-no">187</span><span id="line-187">            if (count == 8 || count == 6)</span>
+<span class="source-line-no">188</span><span id="line-188">            {</span>
+<span class="source-line-no">189</span><span id="line-189">                value = new int[(count / 2)];</span>
+<span class="source-line-no">190</span><span id="line-190">                for (int i = 0; i &lt; count; i += 2)</span>
+<span class="source-line-no">191</span><span id="line-191">                {</span>
+<span class="source-line-no">192</span><span id="line-192">                    int1 = hexAlphabet.indexOf(hexValue.charAt(i));</span>
+<span class="source-line-no">193</span><span id="line-193">                    int2 = hexAlphabet.indexOf(hexValue.charAt(i + 1));</span>
+<span class="source-line-no">194</span><span id="line-194"></span>
+<span class="source-line-no">195</span><span id="line-195">                    if(int1 == -1 || int2 == -1)</span>
+<span class="source-line-no">196</span><span id="line-196">                    {</span>
+<span class="source-line-no">197</span><span id="line-197">                        ErrorLogger.LogMessage("RendererUtilities", "getColorFromHexString", "Bad hex value: " + hexOriginal, Level.WARNING);</span>
+<span class="source-line-no">198</span><span id="line-198">                        return null;</span>
+<span class="source-line-no">199</span><span id="line-199">                    }</span>
+<span class="source-line-no">200</span><span id="line-200"></span>
+<span class="source-line-no">201</span><span id="line-201">                    value[k] = (int1 * 16) + int2;</span>
+<span class="source-line-no">202</span><span id="line-202">                    k++;</span>
+<span class="source-line-no">203</span><span id="line-203">                }</span>
+<span class="source-line-no">204</span><span id="line-204"></span>
+<span class="source-line-no">205</span><span id="line-205">                if (count == 8)</span>
+<span class="source-line-no">206</span><span id="line-206">                {</span>
+<span class="source-line-no">207</span><span id="line-207">                    return new Color(value[1], value[2], value[3], value[0]);</span>
+<span class="source-line-no">208</span><span id="line-208">                }</span>
+<span class="source-line-no">209</span><span id="line-209">                else if (count == 6)</span>
+<span class="source-line-no">210</span><span id="line-210">                {</span>
+<span class="source-line-no">211</span><span id="line-211">                    return new Color(value[0], value[1], value[2]);</span>
+<span class="source-line-no">212</span><span id="line-212">                }</span>
+<span class="source-line-no">213</span><span id="line-213">            }</span>
+<span class="source-line-no">214</span><span id="line-214">            else</span>
+<span class="source-line-no">215</span><span id="line-215">            {</span>
+<span class="source-line-no">216</span><span id="line-216">                ErrorLogger.LogMessage("RendererUtilities", "getColorFromHexString", "Bad hex value: " + hexOriginal, Level.WARNING);</span>
+<span class="source-line-no">217</span><span id="line-217">            }</span>
+<span class="source-line-no">218</span><span id="line-218">            return null;</span>
+<span class="source-line-no">219</span><span id="line-219">        }</span>
+<span class="source-line-no">220</span><span id="line-220">        catch (Exception exc)</span>
+<span class="source-line-no">221</span><span id="line-221">        {</span>
+<span class="source-line-no">222</span><span id="line-222">            ErrorLogger.LogException("RendererUtilities", "getColorFromHexString", exc);</span>
+<span class="source-line-no">223</span><span id="line-223">            return null;</span>
+<span class="source-line-no">224</span><span id="line-224">        }</span>
+<span class="source-line-no">225</span><span id="line-225">    }</span>
+<span class="source-line-no">226</span><span id="line-226"></span>
+<span class="source-line-no">227</span><span id="line-227">    /**</span>
+<span class="source-line-no">228</span><span id="line-228">     * For Renderer Use Only</span>
+<span class="source-line-no">229</span><span id="line-229">     * Assumes a fresh SVG String from the SVGLookup with its default values</span>
+<span class="source-line-no">230</span><span id="line-230">     * @param symbolID</span>
+<span class="source-line-no">231</span><span id="line-231">     * @param svg</span>
+<span class="source-line-no">232</span><span id="line-232">     * @param strokeColor hex value like "#FF0000";</span>
+<span class="source-line-no">233</span><span id="line-233">     * @param fillColor hex value like "#FF0000";</span>
+<span class="source-line-no">234</span><span id="line-234">     * @return SVG String</span>
+<span class="source-line-no">235</span><span id="line-235">     */</span>
+<span class="source-line-no">236</span><span id="line-236">    public static String setSVGFrameColors(String symbolID, String svg, Color strokeColor, Color fillColor)</span>
+<span class="source-line-no">237</span><span id="line-237">    {</span>
+<span class="source-line-no">238</span><span id="line-238">        String returnSVG = null;</span>
+<span class="source-line-no">239</span><span id="line-239">        String hexStrokeColor = null;</span>
+<span class="source-line-no">240</span><span id="line-240">        String hexFillColor = null;</span>
+<span class="source-line-no">241</span><span id="line-241">        float strokeAlpha = 1;</span>
+<span class="source-line-no">242</span><span id="line-242">        float fillAlpha = 1;</span>
+<span class="source-line-no">243</span><span id="line-243">        String strokeOpacity = "";</span>
+<span class="source-line-no">244</span><span id="line-244">        String fillOpacity = "";</span>
+<span class="source-line-no">245</span><span id="line-245"></span>
+<span class="source-line-no">246</span><span id="line-246">        int ss = SymbolID.getSymbolSet(symbolID);</span>
+<span class="source-line-no">247</span><span id="line-247">        int ver = SymbolID.getVersion(symbolID);</span>
+<span class="source-line-no">248</span><span id="line-248">        int affiliation = SymbolID.getAffiliation(symbolID);</span>
+<span class="source-line-no">249</span><span id="line-249">        String defaultFillColor = null;</span>
+<span class="source-line-no">250</span><span id="line-250">        returnSVG = svg;</span>
+<span class="source-line-no">251</span><span id="line-251">        if(strokeColor != null)</span>
+<span class="source-line-no">252</span><span id="line-252">        {</span>
+<span class="source-line-no">253</span><span id="line-253">            if(strokeColor.getAlpha() != 255)</span>
+<span class="source-line-no">254</span><span id="line-254">            {</span>
+<span class="source-line-no">255</span><span id="line-255">                strokeAlpha = strokeColor.getAlpha() / 255.0f;</span>
+<span class="source-line-no">256</span><span id="line-256">                strokeOpacity =  " stroke-opacity=\"" + String.valueOf(strokeAlpha) + "\"";</span>
+<span class="source-line-no">257</span><span id="line-257">                fillOpacity =  " fill-opacity=\"" + String.valueOf(strokeAlpha) + "\"";</span>
+<span class="source-line-no">258</span><span id="line-258">            }</span>
+<span class="source-line-no">259</span><span id="line-259"></span>
+<span class="source-line-no">260</span><span id="line-260">            hexStrokeColor = colorToHexString(strokeColor,false);</span>
+<span class="source-line-no">261</span><span id="line-261">            returnSVG = svg.replaceAll("stroke=\"#000000\"", "stroke=\"" + hexStrokeColor + "\"" + strokeOpacity);</span>
+<span class="source-line-no">262</span><span id="line-262">            returnSVG = returnSVG.replaceAll("fill=\"#000000\"", "fill=\"" + hexStrokeColor + "\"" + fillOpacity);</span>
+<span class="source-line-no">263</span><span id="line-263"></span>
+<span class="source-line-no">264</span><span id="line-264">            if(ss == SymbolID.SymbolSet_LandInstallation ||</span>
+<span class="source-line-no">265</span><span id="line-265">                    ss == SymbolID.SymbolSet_Space ||</span>
+<span class="source-line-no">266</span><span id="line-266">                    ss == SymbolID.SymbolSet_CyberSpace ||</span>
+<span class="source-line-no">267</span><span id="line-267">                    ss == SymbolID.SymbolSet_Activities)</span>
+<span class="source-line-no">268</span><span id="line-268">            {//add group fill so the extra shapes in these frames have the new frame color</span>
+<span class="source-line-no">269</span><span id="line-269">                String svgStart =  "&lt;g id=\"" + SVGLookup.getFrameID(symbolID) + "\"&gt;";</span>
+<span class="source-line-no">270</span><span id="line-270">                String svgStartReplace = svgStart.substring(0,svgStart.length()-1) + " fill=\"" + hexStrokeColor + "\"" + fillOpacity + "&gt;";</span>
+<span class="source-line-no">271</span><span id="line-271">                returnSVG = returnSVG.replace(svgStart,svgStartReplace);</span>
+<span class="source-line-no">272</span><span id="line-272">            }</span>
+<span class="source-line-no">273</span><span id="line-273"></span>
+<span class="source-line-no">274</span><span id="line-274">            if((SymbolID.getSymbolSet(symbolID)==SymbolID.SymbolSet_LandInstallation &amp;&amp; SymbolID.getFrameShape(symbolID)=='0') ||</span>
+<span class="source-line-no">275</span><span id="line-275">                    SymbolID.getFrameShape(symbolID)==SymbolID.FrameShape_LandInstallation)</span>
+<span class="source-line-no">276</span><span id="line-276">            {</span>
+<span class="source-line-no">277</span><span id="line-277">                int i1 = findInstIndIndex(returnSVG)+5;</span>
+<span class="source-line-no">278</span><span id="line-278">                //make sure installation indicator matches line color</span>
+<span class="source-line-no">279</span><span id="line-279">                returnSVG = returnSVG.substring(0,i1) + " fill=\"" + hexStrokeColor + "\"" + returnSVG.substring(i1);</span>
+<span class="source-line-no">280</span><span id="line-280">            }</span>
+<span class="source-line-no">281</span><span id="line-281"></span>
+<span class="source-line-no">282</span><span id="line-282">        }</span>
+<span class="source-line-no">283</span><span id="line-283">        else if((SymbolID.getSymbolSet(symbolID)==SymbolID.SymbolSet_LandInstallation &amp;&amp; SymbolID.getFrameShape(symbolID)=='0') ||</span>
+<span class="source-line-no">284</span><span id="line-284">                SymbolID.getFrameShape(symbolID)==SymbolID.FrameShape_LandInstallation)</span>
+<span class="source-line-no">285</span><span id="line-285">        {</span>
+<span class="source-line-no">286</span><span id="line-286">            int i1 = findInstIndIndex(returnSVG)+5;</span>
+<span class="source-line-no">287</span><span id="line-287">            //No line color change so make sure installation indicator stays black</span>
+<span class="source-line-no">288</span><span id="line-288">            returnSVG = returnSVG.substring(0,i1) + " fill=\"#000000\"" + returnSVG.substring(i1);</span>
+<span class="source-line-no">289</span><span id="line-289">        }</span>
+<span class="source-line-no">290</span><span id="line-290"></span>
+<span class="source-line-no">291</span><span id="line-291">        if(fillColor != null)</span>
+<span class="source-line-no">292</span><span id="line-292">        {</span>
+<span class="source-line-no">293</span><span id="line-293">            if(fillColor.getAlpha() != 255)</span>
+<span class="source-line-no">294</span><span id="line-294">            {</span>
+<span class="source-line-no">295</span><span id="line-295">                fillAlpha = fillColor.getAlpha() / 255.0f;</span>
+<span class="source-line-no">296</span><span id="line-296">                fillOpacity =  " fill-opacity=\"" + String.valueOf(fillAlpha) + "\"";</span>
+<span class="source-line-no">297</span><span id="line-297">            }</span>
+<span class="source-line-no">298</span><span id="line-298"></span>
+<span class="source-line-no">299</span><span id="line-299">            hexFillColor = colorToHexString(fillColor,false);</span>
+<span class="source-line-no">300</span><span id="line-300">            switch(affiliation)</span>
+<span class="source-line-no">301</span><span id="line-301">            {</span>
+<span class="source-line-no">302</span><span id="line-302">                case SymbolID.StandardIdentity_Affiliation_Friend:</span>
+<span class="source-line-no">303</span><span id="line-303">                case SymbolID.StandardIdentity_Affiliation_AssumedFriend:</span>
+<span class="source-line-no">304</span><span id="line-304">                    defaultFillColor = "fill=\"#80E0FF\"";//friendly frame fill</span>
+<span class="source-line-no">305</span><span id="line-305">                    break;</span>
+<span class="source-line-no">306</span><span id="line-306">                case SymbolID.StandardIdentity_Affiliation_Hostile_Faker:</span>
+<span class="source-line-no">307</span><span id="line-307">                    defaultFillColor = "fill=\"#FF8080\"";//hostile frame fill</span>
+<span class="source-line-no">308</span><span id="line-308">                    break;</span>
+<span class="source-line-no">309</span><span id="line-309">                case SymbolID.StandardIdentity_Affiliation_Suspect_Joker:</span>
+<span class="source-line-no">310</span><span id="line-310">                    if(SymbolID.getVersion(symbolID) &gt;= SymbolID.Version_2525E)</span>
+<span class="source-line-no">311</span><span id="line-311">                        defaultFillColor = "fill=\"#FFE599\"";//suspect frame fill</span>
+<span class="source-line-no">312</span><span id="line-312">                    else</span>
+<span class="source-line-no">313</span><span id="line-313">                        defaultFillColor = "fill=\"#FF8080\"";//hostile frame fill</span>
+<span class="source-line-no">314</span><span id="line-314">                    break;</span>
+<span class="source-line-no">315</span><span id="line-315">                case SymbolID.StandardIdentity_Affiliation_Unknown:</span>
+<span class="source-line-no">316</span><span id="line-316">                case SymbolID.StandardIdentity_Affiliation_Pending:</span>
+<span class="source-line-no">317</span><span id="line-317">                    defaultFillColor = "fill=\"#FFFF80\"";//unknown frame fill</span>
+<span class="source-line-no">318</span><span id="line-318">                    break;</span>
+<span class="source-line-no">319</span><span id="line-319">                case SymbolID.StandardIdentity_Affiliation_Neutral:</span>
+<span class="source-line-no">320</span><span id="line-320">                    defaultFillColor = "fill=\"#AAFFAA\"";//neutral frame fill</span>
+<span class="source-line-no">321</span><span id="line-321">                    break;</span>
+<span class="source-line-no">322</span><span id="line-322">                default:</span>
+<span class="source-line-no">323</span><span id="line-323">                    defaultFillColor = "fill=\"#80E0FF\"";//friendly frame fill</span>
+<span class="source-line-no">324</span><span id="line-324">                    break;</span>
+<span class="source-line-no">325</span><span id="line-325">            }</span>
+<span class="source-line-no">326</span><span id="line-326"></span>
+<span class="source-line-no">327</span><span id="line-327">            int fillIndex = returnSVG.lastIndexOf(defaultFillColor);</span>
+<span class="source-line-no">328</span><span id="line-328">            if(fillIndex != -1)</span>
+<span class="source-line-no">329</span><span id="line-329">                returnSVG = returnSVG.substring(0,fillIndex) + "fill=\"" + hexFillColor + "\"" + fillOpacity + returnSVG.substring(fillIndex + defaultFillColor.length());</span>
+<span class="source-line-no">330</span><span id="line-330"></span>
+<span class="source-line-no">331</span><span id="line-331">            //returnSVG = returnSVG.replaceFirst(defaultFillColor, "fill=\"" + hexFillColor + "\"" + fillOpacity);</span>
+<span class="source-line-no">332</span><span id="line-332">        }</span>
+<span class="source-line-no">333</span><span id="line-333"></span>
+<span class="source-line-no">334</span><span id="line-334">        if(returnSVG != null)</span>
+<span class="source-line-no">335</span><span id="line-335">            return returnSVG;</span>
+<span class="source-line-no">336</span><span id="line-336">        else</span>
+<span class="source-line-no">337</span><span id="line-337">            return svg;</span>
+<span class="source-line-no">338</span><span id="line-338">    }</span>
+<span class="source-line-no">339</span><span id="line-339"></span>
+<span class="source-line-no">340</span><span id="line-340">    /**</span>
+<span class="source-line-no">341</span><span id="line-341">     * For Renderer Use Only</span>
+<span class="source-line-no">342</span><span id="line-342">     * Changes colors for single point control measures</span>
+<span class="source-line-no">343</span><span id="line-343">     * @param symbolID</span>
+<span class="source-line-no">344</span><span id="line-344">     * @param svg</span>
+<span class="source-line-no">345</span><span id="line-345">     * @param strokeColor hex value like "#FF0000";</span>
+<span class="source-line-no">346</span><span id="line-346">     * @param fillColor hex value like "#FF0000";</span>
+<span class="source-line-no">347</span><span id="line-347">     * @param isOutline true if this represents a thicker outline to render first beneath the normal symbol (the function must be called twice)</span>
+<span class="source-line-no">348</span><span id="line-348">     * @return SVG String</span>
+<span class="source-line-no">349</span><span id="line-349">     */</span>
+<span class="source-line-no">350</span><span id="line-350">    public static String setSVGSPCMColors(String symbolID, String svg, Color strokeColor, Color fillColor, boolean isOutline, RectF bounds, int pixelSize, int outlineWidth)</span>
+<span class="source-line-no">351</span><span id="line-351">    {</span>
+<span class="source-line-no">352</span><span id="line-352">        String returnSVG = svg;</span>
+<span class="source-line-no">353</span><span id="line-353">        String hexStrokeColor = null;</span>
+<span class="source-line-no">354</span><span id="line-354">        String hexFillColor = null;</span>
+<span class="source-line-no">355</span><span id="line-355">        float strokeAlpha = 1;</span>
+<span class="source-line-no">356</span><span id="line-356">        float fillAlpha = 1;</span>
+<span class="source-line-no">357</span><span id="line-357">        String strokeOpacity = "";</span>
+<span class="source-line-no">358</span><span id="line-358">        String fillOpacity = "";</span>
+<span class="source-line-no">359</span><span id="line-359">        String strokeCapSquare = " stroke-linecap=\"square\"";</span>
+<span class="source-line-no">360</span><span id="line-360">        String strokeCapButt = " stroke-linecap=\"butt\"";</span>
+<span class="source-line-no">361</span><span id="line-361">        String strokeCapRound = " stroke-linecap=\"round\"";</span>
+<span class="source-line-no">362</span><span id="line-362">        int outlineSize = 15;</span>
+<span class="source-line-no">363</span><span id="line-363"></span>
+<span class="source-line-no">364</span><span id="line-364">        int affiliation = SymbolID.getAffiliation(symbolID);</span>
+<span class="source-line-no">365</span><span id="line-365">        String defaultFillColor = null;</span>
+<span class="source-line-no">366</span><span id="line-366">        if(strokeColor != null)</span>
+<span class="source-line-no">367</span><span id="line-367">        {</span>
+<span class="source-line-no">368</span><span id="line-368">            if(strokeColor.getAlpha() != 255)</span>
+<span class="source-line-no">369</span><span id="line-369">            {</span>
+<span class="source-line-no">370</span><span id="line-370">                strokeAlpha = strokeColor.getAlpha() / 255.0f;</span>
+<span class="source-line-no">371</span><span id="line-371">                strokeOpacity =  " stroke-opacity=\"" + strokeAlpha + "\"";</span>
+<span class="source-line-no">372</span><span id="line-372">                fillOpacity =  " fill-opacity=\"" + strokeAlpha + "\"";</span>
+<span class="source-line-no">373</span><span id="line-373">            }</span>
+<span class="source-line-no">374</span><span id="line-374"></span>
+<span class="source-line-no">375</span><span id="line-375">            hexStrokeColor = colorToHexString(strokeColor,false);</span>
+<span class="source-line-no">376</span><span id="line-376">            String defaultStrokeColor = "#000000";</span>
+<span class="source-line-no">377</span><span id="line-377">            if(symbolID.length()==5)</span>
+<span class="source-line-no">378</span><span id="line-378">            {</span>
+<span class="source-line-no">379</span><span id="line-379">                int mod = Integer.valueOf(symbolID.substring(2,4));</span>
+<span class="source-line-no">380</span><span id="line-380">                if(mod &gt;= 13)</span>
+<span class="source-line-no">381</span><span id="line-381">                    defaultStrokeColor = "#00A651";</span>
+<span class="source-line-no">382</span><span id="line-382"></span>
+<span class="source-line-no">383</span><span id="line-383">            }</span>
+<span class="source-line-no">384</span><span id="line-384"></span>
+<span class="source-line-no">385</span><span id="line-385">            if(symbolID.length() &gt;= 20)</span>
+<span class="source-line-no">386</span><span id="line-386">            {</span>
+<span class="source-line-no">387</span><span id="line-387">                if(SymbolUtilities.getBasicSymbolID(symbolID).equals("25132100") &amp;&amp; //key terrain</span>
+<span class="source-line-no">388</span><span id="line-388">                        SymbolID.getVersion(symbolID) &gt;= SymbolID.Version_2525E)</span>
+<span class="source-line-no">389</span><span id="line-389">                    defaultStrokeColor = "#800080";</span>
+<span class="source-line-no">390</span><span id="line-390">                else if(isOutline &amp;&amp; SymbolUtilities.getBasicSymbolID(symbolID).startsWith("2535"))//space debris doesn't change color</span>
+<span class="source-line-no">391</span><span id="line-391">                    defaultStrokeColor = "black";</span>
+<span class="source-line-no">392</span><span id="line-392">            }</span>
+<span class="source-line-no">393</span><span id="line-393">            returnSVG = returnSVG.replaceAll("stroke=\"" + defaultStrokeColor + "\"", "stroke=\"" + hexStrokeColor + "\"" + strokeOpacity);</span>
+<span class="source-line-no">394</span><span id="line-394">            returnSVG = returnSVG.replaceAll("fill=\"" + defaultStrokeColor + "\"", "fill=\"" + hexStrokeColor + "\"" + fillOpacity);</span>
+<span class="source-line-no">395</span><span id="line-395">        }</span>
+<span class="source-line-no">396</span><span id="line-396">        else</span>
+<span class="source-line-no">397</span><span id="line-397">        {</span>
+<span class="source-line-no">398</span><span id="line-398">            strokeColor = Color.BLACK;</span>
+<span class="source-line-no">399</span><span id="line-399">        }</span>
+<span class="source-line-no">400</span><span id="line-400"></span>
+<span class="source-line-no">401</span><span id="line-401">        if (isOutline &amp;&amp; bounds != null)</span>
+<span class="source-line-no">402</span><span id="line-402">        {</span>
+<span class="source-line-no">403</span><span id="line-403">            float p = pixelSize;</span>
+<span class="source-line-no">404</span><span id="line-404">            double h = bounds.height();</span>
+<span class="source-line-no">405</span><span id="line-405">            double w = bounds.width();</span>
+<span class="source-line-no">406</span><span id="line-406">            double ratio = Math.min((p / h), (p / w));</span>
+<span class="source-line-no">407</span><span id="line-407"></span>
+<span class="source-line-no">408</span><span id="line-408">            outlineSize = (int)Math.round(outlineWidth / ratio);</span>
+<span class="source-line-no">409</span><span id="line-409">            //increase stroke-width so the white outline shows around the symbol</span>
+<span class="source-line-no">410</span><span id="line-410">            returnSVG = increaseStrokeWidth(returnSVG,outlineSize);</span>
+<span class="source-line-no">411</span><span id="line-411">            //set the stroke color for the group so filled shapes without stokes get outlined as well.</span>
+<span class="source-line-no">412</span><span id="line-412">            returnSVG = returnSVG.replaceFirst("&lt;g", "&lt;g stroke=\"" + hexStrokeColor + "\" " + strokeOpacity + " stroke-linecap=\"square\"");</span>
+<span class="source-line-no">413</span><span id="line-413"></span>
+<span class="source-line-no">414</span><span id="line-414">        }</span>
+<span class="source-line-no">415</span><span id="line-415">        else</span>
+<span class="source-line-no">416</span><span id="line-416">        {</span>
+<span class="source-line-no">417</span><span id="line-417">            String replacement = " fill=\"" + colorToHexString(strokeColor,false) + "\" ";</span>
+<span class="source-line-no">418</span><span id="line-418">            returnSVG = returnSVG.replace("fill=\"#000000\"",replacement);//only replace black fills, leave white fills alone.</span>
+<span class="source-line-no">419</span><span id="line-419"></span>
+<span class="source-line-no">420</span><span id="line-420">            //In case there are lines that don't have stroke defined, apply stroke color to the top level group.</span>
+<span class="source-line-no">421</span><span id="line-421">            String topGroupTag = "&lt;g id=\"" + SymbolUtilities.getBasicSymbolID(symbolID) + "\"&gt;";//&lt;g id="25212902"&gt;</span>
+<span class="source-line-no">422</span><span id="line-422">            String newGroupTag = "&lt;g id=\"" + SymbolUtilities.getBasicSymbolID(symbolID) + "\" stroke=\"" + hexStrokeColor + "\"" + strokeOpacity + " " + replacement + "&gt;";</span>
+<span class="source-line-no">423</span><span id="line-423">            returnSVG = returnSVG.replace(topGroupTag,newGroupTag);</span>
+<span class="source-line-no">424</span><span id="line-424">        }</span>
+<span class="source-line-no">425</span><span id="line-425"></span>
+<span class="source-line-no">426</span><span id="line-426">        if(fillColor != null)</span>
+<span class="source-line-no">427</span><span id="line-427">        {</span>
+<span class="source-line-no">428</span><span id="line-428">            if(fillColor.getAlpha() != 255)</span>
+<span class="source-line-no">429</span><span id="line-429">            {</span>
+<span class="source-line-no">430</span><span id="line-430">                fillAlpha = fillColor.getAlpha() / 255.0f;</span>
+<span class="source-line-no">431</span><span id="line-431">                fillOpacity =  " fill-opacity=\"" + fillAlpha + "\"";</span>
+<span class="source-line-no">432</span><span id="line-432">            }</span>
+<span class="source-line-no">433</span><span id="line-433"></span>
+<span class="source-line-no">434</span><span id="line-434">            hexFillColor = colorToHexString(fillColor,false);</span>
+<span class="source-line-no">435</span><span id="line-435">            defaultFillColor = "fill=\"#000000\"";</span>
+<span class="source-line-no">436</span><span id="line-436"></span>
+<span class="source-line-no">437</span><span id="line-437">            returnSVG = returnSVG.replaceAll(defaultFillColor, "fill=\"" + hexFillColor + "\"" + fillOpacity);</span>
+<span class="source-line-no">438</span><span id="line-438">        }</span>
+<span class="source-line-no">439</span><span id="line-439"></span>
+<span class="source-line-no">440</span><span id="line-440">        return returnSVG;</span>
+<span class="source-line-no">441</span><span id="line-441">    }</span>
+<span class="source-line-no">442</span><span id="line-442"></span>
+<span class="source-line-no">443</span><span id="line-443">    /**</span>
+<span class="source-line-no">444</span><span id="line-444">     * Sets SVG stroke-dasharray when action points are in planned status</span>
+<span class="source-line-no">445</span><span id="line-445">     * @param symbolID</span>
+<span class="source-line-no">446</span><span id="line-446">     * @param siIcon</span>
+<span class="source-line-no">447</span><span id="line-447">     * @return</span>
+<span class="source-line-no">448</span><span id="line-448">     */</span>
+<span class="source-line-no">449</span><span id="line-449">    public static SVGInfo setAffiliationDashArray(String symbolID, SVGInfo siIcon)</span>
+<span class="source-line-no">450</span><span id="line-450">    {</span>
+<span class="source-line-no">451</span><span id="line-451">        String svg = siIcon.getSVG();</span>
+<span class="source-line-no">452</span><span id="line-452">        int status = SymbolID.getStatus(symbolID);</span>
+<span class="source-line-no">453</span><span id="line-453">        int aff = SymbolID.getAffiliation(symbolID);</span>
+<span class="source-line-no">454</span><span id="line-454">        SVGInfo returnVal = siIcon;</span>
+<span class="source-line-no">455</span><span id="line-455">        if(status == SymbolID.Status_Planned_Anticipated_Suspect)</span>
+<span class="source-line-no">456</span><span id="line-456">        {</span>
+<span class="source-line-no">457</span><span id="line-457">            if(SymbolUtilities.isActionPoint(symbolID))</span>
+<span class="source-line-no">458</span><span id="line-458">            {</span>
+<span class="source-line-no">459</span><span id="line-459">                svg = svg.replaceFirst("&lt;rect ","&lt;rect stroke-dasharray=\"20 19\" ");</span>
+<span class="source-line-no">460</span><span id="line-460">                svg = svg.replaceFirst("&lt;polygon ","&lt;polygon stroke-dasharray=\"20 20\" ");</span>
+<span class="source-line-no">461</span><span id="line-461">                returnVal = new SVGInfo(siIcon.getID(),siIcon.getBbox(), svg);</span>
+<span class="source-line-no">462</span><span id="line-462">            }</span>
+<span class="source-line-no">463</span><span id="line-463">        }</span>
+<span class="source-line-no">464</span><span id="line-464">        /*else if(aff == SymbolID.StandardIdentity_Affiliation_Pending ||</span>
+<span class="source-line-no">465</span><span id="line-465">                aff == SymbolID.StandardIdentity_Affiliation_AssumedFriend ||</span>
+<span class="source-line-no">466</span><span id="line-466">                aff == SymbolID.StandardIdentity_Affiliation_Suspect_Joker)</span>
+<span class="source-line-no">467</span><span id="line-467">        {</span>
+<span class="source-line-no">468</span><span id="line-468">            //Dot pattern if Control Measures use it?</span>
+<span class="source-line-no">469</span><span id="line-469">        }//*/</span>
+<span class="source-line-no">470</span><span id="line-470"></span>
+<span class="source-line-no">471</span><span id="line-471">        return returnVal;</span>
+<span class="source-line-no">472</span><span id="line-472">    }</span>
+<span class="source-line-no">473</span><span id="line-473">    public static float findWidestStrokeWidth(String svg) {</span>
+<span class="source-line-no">474</span><span id="line-474">        Pattern pattern = Pattern.compile("(stroke-width=\")(\\d+\\.?\\d*)\"");</span>
+<span class="source-line-no">475</span><span id="line-475">        Matcher m = pattern.matcher(svg);</span>
+<span class="source-line-no">476</span><span id="line-476">        TreeSet&lt;Float&gt; strokeWidths = new TreeSet&lt;&gt;();</span>
+<span class="source-line-no">477</span><span id="line-477">        while (m.find()) {</span>
+<span class="source-line-no">478</span><span id="line-478">            // Log.d("found stroke width", m.group(0));</span>
+<span class="source-line-no">479</span><span id="line-479">            strokeWidths.add(Float.valueOf(m.group(2)));</span>
+<span class="source-line-no">480</span><span id="line-480">        }</span>
+<span class="source-line-no">481</span><span id="line-481"></span>
+<span class="source-line-no">482</span><span id="line-482">        float largest = 4.0f;</span>
+<span class="source-line-no">483</span><span id="line-483">        if (!strokeWidths.isEmpty()) {</span>
+<span class="source-line-no">484</span><span id="line-484">            largest = strokeWidths.descendingSet().first();</span>
+<span class="source-line-no">485</span><span id="line-485">        }</span>
+<span class="source-line-no">486</span><span id="line-486">        return largest * OUTLINE_SCALING_FACTOR;</span>
+<span class="source-line-no">487</span><span id="line-487">    }</span>
+<span class="source-line-no">488</span><span id="line-488"></span>
+<span class="source-line-no">489</span><span id="line-489">    public static int findInstIndIndex(String svg)</span>
+<span class="source-line-no">490</span><span id="line-490">    {</span>
+<span class="source-line-no">491</span><span id="line-491">        int start = -1;</span>
+<span class="source-line-no">492</span><span id="line-492">        int stop = -1;</span>
+<span class="source-line-no">493</span><span id="line-493"></span>
+<span class="source-line-no">494</span><span id="line-494">        start = svg.indexOf("&lt;rect");</span>
+<span class="source-line-no">495</span><span id="line-495">        stop = svg.indexOf("&gt;",start);</span>
+<span class="source-line-no">496</span><span id="line-496"></span>
+<span class="source-line-no">497</span><span id="line-497">        String rect = svg.substring(start,stop+1);</span>
+<span class="source-line-no">498</span><span id="line-498">        if(!rect.contains("fill"))//no set fill so it's the indicator</span>
+<span class="source-line-no">499</span><span id="line-499">        {</span>
+<span class="source-line-no">500</span><span id="line-500">            return start;</span>
+<span class="source-line-no">501</span><span id="line-501">        }</span>
+<span class="source-line-no">502</span><span id="line-502">        else //it's the next rect</span>
 <span class="source-line-no">503</span><span id="line-503">        {</span>
-<span class="source-line-no">504</span><span id="line-504">            return start;</span>
+<span class="source-line-no">504</span><span id="line-504">            start = svg.indexOf("&lt;rect",stop);</span>
 <span class="source-line-no">505</span><span id="line-505">        }</span>
-<span class="source-line-no">506</span><span id="line-506">        else //it's the next rect</span>
-<span class="source-line-no">507</span><span id="line-507">        {</span>
-<span class="source-line-no">508</span><span id="line-508">            start = svg.indexOf("&lt;rect",stop);</span>
-<span class="source-line-no">509</span><span id="line-509">        }</span>
-<span class="source-line-no">510</span><span id="line-510"></span>
-<span class="source-line-no">511</span><span id="line-511">        return start;</span>
-<span class="source-line-no">512</span><span id="line-512">    }</span>
-<span class="source-line-no">513</span><span id="line-513"></span>
-<span class="source-line-no">514</span><span id="line-514">    public static SVGInfo scaleIcon(String symbolID, SVGInfo icon)</span>
-<span class="source-line-no">515</span><span id="line-515">    {</span>
-<span class="source-line-no">516</span><span id="line-516">        SVGInfo retVal= icon;</span>
-<span class="source-line-no">517</span><span id="line-517">        //safe square inside octagon:  &lt;rect x="220" y="310" width="170" height="170"/&gt;</span>
-<span class="source-line-no">518</span><span id="line-518">        double maxSize = 170;</span>
-<span class="source-line-no">519</span><span id="line-519">        RectF bbox = null;</span>
-<span class="source-line-no">520</span><span id="line-520">        if(icon != null)</span>
-<span class="source-line-no">521</span><span id="line-521">            bbox = icon.getBbox();</span>
-<span class="source-line-no">522</span><span id="line-522">        double length = 0;</span>
-<span class="source-line-no">523</span><span id="line-523">        if(bbox != null)</span>
-<span class="source-line-no">524</span><span id="line-524">        {</span>
-<span class="source-line-no">525</span><span id="line-525">            length = Math.max(bbox.width(), bbox.height());</span>
-<span class="source-line-no">526</span><span id="line-526">            //adjust max size for narrow, tall icons</span>
-<span class="source-line-no">527</span><span id="line-527">            if(bbox.width() &lt; 60 &amp;&amp; bbox.height() &gt; 90)</span>
-<span class="source-line-no">528</span><span id="line-528">                maxSize = 200;</span>
-<span class="source-line-no">529</span><span id="line-529"></span>
-<span class="source-line-no">530</span><span id="line-530">            if(SVGLookup.getMainIconID(symbolID).length() == 8 &amp;&amp; length &lt; 145 &amp;&amp; length &gt; 0 &amp;&amp;</span>
-<span class="source-line-no">531</span><span id="line-531">                    bbox.height() &lt; 105 &amp;&amp;</span>
-<span class="source-line-no">532</span><span id="line-532">                    SymbolID.getCommonModifier1(symbolID)==0 &amp;&amp;</span>
-<span class="source-line-no">533</span><span id="line-533">                    SymbolID.getCommonModifier2(symbolID)==0 &amp;&amp;</span>
-<span class="source-line-no">534</span><span id="line-534">                    SymbolID.getModifier1(symbolID)==0 &amp;&amp;</span>
-<span class="source-line-no">535</span><span id="line-535">                    SymbolID.getModifier2(symbolID)==0)//if largest side smaller than 145 and there are no section mods, make it bigger</span>
-<span class="source-line-no">536</span><span id="line-536">            {</span>
-<span class="source-line-no">537</span><span id="line-537">                double ratio = maxSize / length;</span>
-<span class="source-line-no">538</span><span id="line-538">                double transx = ((bbox.left + (bbox.width()/2)) * ratio) - (bbox.left + (bbox.width()/2));</span>
-<span class="source-line-no">539</span><span id="line-539">                double transy = ((bbox.top + (bbox.height()/2)) * ratio) - (bbox.top + (bbox.height()/2));</span>
-<span class="source-line-no">540</span><span id="line-540">                String transform = " transform=\"translate(-" + transx + ",-" + transy + ") scale(" + ratio + " " + ratio + ")\"&gt;";</span>
-<span class="source-line-no">541</span><span id="line-541">                String svg = icon.getSVG();</span>
-<span class="source-line-no">542</span><span id="line-542">                svg = svg.replaceFirst("&gt;",transform);</span>
-<span class="source-line-no">543</span><span id="line-543">                RectF newBbox = RectUtilities.makeRectF((float)(bbox.left - transx),(float)(bbox.top - transy),(float)(bbox.width() * ratio), (float) (bbox.height() * ratio));</span>
-<span class="source-line-no">544</span><span id="line-544">                retVal = new SVGInfo(icon.getID(),newBbox,svg);</span>
-<span class="source-line-no">545</span><span id="line-545">            }</span>
-<span class="source-line-no">546</span><span id="line-546">        }</span>
-<span class="source-line-no">547</span><span id="line-547"></span>
-<span class="source-line-no">548</span><span id="line-548">        return retVal;</span>
-<span class="source-line-no">549</span><span id="line-549">    }</span>
-<span class="source-line-no">550</span><span id="line-550"></span>
-<span class="source-line-no">551</span><span id="line-551">    /**</span>
-<span class="source-line-no">552</span><span id="line-552">     * Takes an SVG string and increases all stroke-width values by the increaseBy value.</span>
-<span class="source-line-no">553</span><span id="line-553">     * @param svgString The raw SVG content.</span>
-<span class="source-line-no">554</span><span id="line-554">     * @param increaseBy the number to add to the current stroke value</span>
-<span class="source-line-no">555</span><span id="line-555">     * @return The modified SVG content.</span>
-<span class="source-line-no">556</span><span id="line-556">     */</span>
-<span class="source-line-no">557</span><span id="line-557">    public static String increaseStrokeWidth(String svgString, int increaseBy) {</span>
-<span class="source-line-no">558</span><span id="line-558">        Pattern pattern = Pattern.compile("stroke-width=\"([^\"]+)\"");</span>
-<span class="source-line-no">559</span><span id="line-559">        Matcher matcher = pattern.matcher(svgString);</span>
-<span class="source-line-no">560</span><span id="line-560">        StringBuilder sb = new StringBuilder();</span>
-<span class="source-line-no">561</span><span id="line-561">        int lastEnd = 0;</span>
+<span class="source-line-no">506</span><span id="line-506"></span>
+<span class="source-line-no">507</span><span id="line-507">        return start;</span>
+<span class="source-line-no">508</span><span id="line-508">    }</span>
+<span class="source-line-no">509</span><span id="line-509"></span>
+<span class="source-line-no">510</span><span id="line-510">    public static SVGInfo scaleIcon(String symbolID, SVGInfo icon)</span>
+<span class="source-line-no">511</span><span id="line-511">    {</span>
+<span class="source-line-no">512</span><span id="line-512">        SVGInfo retVal= icon;</span>
+<span class="source-line-no">513</span><span id="line-513">        //safe square inside octagon:  &lt;rect x="220" y="310" width="170" height="170"/&gt;</span>
+<span class="source-line-no">514</span><span id="line-514">        double maxSize = 170;</span>
+<span class="source-line-no">515</span><span id="line-515">        RectF bbox = null;</span>
+<span class="source-line-no">516</span><span id="line-516">        if(icon != null)</span>
+<span class="source-line-no">517</span><span id="line-517">            bbox = icon.getBbox();</span>
+<span class="source-line-no">518</span><span id="line-518">        double length = 0;</span>
+<span class="source-line-no">519</span><span id="line-519">        if(bbox != null)</span>
+<span class="source-line-no">520</span><span id="line-520">        {</span>
+<span class="source-line-no">521</span><span id="line-521">            length = Math.max(bbox.width(), bbox.height());</span>
+<span class="source-line-no">522</span><span id="line-522">            //adjust max size for narrow, tall icons</span>
+<span class="source-line-no">523</span><span id="line-523">            if(bbox.width() &lt; 60 &amp;&amp; bbox.height() &gt; 90)</span>
+<span class="source-line-no">524</span><span id="line-524">                maxSize = 200;</span>
+<span class="source-line-no">525</span><span id="line-525"></span>
+<span class="source-line-no">526</span><span id="line-526">            if(SVGLookup.getMainIconID(symbolID).length() == 8 &amp;&amp; length &lt; 145 &amp;&amp; length &gt; 0 &amp;&amp;</span>
+<span class="source-line-no">527</span><span id="line-527">                    bbox.height() &lt; 105 &amp;&amp;</span>
+<span class="source-line-no">528</span><span id="line-528">                    SymbolID.getCommonModifier1(symbolID)==0 &amp;&amp;</span>
+<span class="source-line-no">529</span><span id="line-529">                    SymbolID.getCommonModifier2(symbolID)==0 &amp;&amp;</span>
+<span class="source-line-no">530</span><span id="line-530">                    SymbolID.getModifier1(symbolID)==0 &amp;&amp;</span>
+<span class="source-line-no">531</span><span id="line-531">                    SymbolID.getModifier2(symbolID)==0)//if largest side smaller than 145 and there are no section mods, make it bigger</span>
+<span class="source-line-no">532</span><span id="line-532">            {</span>
+<span class="source-line-no">533</span><span id="line-533">                double ratio = maxSize / length;</span>
+<span class="source-line-no">534</span><span id="line-534">                double transx = ((bbox.left + (bbox.width()/2)) * ratio) - (bbox.left + (bbox.width()/2));</span>
+<span class="source-line-no">535</span><span id="line-535">                double transy = ((bbox.top + (bbox.height()/2)) * ratio) - (bbox.top + (bbox.height()/2));</span>
+<span class="source-line-no">536</span><span id="line-536">                String transform = " transform=\"translate(-" + transx + ",-" + transy + ") scale(" + ratio + " " + ratio + ")\"&gt;";</span>
+<span class="source-line-no">537</span><span id="line-537">                String svg = icon.getSVG();</span>
+<span class="source-line-no">538</span><span id="line-538">                svg = svg.replaceFirst("&gt;",transform);</span>
+<span class="source-line-no">539</span><span id="line-539">                RectF newBbox = RectUtilities.makeRectF((float)(bbox.left - transx),(float)(bbox.top - transy),(float)(bbox.width() * ratio), (float) (bbox.height() * ratio));</span>
+<span class="source-line-no">540</span><span id="line-540">                //retVal = new SVGInfo(icon.getID(),newBbox,svg);</span>
+<span class="source-line-no">541</span><span id="line-541"></span>
+<span class="source-line-no">542</span><span id="line-542">                //Adjust stroke widths so they remain the same and don't scale up.</span>
+<span class="source-line-no">543</span><span id="line-543">                int decimals = 3;</span>
+<span class="source-line-no">544</span><span id="line-544">                Pattern pattern = Pattern.compile("stroke-width=\"([\\d.]+)\"");</span>
+<span class="source-line-no">545</span><span id="line-545">                Matcher matcher = pattern.matcher(svg);</span>
+<span class="source-line-no">546</span><span id="line-546">                StringBuffer sb = new StringBuffer();</span>
+<span class="source-line-no">547</span><span id="line-547">                while (matcher.find()) {</span>
+<span class="source-line-no">548</span><span id="line-548">                    double original = Double.parseDouble(matcher.group(1));</span>
+<span class="source-line-no">549</span><span id="line-549">                    double adjusted = original * 1.5 / ratio;//multiply by 1.5 to reduce but not eliminate scaling</span>
+<span class="source-line-no">550</span><span id="line-550">                    String replacement = String.format("stroke-width=\"%." + decimals + "f\"", adjusted);</span>
+<span class="source-line-no">551</span><span id="line-551">                    matcher.appendReplacement(sb, replacement);</span>
+<span class="source-line-no">552</span><span id="line-552">                }</span>
+<span class="source-line-no">553</span><span id="line-553">                matcher.appendTail(sb);</span>
+<span class="source-line-no">554</span><span id="line-554">                svg = sb.toString();//*/</span>
+<span class="source-line-no">555</span><span id="line-555"></span>
+<span class="source-line-no">556</span><span id="line-556">                retVal = new SVGInfo(icon.getID(),newBbox,svg);</span>
+<span class="source-line-no">557</span><span id="line-557">            }</span>
+<span class="source-line-no">558</span><span id="line-558">        }</span>
+<span class="source-line-no">559</span><span id="line-559"></span>
+<span class="source-line-no">560</span><span id="line-560">        return retVal;</span>
+<span class="source-line-no">561</span><span id="line-561">    }</span>
 <span class="source-line-no">562</span><span id="line-562"></span>
-<span class="source-line-no">563</span><span id="line-563">        while (matcher.find()) {</span>
-<span class="source-line-no">564</span><span id="line-564">            // 1. Append everything from the last match up to the current match</span>
-<span class="source-line-no">565</span><span id="line-565">            sb.append(svgString.substring(lastEnd, matcher.start()));</span>
-<span class="source-line-no">566</span><span id="line-566"></span>
-<span class="source-line-no">567</span><span id="line-567">            String replacement;</span>
-<span class="source-line-no">568</span><span id="line-568">            try {</span>
-<span class="source-line-no">569</span><span id="line-569">                // 2. Calculate the new value</span>
-<span class="source-line-no">570</span><span id="line-570">                double currentValue = Double.parseDouble(matcher.group(1));</span>
-<span class="source-line-no">571</span><span id="line-571">                double newValue = currentValue + increaseBy;</span>
-<span class="source-line-no">572</span><span id="line-572">                String formattedValue = (newValue == (long) newValue)</span>
-<span class="source-line-no">573</span><span id="line-573">                        ? String.valueOf((long) newValue)</span>
-<span class="source-line-no">574</span><span id="line-574">                        : String.valueOf(newValue);</span>
-<span class="source-line-no">575</span><span id="line-575"></span>
-<span class="source-line-no">576</span><span id="line-576">                replacement = "stroke-width=\"" + formattedValue + "\"";</span>
-<span class="source-line-no">577</span><span id="line-577">            } catch (NumberFormatException e) {</span>
-<span class="source-line-no">578</span><span id="line-578">                // Fallback to original text if not a number</span>
-<span class="source-line-no">579</span><span id="line-579">                replacement = matcher.group(0);</span>
-<span class="source-line-no">580</span><span id="line-580">            }</span>
-<span class="source-line-no">581</span><span id="line-581"></span>
-<span class="source-line-no">582</span><span id="line-582">            // 3. Append the replacement and update our position</span>
-<span class="source-line-no">583</span><span id="line-583">            sb.append(replacement);</span>
-<span class="source-line-no">584</span><span id="line-584">            lastEnd = matcher.end();</span>
-<span class="source-line-no">585</span><span id="line-585">        }</span>
-<span class="source-line-no">586</span><span id="line-586"></span>
-<span class="source-line-no">587</span><span id="line-587">        // 4. Append any remaining text after the last match</span>
-<span class="source-line-no">588</span><span id="line-588">        sb.append(svgString.substring(lastEnd));</span>
-<span class="source-line-no">589</span><span id="line-589">        int firstGroup = sb.indexOf("&lt;g");</span>
-<span class="source-line-no">590</span><span id="line-590">        sb.replace(firstGroup, firstGroup+2,"&lt;g stroke-width=\"" + increaseBy + "\" ");</span>
-<span class="source-line-no">591</span><span id="line-591">        return sb.toString();</span>
-<span class="source-line-no">592</span><span id="line-592">    }</span>
+<span class="source-line-no">563</span><span id="line-563">    /**</span>
+<span class="source-line-no">564</span><span id="line-564">     * Takes an SVG string and increases all stroke-width values by the increaseBy value.</span>
+<span class="source-line-no">565</span><span id="line-565">     * @param svgString The raw SVG content.</span>
+<span class="source-line-no">566</span><span id="line-566">     * @param increaseBy the number to add to the current stroke value</span>
+<span class="source-line-no">567</span><span id="line-567">     * @return The modified SVG content.</span>
+<span class="source-line-no">568</span><span id="line-568">     */</span>
+<span class="source-line-no">569</span><span id="line-569">    public static String increaseStrokeWidth(String svgString, int increaseBy) {</span>
+<span class="source-line-no">570</span><span id="line-570">        Pattern pattern = Pattern.compile("stroke-width=\"([^\"]+)\"");</span>
+<span class="source-line-no">571</span><span id="line-571">        Matcher matcher = pattern.matcher(svgString);</span>
+<span class="source-line-no">572</span><span id="line-572">        StringBuilder sb = new StringBuilder();</span>
+<span class="source-line-no">573</span><span id="line-573">        int lastEnd = 0;</span>
+<span class="source-line-no">574</span><span id="line-574"></span>
+<span class="source-line-no">575</span><span id="line-575">        while (matcher.find()) {</span>
+<span class="source-line-no">576</span><span id="line-576">            // 1. Append everything from the last match up to the current match</span>
+<span class="source-line-no">577</span><span id="line-577">            sb.append(svgString.substring(lastEnd, matcher.start()));</span>
+<span class="source-line-no">578</span><span id="line-578"></span>
+<span class="source-line-no">579</span><span id="line-579">            String replacement;</span>
+<span class="source-line-no">580</span><span id="line-580">            try {</span>
+<span class="source-line-no">581</span><span id="line-581">                // 2. Calculate the new value</span>
+<span class="source-line-no">582</span><span id="line-582">                double currentValue = Double.parseDouble(matcher.group(1));</span>
+<span class="source-line-no">583</span><span id="line-583">                double newValue = currentValue + increaseBy;</span>
+<span class="source-line-no">584</span><span id="line-584">                String formattedValue = (newValue == (long) newValue)</span>
+<span class="source-line-no">585</span><span id="line-585">                        ? String.valueOf((long) newValue)</span>
+<span class="source-line-no">586</span><span id="line-586">                        : String.valueOf(newValue);</span>
+<span class="source-line-no">587</span><span id="line-587"></span>
+<span class="source-line-no">588</span><span id="line-588">                replacement = "stroke-width=\"" + formattedValue + "\"";</span>
+<span class="source-line-no">589</span><span id="line-589">            } catch (NumberFormatException e) {</span>
+<span class="source-line-no">590</span><span id="line-590">                // Fallback to original text if not a number</span>
+<span class="source-line-no">591</span><span id="line-591">                replacement = matcher.group(0);</span>
+<span class="source-line-no">592</span><span id="line-592">            }</span>
 <span class="source-line-no">593</span><span id="line-593"></span>
-<span class="source-line-no">594</span><span id="line-594">    public static int getDistanceBetweenPoints(Point pt1, Point pt2)</span>
-<span class="source-line-no">595</span><span id="line-595">    {</span>
-<span class="source-line-no">596</span><span id="line-596">        int distance = (int)(Math.sqrt(Math.pow((pt2.x - pt1.x) ,2) + Math.pow((pt2.y - pt1.y) ,2)));</span>
-<span class="source-line-no">597</span><span id="line-597">        return distance;</span>
-<span class="source-line-no">598</span><span id="line-598">    }</span>
-<span class="source-line-no">599</span><span id="line-599"></span>
-<span class="source-line-no">600</span><span id="line-600">    /**</span>
-<span class="source-line-no">601</span><span id="line-601">     * A starting point for calculating map scale.</span>
-<span class="source-line-no">602</span><span id="line-602">     * The User may prefer a different calculation depending on how their maps works.</span>
-<span class="source-line-no">603</span><span id="line-603">     * @param mapPixelWidth Width of your map in pixels</span>
-<span class="source-line-no">604</span><span id="line-604">     * @param eastLon East Longitude of your map</span>
-<span class="source-line-no">605</span><span id="line-605">     * @param westLon West Longitude of your map</span>
-<span class="source-line-no">606</span><span id="line-606">     * @return Map scale value to use in the RenderSymbol function {@link armyc2.c5isr.web.render.WebRenderer#RenderSymbol(String, String, String, String, String, String, double, String, Map, Map, int)}</span>
-<span class="source-line-no">607</span><span id="line-607">     */</span>
-<span class="source-line-no">608</span><span id="line-608">    public static double calculateMapScale(int mapPixelWidth, double eastLon, double westLon)</span>
-<span class="source-line-no">609</span><span id="line-609">    {</span>
-<span class="source-line-no">610</span><span id="line-610">        return calculateMapScale(mapPixelWidth,eastLon,westLon,RendererSettings.getInstance().getDeviceDPI());</span>
-<span class="source-line-no">611</span><span id="line-611">    }</span>
-<span class="source-line-no">612</span><span id="line-612"></span>
-<span class="source-line-no">613</span><span id="line-613">    /**</span>
-<span class="source-line-no">614</span><span id="line-614">     * A starting point for calculating map scale.</span>
-<span class="source-line-no">615</span><span id="line-615">     * The User may prefer a different calculation depending on how their maps works.</span>
-<span class="source-line-no">616</span><span id="line-616">     * @param mapPixelWidth Width of your map in pixels</span>
-<span class="source-line-no">617</span><span id="line-617">     * @param eastLon East Longitude of your map</span>
-<span class="source-line-no">618</span><span id="line-618">     * @param westLon West Longitude of your map</span>
-<span class="source-line-no">619</span><span id="line-619">     * @param dpi Dots Per Inch of your device</span>
-<span class="source-line-no">620</span><span id="line-620">     * @return Map scale value to use in the RenderSymbol function {@link armyc2.c5isr.web.render.WebRenderer#RenderSymbol(String, String, String, String, String, String, double, String, Map, Map, int)}</span>
-<span class="source-line-no">621</span><span id="line-621">     */</span>
-<span class="source-line-no">622</span><span id="line-622">    public static double calculateMapScale(int mapPixelWidth, double eastLon, double westLon, int dpi)</span>
-<span class="source-line-no">623</span><span id="line-623">    {</span>
-<span class="source-line-no">624</span><span id="line-624">        double INCHES_PER_METER = 39.3700787;</span>
-<span class="source-line-no">625</span><span id="line-625">        double METERS_PER_DEG = 40075017.0 / 360.0; // Earth's circumference in meters / 360 degrees</span>
-<span class="source-line-no">626</span><span id="line-626"></span>
-<span class="source-line-no">627</span><span id="line-627">        try</span>
-<span class="source-line-no">628</span><span id="line-628">        {</span>
-<span class="source-line-no">629</span><span id="line-629">            double sizeSquare = Math.abs(eastLon - westLon);</span>
-<span class="source-line-no">630</span><span id="line-630">            if (sizeSquare &gt; 180)</span>
-<span class="source-line-no">631</span><span id="line-631">                sizeSquare = 360 - sizeSquare;</span>
-<span class="source-line-no">632</span><span id="line-632"></span>
-<span class="source-line-no">633</span><span id="line-633">            // physical screen length (in meters) = pixels in screen / pixels per inch / inch per meter</span>
-<span class="source-line-no">634</span><span id="line-634">            double screenLength = mapPixelWidth / dpi / INCHES_PER_METER;</span>
-<span class="source-line-no">635</span><span id="line-635">            // meters on screen = degrees on screen * meters per degree</span>
-<span class="source-line-no">636</span><span id="line-636">            double metersOnScreen = sizeSquare * METERS_PER_DEG;</span>
-<span class="source-line-no">637</span><span id="line-637"></span>
-<span class="source-line-no">638</span><span id="line-638">            double scale = metersOnScreen/screenLength;</span>
-<span class="source-line-no">639</span><span id="line-639">            return scale;</span>
-<span class="source-line-no">640</span><span id="line-640">        }</span>
-<span class="source-line-no">641</span><span id="line-641">        catch(Exception exc)</span>
-<span class="source-line-no">642</span><span id="line-642">        {</span>
-<span class="source-line-no">643</span><span id="line-643">            ErrorLogger.LogException("RendererUtilities","calculateMapScale",exc,Level.WARNING);</span>
-<span class="source-line-no">644</span><span id="line-644">        }</span>
-<span class="source-line-no">645</span><span id="line-645">        return 0;</span>
-<span class="source-line-no">646</span><span id="line-646">    }</span>
-<span class="source-line-no">647</span><span id="line-647"></span>
-<span class="source-line-no">648</span><span id="line-648">    // Overloaded method to return non-outline symbols as normal.</span>
-<span class="source-line-no">649</span><span id="line-649">    public static String setSVGSPCMColors(String symbolID, String svg, Color strokeColor, Color fillColor) {</span>
-<span class="source-line-no">650</span><span id="line-650">        return setSVGSPCMColors(symbolID, svg, strokeColor, fillColor, false);</span>
-<span class="source-line-no">651</span><span id="line-651">    }</span>
-<span class="source-line-no">652</span><span id="line-652">}</span>
+<span class="source-line-no">594</span><span id="line-594">            // 3. Append the replacement and update our position</span>
+<span class="source-line-no">595</span><span id="line-595">            sb.append(replacement);</span>
+<span class="source-line-no">596</span><span id="line-596">            lastEnd = matcher.end();</span>
+<span class="source-line-no">597</span><span id="line-597">        }</span>
+<span class="source-line-no">598</span><span id="line-598"></span>
+<span class="source-line-no">599</span><span id="line-599">        // 4. Append any remaining text after the last match</span>
+<span class="source-line-no">600</span><span id="line-600">        sb.append(svgString.substring(lastEnd));</span>
+<span class="source-line-no">601</span><span id="line-601">        int firstGroup = sb.indexOf("&lt;g");</span>
+<span class="source-line-no">602</span><span id="line-602">        sb.replace(firstGroup, firstGroup+2,"&lt;g stroke-width=\"" + increaseBy + "\" ");</span>
+<span class="source-line-no">603</span><span id="line-603">        return sb.toString();</span>
+<span class="source-line-no">604</span><span id="line-604">    }</span>
+<span class="source-line-no">605</span><span id="line-605"></span>
+<span class="source-line-no">606</span><span id="line-606">    public static int getDistanceBetweenPoints(Point pt1, Point pt2)</span>
+<span class="source-line-no">607</span><span id="line-607">    {</span>
+<span class="source-line-no">608</span><span id="line-608">        int distance = (int)(Math.sqrt(Math.pow((pt2.x - pt1.x) ,2) + Math.pow((pt2.y - pt1.y) ,2)));</span>
+<span class="source-line-no">609</span><span id="line-609">        return distance;</span>
+<span class="source-line-no">610</span><span id="line-610">    }</span>
+<span class="source-line-no">611</span><span id="line-611"></span>
+<span class="source-line-no">612</span><span id="line-612">    public static int calculateOutlineWidth()</span>
+<span class="source-line-no">613</span><span id="line-613">    {</span>
+<span class="source-line-no">614</span><span id="line-614">        return RendererSettings.getInstance().getDeviceDPI()&gt;100 ? RendererSettings.getInstance().getDeviceDPI()/96 * 3 : 3;</span>
+<span class="source-line-no">615</span><span id="line-615">    }</span>
+<span class="source-line-no">616</span><span id="line-616"></span>
+<span class="source-line-no">617</span><span id="line-617">    /**</span>
+<span class="source-line-no">618</span><span id="line-618">     * A starting point for calculating map scale.</span>
+<span class="source-line-no">619</span><span id="line-619">     * The User may prefer a different calculation depending on how their maps works.</span>
+<span class="source-line-no">620</span><span id="line-620">     * @param mapPixelWidth Width of your map in pixels</span>
+<span class="source-line-no">621</span><span id="line-621">     * @param eastLon East Longitude of your map</span>
+<span class="source-line-no">622</span><span id="line-622">     * @param westLon West Longitude of your map</span>
+<span class="source-line-no">623</span><span id="line-623">     * @return Map scale value to use in the RenderSymbol function {@link armyc2.c5isr.web.render.WebRenderer#RenderSymbol(String, String, String, String, String, String, double, String, Map, Map, int)}</span>
+<span class="source-line-no">624</span><span id="line-624">     */</span>
+<span class="source-line-no">625</span><span id="line-625">    public static double calculateMapScale(int mapPixelWidth, double eastLon, double westLon)</span>
+<span class="source-line-no">626</span><span id="line-626">    {</span>
+<span class="source-line-no">627</span><span id="line-627">        return calculateMapScale(mapPixelWidth,eastLon,westLon,RendererSettings.getInstance().getDeviceDPI());</span>
+<span class="source-line-no">628</span><span id="line-628">    }</span>
+<span class="source-line-no">629</span><span id="line-629"></span>
+<span class="source-line-no">630</span><span id="line-630">    /**</span>
+<span class="source-line-no">631</span><span id="line-631">     * A starting point for calculating map scale.</span>
+<span class="source-line-no">632</span><span id="line-632">     * The User may prefer a different calculation depending on how their maps works.</span>
+<span class="source-line-no">633</span><span id="line-633">     * @param mapPixelWidth Width of your map in pixels</span>
+<span class="source-line-no">634</span><span id="line-634">     * @param eastLon East Longitude of your map</span>
+<span class="source-line-no">635</span><span id="line-635">     * @param westLon West Longitude of your map</span>
+<span class="source-line-no">636</span><span id="line-636">     * @param dpi Dots Per Inch of your device</span>
+<span class="source-line-no">637</span><span id="line-637">     * @return Map scale value to use in the RenderSymbol function {@link armyc2.c5isr.web.render.WebRenderer#RenderSymbol(String, String, String, String, String, String, double, String, Map, Map, int)}</span>
+<span class="source-line-no">638</span><span id="line-638">     */</span>
+<span class="source-line-no">639</span><span id="line-639">    public static double calculateMapScale(int mapPixelWidth, double eastLon, double westLon, int dpi)</span>
+<span class="source-line-no">640</span><span id="line-640">    {</span>
+<span class="source-line-no">641</span><span id="line-641">        double INCHES_PER_METER = 39.3700787;</span>
+<span class="source-line-no">642</span><span id="line-642">        double METERS_PER_DEG = 40075017.0 / 360.0; // Earth's circumference in meters / 360 degrees</span>
+<span class="source-line-no">643</span><span id="line-643"></span>
+<span class="source-line-no">644</span><span id="line-644">        try</span>
+<span class="source-line-no">645</span><span id="line-645">        {</span>
+<span class="source-line-no">646</span><span id="line-646">            double sizeSquare = Math.abs(eastLon - westLon);</span>
+<span class="source-line-no">647</span><span id="line-647">            if (sizeSquare &gt; 180)</span>
+<span class="source-line-no">648</span><span id="line-648">                sizeSquare = 360 - sizeSquare;</span>
+<span class="source-line-no">649</span><span id="line-649"></span>
+<span class="source-line-no">650</span><span id="line-650">            // physical screen length (in meters) = pixels in screen / pixels per inch / inch per meter</span>
+<span class="source-line-no">651</span><span id="line-651">            double screenLength = mapPixelWidth / dpi / INCHES_PER_METER;</span>
+<span class="source-line-no">652</span><span id="line-652">            // meters on screen = degrees on screen * meters per degree</span>
+<span class="source-line-no">653</span><span id="line-653">            double metersOnScreen = sizeSquare * METERS_PER_DEG;</span>
+<span class="source-line-no">654</span><span id="line-654"></span>
+<span class="source-line-no">655</span><span id="line-655">            double scale = metersOnScreen/screenLength;</span>
+<span class="source-line-no">656</span><span id="line-656">            return scale;</span>
+<span class="source-line-no">657</span><span id="line-657">        }</span>
+<span class="source-line-no">658</span><span id="line-658">        catch(Exception exc)</span>
+<span class="source-line-no">659</span><span id="line-659">        {</span>
+<span class="source-line-no">660</span><span id="line-660">            ErrorLogger.LogException("RendererUtilities","calculateMapScale",exc,Level.WARNING);</span>
+<span class="source-line-no">661</span><span id="line-661">        }</span>
+<span class="source-line-no">662</span><span id="line-662">        return 0;</span>
+<span class="source-line-no">663</span><span id="line-663">    }</span>
+<span class="source-line-no">664</span><span id="line-664"></span>
+<span class="source-line-no">665</span><span id="line-665">    // Overloaded method to return non-outline symbols as normal.</span>
+<span class="source-line-no">666</span><span id="line-666">    public static String setSVGSPCMColors(String symbolID, String svg, Color strokeColor, Color fillColor) {</span>
+<span class="source-line-no">667</span><span id="line-667">        return setSVGSPCMColors(symbolID, svg, strokeColor, fillColor, false,null,0,0);</span>
+<span class="source-line-no">668</span><span id="line-668">    }</span>
+<span class="source-line-no">669</span><span id="line-669">}</span>
 
 
 

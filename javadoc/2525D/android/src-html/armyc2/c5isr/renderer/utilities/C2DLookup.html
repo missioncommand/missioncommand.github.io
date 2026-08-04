@@ -110,223 +110,214 @@
 <span class="source-line-no">097</span><span id="line-97">        if(parts==null)</span>
 <span class="source-line-no">098</span><span id="line-98">            return null;</span>
 <span class="source-line-no">099</span><span id="line-99"></span>
-<span class="source-line-no">100</span><span id="line-100">        //set symbol set</span>
-<span class="source-line-no">101</span><span id="line-101">        newCode = SymbolID.setSymbolSet(newCode, Integer.parseInt(parts[1]));</span>
-<span class="source-line-no">102</span><span id="line-102">        //set entity code</span>
-<span class="source-line-no">103</span><span id="line-103">        newCode = SymbolID.setEntityCode(newCode, Integer.parseInt(parts[2]));</span>
-<span class="source-line-no">104</span><span id="line-104">        //set sector modifier 1</span>
-<span class="source-line-no">105</span><span id="line-105">        if(!parts[3].isEmpty())</span>
-<span class="source-line-no">106</span><span id="line-106">            newCode = SymbolID.setModifier1(newCode, (parts[3]));</span>
-<span class="source-line-no">107</span><span id="line-107">        //set sector modifier 2</span>
-<span class="source-line-no">108</span><span id="line-108">        if(!parts[4].isEmpty())</span>
-<span class="source-line-no">109</span><span id="line-109">            newCode = SymbolID.setModifier1(newCode, (parts[4]));</span>
-<span class="source-line-no">110</span><span id="line-110"></span>
-<span class="source-line-no">111</span><span id="line-111">        //get affiliation to set context and affiliation</span>
-<span class="source-line-no">112</span><span id="line-112">        char aff = symbolID.charAt(1);</span>
-<span class="source-line-no">113</span><span id="line-113"></span>
-<span class="source-line-no">114</span><span id="line-114">        switch (aff)</span>
-<span class="source-line-no">115</span><span id="line-115">        {</span>
-<span class="source-line-no">116</span><span id="line-116">            case 'G':</span>
-<span class="source-line-no">117</span><span id="line-117">            case 'W':</span>
-<span class="source-line-no">118</span><span id="line-118">            case 'M':</span>
-<span class="source-line-no">119</span><span id="line-119">            case 'D':</span>
-<span class="source-line-no">120</span><span id="line-120">            case 'L':</span>
-<span class="source-line-no">121</span><span id="line-121">            case 'J':</span>
-<span class="source-line-no">122</span><span id="line-122">            case 'K':</span>
-<span class="source-line-no">123</span><span id="line-123">                newCode = SymbolID.setContext(newCode, SymbolID.StandardIdentity_Context_Exercise);</span>
-<span class="source-line-no">124</span><span id="line-124">                break;</span>
-<span class="source-line-no">125</span><span id="line-125">            default:</span>
-<span class="source-line-no">126</span><span id="line-126">                newCode = SymbolID.setContext(newCode, SymbolID.StandardIdentity_Context_Reality);</span>
-<span class="source-line-no">127</span><span id="line-127">        }</span>
-<span class="source-line-no">128</span><span id="line-128"></span>
-<span class="source-line-no">129</span><span id="line-129">        //set affiliation</span>
-<span class="source-line-no">130</span><span id="line-130">        if(aff=='F' || aff=='D')</span>
-<span class="source-line-no">131</span><span id="line-131">            newCode = SymbolID.setAffiliation(newCode, SymbolID.StandardIdentity_Affiliation_Friend);</span>
-<span class="source-line-no">132</span><span id="line-132">        else if(aff=='H' || aff=='K')</span>
-<span class="source-line-no">133</span><span id="line-133">            newCode = SymbolID.setAffiliation(newCode, SymbolID.StandardIdentity_Affiliation_Hostile_Faker);</span>
-<span class="source-line-no">134</span><span id="line-134">        else if(aff=='N' || aff=='L')</span>
-<span class="source-line-no">135</span><span id="line-135">            newCode = SymbolID.setAffiliation(newCode, SymbolID.StandardIdentity_Affiliation_Neutral);</span>
-<span class="source-line-no">136</span><span id="line-136">        else if(aff=='P' || aff=='G')</span>
-<span class="source-line-no">137</span><span id="line-137">            newCode = SymbolID.setAffiliation(newCode, SymbolID.StandardIdentity_Affiliation_Pending);</span>
-<span class="source-line-no">138</span><span id="line-138">        else if(aff=='S' || aff=='J')</span>
-<span class="source-line-no">139</span><span id="line-139">            newCode = SymbolID.setAffiliation(newCode, SymbolID.StandardIdentity_Affiliation_Suspect_Joker);</span>
-<span class="source-line-no">140</span><span id="line-140">        else if(aff=='A' || aff=='M')</span>
-<span class="source-line-no">141</span><span id="line-141">            newCode = SymbolID.setAffiliation(newCode, SymbolID.StandardIdentity_Affiliation_AssumedFriend);</span>
-<span class="source-line-no">142</span><span id="line-142">        else if(aff=='U' || aff=='W')</span>
-<span class="source-line-no">143</span><span id="line-143">            newCode = SymbolID.setAffiliation(newCode, SymbolID.StandardIdentity_Affiliation_Unknown);</span>
-<span class="source-line-no">144</span><span id="line-144"></span>
-<span class="source-line-no">145</span><span id="line-145">        //set status</span>
-<span class="source-line-no">146</span><span id="line-146">        char status = symbolID.charAt(3);</span>
-<span class="source-line-no">147</span><span id="line-147"></span>
-<span class="source-line-no">148</span><span id="line-148">        if(status == 'A')</span>
-<span class="source-line-no">149</span><span id="line-149">            newCode = SymbolID.setStatus(newCode, SymbolID.Status_Planned_Anticipated_Suspect);</span>
-<span class="source-line-no">150</span><span id="line-150">        if(status == 'P')</span>
-<span class="source-line-no">151</span><span id="line-151">            newCode = SymbolID.setStatus(newCode, SymbolID.Status_Present);</span>
-<span class="source-line-no">152</span><span id="line-152">        if(status == 'C')</span>
-<span class="source-line-no">153</span><span id="line-153">            newCode = SymbolID.setStatus(newCode, SymbolID.Status_Present_FullyCapable);</span>
-<span class="source-line-no">154</span><span id="line-154">        if(status == 'D')</span>
-<span class="source-line-no">155</span><span id="line-155">            newCode = SymbolID.setStatus(newCode, SymbolID.Status_Present_Damaged);</span>
-<span class="source-line-no">156</span><span id="line-156">        if(status == 'X')</span>
-<span class="source-line-no">157</span><span id="line-157">            newCode = SymbolID.setStatus(newCode, SymbolID.Status_Present_Destroyed);</span>
-<span class="source-line-no">158</span><span id="line-158">        if(status == 'F')</span>
-<span class="source-line-no">159</span><span id="line-159">            newCode = SymbolID.setStatus(newCode, SymbolID.Status_Present_FullToCapacity);</span>
-<span class="source-line-no">160</span><span id="line-160"></span>
-<span class="source-line-no">161</span><span id="line-161">        String modifier = symbolID.substring(10,12);</span>
-<span class="source-line-no">162</span><span id="line-162">        if(modifier.charAt(0)!='H' &amp;&amp;//installation</span>
-<span class="source-line-no">163</span><span id="line-163">                modifier.charAt(0)!='M' &amp;&amp; //mobility</span>
-<span class="source-line-no">164</span><span id="line-164">                modifier.charAt(0)!='N') //towed array</span>
-<span class="source-line-no">165</span><span id="line-165">        {</span>
-<span class="source-line-no">166</span><span id="line-166">            switch(modifier.charAt(1))</span>
-<span class="source-line-no">167</span><span id="line-167">            {</span>
-<span class="source-line-no">168</span><span id="line-168">                case 'A':</span>
-<span class="source-line-no">169</span><span id="line-169">                    newCode = SymbolID.setAmplifierDescriptor(newCode,SymbolID.Echelon_Team_Crew);</span>
-<span class="source-line-no">170</span><span id="line-170">                    break;</span>
-<span class="source-line-no">171</span><span id="line-171">                case 'B':</span>
-<span class="source-line-no">172</span><span id="line-172">                    newCode = SymbolID.setAmplifierDescriptor(newCode,SymbolID.Echelon_Squad);</span>
-<span class="source-line-no">173</span><span id="line-173">                    break;</span>
-<span class="source-line-no">174</span><span id="line-174">                case 'C':</span>
-<span class="source-line-no">175</span><span id="line-175">                    newCode = SymbolID.setAmplifierDescriptor(newCode,SymbolID.Echelon_Section);</span>
-<span class="source-line-no">176</span><span id="line-176">                    break;</span>
-<span class="source-line-no">177</span><span id="line-177">                case 'D':</span>
-<span class="source-line-no">178</span><span id="line-178">                    newCode = SymbolID.setAmplifierDescriptor(newCode,SymbolID.Echelon_Platoon_Detachment);</span>
-<span class="source-line-no">179</span><span id="line-179">                    break;</span>
-<span class="source-line-no">180</span><span id="line-180">                case 'E':</span>
-<span class="source-line-no">181</span><span id="line-181">                    newCode = SymbolID.setAmplifierDescriptor(newCode,SymbolID.Echelon_Company_Battery_Troop);</span>
-<span class="source-line-no">182</span><span id="line-182">                    break;</span>
-<span class="source-line-no">183</span><span id="line-183">                case 'F':</span>
-<span class="source-line-no">184</span><span id="line-184">                    newCode = SymbolID.setAmplifierDescriptor(newCode,SymbolID.Echelon_Battalion_Squadron);</span>
-<span class="source-line-no">185</span><span id="line-185">                    break;</span>
-<span class="source-line-no">186</span><span id="line-186">                case 'G':</span>
-<span class="source-line-no">187</span><span id="line-187">                    newCode = SymbolID.setAmplifierDescriptor(newCode,SymbolID.Echelon_Regiment_Group);</span>
-<span class="source-line-no">188</span><span id="line-188">                    break;</span>
-<span class="source-line-no">189</span><span id="line-189">                case 'H':</span>
-<span class="source-line-no">190</span><span id="line-190">                    newCode = SymbolID.setAmplifierDescriptor(newCode,SymbolID.Echelon_Brigade);</span>
-<span class="source-line-no">191</span><span id="line-191">                    break;</span>
-<span class="source-line-no">192</span><span id="line-192">                case 'I':</span>
-<span class="source-line-no">193</span><span id="line-193">                    newCode = SymbolID.setAmplifierDescriptor(newCode,SymbolID.Echelon_Division);</span>
-<span class="source-line-no">194</span><span id="line-194">                    break;</span>
-<span class="source-line-no">195</span><span id="line-195">                case 'J':</span>
-<span class="source-line-no">196</span><span id="line-196">                    newCode = SymbolID.setAmplifierDescriptor(newCode,SymbolID.Echelon_Corps_MEF);</span>
-<span class="source-line-no">197</span><span id="line-197">                    break;</span>
-<span class="source-line-no">198</span><span id="line-198">                case 'K':</span>
-<span class="source-line-no">199</span><span id="line-199">                    newCode = SymbolID.setAmplifierDescriptor(newCode,SymbolID.Echelon_Army);</span>
-<span class="source-line-no">200</span><span id="line-200">                    break;</span>
-<span class="source-line-no">201</span><span id="line-201">                case 'L':</span>
-<span class="source-line-no">202</span><span id="line-202">                    newCode = SymbolID.setAmplifierDescriptor(newCode,SymbolID.Echelon_ArmyGroup_Front);</span>
-<span class="source-line-no">203</span><span id="line-203">                    break;</span>
-<span class="source-line-no">204</span><span id="line-204">                case 'M':</span>
-<span class="source-line-no">205</span><span id="line-205">                    newCode = SymbolID.setAmplifierDescriptor(newCode,SymbolID.Echelon_Region_Theater);</span>
-<span class="source-line-no">206</span><span id="line-206">                    break;</span>
-<span class="source-line-no">207</span><span id="line-207">                case 'N':</span>
-<span class="source-line-no">208</span><span id="line-208">                    newCode = SymbolID.setAmplifierDescriptor(newCode,SymbolID.Echelon_Region_Command);</span>
-<span class="source-line-no">209</span><span id="line-209">                    break;</span>
-<span class="source-line-no">210</span><span id="line-210"></span>
-<span class="source-line-no">211</span><span id="line-211">            }</span>
-<span class="source-line-no">212</span><span id="line-212"></span>
-<span class="source-line-no">213</span><span id="line-213">            switch (modifier.charAt(0))</span>
-<span class="source-line-no">214</span><span id="line-214">            {</span>
-<span class="source-line-no">215</span><span id="line-215">                case 'A':</span>
-<span class="source-line-no">216</span><span id="line-216">                    newCode = SymbolID.setHQTFD(newCode,SymbolID.HQTFD_Headquarters);</span>
-<span class="source-line-no">217</span><span id="line-217">                    break;</span>
-<span class="source-line-no">218</span><span id="line-218">                case 'B':</span>
-<span class="source-line-no">219</span><span id="line-219">                    newCode = SymbolID.setHQTFD(newCode,SymbolID.HQTFD_TaskForce_Headquarters);</span>
-<span class="source-line-no">220</span><span id="line-220">                    break;</span>
-<span class="source-line-no">221</span><span id="line-221">                case 'C':</span>
-<span class="source-line-no">222</span><span id="line-222">                    newCode = SymbolID.setHQTFD(newCode,SymbolID.HQTFD_FeintDummy_Headquarters);</span>
-<span class="source-line-no">223</span><span id="line-223">                    break;</span>
-<span class="source-line-no">224</span><span id="line-224">                case 'D':</span>
-<span class="source-line-no">225</span><span id="line-225">                    newCode = SymbolID.setHQTFD(newCode,SymbolID.HQTFD_FeintDummy_TaskForce_Headquarters);</span>
-<span class="source-line-no">226</span><span id="line-226">                    break;</span>
-<span class="source-line-no">227</span><span id="line-227">                case 'E':</span>
-<span class="source-line-no">228</span><span id="line-228">                    newCode = SymbolID.setHQTFD(newCode,SymbolID.HQTFD_TaskForce);</span>
-<span class="source-line-no">229</span><span id="line-229">                    break;</span>
-<span class="source-line-no">230</span><span id="line-230">                case 'F':</span>
-<span class="source-line-no">231</span><span id="line-231">                    newCode = SymbolID.setHQTFD(newCode,SymbolID.HQTFD_FeintDummy);</span>
-<span class="source-line-no">232</span><span id="line-232">                    break;</span>
-<span class="source-line-no">233</span><span id="line-233">                case 'G':</span>
-<span class="source-line-no">234</span><span id="line-234">                    newCode = SymbolID.setHQTFD(newCode,SymbolID.HQTFD_FeintDummy_TaskForce);</span>
-<span class="source-line-no">235</span><span id="line-235">                    break;</span>
-<span class="source-line-no">236</span><span id="line-236">            }</span>
-<span class="source-line-no">237</span><span id="line-237">        }</span>
-<span class="source-line-no">238</span><span id="line-238">        else</span>
-<span class="source-line-no">239</span><span id="line-239">        {</span>
-<span class="source-line-no">240</span><span id="line-240">            if(modifier.equals("HB"))</span>
-<span class="source-line-no">241</span><span id="line-241">                SymbolID.setHQTFD(newCode,SymbolID.HQTFD_FeintDummy);</span>
-<span class="source-line-no">242</span><span id="line-242">            else if(modifier.charAt(0)=='M')</span>
-<span class="source-line-no">243</span><span id="line-243">            {</span>
-<span class="source-line-no">244</span><span id="line-244">                switch(modifier.charAt(1))</span>
-<span class="source-line-no">245</span><span id="line-245">                {</span>
-<span class="source-line-no">246</span><span id="line-246">                    case 'O':</span>
-<span class="source-line-no">247</span><span id="line-247">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_WheeledLimitedCrossCountry);</span>
-<span class="source-line-no">248</span><span id="line-248">                        break;</span>
-<span class="source-line-no">249</span><span id="line-249">                    case 'P':</span>
-<span class="source-line-no">250</span><span id="line-250">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_WheeledCrossCountry);</span>
-<span class="source-line-no">251</span><span id="line-251">                        break;</span>
-<span class="source-line-no">252</span><span id="line-252">                    case 'Q':</span>
-<span class="source-line-no">253</span><span id="line-253">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_Tracked);</span>
-<span class="source-line-no">254</span><span id="line-254">                        break;</span>
-<span class="source-line-no">255</span><span id="line-255">                    case 'R':</span>
-<span class="source-line-no">256</span><span id="line-256">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_Wheeled_Tracked);</span>
-<span class="source-line-no">257</span><span id="line-257">                        break;</span>
-<span class="source-line-no">258</span><span id="line-258">                    case 'S':</span>
-<span class="source-line-no">259</span><span id="line-259">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_Towed);</span>
-<span class="source-line-no">260</span><span id="line-260">                        break;</span>
-<span class="source-line-no">261</span><span id="line-261">                    case 'T':</span>
-<span class="source-line-no">262</span><span id="line-262">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_Rail);</span>
-<span class="source-line-no">263</span><span id="line-263">                        break;</span>
-<span class="source-line-no">264</span><span id="line-264">                    case 'U':</span>
-<span class="source-line-no">265</span><span id="line-265">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_OverSnow);</span>
-<span class="source-line-no">266</span><span id="line-266">                        break;</span>
-<span class="source-line-no">267</span><span id="line-267">                    case 'V':</span>
-<span class="source-line-no">268</span><span id="line-268">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_Sled);</span>
-<span class="source-line-no">269</span><span id="line-269">                        break;</span>
-<span class="source-line-no">270</span><span id="line-270">                    case 'W':</span>
-<span class="source-line-no">271</span><span id="line-271">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_PackAnimals);</span>
-<span class="source-line-no">272</span><span id="line-272">                        break;</span>
-<span class="source-line-no">273</span><span id="line-273">                    case 'X':</span>
-<span class="source-line-no">274</span><span id="line-274">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_Barge);</span>
-<span class="source-line-no">275</span><span id="line-275">                        break;</span>
-<span class="source-line-no">276</span><span id="line-276">                    case 'Y':</span>
-<span class="source-line-no">277</span><span id="line-277">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_Amphibious);</span>
-<span class="source-line-no">278</span><span id="line-278">                        break;</span>
-<span class="source-line-no">279</span><span id="line-279">                }</span>
-<span class="source-line-no">280</span><span id="line-280">            }</span>
-<span class="source-line-no">281</span><span id="line-281">            else if(modifier.charAt(0)=='N')</span>
-<span class="source-line-no">282</span><span id="line-282">            {</span>
-<span class="source-line-no">283</span><span id="line-283">                switch(modifier.charAt(1)) {</span>
-<span class="source-line-no">284</span><span id="line-284">                    case 'S':</span>
-<span class="source-line-no">285</span><span id="line-285">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_ShortTowedArray);</span>
-<span class="source-line-no">286</span><span id="line-286">                        break;</span>
-<span class="source-line-no">287</span><span id="line-287">                    case 'L':</span>
-<span class="source-line-no">288</span><span id="line-288">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_LongTowedArray);</span>
-<span class="source-line-no">289</span><span id="line-289">                        break;</span>
-<span class="source-line-no">290</span><span id="line-290">                }</span>
-<span class="source-line-no">291</span><span id="line-291">            }</span>
-<span class="source-line-no">292</span><span id="line-292">        }</span>
-<span class="source-line-no">293</span><span id="line-293"></span>
-<span class="source-line-no">294</span><span id="line-294">        switch(SymbolID.getEntityCode(newCode))</span>
-<span class="source-line-no">295</span><span id="line-295">        {</span>
-<span class="source-line-no">296</span><span id="line-296">            case 151406://Axis of Advance for a Feint</span>
-<span class="source-line-no">297</span><span id="line-297">            case 140605://Direction of attack feint</span>
-<span class="source-line-no">298</span><span id="line-298">            case 270705://Dummy Minefield</span>
-<span class="source-line-no">299</span><span id="line-299">            case 270706://Dummy Minefield, Dynamic</span>
-<span class="source-line-no">300</span><span id="line-300">            case 270900://Decoy Mined Area</span>
-<span class="source-line-no">301</span><span id="line-301">            case 270901://Decoy Mined Area, Fenced</span>
-<span class="source-line-no">302</span><span id="line-302">                newCode = SymbolID.setVersion(newCode,10);</span>
-<span class="source-line-no">303</span><span id="line-303">                break;</span>
-<span class="source-line-no">304</span><span id="line-304">            default:</span>
-<span class="source-line-no">305</span><span id="line-305">                break;</span>
-<span class="source-line-no">306</span><span id="line-306">        }</span>
+<span class="source-line-no">100</span><span id="line-100">        //set version</span>
+<span class="source-line-no">101</span><span id="line-101">        newCode = SymbolID.setVersion(newCode, Integer.parseInt(parts[1]));</span>
+<span class="source-line-no">102</span><span id="line-102">        //set symbol set</span>
+<span class="source-line-no">103</span><span id="line-103">        newCode = SymbolID.setSymbolSet(newCode, Integer.parseInt(parts[2]));</span>
+<span class="source-line-no">104</span><span id="line-104">        //set entity code</span>
+<span class="source-line-no">105</span><span id="line-105">        newCode = SymbolID.setEntityCode(newCode, Integer.parseInt(parts[3]));</span>
+<span class="source-line-no">106</span><span id="line-106">        //Set Echelon/Mobility (not used currently)</span>
+<span class="source-line-no">107</span><span id="line-107">        /*if(!parts[4].isEmpty())</span>
+<span class="source-line-no">108</span><span id="line-108">            newCode = SymbolID.setEchelonMobility(newCode, (parts[4]));*/</span>
+<span class="source-line-no">109</span><span id="line-109">        //set sector modifier 1</span>
+<span class="source-line-no">110</span><span id="line-110">        if(!parts[5].isEmpty())</span>
+<span class="source-line-no">111</span><span id="line-111">            newCode = SymbolID.setModifier1(newCode, (parts[5]));</span>
+<span class="source-line-no">112</span><span id="line-112">        //set sector modifier 2</span>
+<span class="source-line-no">113</span><span id="line-113">        if(!parts[6].isEmpty())</span>
+<span class="source-line-no">114</span><span id="line-114">            newCode = SymbolID.setModifier2(newCode, (parts[6]));</span>
+<span class="source-line-no">115</span><span id="line-115"></span>
+<span class="source-line-no">116</span><span id="line-116">        //get affiliation to set context and affiliation</span>
+<span class="source-line-no">117</span><span id="line-117">        char aff = symbolID.charAt(1);</span>
+<span class="source-line-no">118</span><span id="line-118"></span>
+<span class="source-line-no">119</span><span id="line-119">        switch (aff)</span>
+<span class="source-line-no">120</span><span id="line-120">        {</span>
+<span class="source-line-no">121</span><span id="line-121">            case 'G':</span>
+<span class="source-line-no">122</span><span id="line-122">            case 'W':</span>
+<span class="source-line-no">123</span><span id="line-123">            case 'M':</span>
+<span class="source-line-no">124</span><span id="line-124">            case 'D':</span>
+<span class="source-line-no">125</span><span id="line-125">            case 'L':</span>
+<span class="source-line-no">126</span><span id="line-126">            case 'J':</span>
+<span class="source-line-no">127</span><span id="line-127">            case 'K':</span>
+<span class="source-line-no">128</span><span id="line-128">                newCode = SymbolID.setContext(newCode, SymbolID.StandardIdentity_Context_Exercise);</span>
+<span class="source-line-no">129</span><span id="line-129">                break;</span>
+<span class="source-line-no">130</span><span id="line-130">            default:</span>
+<span class="source-line-no">131</span><span id="line-131">                newCode = SymbolID.setContext(newCode, SymbolID.StandardIdentity_Context_Reality);</span>
+<span class="source-line-no">132</span><span id="line-132">        }</span>
+<span class="source-line-no">133</span><span id="line-133"></span>
+<span class="source-line-no">134</span><span id="line-134">        //set affiliation</span>
+<span class="source-line-no">135</span><span id="line-135">        if(aff=='F' || aff=='D')</span>
+<span class="source-line-no">136</span><span id="line-136">            newCode = SymbolID.setAffiliation(newCode, SymbolID.StandardIdentity_Affiliation_Friend);</span>
+<span class="source-line-no">137</span><span id="line-137">        else if(aff=='H' || aff=='K')</span>
+<span class="source-line-no">138</span><span id="line-138">            newCode = SymbolID.setAffiliation(newCode, SymbolID.StandardIdentity_Affiliation_Hostile_Faker);</span>
+<span class="source-line-no">139</span><span id="line-139">        else if(aff=='N' || aff=='L')</span>
+<span class="source-line-no">140</span><span id="line-140">            newCode = SymbolID.setAffiliation(newCode, SymbolID.StandardIdentity_Affiliation_Neutral);</span>
+<span class="source-line-no">141</span><span id="line-141">        else if(aff=='P' || aff=='G')</span>
+<span class="source-line-no">142</span><span id="line-142">            newCode = SymbolID.setAffiliation(newCode, SymbolID.StandardIdentity_Affiliation_Pending);</span>
+<span class="source-line-no">143</span><span id="line-143">        else if(aff=='S' || aff=='J')</span>
+<span class="source-line-no">144</span><span id="line-144">            newCode = SymbolID.setAffiliation(newCode, SymbolID.StandardIdentity_Affiliation_Suspect_Joker);</span>
+<span class="source-line-no">145</span><span id="line-145">        else if(aff=='A' || aff=='M')</span>
+<span class="source-line-no">146</span><span id="line-146">            newCode = SymbolID.setAffiliation(newCode, SymbolID.StandardIdentity_Affiliation_AssumedFriend);</span>
+<span class="source-line-no">147</span><span id="line-147">        else if(aff=='U' || aff=='W')</span>
+<span class="source-line-no">148</span><span id="line-148">            newCode = SymbolID.setAffiliation(newCode, SymbolID.StandardIdentity_Affiliation_Unknown);</span>
+<span class="source-line-no">149</span><span id="line-149"></span>
+<span class="source-line-no">150</span><span id="line-150">        //set status</span>
+<span class="source-line-no">151</span><span id="line-151">        char status = symbolID.charAt(3);</span>
+<span class="source-line-no">152</span><span id="line-152"></span>
+<span class="source-line-no">153</span><span id="line-153">        if(status == 'A')</span>
+<span class="source-line-no">154</span><span id="line-154">            newCode = SymbolID.setStatus(newCode, SymbolID.Status_Planned_Anticipated_Suspect);</span>
+<span class="source-line-no">155</span><span id="line-155">        if(status == 'P')</span>
+<span class="source-line-no">156</span><span id="line-156">            newCode = SymbolID.setStatus(newCode, SymbolID.Status_Present);</span>
+<span class="source-line-no">157</span><span id="line-157">        if(status == 'C')</span>
+<span class="source-line-no">158</span><span id="line-158">            newCode = SymbolID.setStatus(newCode, SymbolID.Status_Present_FullyCapable);</span>
+<span class="source-line-no">159</span><span id="line-159">        if(status == 'D')</span>
+<span class="source-line-no">160</span><span id="line-160">            newCode = SymbolID.setStatus(newCode, SymbolID.Status_Present_Damaged);</span>
+<span class="source-line-no">161</span><span id="line-161">        if(status == 'X')</span>
+<span class="source-line-no">162</span><span id="line-162">            newCode = SymbolID.setStatus(newCode, SymbolID.Status_Present_Destroyed);</span>
+<span class="source-line-no">163</span><span id="line-163">        if(status == 'F')</span>
+<span class="source-line-no">164</span><span id="line-164">            newCode = SymbolID.setStatus(newCode, SymbolID.Status_Present_FullToCapacity);</span>
+<span class="source-line-no">165</span><span id="line-165"></span>
+<span class="source-line-no">166</span><span id="line-166">        String modifier = symbolID.substring(10,12);</span>
+<span class="source-line-no">167</span><span id="line-167">        if(modifier.charAt(0)!='H' &amp;&amp;//installation</span>
+<span class="source-line-no">168</span><span id="line-168">                modifier.charAt(0)!='M' &amp;&amp; //mobility</span>
+<span class="source-line-no">169</span><span id="line-169">                modifier.charAt(0)!='N') //towed array</span>
+<span class="source-line-no">170</span><span id="line-170">        {</span>
+<span class="source-line-no">171</span><span id="line-171">            switch(modifier.charAt(1))</span>
+<span class="source-line-no">172</span><span id="line-172">            {</span>
+<span class="source-line-no">173</span><span id="line-173">                case 'A':</span>
+<span class="source-line-no">174</span><span id="line-174">                    newCode = SymbolID.setAmplifierDescriptor(newCode,SymbolID.Echelon_Team_Crew);</span>
+<span class="source-line-no">175</span><span id="line-175">                    break;</span>
+<span class="source-line-no">176</span><span id="line-176">                case 'B':</span>
+<span class="source-line-no">177</span><span id="line-177">                    newCode = SymbolID.setAmplifierDescriptor(newCode,SymbolID.Echelon_Squad);</span>
+<span class="source-line-no">178</span><span id="line-178">                    break;</span>
+<span class="source-line-no">179</span><span id="line-179">                case 'C':</span>
+<span class="source-line-no">180</span><span id="line-180">                    newCode = SymbolID.setAmplifierDescriptor(newCode,SymbolID.Echelon_Section);</span>
+<span class="source-line-no">181</span><span id="line-181">                    break;</span>
+<span class="source-line-no">182</span><span id="line-182">                case 'D':</span>
+<span class="source-line-no">183</span><span id="line-183">                    newCode = SymbolID.setAmplifierDescriptor(newCode,SymbolID.Echelon_Platoon_Detachment);</span>
+<span class="source-line-no">184</span><span id="line-184">                    break;</span>
+<span class="source-line-no">185</span><span id="line-185">                case 'E':</span>
+<span class="source-line-no">186</span><span id="line-186">                    newCode = SymbolID.setAmplifierDescriptor(newCode,SymbolID.Echelon_Company_Battery_Troop);</span>
+<span class="source-line-no">187</span><span id="line-187">                    break;</span>
+<span class="source-line-no">188</span><span id="line-188">                case 'F':</span>
+<span class="source-line-no">189</span><span id="line-189">                    newCode = SymbolID.setAmplifierDescriptor(newCode,SymbolID.Echelon_Battalion_Squadron);</span>
+<span class="source-line-no">190</span><span id="line-190">                    break;</span>
+<span class="source-line-no">191</span><span id="line-191">                case 'G':</span>
+<span class="source-line-no">192</span><span id="line-192">                    newCode = SymbolID.setAmplifierDescriptor(newCode,SymbolID.Echelon_Regiment_Group);</span>
+<span class="source-line-no">193</span><span id="line-193">                    break;</span>
+<span class="source-line-no">194</span><span id="line-194">                case 'H':</span>
+<span class="source-line-no">195</span><span id="line-195">                    newCode = SymbolID.setAmplifierDescriptor(newCode,SymbolID.Echelon_Brigade);</span>
+<span class="source-line-no">196</span><span id="line-196">                    break;</span>
+<span class="source-line-no">197</span><span id="line-197">                case 'I':</span>
+<span class="source-line-no">198</span><span id="line-198">                    newCode = SymbolID.setAmplifierDescriptor(newCode,SymbolID.Echelon_Division);</span>
+<span class="source-line-no">199</span><span id="line-199">                    break;</span>
+<span class="source-line-no">200</span><span id="line-200">                case 'J':</span>
+<span class="source-line-no">201</span><span id="line-201">                    newCode = SymbolID.setAmplifierDescriptor(newCode,SymbolID.Echelon_Corps_MEF);</span>
+<span class="source-line-no">202</span><span id="line-202">                    break;</span>
+<span class="source-line-no">203</span><span id="line-203">                case 'K':</span>
+<span class="source-line-no">204</span><span id="line-204">                    newCode = SymbolID.setAmplifierDescriptor(newCode,SymbolID.Echelon_Army);</span>
+<span class="source-line-no">205</span><span id="line-205">                    break;</span>
+<span class="source-line-no">206</span><span id="line-206">                case 'L':</span>
+<span class="source-line-no">207</span><span id="line-207">                    newCode = SymbolID.setAmplifierDescriptor(newCode,SymbolID.Echelon_ArmyGroup_Front);</span>
+<span class="source-line-no">208</span><span id="line-208">                    break;</span>
+<span class="source-line-no">209</span><span id="line-209">                case 'M':</span>
+<span class="source-line-no">210</span><span id="line-210">                    newCode = SymbolID.setAmplifierDescriptor(newCode,SymbolID.Echelon_Region_Theater);</span>
+<span class="source-line-no">211</span><span id="line-211">                    break;</span>
+<span class="source-line-no">212</span><span id="line-212">                case 'N':</span>
+<span class="source-line-no">213</span><span id="line-213">                    newCode = SymbolID.setAmplifierDescriptor(newCode,SymbolID.Echelon_Region_Command);</span>
+<span class="source-line-no">214</span><span id="line-214">                    break;</span>
+<span class="source-line-no">215</span><span id="line-215"></span>
+<span class="source-line-no">216</span><span id="line-216">            }</span>
+<span class="source-line-no">217</span><span id="line-217"></span>
+<span class="source-line-no">218</span><span id="line-218">            switch (modifier.charAt(0))</span>
+<span class="source-line-no">219</span><span id="line-219">            {</span>
+<span class="source-line-no">220</span><span id="line-220">                case 'A':</span>
+<span class="source-line-no">221</span><span id="line-221">                    newCode = SymbolID.setHQTFD(newCode,SymbolID.HQTFD_Headquarters);</span>
+<span class="source-line-no">222</span><span id="line-222">                    break;</span>
+<span class="source-line-no">223</span><span id="line-223">                case 'B':</span>
+<span class="source-line-no">224</span><span id="line-224">                    newCode = SymbolID.setHQTFD(newCode,SymbolID.HQTFD_TaskForce_Headquarters);</span>
+<span class="source-line-no">225</span><span id="line-225">                    break;</span>
+<span class="source-line-no">226</span><span id="line-226">                case 'C':</span>
+<span class="source-line-no">227</span><span id="line-227">                    newCode = SymbolID.setHQTFD(newCode,SymbolID.HQTFD_FeintDummy_Headquarters);</span>
+<span class="source-line-no">228</span><span id="line-228">                    break;</span>
+<span class="source-line-no">229</span><span id="line-229">                case 'D':</span>
+<span class="source-line-no">230</span><span id="line-230">                    newCode = SymbolID.setHQTFD(newCode,SymbolID.HQTFD_FeintDummy_TaskForce_Headquarters);</span>
+<span class="source-line-no">231</span><span id="line-231">                    break;</span>
+<span class="source-line-no">232</span><span id="line-232">                case 'E':</span>
+<span class="source-line-no">233</span><span id="line-233">                    newCode = SymbolID.setHQTFD(newCode,SymbolID.HQTFD_TaskForce);</span>
+<span class="source-line-no">234</span><span id="line-234">                    break;</span>
+<span class="source-line-no">235</span><span id="line-235">                case 'F':</span>
+<span class="source-line-no">236</span><span id="line-236">                    newCode = SymbolID.setHQTFD(newCode,SymbolID.HQTFD_FeintDummy);</span>
+<span class="source-line-no">237</span><span id="line-237">                    break;</span>
+<span class="source-line-no">238</span><span id="line-238">                case 'G':</span>
+<span class="source-line-no">239</span><span id="line-239">                    newCode = SymbolID.setHQTFD(newCode,SymbolID.HQTFD_FeintDummy_TaskForce);</span>
+<span class="source-line-no">240</span><span id="line-240">                    break;</span>
+<span class="source-line-no">241</span><span id="line-241">            }</span>
+<span class="source-line-no">242</span><span id="line-242">        }</span>
+<span class="source-line-no">243</span><span id="line-243">        else</span>
+<span class="source-line-no">244</span><span id="line-244">        {</span>
+<span class="source-line-no">245</span><span id="line-245">            if(modifier.equals("HB"))</span>
+<span class="source-line-no">246</span><span id="line-246">                SymbolID.setHQTFD(newCode,SymbolID.HQTFD_FeintDummy);</span>
+<span class="source-line-no">247</span><span id="line-247">            else if(modifier.charAt(0)=='M')</span>
+<span class="source-line-no">248</span><span id="line-248">            {</span>
+<span class="source-line-no">249</span><span id="line-249">                switch(modifier.charAt(1))</span>
+<span class="source-line-no">250</span><span id="line-250">                {</span>
+<span class="source-line-no">251</span><span id="line-251">                    case 'O':</span>
+<span class="source-line-no">252</span><span id="line-252">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_WheeledLimitedCrossCountry);</span>
+<span class="source-line-no">253</span><span id="line-253">                        break;</span>
+<span class="source-line-no">254</span><span id="line-254">                    case 'P':</span>
+<span class="source-line-no">255</span><span id="line-255">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_WheeledCrossCountry);</span>
+<span class="source-line-no">256</span><span id="line-256">                        break;</span>
+<span class="source-line-no">257</span><span id="line-257">                    case 'Q':</span>
+<span class="source-line-no">258</span><span id="line-258">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_Tracked);</span>
+<span class="source-line-no">259</span><span id="line-259">                        break;</span>
+<span class="source-line-no">260</span><span id="line-260">                    case 'R':</span>
+<span class="source-line-no">261</span><span id="line-261">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_Wheeled_Tracked);</span>
+<span class="source-line-no">262</span><span id="line-262">                        break;</span>
+<span class="source-line-no">263</span><span id="line-263">                    case 'S':</span>
+<span class="source-line-no">264</span><span id="line-264">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_Towed);</span>
+<span class="source-line-no">265</span><span id="line-265">                        break;</span>
+<span class="source-line-no">266</span><span id="line-266">                    case 'T':</span>
+<span class="source-line-no">267</span><span id="line-267">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_Rail);</span>
+<span class="source-line-no">268</span><span id="line-268">                        break;</span>
+<span class="source-line-no">269</span><span id="line-269">                    case 'U':</span>
+<span class="source-line-no">270</span><span id="line-270">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_OverSnow);</span>
+<span class="source-line-no">271</span><span id="line-271">                        break;</span>
+<span class="source-line-no">272</span><span id="line-272">                    case 'V':</span>
+<span class="source-line-no">273</span><span id="line-273">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_Sled);</span>
+<span class="source-line-no">274</span><span id="line-274">                        break;</span>
+<span class="source-line-no">275</span><span id="line-275">                    case 'W':</span>
+<span class="source-line-no">276</span><span id="line-276">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_PackAnimals);</span>
+<span class="source-line-no">277</span><span id="line-277">                        break;</span>
+<span class="source-line-no">278</span><span id="line-278">                    case 'X':</span>
+<span class="source-line-no">279</span><span id="line-279">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_Barge);</span>
+<span class="source-line-no">280</span><span id="line-280">                        break;</span>
+<span class="source-line-no">281</span><span id="line-281">                    case 'Y':</span>
+<span class="source-line-no">282</span><span id="line-282">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_Amphibious);</span>
+<span class="source-line-no">283</span><span id="line-283">                        break;</span>
+<span class="source-line-no">284</span><span id="line-284">                }</span>
+<span class="source-line-no">285</span><span id="line-285">            }</span>
+<span class="source-line-no">286</span><span id="line-286">            else if(modifier.charAt(0)=='N')</span>
+<span class="source-line-no">287</span><span id="line-287">            {</span>
+<span class="source-line-no">288</span><span id="line-288">                switch(modifier.charAt(1)) {</span>
+<span class="source-line-no">289</span><span id="line-289">                    case 'S':</span>
+<span class="source-line-no">290</span><span id="line-290">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_ShortTowedArray);</span>
+<span class="source-line-no">291</span><span id="line-291">                        break;</span>
+<span class="source-line-no">292</span><span id="line-292">                    case 'L':</span>
+<span class="source-line-no">293</span><span id="line-293">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_LongTowedArray);</span>
+<span class="source-line-no">294</span><span id="line-294">                        break;</span>
+<span class="source-line-no">295</span><span id="line-295">                }</span>
+<span class="source-line-no">296</span><span id="line-296">            }</span>
+<span class="source-line-no">297</span><span id="line-297">        }</span>
+<span class="source-line-no">298</span><span id="line-298"></span>
+<span class="source-line-no">299</span><span id="line-299">        //country code</span>
+<span class="source-line-no">300</span><span id="line-300">        if(includeCountryCode)</span>
+<span class="source-line-no">301</span><span id="line-301">            newCode = newCode.substring(0,27) + GENCLookup.getInstance().get3DigitCode(symbolID.substring(12,14));</span>
+<span class="source-line-no">302</span><span id="line-302"></span>
+<span class="source-line-no">303</span><span id="line-303">        return newCode;</span>
+<span class="source-line-no">304</span><span id="line-304">    }</span>
+<span class="source-line-no">305</span><span id="line-305"></span>
+<span class="source-line-no">306</span><span id="line-306">}</span>
 <span class="source-line-no">307</span><span id="line-307"></span>
-<span class="source-line-no">308</span><span id="line-308">        //country code</span>
-<span class="source-line-no">309</span><span id="line-309">        if(includeCountryCode)</span>
-<span class="source-line-no">310</span><span id="line-310">            newCode = newCode.substring(0,27) + GENCLookup.getInstance().get3DigitCode(symbolID.substring(12,14));</span>
-<span class="source-line-no">311</span><span id="line-311"></span>
-<span class="source-line-no">312</span><span id="line-312">        return newCode;</span>
-<span class="source-line-no">313</span><span id="line-313">    }</span>
-<span class="source-line-no">314</span><span id="line-314"></span>
-<span class="source-line-no">315</span><span id="line-315">}</span>
-<span class="source-line-no">316</span><span id="line-316"></span>
 
 
 
