@@ -1322,6 +1322,10 @@ declare class MilStdAttributes {
    */
   static readonly PatternFillType: string;
   /**
+   * Experimental feature only for use with MilStdSymbol Rendering at this time
+   */
+  static readonly UseLinePattern: string;
+  /**
    * The conversion factor and the label that you want all distances to display in. The conversion factor
    * is converting from meters. The default unit is meters.<br><br>
    *
@@ -3167,8 +3171,8 @@ declare class DrawRules {
   /**
    * Temporary DrawRule for Escort.
    * Has yet to be defined by the MilStd or APP6
-   * Points 2 & 3 make a line.  Point 1 will slide the main line.
-   * The end points of the line will connect to points 2 & 3
+   * Points 2 &amp; 3 make a line.  Point 1 will slide the main line.
+   * The end points of the line will connect to points 2 &amp; 3
    * There will be a gap in the middle of the line for a unit
    * to be placed as a separate symbol
    * TODO: update when MilStd or APP6 defines a rule
@@ -3356,6 +3360,13 @@ declare class DrawRules {
    * Used by: 2525D,Dch1,E,Ech1
    */
   static readonly ARC1: number;
+  /**
+  * Converts a DrawRules constant into its corresponding draw-rule string.
+  *
+  * @param drawRule the DrawRules constant
+  * @return the draw-rule name, or "DoNotDraw" if no match exists
+  */
+  static getDrawRuleName(drawRule: number): string;
 }
 //#endregion
 //#region src/main/ts/armyc2/c5isr/renderer/utilities/MODrawRules.d.ts
@@ -3553,6 +3564,13 @@ declare class MODrawRules {
    * the example and operator-centered over the desired location.
    */
   static readonly LINE8: number;
+  /**
+   * Converts a DrawRules constant into its corresponding draw-rule string.
+   *
+   * @param drawRule the DrawRules constant
+   * @return the draw-rule name, or "DoNotDraw" if no match exists
+   */
+  static getDrawRuleName(drawRule: number): string;
 }
 //#endregion
 //#region src/main/ts/armyc2/c5isr/renderer/utilities/GENCLookup.d.ts
@@ -3715,7 +3733,6 @@ declare class MSLookup {
   private addToLookup;
   private addCustomToLookupAndList;
   private addToList;
-  private AddVersion10Symbols;
   private populateModifierList;
   /**
    * @param symbolID Full 20-30 digits from the symbol code
@@ -4227,6 +4244,11 @@ declare class RendererSettings {
    */
   private static _AutoCollapseModifiers;
   /**
+   * group labels thant tend to be close (like W, W1) into a single modifier with an
+   * end-line character '\n' to create the multiline effect
+   */
+  private static _GroupModifiers;
+  /**
    * @deprecated
    */
   private static _SymbolOutlineWidth;
@@ -4361,6 +4383,14 @@ declare class RendererSettings {
    */
   setAutoCollapseModifiers(value: boolean): void;
   getAutoCollapseModifiers(): boolean;
+  /**
+   * If labels on your map engine support the end-line character '\n', group modifiers
+   * into a single label so that they don't conflict and potentially get dropped due to
+   * proximity which some 3D maps tend to do with labels.
+   * @param value
+   */
+  setGroupModifiers(value: boolean): void;
+  getGroupModifiers(): boolean;
   /**
    * if true (default), when HQ Staff is present, location will be indicated by the free
    * end of the staff
@@ -4854,7 +4884,13 @@ declare class SymbolID {
    * @deprecated withdrawn from standard
    */
   static readonly Version_APP6Dch2: number;
+  /**
+   * @deprecated use 2525Ech1
+   */
   static readonly Version_2525E: number;
+  /**
+   * @deprecated use APP6EEch2
+   */
   static readonly Version_APP6Ech1: number;
   static readonly Version_2525Ech1: number;
   static readonly Version_APP6Ech2: number;
@@ -4914,6 +4950,10 @@ declare class SymbolID {
    */
   static readonly SymbolSet_SignalsIntelligence_SeaSubsurface: number;
   static readonly SymbolSet_CyberSpace: number;
+  /**
+   * APP6Ev2 only
+   */
+  static readonly SymbolSet_CyberSpace_Equipment: number;
   static readonly SymbolSet_InvalidSymbol: number;
   static readonly SymbolSet_VersionExtensionFlag: number;
   static readonly Status_Present: number;
@@ -5241,6 +5281,17 @@ declare class SymbolID {
    * @return string (1 character)
    */
   static getFrameShape(symbolID: string): string;
+}
+//#endregion
+//#region src/main/ts/armyc2/c5isr/JavaLineArray/LinePattern.d.ts
+declare class LinePattern {
+  private svg;
+  private vOffset;
+  constructor(svgPattern: string | null, verticalOffset: number);
+  getLinePatternSVG(): string | null;
+  getLinePatternVerticalOffset(): number;
+  static supportsLinePattern(symbolCode: string): boolean;
+  static getLinePattern(symbolCode: string, lineColor: Color, fillColor: Color | null, lineWidth: number): LinePattern | null;
 }
 //#endregion
 //#region src/main/ts/armyc2/c5isr/graphics2d/AffineTransform.d.ts
@@ -5649,6 +5700,8 @@ declare class ShapeInfo {
   private _Position;
   private _ModifierString;
   private _ModifierPosition;
+  private _ModifierAnchor;
+  private _ModifierAnchorOffset;
   private _ModifierImageInfo;
   private _ModifierAngle;
   private _Tag;
@@ -5657,6 +5710,7 @@ declare class ShapeInfo {
    */
   private _shader;
   private _patternFillInfo;
+  private _linePattern;
   private _justify;
   private _Polylines;
   constructor();
@@ -5676,7 +5730,24 @@ declare class ShapeInfo {
   setModifierString(value: string): void;
   getModifierString(): string;
   setModifierPosition(value: Point2D): void;
+  /**
+   * Location to draw modifier if you can't use pixel offsets
+   * @return
+   */
   getModifierPosition(): Point2D;
+  setModifierAnchor(value: Point2D): void;
+  /**
+   * Location to draw modifier if you are able to use AnchorOffset(Pixel Offset).
+   * This keeps the modifier near the symbol when zooming in.
+   * @return
+   */
+  getModifierAnchor(): Point2D;
+  setModifierAnchorOffset(value: Point2D): void;
+  /**
+   * The pixel offset to use when placing the modifier with the point from getModifierAnchor()
+   * @return
+   */
+  getModifierAnchorOffset(): Point2D;
   setModifierAngle(value: double): void;
   getModifierAngle(): double;
   /**
@@ -5775,6 +5846,8 @@ declare class ShapeInfo {
   getShader(): ImageBitmap;
   setPatternFillImage(img: SVGSymbolInfo): void;
   getPatternFillImage(): string;
+  setLinePattern(lp: LinePattern): void;
+  getLinePattern(): LinePattern;
   getPatternFillImageInfo(): SVGSymbolInfo;
   getTextJustify(): int;
   setTextJustify(value: int): void;
@@ -5823,6 +5896,7 @@ declare class MilStdSymbol {
   private static _AltitudeUnit;
   private static _DistanceUnit;
   private static _useDashArray;
+  private static _useLinePattern;
   private static _hideOptionalLabels;
   private static _DrawAffiliationModifierAsLabel;
   private static _UseLineInterpolation;
@@ -5895,6 +5969,8 @@ declare class MilStdSymbol {
   setDistanceUnit(unit: DistanceUnit): void;
   getUseDashArray(): boolean;
   setUseDashArray(value: boolean): void;
+  getUseLinePattern(): boolean;
+  setUseLinePattern(value: boolean): void;
   getHideOptionalLabels(): boolean;
   setHideOptionalLabels(value: boolean): void;
   setUseLineInterpolation(value: boolean): void;
@@ -6618,6 +6694,15 @@ declare class Modifier2 {
    */
   static AddModifiers2(tg: TGLight, converter: IPointConversion): void;
   /**
+   * Calculates the highest point that is left-of-center given symbol center point and points
+   * @param pixels Points that make the symbol
+   * @param ptCenter Represents the center of the symbol
+   * @return Point that is the highest point, left-of-center
+   */
+  private static getHighestPointLeftOfCenter;
+  private static buildAreaGroupString;
+  private static buildAreaGroupDTGString;
+  /**
    * Displays the tg modifiers using a client Graphics2D, this is an option
    * provided to clients for displaying modifiers without using shapes
    *
@@ -6868,6 +6953,9 @@ declare class TGLight {
   protected _useHatchFill: boolean;
   get_UseHatchFill(): boolean;
   set_UseHatchFill(value: boolean): void;
+  protected _useLinePattern: boolean;
+  get_UseLinePattern(): boolean;
+  set_UseLinePattern(value: boolean): void;
   private _wasClipped;
   set_WasClipped(value: boolean): void;
   get_WasClipped(): boolean;
@@ -6915,7 +7003,7 @@ declare class clsRenderer {
    * @param converter geographic to pixels to converter
    * @return MilstdSymbol object
    */
-  static createMilStdSymboFromTGLight(tg: TGLight, converter: IPointConversion): MilStdSymbol;
+  static createMilStdSymbolFromTGLight(tg: TGLight, converter: IPointConversion): MilStdSymbol;
   /**
    * Build a tactical graphic object from the client MilStdSymbol
    *
@@ -7122,7 +7210,7 @@ declare class RendererUtilities {
    * @return SVG String
    *
    */
-  static setSVGSPCMColors(symbolID: string, svg: string, strokeColor: Color, fillColor: Color, isOutline?: boolean): string;
+  static setSVGSPCMColors(symbolID: string, svg: string, strokeColor: Color, fillColor: Color, isOutline?: boolean, bounds?: Rectangle2D, pixelSize?: number, outlineWidth?: number): string;
   /**
    * Sets SVG stroke-dasharray when action points are in planned status
    * @param symbolID
@@ -7150,6 +7238,7 @@ declare class RendererUtilities {
    * @return Map scale value to use in the RenderSymbol function {@link armyc2.c5isr.web.render.WebRenderer#RenderSymbol(String, String, String, String, String, String, double, String, Map, Map, int)}
    */
   static calculateMapScale(mapPixelWidth: number, eastLon: number, westLon: number, dpi?: number): number;
+  static calculateOutlineWidth(): number;
   static scaleIcon(symbolID: string, icon: SVGInfo): SVGInfo;
   static getData(path: string): Promise<any>;
 }
@@ -7609,5 +7698,5 @@ declare function init(location?: string): Promise<void>;
  */
 declare function isReady(): boolean;
 //#endregion
-export { AffiliationColors, Basic3DShapes, BasicShapes, C2DLookup, Color, DistanceUnit, DrawRules, ErrorLogger, Font, GENCLookup, type IPointConversion, LogLevel, MODrawRules, MSInfo, MSLookup, MilStdAttributes, MilStdIconRenderer, MilStdSymbol, Modifiers, Point, Point2D, PointConverter3D, Rectangle2D, RendererSettings, RendererUtilities, SVGInfo, SVGLookup, SVGSymbolInfo, SectorModUtils, ShapeInfo, SymbolID, SymbolUtilities, WebRenderer, clsRenderer, init, initialize, isReady };
+export { AffiliationColors, Basic3DShapes, BasicShapes, C2DLookup, Color, DistanceUnit, DrawRules, ErrorLogger, Font, GENCLookup, type IPointConversion, LinePattern, LogLevel, MODrawRules, MSInfo, MSLookup, MilStdAttributes, MilStdIconRenderer, MilStdSymbol, Modifiers, Point, Point2D, PointConverter3D, Rectangle2D, RendererSettings, RendererUtilities, SVGInfo, SVGLookup, SVGSymbolInfo, SectorModUtils, ShapeInfo, SymbolID, SymbolUtilities, WebRenderer, clsRenderer, init, initialize, isReady };
 //# sourceMappingURL=C5Ren.d.mts.map
