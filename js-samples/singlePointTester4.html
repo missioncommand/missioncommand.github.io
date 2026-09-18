@@ -519,6 +519,7 @@
 		var drawRule = msInfo.getDrawRule();
         var minPts   = msInfo.getMinPointCount();
         var maxPts   = msInfo.getMaxPointCount();
+		var modifiers = msInfo.getModifiers();
 		
 		// Get draw rule name from C5Ren.DrawRules
 		var drName = "";
@@ -550,6 +551,17 @@
 				  + (maxPts > 100 ? "N" : maxPts)
 				  + "</div>";
 		  }
+		  
+		  /*if(modifiers != null)
+		  {
+			html += "<div><strong>Amplifiers: </strong> ";
+
+			  for(let lcv=0; lcv < modifiers.length; lcv++)
+			  {
+				html += C5Ren.Modifiers.getModifierLetterCode(modifiers[lcv]) + " ";
+			  }
+			  html += "</div>";
+		  }*/
 		  
 		  detailsEl.innerHTML = html;
       } catch (e) {
@@ -995,7 +1007,7 @@
 	
 		if(!_drawMPAlertShown)
 		{
-			alert("Multi-point mode: click up to the maximum number of points on the canvas.");
+			alert("Multi-point mode: click up to the maximum number of points (up to 6) on the canvas.");
 			_drawMPAlertShown = true;
 		}
       } else {
@@ -1164,10 +1176,10 @@
         <div class="form-col">
           <label for="lbVersion">Version</label>
           <select id="lbVersion" onchange="versionChange();">
-            <option>10-APP6D</option>
-            <option selected>11-2525D</option>
-            <option>15-2525E</option>
-            <option>16-APP6E</option>
+            <option>10-APP6D1</option>
+            <option selected>11-2525D Chg 1</option>
+            <option>15-2525E Chg 1</option>
+            <option>16-APP6E2</option>
           </select>
         </div>
         <div class="form-col">
