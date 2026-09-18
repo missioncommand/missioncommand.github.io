@@ -97316,11 +97316,11 @@ var svg6e_default = { svgdata: { "SVGElements": [
 	},
 	{
 		"id": "01110121",
-		"X": "188.486328125",
-		"Y": "350.546875",
-		"Width": "233.4140625",
-		"Height": "85.875",
-		"SVG": "<g id=\"01110121\">        <text font-family=\"sans-serif\" font-size=\"116\" text-anchor=\"middle\" x=\"305\" y=\"435\">ESM</text>    </g>"
+		"X": "208.578125",
+		"Y": "360.109375",
+		"Width": "193.171875",
+		"Height": "71.0625",
+		"SVG": "<g id=\"01110121\">        <text font-family=\"sans-serif\" font-size=\"96\" text-anchor=\"middle\" x=\"305\" y=\"430\">ESM</text>    </g>"
 	},
 	{
 		"id": "25281701",
@@ -121874,9 +121874,8 @@ var mse_default = { mse: { "SYMBOL": [
 		"e": "",
 		"et": "",
 		"est": "Isolated Personnel",
-		"code": "",
-		"versions": "15,16",
-		"geometry": "141801"
+		"code": "141801",
+		"versions": "15,16"
 	},
 	{
 		"ss": "",
@@ -143386,7 +143385,7 @@ var SymbolUtilities = class SymbolUtilities {
 						retColor = AffiliationColors.HostileGraphicLineColor;
 						break;
 					case SymbolID.StandardIdentity_Affiliation_Suspect_Joker:
-						if (symStd >= SymbolID.Version_2525E) retColor = AffiliationColors.SuspectGraphicLineColor;
+						if (symStd >= SymbolID.Version_2525E && symStd <= SymbolID.Version_2525Ech1) retColor = AffiliationColors.SuspectGraphicLineColor;
 						else retColor = AffiliationColors.HostileGraphicLineColor;
 						break;
 					case SymbolID.StandardIdentity_Affiliation_Neutral:
@@ -143406,7 +143405,7 @@ var SymbolUtilities = class SymbolUtilities {
 					retColor = AffiliationColors.HostileUnitFillColor;
 					break;
 				case SymbolID.StandardIdentity_Affiliation_Suspect_Joker:
-					if (symStd >= SymbolID.Version_2525E) retColor = AffiliationColors.SuspectUnitFillColor;
+					if (symStd >= SymbolID.Version_2525E && symStd <= SymbolID.Version_2525Ech1) retColor = AffiliationColors.SuspectUnitFillColor;
 					else retColor = AffiliationColors.HostileUnitFillColor;
 					break;
 				case SymbolID.StandardIdentity_Affiliation_Neutral:
@@ -143475,7 +143474,7 @@ var SymbolUtilities = class SymbolUtilities {
 		try {
 			if (SymbolID.getSymbolSet(strSymbolID) === SymbolID.SymbolSet_ControlMeasure || SymbolUtilities.isWeather(strSymbolID)) return true;
 		} catch (e) {
-			if (e instanceof Error) ErrorLogger.LogException("SymbolUtilities", "getFillColorOfAffiliation", e);
+			if (e instanceof Error) ErrorLogger.LogException("SymbolUtilities", "isTacticalGraphic", e);
 			else throw e;
 		}
 		return false;
@@ -143587,7 +143586,7 @@ var SymbolUtilities = class SymbolUtilities {
 					retColor = AffiliationColors.HostileUnitFillColor;
 					break;
 				case SymbolID.StandardIdentity_Affiliation_Suspect_Joker:
-					if (SymbolID.getVersion(symbolID) >= SymbolID.Version_2525E) retColor = AffiliationColors.SuspectGraphicFillColor;
+					if (SymbolID.getVersion(symbolID) >= SymbolID.Version_2525E && SymbolID.getVersion(symbolID) <= SymbolID.Version_2525Ech1) retColor = AffiliationColors.SuspectGraphicFillColor;
 					else retColor = AffiliationColors.HostileGraphicFillColor;
 					break;
 				case SymbolID.StandardIdentity_Affiliation_Neutral:
@@ -144545,10 +144544,6 @@ var MilStdAttributes = class MilStdAttributes {
 	* For internal use
 	*/
 	static PatternFillType = "PATTERNFILLTYPE";
-	/**
-	* Experimental feature only for use with MilStdSymbol Rendering at this time
-	*/
-	static UseLinePattern = "USELINEPATTERN";
 	/**
 	* The conversion factor and the label that you want all distances to display in. The conversion factor
 	* is converting from meters. The default unit is meters.<br><br>
@@ -154369,7 +154364,6 @@ var ShapeInfo = class ShapeInfo {
 	*/
 	_shader = null;
 	_patternFillInfo = null;
-	_linePattern = null;
 	_justify = ShapeInfo.justify_left;
 	_Polylines = null;
 	constructor(...args) {
@@ -154631,13 +154625,6 @@ var ShapeInfo = class ShapeInfo {
 		if (this._patternFillInfo) return this._patternFillInfo.getSVGDataURI();
 		else return null;
 	}
-	setLinePattern(lp) {
-		this._linePattern = lp;
-	}
-	getLinePattern() {
-		if (this._linePattern) return this._linePattern;
-		else return null;
-	}
 	getPatternFillImageInfo() {
 		return this._patternFillInfo;
 	}
@@ -154693,7 +154680,6 @@ var MilStdSymbol = class MilStdSymbol {
 	static _AltitudeUnit;
 	static _DistanceUnit;
 	static _useDashArray = true;
-	static _useLinePattern = false;
 	static _hideOptionalLabels = false;
 	static _DrawAffiliationModifierAsLabel = true;
 	static _UseLineInterpolation = false;
@@ -154805,12 +154791,6 @@ var MilStdSymbol = class MilStdSymbol {
 	}
 	setUseDashArray(value) {
 		MilStdSymbol._useDashArray = value;
-	}
-	getUseLinePattern() {
-		return MilStdSymbol._useLinePattern;
-	}
-	setUseLinePattern(value) {
-		MilStdSymbol._useLinePattern = value;
 	}
 	getHideOptionalLabels() {
 		return MilStdSymbol._hideOptionalLabels;
@@ -155468,526 +155448,6 @@ var MilStdSymbol = class MilStdSymbol {
 	}
 	getPatternScale() {
 		return this.patternScale;
-	}
-};
-
-//#endregion
-//#region src/main/ts/armyc2/c5isr/JavaLineArray/LinePattern.ts
-var LinePattern = class LinePattern {
-	svg = null;
-	vOffset = 0;
-	constructor(svgPattern, verticalOffset) {
-		this.svg = svgPattern;
-		this.vOffset = verticalOffset;
-	}
-	getLinePatternSVG() {
-		return this.svg;
-	}
-	getLinePatternVerticalOffset() {
-		return this.vOffset;
-	}
-	static supportsLinePattern(symbolCode) {
-		const ec = SymbolID.getEntityCode(symbolCode);
-		if (SymbolID.getSymbolSet(symbolCode) === SymbolID.SymbolSet_ControlMeasure) switch (ec) {
-			case 140100:
-			case 140200:
-			case 151203:
-			case 151800:
-			case 270100:
-			case 270200:
-			case 290100:
-			case 270300:
-			case 270400:
-			case 290204:
-			case 290201:
-			case 290202:
-			case 290203:
-			case 290301:
-			case 290302:
-			case 290303:
-			case 290304:
-			case 290305:
-			case 290306:
-			case 290307:
-			case 290308:
-			case 290309:
-			case 290900:
-			case 151e3: return true;
-			default: return false;
-		}
-		else return false;
-	}
-	static getLinePattern(symbolCode, lineColor, fillColor, lineWidth) {
-		let lp = null;
-		let svgPath = null;
-		let svgEllipse = null;
-		let svgBounds = null;
-		let vOffset = 0;
-		if (symbolCode != null && symbolCode.length >= 20) {
-			SymbolID.getSymbolSet(symbolCode);
-			const ec = SymbolID.getEntityCode(symbolCode);
-			const dpi = RendererSettings.getInstance().getDeviceDPI();
-			lineWidth / 2;
-			const multiplier = dpi > 96 ? dpi / 96 : 1;
-			if (ec === 140100) {
-				fillColor = null;
-				const lwOffset = lineWidth / 2;
-				let y = 0;
-				const eRadH = (10 + lineWidth) * multiplier;
-				const eRadW = eRadH;
-				eRadH + lineWidth;
-				const patternWidth = lwOffset + eRadW * 2 + lineWidth + lwOffset;
-				let path = "<path d=\"";
-				y += eRadH + lineWidth;
-				path += "M " + lwOffset + " " + y + " ";
-				path += "a " + (eRadW + lwOffset) + "," + (eRadW + lwOffset) + " 0 0,1 " + (eRadW * 2 + lineWidth) + ",0\" ";
-				const left = 0;
-				const width = patternWidth;
-				const top = 0;
-				const bottom = y;
-				vOffset = lwOffset + eRadH;
-				svgBounds = new Rectangle2D(left, top, width, bottom - top);
-				svgPath = path;
-			}
-			if (ec === 140200) {
-				fillColor = null;
-				const lwOffset = lineWidth / 2;
-				let y = 0;
-				const eRadH = (10 + lineWidth) * multiplier;
-				const eRadW = eRadH;
-				const patternHeight = (eRadH + lineWidth) * 2;
-				const patternWidth = lwOffset + eRadW * 2 + lineWidth + lwOffset;
-				let path = "<path d=\"";
-				y += patternHeight;
-				path += "M " + lwOffset + " " + y + " ";
-				path += "a " + (eRadW + lwOffset) + "," + (eRadW + lwOffset) + " 0 0,1 " + (eRadW * 2 + lineWidth) + ",0\" ";
-				path += "style=\"fill:none;stroke:red;";
-				if (lineColor.getAlpha() < 255) path += "stroke-opacity:" + lineColor.getAlpha() / 255 + ";";
-				path += "stroke-width:" + lineWidth + "\" />";
-				path += "<path d=\"";
-				path += "M " + lwOffset + " 0 ";
-				path += "a " + (eRadW + lwOffset) + "," + (eRadW + lwOffset) + " 0 0,0 " + (eRadW * 2 + lineWidth) + ",0\" ";
-				const left = 0;
-				const width = patternWidth;
-				const top = 0;
-				const bottom = y;
-				vOffset = patternHeight;
-				svgBounds = new Rectangle2D(left, top, width, bottom - top);
-				svgPath = path;
-			} else if (ec === 151203) {
-				fillColor = null;
-				const lwOffset = lineWidth / 2;
-				let y = 0;
-				const eRadH = (10 + lineWidth) * multiplier;
-				const eRadW = eRadH * .5;
-				eRadH + lineWidth;
-				const patternWidth = eRadW * 2 + lineWidth;
-				let path = "<path d=\"";
-				y += eRadH + lwOffset;
-				path += "M 0 " + y + " ";
-				path += "l " + patternWidth / 2 + " 0 ";
-				path += "l 0 " + (-eRadH - lineWidth) + " ";
-				path += "m 0 " + (eRadH + lineWidth) + " ";
-				path += "l " + patternWidth / 2 + " 0\" ";
-				const left = 0;
-				const width = patternWidth;
-				const top = 0;
-				const bottom = y + lwOffset;
-				vOffset = lwOffset + eRadH;
-				svgBounds = new Rectangle2D(left, top, width, bottom - top);
-				svgPath = path;
-			} else if (ec === 151800) {
-				const lwOffset = lineWidth / 2;
-				let y = lwOffset;
-				const eRadH = (10 + lineWidth * 2) * multiplier;
-				const eRadW = eRadH * .6;
-				const patternWidth = eRadW * 3 + lineWidth;
-				let path = "<path d=\"";
-				y += lineWidth + eRadH + lwOffset;
-				path += "M 0 " + y + " ";
-				path += "l " + (eRadW / 2 + lwOffset) + " 0 ";
-				path += "l " + eRadW + " " + (-eRadH - lineWidth) + " ";
-				path += "l " + eRadW + " " + (eRadH + lineWidth) + " ";
-				path += "l " + (eRadW / 2 + lwOffset) + " 0 Z\" ";
-				const left = 0;
-				const width = patternWidth;
-				const top = 0;
-				const bottom = y + lwOffset;
-				vOffset = y;
-				svgBounds = new Rectangle2D(left, top, width, bottom - top);
-				svgPath = path;
-			} else if (ec === 270100 || ec === 270200 || ec === 290100) {
-				fillColor = null;
-				const lwOffset = lineWidth / 2;
-				let y = lwOffset;
-				const eRadH = (10 + lineWidth * 2) * multiplier;
-				const eRadW = eRadH * .6;
-				const patternWidth = eRadW * 3 + lineWidth;
-				let path = "<path d=\"";
-				y += lwOffset + eRadH + lwOffset;
-				path += "M 0 " + y + " ";
-				path += "l " + (eRadW / 2 + lwOffset) + " 0 ";
-				path += "l " + eRadW + " " + -eRadH + " ";
-				path += "l " + eRadW + " " + eRadH + " ";
-				path += "l " + (eRadW / 2 + lwOffset) + " 0\" ";
-				const left = 0;
-				const width = patternWidth;
-				const top = 0;
-				const bottom = y + lwOffset;
-				vOffset = y;
-				svgBounds = new Rectangle2D(left, top, width, bottom - top);
-				svgPath = path;
-			} else if (ec === 270300 || ec === 270400 || ec === 290204) {
-				fillColor = null;
-				const lwOffset = lineWidth / 2;
-				let y = lwOffset;
-				const eRadH = (10 + lineWidth * 2) * multiplier;
-				const eRadW = eRadH * .6;
-				const patternWidth = eRadW * 3 + lineWidth;
-				let path = "<path d=\"";
-				y += lwOffset + eRadH + lwOffset;
-				path += "M 0 " + lwOffset + " ";
-				path += "l " + (eRadW / 2 + lwOffset) + " 0 ";
-				path += "l " + eRadW + " " + eRadH + " ";
-				path += "l " + eRadW + " " + -eRadH + " ";
-				path += "l " + (eRadW / 2 + lwOffset) + " 0\" ";
-				const left = 0;
-				const width = patternWidth;
-				const top = 0;
-				const bottom = y + lwOffset;
-				vOffset = lwOffset;
-				svgBounds = new Rectangle2D(left, top, width, bottom - top);
-				svgPath = path;
-			} else if (ec === 290201 || ec === 290202) {
-				fillColor = null;
-				const lwOffset = lineWidth / 2;
-				let y = lwOffset;
-				const eRadH = (10 + lineWidth * 2) * multiplier;
-				const eRadW = eRadH * .6;
-				const patternWidth = eRadW * 2 + lineWidth;
-				let path = "<path d=\"";
-				y += lwOffset + eRadH + lwOffset;
-				path += "M " + lwOffset + " " + y + " ";
-				path += "l " + eRadW + " " + -eRadH + " ";
-				path += "l " + eRadW + " " + eRadH + " Z\" ";
-				if (ec === 290202) fillColor = SymbolUtilities.getLineColorOfAffiliation(symbolCode);
-				const left = 0;
-				const width = patternWidth;
-				const top = 0;
-				const bottom = y + lwOffset;
-				vOffset = y;
-				svgBounds = new Rectangle2D(left, top, width, bottom - top);
-				svgPath = path;
-			} else if (ec === 290203) {
-				fillColor = SymbolUtilities.getLineColorOfAffiliation(symbolCode);
-				const lwOffset = lineWidth / 2;
-				let y = lwOffset;
-				const eRadH = (10 + lineWidth * 2) * multiplier;
-				const eRadW = eRadH * .6;
-				const patternWidth = eRadW * 3 + lineWidth * 2 + eRadW * .6;
-				let path = "<path d=\"";
-				let ellipse = "<circle ";
-				y += lwOffset + eRadH + lwOffset;
-				path += "M " + lwOffset + " " + lwOffset + " ";
-				path += "l " + (eRadW / 2 + lwOffset) + " 0 ";
-				path += "l " + eRadW + " " + eRadH + " ";
-				path += "l " + eRadW + " " + -eRadH + " Z ";
-				path += "M 0 " + lwOffset + " ";
-				path += "l " + patternWidth + " 0\" ";
-				ellipse += "r=\"" + (eRadW * .6 - lwOffset) + "\" cx=\"" + (lineWidth + eRadW * 3 + lineWidth) + "\" cy=\"" + (y + lwOffset) * .6 + "\" ";
-				const left = 0;
-				const width = patternWidth;
-				const top = 0;
-				const bottom = y + lwOffset;
-				vOffset = lwOffset;
-				svgBounds = new Rectangle2D(left, top, width, bottom - top);
-				svgPath = path;
-				svgEllipse = ellipse;
-			} else if (ec === 290301) {
-				fillColor = null;
-				const lwOffset = lineWidth / 2;
-				let y = lwOffset;
-				const eRadH = (6 + lineWidth) * multiplier;
-				const eRadW = eRadH;
-				const patternWidth = (eRadH + lineWidth) * 2.5;
-				let path = "<path d=\"";
-				const eCenterX = lwOffset + patternWidth / 2;
-				const eCenterY = lwOffset + eRadH;
-				path += "M " + (eCenterX - eRadW) + " " + (eCenterY - eRadH) + " ";
-				path += "l " + eRadW * 2 + " " + eRadH * 2 + " ";
-				path += "M " + (eCenterX - eRadW) + " " + (eCenterY + eRadH) + " ";
-				path += "l " + eRadW * 2 + " " + -(eRadH * 2) + " \" ";
-				y += eRadH * 2 + lwOffset;
-				const left = 0;
-				const width = patternWidth + lineWidth;
-				const top = 0;
-				const bottom = eRadH * 2 + lineWidth;
-				vOffset = lwOffset;
-				svgBounds = new Rectangle2D(left, top, width, bottom - top);
-				svgPath = path;
-			} else if (ec === 290302) {
-				fillColor = null;
-				const lwOffset = lineWidth / 2;
-				let x = 0;
-				let y = lwOffset;
-				const eRadH = (6 + lineWidth) * multiplier;
-				const eRadW = eRadH;
-				const patternWidth = (eRadH + lineWidth) * 3.5;
-				let path = "<path d=\"";
-				let eCenterX = lwOffset + patternWidth / 2;
-				let eCenterY = lwOffset + eRadH;
-				path += "M " + (eCenterX - eRadW) + " " + (eCenterY - eRadH) + " ";
-				path += "l " + eRadW * 2 + " " + eRadH * 2 + " ";
-				path += "M " + (eCenterX - eRadW) + " " + (eCenterY + eRadH) + " ";
-				path += "l " + eRadW * 2 + " " + -(eRadH * 2) + " ";
-				y += lineWidth + eRadH * 2 + lineWidth;
-				path += "M " + x + " " + eCenterY + " ";
-				path += "l " + (patternWidth + lineWidth) + " 0\" ";
-				y += eRadH * 2 + lwOffset;
-				const left = 0;
-				const width = patternWidth + lineWidth;
-				const top = 0;
-				const bottom = eRadH * 2 + lineWidth;
-				vOffset = eCenterY;
-				svgBounds = new Rectangle2D(left, top, width, bottom - top);
-				svgPath = path;
-			} else if (ec === 290303) {
-				fillColor = null;
-				const lwOffset = lineWidth / 2;
-				let x = 0;
-				let y = lwOffset;
-				const eRadH = (6 + lineWidth) * multiplier;
-				const eRadW = eRadH;
-				const patternWidth = (eRadH + lineWidth) * 5.5;
-				let path = "<path d=\"";
-				let eCenterX = patternWidth / 2 - eRadW - lwOffset;
-				let eCenterY = lwOffset + eRadH;
-				path += "M " + (eCenterX - eRadW) + " " + (eCenterY - eRadH) + " ";
-				path += "l " + eRadW * 2 + " " + eRadH * 2 + " ";
-				path += "M " + (eCenterX - eRadW) + " " + (eCenterY + eRadH) + " ";
-				path += "l " + eRadW * 2 + " " + -(eRadH * 2) + " ";
-				eCenterX = patternWidth / 2 + eRadW + lwOffset;
-				path += "M " + (eCenterX - eRadW) + " " + (eCenterY - eRadH) + " ";
-				path += "l " + eRadW * 2 + " " + eRadH * 2 + " ";
-				path += "M " + (eCenterX - eRadW) + " " + (eCenterY + eRadH) + " ";
-				path += "l " + eRadW * 2 + " " + -(eRadH * 2) + " ";
-				y += lineWidth + eRadH * 2 + lineWidth;
-				path += "M " + x + " " + eCenterY + " ";
-				path += "l " + (patternWidth + lineWidth) + " 0\" ";
-				y += eRadH * 2 + lwOffset;
-				const left = 0;
-				const width = patternWidth + lineWidth;
-				const top = 0;
-				const bottom = eRadH * 2 + lineWidth;
-				vOffset = eCenterY;
-				svgBounds = new Rectangle2D(left, top, width, bottom - top);
-				svgPath = path;
-			} else if (ec === 290304) {
-				fillColor = null;
-				const lwOffset = lineWidth / 2;
-				let x = 0;
-				let y = lwOffset;
-				const eRadH = (6 + lineWidth) * multiplier;
-				const eRadW = eRadH;
-				const patternWidth = (eRadH + lineWidth) * 2.5;
-				let path = "<path d=\"";
-				const eCenterX = lwOffset + patternWidth / 2;
-				const eCenterY = lwOffset + eRadH;
-				path += "M " + (eCenterX - eRadW) + " " + (eCenterY - eRadH) + " ";
-				path += "l " + eRadW * 2 + " " + eRadH * 2 + " ";
-				path += "M " + (eCenterX - eRadW) + " " + (eCenterY + eRadH) + " ";
-				path += "l " + eRadW * 2 + " " + -(eRadH * 2) + " ";
-				y += lineWidth + eRadH * 2 + lineWidth;
-				path += "M " + x + " " + eCenterY + " ";
-				path += "l " + (patternWidth + lineWidth) + " 0\" ";
-				y += eRadH * 2 + lwOffset;
-				const left = 0;
-				const width = patternWidth + lineWidth;
-				const top = 0;
-				const bottom = eRadH * 2 + lineWidth;
-				vOffset = eCenterY;
-				svgBounds = new Rectangle2D(left, top, width, bottom - top);
-				svgPath = path;
-			} else if (ec === 290305) {
-				fillColor = null;
-				const lwOffset = lineWidth / 2;
-				let x = 0;
-				let y = lwOffset;
-				const eRadH = (6 + lineWidth) * multiplier;
-				const eRadW = eRadH;
-				const patternWidth = (eRadH + lineWidth) * 2.5;
-				let path = "<path d=\"";
-				const eCenterX = lwOffset + patternWidth / 2;
-				const eCenterY = lwOffset + eRadH;
-				path += "M " + (eCenterX - eRadW) + " " + (eCenterY - eRadH) + " ";
-				path += "l " + eRadW * 2 + " " + eRadH * 2 + " ";
-				path += "M " + (eCenterX - eRadW) + " " + (eCenterY + eRadH) + " ";
-				path += "l " + eRadW * 2 + " " + -(eRadH * 2) + " ";
-				path += "M " + x + " " + lwOffset + " ";
-				path += "l " + (patternWidth + lineWidth) + " 0\" ";
-				y += eRadH * 2 + lwOffset;
-				const left = 0;
-				const width = patternWidth + lineWidth;
-				const top = 0;
-				const bottom = eRadH * 2 + lineWidth;
-				vOffset = lwOffset;
-				svgBounds = new Rectangle2D(left, top, width, bottom - top);
-				svgPath = path;
-			} else if (ec === 290306) {
-				fillColor = null;
-				const lwOffset = lineWidth / 2;
-				let x = 0;
-				let y = lwOffset;
-				const eRadH = (6 + lineWidth) * multiplier;
-				const eRadW = eRadH;
-				const patternWidth = (eRadH + lineWidth) * 2.5;
-				let path = "<path d=\"";
-				const eCenterX = lwOffset + patternWidth / 2;
-				const eCenterY = lwOffset + eRadH;
-				path += "M " + (eCenterX - eRadW) + " " + (eCenterY - eRadH) + " ";
-				path += "l " + eRadW * 2 + " " + eRadH * 2 + " ";
-				path += "M " + (eCenterX - eRadW) + " " + (eCenterY + eRadH) + " ";
-				path += "l " + eRadW * 2 + " " + -(eRadH * 2) + " ";
-				path += "M " + x + " " + lwOffset + " ";
-				path += "l " + (patternWidth + lineWidth) + " 0";
-				y += eRadH * 2 + lwOffset;
-				const left = 0;
-				const width = patternWidth + lineWidth;
-				const top = 0;
-				const bottom = eRadH * 2 + lineWidth;
-				path += "M " + x + " " + (bottom - lwOffset) + " ";
-				path += "l " + (patternWidth + lineWidth) + " 0\" ";
-				vOffset = lwOffset;
-				svgBounds = new Rectangle2D(left, top, width, bottom - top);
-				svgPath = path;
-			} else if (ec === 290307) {
-				fillColor = null;
-				const lwOffset = lineWidth / 2;
-				let x = 0;
-				let y = lwOffset;
-				const eRadH = (5 + lineWidth) * multiplier;
-				const eRadW = eRadH * .6;
-				const patternWidth = eRadH * 2.5;
-				let ellipse = "<ellipse ";
-				const eCenterX = lwOffset + patternWidth / 2;
-				const eCenterY = lineWidth + lwOffset + eRadH;
-				ellipse += "cx=\"" + eCenterX + "\" cy=\"" + eCenterY + "\" ";
-				ellipse += "rx=\"" + eRadW + "\" ry=\"" + eRadH + "\" ";
-				let path = "<path d=\"";
-				path += "M " + x + " " + lwOffset + " ";
-				path += "l " + (patternWidth + lineWidth) + " 0\" ";
-				y += lineWidth + eRadH * 2 + lineWidth;
-				const left = 0;
-				const width = patternWidth + lineWidth;
-				const top = 0;
-				const bottom = y + lwOffset;
-				vOffset = lwOffset;
-				svgBounds = new Rectangle2D(left, top, width, bottom - top);
-				svgPath = path;
-				svgEllipse = ellipse;
-			} else if (ec === 290308) {
-				fillColor = null;
-				const lwOffset = lineWidth / 2;
-				let x = 0;
-				let y = lwOffset;
-				const eRadH = (5 + lineWidth) * multiplier;
-				const eRadW = eRadH * .6;
-				const patternWidth = eRadH * 2.5;
-				let ellipse = "<ellipse ";
-				const eCenterX = lwOffset + patternWidth / 2;
-				const eCenterY = lineWidth + lwOffset + eRadH;
-				ellipse += "cx=\"" + eCenterX + "\" cy=\"" + eCenterY + "\" ";
-				ellipse += "rx=\"" + eRadW + "\" ry=\"" + eRadH + "\" ";
-				let path = "<path d=\"";
-				path += "M " + x + " " + eCenterY + " ";
-				path += "l " + (patternWidth + lineWidth) + " 0 ";
-				path += "M " + x + " " + lwOffset + " ";
-				path += "l " + (patternWidth + lineWidth) + " 0\" ";
-				y += lineWidth + eRadH * 2 + lineWidth;
-				const left = 0;
-				const width = patternWidth + lineWidth;
-				const top = 0;
-				const bottom = y + lwOffset;
-				vOffset = lwOffset;
-				svgBounds = new Rectangle2D(left, top, width, bottom - top);
-				svgPath = path;
-				svgEllipse = ellipse;
-			} else if (ec === 290309) {
-				fillColor = null;
-				const lwOffset = lineWidth / 2;
-				let x = 0;
-				let y = lwOffset;
-				const eRadH = (5 + lineWidth) * multiplier;
-				const eRadW = eRadH * .6;
-				const patternWidth = eRadH * 2.5;
-				let ellipse = "<ellipse ";
-				const eCenterX = lwOffset + patternWidth / 2;
-				const eCenterY = lineWidth + lwOffset + eRadH;
-				ellipse += "cx=\"" + eCenterX + "\" cy=\"" + eCenterY + "\" ";
-				ellipse += "rx=\"" + eRadW + "\" ry=\"" + eRadH + "\" ";
-				let path = "<path d=\"";
-				path += "M " + x + " " + y + " ";
-				path += "l " + (patternWidth + lineWidth) + " 0 ";
-				y += lineWidth + eRadH * 2 + lineWidth;
-				path += "M " + x + " " + y + " ";
-				path += "l " + (patternWidth + lineWidth) + " 0\" ";
-				const left = 0;
-				const width = patternWidth + lineWidth;
-				const top = 0;
-				const bottom = y + lwOffset;
-				vOffset = lwOffset;
-				svgBounds = new Rectangle2D(left, top, width, bottom - top);
-				svgPath = path;
-				svgEllipse = ellipse;
-			} else if (ec === 290900 || ec === 151e3) {
-				fillColor = null;
-				const lwOffset = lineWidth / 2;
-				let y = 0;
-				const eRadH = (10 + lineWidth) * multiplier;
-				const eRadW = eRadH;
-				const patternWidth = eRadW * 2 + lineWidth * 2;
-				let path = "<path d=\"";
-				y += lwOffset + eRadH + lwOffset;
-				path += "M 0 " + y + " ";
-				path += "l " + (eRadW / 2 + lwOffset) + " 0 ";
-				path += "l 0 " + (-eRadH - lwOffset) + " ";
-				path += "l " + (eRadW + lineWidth) + " 0 ";
-				path += "l 0 " + (eRadH + lwOffset) + " ";
-				path += "l " + (eRadW / 2 + lwOffset) + " 0\" ";
-				const left = 0;
-				const width = patternWidth;
-				const top = 0;
-				const bottom = y + lwOffset;
-				vOffset = y;
-				svgBounds = new Rectangle2D(left, top, width, bottom - top);
-				svgPath = path;
-			}
-			if (svgPath != null && svgBounds != null) {
-				let sbStyle = "style=\"";
-				if (fillColor != null) {
-					sbStyle += "fill:" + RendererUtilities.colorToHexString(fillColor, false) + ";";
-					if (fillColor.getAlpha() < 255) sbStyle += "fill-opacity:" + fillColor.getAlpha() / 255 + ";";
-				} else sbStyle += "fill:none;";
-				sbStyle += "stroke:" + RendererUtilities.colorToHexString(lineColor, false) + ";";
-				if (lineColor.getAlpha() < 255) sbStyle += "stroke-opacity:" + lineColor.getAlpha() / 255 + ";";
-				sbStyle += "stroke-width:" + lineWidth + "\"";
-				svgPath += sbStyle;
-				svgPath += " />";
-				if (svgEllipse != null) {
-					svgEllipse += sbStyle;
-					svgEllipse += " />";
-				}
-				let sbSVG = "<svg xmlns=\"http://www.w3.org/2000/svg\" ";
-				sbSVG += "width=\"" + svgBounds.getWidth() + "\" height=\"" + svgBounds.getHeight() + "\" ";
-				sbSVG += "viewBox=\"" + svgBounds.getX() + " " + svgBounds.getY() + " " + svgBounds.getWidth() + " " + svgBounds.getHeight() + "\" ";
-				sbSVG += "fill=\"none\">";
-				sbSVG += svgPath;
-				if (svgEllipse != null) sbSVG += svgEllipse;
-				sbSVG += "</svg>";
-				lp = new LinePattern(sbSVG, vOffset);
-			}
-		}
-		return lp;
 	}
 };
 
@@ -163405,13 +162865,6 @@ var TGLight = class TGLight {
 	set_UseHatchFill(value) {
 		this._useHatchFill = value;
 	}
-	_useLinePattern = false;
-	get_UseLinePattern() {
-		return this._useLinePattern;
-	}
-	set_UseLinePattern(value) {
-		this._useLinePattern = value;
-	}
 	_wasClipped = false;
 	set_WasClipped(value) {
 		this._wasClipped = value;
@@ -170131,12 +169584,9 @@ var SinglePointSVGRenderer = class SinglePointSVGRenderer {
 		let si = null;
 		let newSDI = null;
 		try {
-			let lineColor = null;
-			let fillColor = null;
-			if (SymbolID.getSymbolSet(symbolID) == SymbolID.SymbolSet_MineWarfare && RendererSettings.getInstance().getSeaMineRenderMethod() == RendererSettings.SeaMineRenderMethod_MEDAL) {
-				lineColor = RendererUtilities.colorToHexString(SymbolUtilities.getLineColorOfAffiliation(symbolID), false);
-				fillColor = RendererUtilities.colorToHexString(SymbolUtilities.getFillColorOfAffiliation(symbolID), true);
-			}
+			let version = SymbolID.getVersion(symbolID);
+			let lineColor = RendererUtilities.colorToHexString(SymbolUtilities.getLineColorOfAffiliation(symbolID), false);
+			let fillColor = RendererUtilities.colorToHexString(SymbolUtilities.getFillColorOfAffiliation(symbolID), true);
 			let iconColor = null;
 			let alpha = -1;
 			let frameID = null;
@@ -170186,7 +169636,6 @@ var SinglePointSVGRenderer = class SinglePointSVGRenderer {
 				else throw excModifiers;
 			}
 			if (ii == null) {
-				let version = SymbolID.getVersion(symbolID);
 				frameID = SVGLookup.getFrameID(symbolID);
 				iconID = SVGLookup.getMainIconID(symbolID);
 				mod1ID = SVGLookup.getMod1ID(symbolID);
@@ -178986,10 +178435,8 @@ var clsRenderer2 = class clsRenderer2 {
 					if (lineType != TacticalLines.BS_CROSS) return null;
 				}
 				if (CELineArray.CIsChannel(lineType) === 0) if (lineType === TacticalLines.ASR || lineType === TacticalLines.MSR || lineType === TacticalLines.TRAFFIC_ROUTE) clsRenderer2.getMSRShapes(tg, shapes);
-				else if (!(tg.get_UseLinePattern() && LinePattern.supportsLinePattern(tg.get_SymbolId()))) tg.Pixels = arraysupport.GetLineArray2(tg, tg.Pixels, shapes, clipBounds2, converter);
-				else clsChannelUtility.DrawChannelPatterns(tg.get_Pixels(), tg, shapes);
-				else if (!(tg.get_UseLinePattern() && LinePattern.supportsLinePattern(tg.get_SymbolId()))) clsChannelUtility.DrawChannel(tg.Pixels, lineType, tg, shapes, null, clipBounds2, converter);
-				else clsChannelUtility.DrawChannelPatterns(tg.get_Pixels(), tg, shapes);
+				else tg.Pixels = arraysupport.GetLineArray2(tg, tg.Pixels, shapes, clipBounds2, converter);
+				else clsChannelUtility.DrawChannel(tg.Pixels, lineType, tg, shapes, null, clipBounds2, converter);
 			}
 			if (bolMeTOC <= 0) {
 				if (lineType !== TacticalLines.ASR && lineType !== TacticalLines.MSR && lineType !== TacticalLines.TRAFFIC_ROUTE) clsUtility.SetShapeProperties(tg, shapes);
@@ -179309,57 +178756,6 @@ var clsChannelUtility = class clsChannelUtility {
 			else throw exc;
 		}
 		return pixels2;
-	}
-	/**
-	* Draws channel patterns, wiring LinePattern into the Shape2.
-	* Mirrors the Java DrawChannelPatterns method.
-	*/
-	static DrawChannelPatterns(pixels, tg, shapes) {
-		pixels = this.getLCPixels(tg, pixels);
-		const shape = new Shape2(Shape2.SHAPE_TYPE_POLYLINE);
-		let i = 0;
-		if (clsUtility.isClosedPolygon(tg.get_LineType())) {
-			if (!this.isClockwise(tg)) tg.Pixels.reverse();
-		}
-		switch (SymbolID.getEntityCode(tg.get_SymbolId())) {
-			case 290100:
-			case 290301:
-			case 290305:
-			case 290306:
-			case 290308:
-			case 290309:
-				tg.Pixels.reverse();
-				break;
-		}
-		for (const p of pixels) {
-			if (i > 0) shape.lineTo(new POINT2(p.x, p.y));
-			else shape.moveTo(new POINT2(p.x, p.y));
-			i++;
-		}
-		const lp = LinePattern.getLinePattern(tg.get_SymbolId(), tg.get_LineColor(), tg.get_FillColor(), tg.get_LineThickness());
-		shape.setLineColor(tg.get_LineColor());
-		shape.setFillColor(tg.get_FillColor());
-		shape.setLinePattern(lp);
-		shapes.push(shape);
-	}
-	/**
-	* Determines whether the polygon in tg.Pixels is clockwise.
-	* Port of the Java isClockwise(TGLight tg) method.
-	*/
-	static isClockwise(tg) {
-		const points = tg.get_Pixels();
-		if (!points || points.length < 3) return false;
-		let sum = 0;
-		let numPoints = points.length;
-		if (numPoints > 1 && points[0].x === points[numPoints - 1].x && points[0].y === points[numPoints - 1].y) numPoints--;
-		for (let i = 0; i < numPoints; i++) {
-			const current = points[i];
-			const next = points[(i + 1) % numPoints];
-			const dx = next.x - current.x;
-			const sumY = next.y + current.y;
-			sum += dx * sumY;
-		}
-		return sum < 0;
 	}
 	/**
 	* The main interface to clsChannelUtility calls DrawChannel2 after stuffing
@@ -193171,7 +192567,7 @@ var clsRenderer = class clsRenderer {
 	* @param converter geographic to pixels to converter
 	* @return MilstdSymbol object
 	*/
-	static createMilStdSymbolFromTGLight(tg, converter) {
+	static createMilStdSymboFromTGLight(tg, converter) {
 		let milStd;
 		try {
 			let symbolId = tg.get_SymbolId();
@@ -193229,7 +192625,6 @@ var clsRenderer = class clsRenderer {
 					tg.set_LineThickness(milStd.getLineWidth());
 					tg.set_TexturePaint(milStd.getFillStyle());
 					tg.set_patternScale(milStd.getPatternScale());
-					tg.set_UseLinePattern(milStd.getUseLinePattern());
 					tg.setIconSize(milStd.getUnitSize());
 					tg.set_KeepUnitRatio(milStd.getKeepUnitRatio());
 					tg.set_FontBackColor(Color.WHITE);
@@ -196269,7 +195664,6 @@ var MultiPointHandler = class MultiPointHandler {
 		let lineWidth = 0;
 		let altMode = "";
 		let useDashArray = symbol.getUseDashArray();
-		let UseLinePattern = symbol.getUseLinePattern();
 		let usePatternFill = symbol.getUseFillPattern();
 		let hideOptionalLabels = false;
 		let distanceUnit;
@@ -196319,7 +195713,6 @@ var MultiPointHandler = class MultiPointHandler {
 				if (saAttributes.has(MilStdAttributes.TextBackgroundColor)) textBackgroundColor = String(saAttributes.get(MilStdAttributes.TextBackgroundColor));
 				if (saAttributes.has(MilStdAttributes.AltitudeMode)) altMode = saAttributes.get(MilStdAttributes.AltitudeMode);
 				if (saAttributes.has(MilStdAttributes.UseDashArray)) useDashArray = saAttributes.get(MilStdAttributes.UseDashArray).toLowerCase() === "true";
-				if (saAttributes.has(MilStdAttributes.UseLinePattern)) UseLinePattern = saAttributes.get(MilStdAttributes.UseLinePattern).toLowerCase() === "true";
 				if (saAttributes.has(MilStdAttributes.UsePatternFill)) usePatternFill = saAttributes.get(MilStdAttributes.UsePatternFill).toLowerCase() === "true";
 				if (saAttributes.has(MilStdAttributes.PatternFillType)) parseInt(saAttributes.get(MilStdAttributes.PatternFillType));
 				if (saAttributes.has(MilStdAttributes.HideOptionalLabels)) hideOptionalLabels = saAttributes.get(MilStdAttributes.HideOptionalLabels).toLowerCase() === "true";
@@ -196347,7 +195740,6 @@ var MultiPointHandler = class MultiPointHandler {
 			if (textBackgroundColor != null && textBackgroundColor !== "") symbol.setTextBackgroundColor(RendererUtilities.getColorFromHexString(textBackgroundColor));
 			if (altMode != null) symbol.setAltitudeMode(altMode);
 			symbol.setUseDashArray(useDashArray);
-			symbol.setUseLinePattern(UseLinePattern);
 			symbol.setUseFillPattern(usePatternFill);
 			symbol.setHideOptionalLabels(hideOptionalLabels);
 			symbol.setAltitudeUnit(altitudeUnit);
@@ -199103,5 +198495,5 @@ function isReady() {
 }
 
 //#endregion
-export { AffiliationColors, Basic3DShapes, BasicShapes, C2DLookup, Color, DistanceUnit, DrawRules, ErrorLogger, Font, GENCLookup, LinePattern, LogLevel, MODrawRules, MSInfo, MSLookup, MilStdAttributes, MilStdIconRenderer, MilStdSymbol, Modifiers, Point, Point2D, PointConverter3D, Rectangle2D, RendererSettings, RendererUtilities, SVGInfo, SVGLookup, SVGSymbolInfo, SectorModUtils, ShapeInfo, SymbolID, SymbolUtilities, WebRenderer, clsRenderer, init, initialize, isReady };
+export { AffiliationColors, Basic3DShapes, BasicShapes, C2DLookup, Color, DistanceUnit, DrawRules, ErrorLogger, Font, GENCLookup, LogLevel, MODrawRules, MSInfo, MSLookup, MilStdAttributes, MilStdIconRenderer, MilStdSymbol, Modifiers, Point, Point2D, PointConverter3D, Rectangle2D, RendererSettings, RendererUtilities, SVGInfo, SVGLookup, SVGSymbolInfo, SectorModUtils, ShapeInfo, SymbolID, SymbolUtilities, WebRenderer, clsRenderer, init, initialize, isReady };
 //# sourceMappingURL=C5Ren.mjs.map

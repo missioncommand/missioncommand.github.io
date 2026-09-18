@@ -535,7 +535,7 @@
 <span class="source-line-no">522</span><span id="line-522">                            retColor = AffiliationColors.HostileGraphicLineColor;//Color.RED;//0xff0000;        // Red</span>
 <span class="source-line-no">523</span><span id="line-523">                            break;</span>
 <span class="source-line-no">524</span><span id="line-524">                        case SymbolID.StandardIdentity_Affiliation_Suspect_Joker:</span>
-<span class="source-line-no">525</span><span id="line-525">                            if(symStd &gt;= SymbolID.Version_2525E)</span>
+<span class="source-line-no">525</span><span id="line-525">                            if(symStd &gt;= SymbolID.Version_2525E &amp;&amp; symStd &lt;= SymbolID.Version_2525Ech1)</span>
 <span class="source-line-no">526</span><span id="line-526">                                retColor = AffiliationColors.SuspectGraphicLineColor;//255,188,1</span>
 <span class="source-line-no">527</span><span id="line-527">                            else</span>
 <span class="source-line-no">528</span><span id="line-528">                                retColor = AffiliationColors.HostileGraphicLineColor;//Color.RED;//0xff0000;    // Red</span>
@@ -568,7 +568,7 @@
 <span class="source-line-no">555</span><span id="line-555">                            retColor = AffiliationColors.HostileUnitFillColor;//Color.RED;//0xff0000;   // Red</span>
 <span class="source-line-no">556</span><span id="line-556">                            break;</span>
 <span class="source-line-no">557</span><span id="line-557">                        case SymbolID.StandardIdentity_Affiliation_Suspect_Joker:</span>
-<span class="source-line-no">558</span><span id="line-558">                            if(symStd &gt;= SymbolID.Version_2525E)</span>
+<span class="source-line-no">558</span><span id="line-558">                            if(symStd &gt;= SymbolID.Version_2525E &amp;&amp; symStd &lt;= SymbolID.Version_2525Ech1)</span>
 <span class="source-line-no">559</span><span id="line-559">                                retColor = AffiliationColors.SuspectUnitFillColor;//255,188,1</span>
 <span class="source-line-no">560</span><span id="line-560">                            else</span>
 <span class="source-line-no">561</span><span id="line-561">                                retColor = AffiliationColors.HostileUnitFillColor;//Color.RED;//0xff0000;       // Red</span>
@@ -676,7 +676,7 @@
 <span class="source-line-no">663</span><span id="line-663">            }</span>
 <span class="source-line-no">664</span><span id="line-664">        }</span>
 <span class="source-line-no">665</span><span id="line-665">        catch (Exception e) {</span>
-<span class="source-line-no">666</span><span id="line-666">            ErrorLogger.LogException("SymbolUtilities", "getFillColorOfAffiliation", e);</span>
+<span class="source-line-no">666</span><span id="line-666">            ErrorLogger.LogException("SymbolUtilities", "isTacticalGraphic", e);</span>
 <span class="source-line-no">667</span><span id="line-667">        }</span>
 <span class="source-line-no">668</span><span id="line-668">        return false;</span>
 <span class="source-line-no">669</span><span id="line-669">    }</span>
@@ -791,7 +791,7 @@
 <span class="source-line-no">778</span><span id="line-778">            }</span>
 <span class="source-line-no">779</span><span id="line-779">        }</span>
 <span class="source-line-no">780</span><span id="line-780">        catch (Exception e) {</span>
-<span class="source-line-no">781</span><span id="line-781">            ErrorLogger.LogException("SymbolUtilities", "getFillColorOfAffiliation", e);</span>
+<span class="source-line-no">781</span><span id="line-781">            ErrorLogger.LogException("SymbolUtilities", "isTGSPWithSpecialModifierLayout", e);</span>
 <span class="source-line-no">782</span><span id="line-782">        }</span>
 <span class="source-line-no">783</span><span id="line-783">        return false;</span>
 <span class="source-line-no">784</span><span id="line-784">    }</span>
@@ -850,7 +850,7 @@
 <span class="source-line-no">837</span><span id="line-837">                        retColor = AffiliationColors.HostileUnitFillColor;//0xfa8072;   // Salmon</span>
 <span class="source-line-no">838</span><span id="line-838">                        break;</span>
 <span class="source-line-no">839</span><span id="line-839">                    case SymbolID.StandardIdentity_Affiliation_Suspect_Joker:</span>
-<span class="source-line-no">840</span><span id="line-840">                        if(SymbolID.getVersion(symbolID) &gt;= SymbolID.Version_2525E)</span>
+<span class="source-line-no">840</span><span id="line-840">                        if(SymbolID.getVersion(symbolID) &gt;= SymbolID.Version_2525E &amp;&amp; SymbolID.getVersion(symbolID) &lt;= SymbolID.Version_2525Ech1)</span>
 <span class="source-line-no">841</span><span id="line-841">                            retColor = AffiliationColors.SuspectGraphicFillColor;//255,229,153</span>
 <span class="source-line-no">842</span><span id="line-842">                        else</span>
 <span class="source-line-no">843</span><span id="line-843">                            retColor = AffiliationColors.HostileGraphicFillColor;//Color.RED;//0xff0000;        // Red</span>

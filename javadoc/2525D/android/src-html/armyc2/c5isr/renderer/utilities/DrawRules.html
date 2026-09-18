@@ -1369,8 +1369,42 @@
 <span class="source-line-no">1356</span><span id="line-1356">     */</span>
 <span class="source-line-no">1357</span><span id="line-1357">    public static final int ARC1 = 1001;</span>
 <span class="source-line-no">1358</span><span id="line-1358"></span>
-<span class="source-line-no">1359</span><span id="line-1359"></span>
-<span class="source-line-no">1360</span><span id="line-1360">}</span>
+<span class="source-line-no">1359</span><span id="line-1359">    /**</span>
+<span class="source-line-no">1360</span><span id="line-1360">     * Converts a DrawRules constant into its corresponding draw-rule string.</span>
+<span class="source-line-no">1361</span><span id="line-1361">     *</span>
+<span class="source-line-no">1362</span><span id="line-1362">     * @param drawRule the DrawRules constant</span>
+<span class="source-line-no">1363</span><span id="line-1363">     * @return the draw-rule name, or "DoNotDraw" if no match exists</span>
+<span class="source-line-no">1364</span><span id="line-1364">     */</span>
+<span class="source-line-no">1365</span><span id="line-1365">    static public String getDrawRuleName(int drawRule)</span>
+<span class="source-line-no">1366</span><span id="line-1366">    {</span>
+<span class="source-line-no">1367</span><span id="line-1367">        String name = null;</span>
+<span class="source-line-no">1368</span><span id="line-1368">        if(drawRule == 0)</span>
+<span class="source-line-no">1369</span><span id="line-1369">            return "DoNotDraw";</span>
+<span class="source-line-no">1370</span><span id="line-1370">        else if(drawRule &lt; 200)</span>
+<span class="source-line-no">1371</span><span id="line-1371">            name = "Area" + (drawRule-100);</span>
+<span class="source-line-no">1372</span><span id="line-1372">        else if(drawRule &lt; 300)</span>
+<span class="source-line-no">1373</span><span id="line-1373">            name = "Point" + (drawRule-200);</span>
+<span class="source-line-no">1374</span><span id="line-1374">        else if(drawRule &lt; 400)</span>
+<span class="source-line-no">1375</span><span id="line-1375">            name = "Line" + (drawRule-300);</span>
+<span class="source-line-no">1376</span><span id="line-1376">        else if(drawRule &lt; 500)</span>
+<span class="source-line-no">1377</span><span id="line-1377">            name = "Corridor" + (drawRule-400);</span>
+<span class="source-line-no">1378</span><span id="line-1378">        else if(drawRule &lt; 600)</span>
+<span class="source-line-no">1379</span><span id="line-1379">            name = "Axis" + (drawRule-500);</span>
+<span class="source-line-no">1380</span><span id="line-1380">        else if(drawRule &lt; 700)</span>
+<span class="source-line-no">1381</span><span id="line-1381">            name = "Polyline" + (drawRule-600);</span>
+<span class="source-line-no">1382</span><span id="line-1382">        else if(drawRule &lt; 800)</span>
+<span class="source-line-no">1383</span><span id="line-1383">            name = "Ellipse" + (drawRule-700);</span>
+<span class="source-line-no">1384</span><span id="line-1384">        else if(drawRule &lt; 900)</span>
+<span class="source-line-no">1385</span><span id="line-1385">            name = "Rectangular" + (drawRule-800);</span>
+<span class="source-line-no">1386</span><span id="line-1386">        else if(drawRule &lt; 1000)</span>
+<span class="source-line-no">1387</span><span id="line-1387">            name = "Circular" + (drawRule-900);</span>
+<span class="source-line-no">1388</span><span id="line-1388">        else if(drawRule &lt; 1100)</span>
+<span class="source-line-no">1389</span><span id="line-1389">            name = "Arc" + (drawRule-1000);</span>
+<span class="source-line-no">1390</span><span id="line-1390">        else</span>
+<span class="source-line-no">1391</span><span id="line-1391">            name = "DoNotDraw";</span>
+<span class="source-line-no">1392</span><span id="line-1392">        return name;</span>
+<span class="source-line-no">1393</span><span id="line-1393">    }</span>
+<span class="source-line-no">1394</span><span id="line-1394">}</span>
 
 
 
