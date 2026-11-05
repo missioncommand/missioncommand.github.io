@@ -84,7 +84,7 @@
 <span class="source-line-no">071</span><span id="line-71">    }</span>
 <span class="source-line-no">072</span><span id="line-72"></span>
 <span class="source-line-no">073</span><span id="line-73">    /**</span>
-<span class="source-line-no">074</span><span id="line-74">     * Take a complete 15 character 2525C symbol code and converts it to 2525D if there is a match.</span>
+<span class="source-line-no">074</span><span id="line-74">     * Take a complete 15 character 2525C symbol code and converts it to 2525D/E if there is a match.</span>
 <span class="source-line-no">075</span><span id="line-75">     * Returns null if no match.</span>
 <span class="source-line-no">076</span><span id="line-76">     * @param symbolID 15 character 2525C symbol code.</span>
 <span class="source-line-no">077</span><span id="line-77">     * @return 30 character 2525D code or null if no matching symbol</span>
@@ -95,7 +95,7 @@
 <span class="source-line-no">082</span><span id="line-82">    }</span>
 <span class="source-line-no">083</span><span id="line-83"></span>
 <span class="source-line-no">084</span><span id="line-84">    /**</span>
-<span class="source-line-no">085</span><span id="line-85">     * Take a complete 15 character 2525C symbol code and converts it to 2525D if there is a match.</span>
+<span class="source-line-no">085</span><span id="line-85">     * Take a complete 15 character 2525C symbol code and converts it to 2525D/E if there is a match.</span>
 <span class="source-line-no">086</span><span id="line-86">     * Returns null if no match.</span>
 <span class="source-line-no">087</span><span id="line-87">     * @param symbolID 15 character 2525C symbol code.</span>
 <span class="source-line-no">088</span><span id="line-88">     * @param includeCountryCode 2525C symbols don't display the country label so set to false if you don't want it displayed.</span>
@@ -255,69 +255,87 @@
 <span class="source-line-no">242</span><span id="line-242">        }</span>
 <span class="source-line-no">243</span><span id="line-243">        else</span>
 <span class="source-line-no">244</span><span id="line-244">        {</span>
-<span class="source-line-no">245</span><span id="line-245">            if(modifier.equals("HB"))</span>
-<span class="source-line-no">246</span><span id="line-246">                SymbolID.setHQTFD(newCode,SymbolID.HQTFD_FeintDummy);</span>
-<span class="source-line-no">247</span><span id="line-247">            else if(modifier.charAt(0)=='M')</span>
-<span class="source-line-no">248</span><span id="line-248">            {</span>
-<span class="source-line-no">249</span><span id="line-249">                switch(modifier.charAt(1))</span>
-<span class="source-line-no">250</span><span id="line-250">                {</span>
-<span class="source-line-no">251</span><span id="line-251">                    case 'O':</span>
-<span class="source-line-no">252</span><span id="line-252">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_WheeledLimitedCrossCountry);</span>
-<span class="source-line-no">253</span><span id="line-253">                        break;</span>
-<span class="source-line-no">254</span><span id="line-254">                    case 'P':</span>
-<span class="source-line-no">255</span><span id="line-255">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_WheeledCrossCountry);</span>
-<span class="source-line-no">256</span><span id="line-256">                        break;</span>
-<span class="source-line-no">257</span><span id="line-257">                    case 'Q':</span>
-<span class="source-line-no">258</span><span id="line-258">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_Tracked);</span>
-<span class="source-line-no">259</span><span id="line-259">                        break;</span>
-<span class="source-line-no">260</span><span id="line-260">                    case 'R':</span>
-<span class="source-line-no">261</span><span id="line-261">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_Wheeled_Tracked);</span>
-<span class="source-line-no">262</span><span id="line-262">                        break;</span>
-<span class="source-line-no">263</span><span id="line-263">                    case 'S':</span>
-<span class="source-line-no">264</span><span id="line-264">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_Towed);</span>
-<span class="source-line-no">265</span><span id="line-265">                        break;</span>
-<span class="source-line-no">266</span><span id="line-266">                    case 'T':</span>
-<span class="source-line-no">267</span><span id="line-267">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_Rail);</span>
-<span class="source-line-no">268</span><span id="line-268">                        break;</span>
-<span class="source-line-no">269</span><span id="line-269">                    case 'U':</span>
-<span class="source-line-no">270</span><span id="line-270">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_OverSnow);</span>
+<span class="source-line-no">245</span><span id="line-245">            if(modifier.charAt(0)=='H')</span>
+<span class="source-line-no">246</span><span id="line-246">            {</span>
+<span class="source-line-no">247</span><span id="line-247">                if(SymbolID.getSymbolSet(newCode)!=SymbolID.SymbolSet_LandInstallation)</span>
+<span class="source-line-no">248</span><span id="line-248">                {</span>
+<span class="source-line-no">249</span><span id="line-249">                    //If there's an attempt to add the installation modifier to something that isn't normally an installation,</span>
+<span class="source-line-no">250</span><span id="line-250">                    //change version to 2525E and leverage the frame shape modifier.  If code isn't in 2525E, leave it be.</span>
+<span class="source-line-no">251</span><span id="line-251">                    char cs = symbolID.charAt(0);</span>
+<span class="source-line-no">252</span><span id="line-252">                    if(cs=='S' || cs=='O' || cs=='E')</span>
+<span class="source-line-no">253</span><span id="line-253">                    {</span>
+<span class="source-line-no">254</span><span id="line-254">                        String temp = newCode;</span>
+<span class="source-line-no">255</span><span id="line-255">                        temp = SymbolID.setVersion(temp, SymbolID.Version_2525Ech1);</span>
+<span class="source-line-no">256</span><span id="line-256">                        temp = SymbolID.setFrameShape(temp, SymbolID.FrameShape_LandInstallation);</span>
+<span class="source-line-no">257</span><span id="line-257">                        if(MSLookup.getInstance().getMSLInfo(temp) != null)</span>
+<span class="source-line-no">258</span><span id="line-258">                            newCode = temp;</span>
+<span class="source-line-no">259</span><span id="line-259">                    }</span>
+<span class="source-line-no">260</span><span id="line-260">                }</span>
+<span class="source-line-no">261</span><span id="line-261"></span>
+<span class="source-line-no">262</span><span id="line-262">                if(modifier.equals("HB"))</span>
+<span class="source-line-no">263</span><span id="line-263">                    newCode = SymbolID.setHQTFD(newCode,SymbolID.HQTFD_FeintDummy);</span>
+<span class="source-line-no">264</span><span id="line-264">            }</span>
+<span class="source-line-no">265</span><span id="line-265">            else if(modifier.charAt(0)=='M')</span>
+<span class="source-line-no">266</span><span id="line-266">            {</span>
+<span class="source-line-no">267</span><span id="line-267">                switch(modifier.charAt(1))</span>
+<span class="source-line-no">268</span><span id="line-268">                {</span>
+<span class="source-line-no">269</span><span id="line-269">                    case 'O':</span>
+<span class="source-line-no">270</span><span id="line-270">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_WheeledLimitedCrossCountry);</span>
 <span class="source-line-no">271</span><span id="line-271">                        break;</span>
-<span class="source-line-no">272</span><span id="line-272">                    case 'V':</span>
-<span class="source-line-no">273</span><span id="line-273">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_Sled);</span>
+<span class="source-line-no">272</span><span id="line-272">                    case 'P':</span>
+<span class="source-line-no">273</span><span id="line-273">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_WheeledCrossCountry);</span>
 <span class="source-line-no">274</span><span id="line-274">                        break;</span>
-<span class="source-line-no">275</span><span id="line-275">                    case 'W':</span>
-<span class="source-line-no">276</span><span id="line-276">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_PackAnimals);</span>
+<span class="source-line-no">275</span><span id="line-275">                    case 'Q':</span>
+<span class="source-line-no">276</span><span id="line-276">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_Tracked);</span>
 <span class="source-line-no">277</span><span id="line-277">                        break;</span>
-<span class="source-line-no">278</span><span id="line-278">                    case 'X':</span>
-<span class="source-line-no">279</span><span id="line-279">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_Barge);</span>
+<span class="source-line-no">278</span><span id="line-278">                    case 'R':</span>
+<span class="source-line-no">279</span><span id="line-279">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_Wheeled_Tracked);</span>
 <span class="source-line-no">280</span><span id="line-280">                        break;</span>
-<span class="source-line-no">281</span><span id="line-281">                    case 'Y':</span>
-<span class="source-line-no">282</span><span id="line-282">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_Amphibious);</span>
+<span class="source-line-no">281</span><span id="line-281">                    case 'S':</span>
+<span class="source-line-no">282</span><span id="line-282">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_Towed);</span>
 <span class="source-line-no">283</span><span id="line-283">                        break;</span>
-<span class="source-line-no">284</span><span id="line-284">                }</span>
-<span class="source-line-no">285</span><span id="line-285">            }</span>
-<span class="source-line-no">286</span><span id="line-286">            else if(modifier.charAt(0)=='N')</span>
-<span class="source-line-no">287</span><span id="line-287">            {</span>
-<span class="source-line-no">288</span><span id="line-288">                switch(modifier.charAt(1)) {</span>
-<span class="source-line-no">289</span><span id="line-289">                    case 'S':</span>
-<span class="source-line-no">290</span><span id="line-290">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_ShortTowedArray);</span>
-<span class="source-line-no">291</span><span id="line-291">                        break;</span>
-<span class="source-line-no">292</span><span id="line-292">                    case 'L':</span>
-<span class="source-line-no">293</span><span id="line-293">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_LongTowedArray);</span>
-<span class="source-line-no">294</span><span id="line-294">                        break;</span>
-<span class="source-line-no">295</span><span id="line-295">                }</span>
-<span class="source-line-no">296</span><span id="line-296">            }</span>
-<span class="source-line-no">297</span><span id="line-297">        }</span>
-<span class="source-line-no">298</span><span id="line-298"></span>
-<span class="source-line-no">299</span><span id="line-299">        //country code</span>
-<span class="source-line-no">300</span><span id="line-300">        if(includeCountryCode)</span>
-<span class="source-line-no">301</span><span id="line-301">            newCode = newCode.substring(0,27) + GENCLookup.getInstance().get3DigitCode(symbolID.substring(12,14));</span>
-<span class="source-line-no">302</span><span id="line-302"></span>
-<span class="source-line-no">303</span><span id="line-303">        return newCode;</span>
-<span class="source-line-no">304</span><span id="line-304">    }</span>
-<span class="source-line-no">305</span><span id="line-305"></span>
-<span class="source-line-no">306</span><span id="line-306">}</span>
-<span class="source-line-no">307</span><span id="line-307"></span>
+<span class="source-line-no">284</span><span id="line-284">                    case 'T':</span>
+<span class="source-line-no">285</span><span id="line-285">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_Rail);</span>
+<span class="source-line-no">286</span><span id="line-286">                        break;</span>
+<span class="source-line-no">287</span><span id="line-287">                    case 'U':</span>
+<span class="source-line-no">288</span><span id="line-288">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_OverSnow);</span>
+<span class="source-line-no">289</span><span id="line-289">                        break;</span>
+<span class="source-line-no">290</span><span id="line-290">                    case 'V':</span>
+<span class="source-line-no">291</span><span id="line-291">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_Sled);</span>
+<span class="source-line-no">292</span><span id="line-292">                        break;</span>
+<span class="source-line-no">293</span><span id="line-293">                    case 'W':</span>
+<span class="source-line-no">294</span><span id="line-294">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_PackAnimals);</span>
+<span class="source-line-no">295</span><span id="line-295">                        break;</span>
+<span class="source-line-no">296</span><span id="line-296">                    case 'X':</span>
+<span class="source-line-no">297</span><span id="line-297">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_Barge);</span>
+<span class="source-line-no">298</span><span id="line-298">                        break;</span>
+<span class="source-line-no">299</span><span id="line-299">                    case 'Y':</span>
+<span class="source-line-no">300</span><span id="line-300">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_Amphibious);</span>
+<span class="source-line-no">301</span><span id="line-301">                        break;</span>
+<span class="source-line-no">302</span><span id="line-302">                }</span>
+<span class="source-line-no">303</span><span id="line-303">            }</span>
+<span class="source-line-no">304</span><span id="line-304">            else if(modifier.charAt(0)=='N')</span>
+<span class="source-line-no">305</span><span id="line-305">            {</span>
+<span class="source-line-no">306</span><span id="line-306">                switch(modifier.charAt(1)) {</span>
+<span class="source-line-no">307</span><span id="line-307">                    case 'S':</span>
+<span class="source-line-no">308</span><span id="line-308">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_ShortTowedArray);</span>
+<span class="source-line-no">309</span><span id="line-309">                        break;</span>
+<span class="source-line-no">310</span><span id="line-310">                    case 'L':</span>
+<span class="source-line-no">311</span><span id="line-311">                        newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_LongTowedArray);</span>
+<span class="source-line-no">312</span><span id="line-312">                        break;</span>
+<span class="source-line-no">313</span><span id="line-313">                }</span>
+<span class="source-line-no">314</span><span id="line-314">            }</span>
+<span class="source-line-no">315</span><span id="line-315">        }</span>
+<span class="source-line-no">316</span><span id="line-316"></span>
+<span class="source-line-no">317</span><span id="line-317">        //country code</span>
+<span class="source-line-no">318</span><span id="line-318">        if(includeCountryCode)</span>
+<span class="source-line-no">319</span><span id="line-319">            newCode = newCode.substring(0,27) + GENCLookup.getInstance().get3DigitCode(symbolID.substring(12,14));</span>
+<span class="source-line-no">320</span><span id="line-320"></span>
+<span class="source-line-no">321</span><span id="line-321">        return newCode;</span>
+<span class="source-line-no">322</span><span id="line-322">    }</span>
+<span class="source-line-no">323</span><span id="line-323"></span>
+<span class="source-line-no">324</span><span id="line-324">}</span>
+<span class="source-line-no">325</span><span id="line-325"></span>
 
 
 

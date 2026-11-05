@@ -608,56 +608,64 @@
 <span class="source-line-no">595</span><span id="line-595">        _useHatchFill = value;</span>
 <span class="source-line-no">596</span><span id="line-596">    }</span>
 <span class="source-line-no">597</span><span id="line-597"></span>
-<span class="source-line-no">598</span><span id="line-598">//    boolean _usePatternFill = false;    </span>
-<span class="source-line-no">599</span><span id="line-599">//    public boolean get_UsePatternFill() {</span>
-<span class="source-line-no">600</span><span id="line-600">//        return _usePatternFill;</span>
-<span class="source-line-no">601</span><span id="line-601">//    }</span>
-<span class="source-line-no">602</span><span id="line-602">//</span>
-<span class="source-line-no">603</span><span id="line-603">//    public void set_UsePatternFill(boolean value) {</span>
-<span class="source-line-no">604</span><span id="line-604">//        _usePatternFill = value;</span>
-<span class="source-line-no">605</span><span id="line-605">//    }</span>
-<span class="source-line-no">606</span><span id="line-606"></span>
-<span class="source-line-no">607</span><span id="line-607">    private boolean _wasClipped = false;</span>
-<span class="source-line-no">608</span><span id="line-608"></span>
-<span class="source-line-no">609</span><span id="line-609">    public void set_WasClipped(boolean value) {</span>
-<span class="source-line-no">610</span><span id="line-610">        _wasClipped = value;</span>
-<span class="source-line-no">611</span><span id="line-611">    }</span>
-<span class="source-line-no">612</span><span id="line-612"></span>
-<span class="source-line-no">613</span><span id="line-613">    public boolean get_WasClipped() {</span>
-<span class="source-line-no">614</span><span id="line-614">        return _wasClipped;</span>
-<span class="source-line-no">615</span><span id="line-615">    }</span>
+<span class="source-line-no">598</span><span id="line-598">    boolean _useLinePattern = false;</span>
+<span class="source-line-no">599</span><span id="line-599">    public boolean get_UseLinePattern() {</span>
+<span class="source-line-no">600</span><span id="line-600">        return _useLinePattern;</span>
+<span class="source-line-no">601</span><span id="line-601">    }</span>
+<span class="source-line-no">602</span><span id="line-602">    public void set_UseLinePattern(boolean value) {</span>
+<span class="source-line-no">603</span><span id="line-603">        _useLinePattern = value;</span>
+<span class="source-line-no">604</span><span id="line-604">    }</span>
+<span class="source-line-no">605</span><span id="line-605"></span>
+<span class="source-line-no">606</span><span id="line-606">//    boolean _usePatternFill = false;    </span>
+<span class="source-line-no">607</span><span id="line-607">//    public boolean get_UsePatternFill() {</span>
+<span class="source-line-no">608</span><span id="line-608">//        return _usePatternFill;</span>
+<span class="source-line-no">609</span><span id="line-609">//    }</span>
+<span class="source-line-no">610</span><span id="line-610">//</span>
+<span class="source-line-no">611</span><span id="line-611">//    public void set_UsePatternFill(boolean value) {</span>
+<span class="source-line-no">612</span><span id="line-612">//        _usePatternFill = value;</span>
+<span class="source-line-no">613</span><span id="line-613">//    }</span>
+<span class="source-line-no">614</span><span id="line-614"></span>
+<span class="source-line-no">615</span><span id="line-615">    private boolean _wasClipped = false;</span>
 <span class="source-line-no">616</span><span id="line-616"></span>
-<span class="source-line-no">617</span><span id="line-617">    //boolean determines whether to add the range and azimuth modifiers for range fans</span>
-<span class="source-line-no">618</span><span id="line-618">    private boolean _HideOptionalLabels = false;</span>
-<span class="source-line-no">619</span><span id="line-619"></span>
-<span class="source-line-no">620</span><span id="line-620">    public boolean get_HideOptionalLabels() {</span>
-<span class="source-line-no">621</span><span id="line-621">        return _HideOptionalLabels;</span>
-<span class="source-line-no">622</span><span id="line-622">    }</span>
-<span class="source-line-no">623</span><span id="line-623"></span>
-<span class="source-line-no">624</span><span id="line-624">    public void set_HideOptionalLabels(boolean value) {</span>
-<span class="source-line-no">625</span><span id="line-625">        _HideOptionalLabels = value;</span>
-<span class="source-line-no">626</span><span id="line-626">    }</span>
+<span class="source-line-no">617</span><span id="line-617">    public void set_WasClipped(boolean value) {</span>
+<span class="source-line-no">618</span><span id="line-618">        _wasClipped = value;</span>
+<span class="source-line-no">619</span><span id="line-619">    }</span>
+<span class="source-line-no">620</span><span id="line-620"></span>
+<span class="source-line-no">621</span><span id="line-621">    public boolean get_WasClipped() {</span>
+<span class="source-line-no">622</span><span id="line-622">        return _wasClipped;</span>
+<span class="source-line-no">623</span><span id="line-623">    }</span>
+<span class="source-line-no">624</span><span id="line-624"></span>
+<span class="source-line-no">625</span><span id="line-625">    //boolean determines whether to add the range and azimuth modifiers for range fans</span>
+<span class="source-line-no">626</span><span id="line-626">    private boolean _HideOptionalLabels = false;</span>
 <span class="source-line-no">627</span><span id="line-627"></span>
-<span class="source-line-no">628</span><span id="line-628">    private int lineCap = BasicStroke.CAP_SQUARE;</span>
-<span class="source-line-no">629</span><span id="line-629"></span>
-<span class="source-line-no">630</span><span id="line-630">    public void set_lineCap(int cap) {</span>
-<span class="source-line-no">631</span><span id="line-631">        lineCap = cap;</span>
-<span class="source-line-no">632</span><span id="line-632">    }</span>
-<span class="source-line-no">633</span><span id="line-633"></span>
-<span class="source-line-no">634</span><span id="line-634">    public int get_lineCap() {</span>
-<span class="source-line-no">635</span><span id="line-635">        return lineCap;</span>
-<span class="source-line-no">636</span><span id="line-636">    }</span>
+<span class="source-line-no">628</span><span id="line-628">    public boolean get_HideOptionalLabels() {</span>
+<span class="source-line-no">629</span><span id="line-629">        return _HideOptionalLabels;</span>
+<span class="source-line-no">630</span><span id="line-630">    }</span>
+<span class="source-line-no">631</span><span id="line-631"></span>
+<span class="source-line-no">632</span><span id="line-632">    public void set_HideOptionalLabels(boolean value) {</span>
+<span class="source-line-no">633</span><span id="line-633">        _HideOptionalLabels = value;</span>
+<span class="source-line-no">634</span><span id="line-634">    }</span>
+<span class="source-line-no">635</span><span id="line-635"></span>
+<span class="source-line-no">636</span><span id="line-636">    private int lineCap = BasicStroke.CAP_SQUARE;</span>
 <span class="source-line-no">637</span><span id="line-637"></span>
-<span class="source-line-no">638</span><span id="line-638">    private double patternScale = RendererSettings.getInstance().getPatternScale();</span>
-<span class="source-line-no">639</span><span id="line-639"></span>
-<span class="source-line-no">640</span><span id="line-640">    public double get_patternScale() {</span>
-<span class="source-line-no">641</span><span id="line-641">        return patternScale;</span>
-<span class="source-line-no">642</span><span id="line-642">    }</span>
-<span class="source-line-no">643</span><span id="line-643"></span>
-<span class="source-line-no">644</span><span id="line-644">    public void set_patternScale(double scale) {</span>
-<span class="source-line-no">645</span><span id="line-645">        patternScale = scale;</span>
-<span class="source-line-no">646</span><span id="line-646">    }</span>
-<span class="source-line-no">647</span><span id="line-647">}</span>
+<span class="source-line-no">638</span><span id="line-638">    public void set_lineCap(int cap) {</span>
+<span class="source-line-no">639</span><span id="line-639">        lineCap = cap;</span>
+<span class="source-line-no">640</span><span id="line-640">    }</span>
+<span class="source-line-no">641</span><span id="line-641"></span>
+<span class="source-line-no">642</span><span id="line-642">    public int get_lineCap() {</span>
+<span class="source-line-no">643</span><span id="line-643">        return lineCap;</span>
+<span class="source-line-no">644</span><span id="line-644">    }</span>
+<span class="source-line-no">645</span><span id="line-645"></span>
+<span class="source-line-no">646</span><span id="line-646">    private double patternScale = RendererSettings.getInstance().getPatternScale();</span>
+<span class="source-line-no">647</span><span id="line-647"></span>
+<span class="source-line-no">648</span><span id="line-648">    public double get_patternScale() {</span>
+<span class="source-line-no">649</span><span id="line-649">        return patternScale;</span>
+<span class="source-line-no">650</span><span id="line-650">    }</span>
+<span class="source-line-no">651</span><span id="line-651"></span>
+<span class="source-line-no">652</span><span id="line-652">    public void set_patternScale(double scale) {</span>
+<span class="source-line-no">653</span><span id="line-653">        patternScale = scale;</span>
+<span class="source-line-no">654</span><span id="line-654">    }</span>
+<span class="source-line-no">655</span><span id="line-655">}</span>
 
 
 
