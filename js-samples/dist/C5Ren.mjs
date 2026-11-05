@@ -3876,7 +3876,7 @@ var c2d_default = { c2d: { "symbols": [
 		"ec": "120500",
 		"em": "",
 		"s1": "00",
-		"s2": "51",
+		"s2": "59",
 		"e": "",
 		"et": "",
 		"est": "",
@@ -5023,7 +5023,7 @@ var c2d_default = { c2d: { "symbols": [
 		"c2": "Symbol is displayed differently between versions"
 	},
 	{
-		"basic": "S*G*UCDC---****",
+		"basic": "S*G*UCDC--*****",
 		"ver": "11",
 		"ss": "10",
 		"ec": "130103",
@@ -6105,7 +6105,7 @@ var c2d_default = { c2d: { "symbols": [
 		"et": "Shore Patrol"
 	},
 	{
-		"basic": "S*G*UUMC-------",
+		"basic": "S*G*UUMC--*****",
 		"ver": "11",
 		"ss": "10",
 		"ec": "150200",
@@ -10620,7 +10620,7 @@ var c2d_default = { c2d: { "symbols": [
 		"c2": "2525C codes approved after release of 2525C"
 	},
 	{
-		"basic": "E*O*DC----H****",
+		"basic": "E*O*DC----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "112100",
@@ -10631,7 +10631,7 @@ var c2d_default = { c2d: { "symbols": [
 		"et": "Law Enforcement"
 	},
 	{
-		"basic": "E*O*DDC---H****",
+		"basic": "E*O*DDC---*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "112101",
@@ -10643,7 +10643,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF) (Department of Justice)"
 	},
 	{
-		"basic": "E*O*DEC---H****",
+		"basic": "E*O*DEC---*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "112102",
@@ -10655,7 +10655,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Border Patrol"
 	},
 	{
-		"basic": "E*O*DFC---H****",
+		"basic": "E*O*DFC---*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "112103",
@@ -10667,7 +10667,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Customs Service"
 	},
 	{
-		"basic": "E*O*DGC---H****",
+		"basic": "E*O*DGC---*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "112104",
@@ -10679,7 +10679,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Drug Enforcement Administration (DEA)"
 	},
 	{
-		"basic": "E*O*DHC---H****",
+		"basic": "E*O*DHC---*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "112105",
@@ -10691,7 +10691,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Department of Justice (DOJ)"
 	},
 	{
-		"basic": "E*O*DIC---H****",
+		"basic": "E*O*DIC---*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "112106",
@@ -10703,7 +10703,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Federal Bureau of Investigation (FBI)"
 	},
 	{
-		"basic": "E*O*DJC---H****",
+		"basic": "E*O*DJC---*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "112107",
@@ -10727,7 +10727,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Prison"
 	},
 	{
-		"basic": "E*O*DLC---H****",
+		"basic": "E*O*DLC---*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "112109",
@@ -10739,7 +10739,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "United States Secret Service (USSS)"
 	},
 	{
-		"basic": "E*O*DMC---H****",
+		"basic": "E*O*DMC---*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "112110",
@@ -10751,7 +10751,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Transportation Security Administration (TSA)"
 	},
 	{
-		"basic": "E*O*DNC---H****",
+		"basic": "E*O*DNC---*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "112111",
@@ -10763,7 +10763,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Coast Guard"
 	},
 	{
-		"basic": "E*O*DOC---H****",
+		"basic": "E*O*DOC---*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "112112",
@@ -10775,7 +10775,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "US Marshals Service"
 	},
 	{
-		"basic": "E*O*BC----H****",
+		"basic": "E*O*BC----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "112200",
@@ -10786,7 +10786,7 @@ var c2d_default = { c2d: { "symbols": [
 		"et": "Emergency Operation"
 	},
 	{
-		"basic": "E*O*CE----H****",
+		"basic": "E*O*CE----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "112201",
@@ -10798,7 +10798,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Fire Station"
 	},
 	{
-		"basic": "E*O*AC----H****",
+		"basic": "E*O*AC----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "112202",
@@ -10810,7 +10810,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Emergency Medical Operation"
 	},
 	{
-		"basic": "E*F*A-----H****",
+		"basic": "E*F*A-----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120100",
@@ -10821,7 +10821,7 @@ var c2d_default = { c2d: { "symbols": [
 		"et": "Agriculture and Food Infrastructure"
 	},
 	{
-		"basic": "E*F*AA----H****",
+		"basic": "E*F*AA----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120101",
@@ -10833,7 +10833,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Agriculture Laboratory"
 	},
 	{
-		"basic": "E*F*AB----H****",
+		"basic": "E*F*AB----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120102",
@@ -10845,7 +10845,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Animal Feedlot"
 	},
 	{
-		"basic": "E*F*AC----H****",
+		"basic": "E*F*AC----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120103",
@@ -10857,7 +10857,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Commercial Food Distribution Center"
 	},
 	{
-		"basic": "E*F*AD----H****",
+		"basic": "E*F*AD----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120104",
@@ -10869,7 +10869,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Farm/Ranch"
 	},
 	{
-		"basic": "E*O*BL----H****",
+		"basic": "E*O*BL----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120105",
@@ -10881,7 +10881,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Food Distribution"
 	},
 	{
-		"basic": "E*F*AE----H****",
+		"basic": "E*F*AE----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120106",
@@ -10893,7 +10893,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Food Production Center"
 	},
 	{
-		"basic": "E*F*AF----H****",
+		"basic": "E*F*AF----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120107",
@@ -10905,7 +10905,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Food Retail"
 	},
 	{
-		"basic": "E*F*AG----H****",
+		"basic": "E*F*AG----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120108",
@@ -10917,7 +10917,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Grain Storage"
 	},
 	{
-		"basic": "E*F*B-----H****",
+		"basic": "E*F*B-----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120200",
@@ -10940,7 +10940,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "ATM"
 	},
 	{
-		"basic": "E*F*BB----H****",
+		"basic": "E*F*BB----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120202",
@@ -10952,7 +10952,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Bank"
 	},
 	{
-		"basic": "E*F*BC----H****",
+		"basic": "E*F*BC----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120203",
@@ -10964,7 +10964,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Bullion Storage"
 	},
 	{
-		"basic": "E*F*BD----H****",
+		"basic": "E*F*BD----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120205",
@@ -10976,7 +10976,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Federal Reserve Bank"
 	},
 	{
-		"basic": "E*F*BE----H****",
+		"basic": "E*F*BE----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120206",
@@ -10988,7 +10988,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Financial Exchange"
 	},
 	{
-		"basic": "E*F*BF----H****",
+		"basic": "E*F*BF----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120207",
@@ -11000,7 +11000,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Financial Services, Other"
 	},
 	{
-		"basic": "E*F*C-----H****",
+		"basic": "E*F*C-----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120300",
@@ -11011,7 +11011,7 @@ var c2d_default = { c2d: { "symbols": [
 		"et": "Commercial Infrastructure"
 	},
 	{
-		"basic": "E*F*CA----H****",
+		"basic": "E*F*CA----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120301",
@@ -11023,7 +11023,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Chemical Plant"
 	},
 	{
-		"basic": "E*F*CB----H****",
+		"basic": "E*F*CB----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120302",
@@ -11035,7 +11035,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Firearms Manufacturer"
 	},
 	{
-		"basic": "E*F*CC----H****",
+		"basic": "E*F*CC----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120303",
@@ -11047,7 +11047,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Firearms Retailer"
 	},
 	{
-		"basic": "E*F*CD----H****",
+		"basic": "E*F*CD----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120304",
@@ -11059,7 +11059,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Hazardous Material Production"
 	},
 	{
-		"basic": "E*F*CE----H****",
+		"basic": "E*F*CE----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120305",
@@ -11071,7 +11071,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Hazardous Material Storage"
 	},
 	{
-		"basic": "E*F*CF----H****",
+		"basic": "E*F*CF----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120306",
@@ -11083,7 +11083,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Industrial Site"
 	},
 	{
-		"basic": "E*F*CG----H****",
+		"basic": "E*F*CG----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120307",
@@ -11095,7 +11095,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Landfill"
 	},
 	{
-		"basic": "E*F*CH----H****",
+		"basic": "E*F*CH----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120308",
@@ -11107,7 +11107,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Pharmaceutical Manufacturer"
 	},
 	{
-		"basic": "E*F*CI----H****",
+		"basic": "E*F*CI----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120309",
@@ -11119,7 +11119,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Contaminated Hazardous Waste Site"
 	},
 	{
-		"basic": "E*F*CJ----H****",
+		"basic": "E*F*CJ----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120310",
@@ -11131,7 +11131,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Toxic Release Inventory"
 	},
 	{
-		"basic": "E*F*D-----H****",
+		"basic": "E*F*D-----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120400",
@@ -11142,7 +11142,7 @@ var c2d_default = { c2d: { "symbols": [
 		"et": "Educational Facilities Infrastructure"
 	},
 	{
-		"basic": "E*F*DA----H****",
+		"basic": "E*F*DA----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120401",
@@ -11154,7 +11154,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "College/University"
 	},
 	{
-		"basic": "E*F*DB----H****",
+		"basic": "E*F*DB----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120402",
@@ -11258,7 +11258,7 @@ var c2d_default = { c2d: { "symbols": [
 		"c2": "Symbol is displayed differently between versions"
 	},
 	{
-		"basic": "E*F*EA----H****",
+		"basic": "E*F*EA----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120502",
@@ -11270,7 +11270,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Generation Station"
 	},
 	{
-		"basic": "E*F*EB----H****",
+		"basic": "E*F*EB----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120503",
@@ -11296,7 +11296,7 @@ var c2d_default = { c2d: { "symbols": [
 		"c2": "2525C appears to be a full octagon icon and 2525D is a main icon"
 	},
 	{
-		"basic": "E*F*EE----H****",
+		"basic": "E*F*EE----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120506",
@@ -11308,7 +11308,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Propane Facility"
 	},
 	{
-		"basic": "E*F*F-----H****",
+		"basic": "E*F*F-----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120600",
@@ -11343,7 +11343,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Medical Treatment Facility (Hospital)"
 	},
 	{
-		"basic": "E*F*G-----H****",
+		"basic": "E*F*G-----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120800",
@@ -11354,7 +11354,7 @@ var c2d_default = { c2d: { "symbols": [
 		"et": "Military Infrastructure"
 	},
 	{
-		"basic": "E*F*GA----H****",
+		"basic": "E*F*GA----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120801",
@@ -11378,7 +11378,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Military Base"
 	},
 	{
-		"basic": "E*F*H-----H****",
+		"basic": "E*F*H-----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120900",
@@ -11389,7 +11389,7 @@ var c2d_default = { c2d: { "symbols": [
 		"et": "Postal Services Infrastructure"
 	},
 	{
-		"basic": "E*F*HA----H****",
+		"basic": "E*F*HA----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120901",
@@ -11401,7 +11401,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Postal Distribution Center"
 	},
 	{
-		"basic": "E*F*HB----H****",
+		"basic": "E*F*HB----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "120902",
@@ -11413,7 +11413,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Post Office"
 	},
 	{
-		"basic": "E*F*I-----H****",
+		"basic": "E*F*I-----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "121000",
@@ -11424,7 +11424,7 @@ var c2d_default = { c2d: { "symbols": [
 		"et": "Public Venues Infrastructure"
 	},
 	{
-		"basic": "E*F*IA----H****",
+		"basic": "E*F*IA----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "121001",
@@ -11438,7 +11438,7 @@ var c2d_default = { c2d: { "symbols": [
 		"c2": "Symbol is displayed differently between versions"
 	},
 	{
-		"basic": "E*F*IB----H****",
+		"basic": "E*F*IB----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "121002",
@@ -11450,7 +11450,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Open Facility"
 	},
 	{
-		"basic": "E*F*IC----H****",
+		"basic": "E*F*IC----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "121003",
@@ -11462,7 +11462,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Recreational Area"
 	},
 	{
-		"basic": "E*F*ID----H****",
+		"basic": "E*F*ID----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "121004",
@@ -11474,7 +11474,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Religious Institution"
 	},
 	{
-		"basic": "E*F*J-----H****",
+		"basic": "E*F*J-----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "121100",
@@ -11485,7 +11485,7 @@ var c2d_default = { c2d: { "symbols": [
 		"et": "Special Needs Infrastructure"
 	},
 	{
-		"basic": "E*F*JA----H****",
+		"basic": "E*F*JA----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "121101",
@@ -11497,7 +11497,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Adult Day Care"
 	},
 	{
-		"basic": "E*F*JB----H****",
+		"basic": "E*F*JB----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "121102",
@@ -11509,7 +11509,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Child Day Care"
 	},
 	{
-		"basic": "E*F*JC----H****",
+		"basic": "E*F*JC----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "121103",
@@ -11521,7 +11521,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Elder Care"
 	},
 	{
-		"basic": "E*F*K-----H****",
+		"basic": "E*F*K-----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "121200",
@@ -11532,7 +11532,7 @@ var c2d_default = { c2d: { "symbols": [
 		"et": "Telecommunications Infrastructure"
 	},
 	{
-		"basic": "E*F*KB----H****",
+		"basic": "E*F*KB----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "121203",
@@ -11569,7 +11569,7 @@ var c2d_default = { c2d: { "symbols": [
 		"c2": "Symbol is displayed differently between versions"
 	},
 	{
-		"basic": "E*F*LA----H****",
+		"basic": "E*F*LA----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "121302",
@@ -11581,7 +11581,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Air Traffic Control Facility"
 	},
 	{
-		"basic": "E*F*LD----H****",
+		"basic": "E*F*LD----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "121303",
@@ -11593,7 +11593,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Bus Station"
 	},
 	{
-		"basic": "E*F*LE----H****",
+		"basic": "E*F*LE----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "121304",
@@ -11605,7 +11605,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Ferry Terminal"
 	},
 	{
-		"basic": "E*F*LF----H****",
+		"basic": "E*F*LF----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "121305",
@@ -11617,7 +11617,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Helicopter Landing Site"
 	},
 	{
-		"basic": "E*F*LH----H****",
+		"basic": "E*F*LH----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "121306",
@@ -11629,7 +11629,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Maintenance Facility"
 	},
 	{
-		"basic": "E*F*LJ----H****",
+		"basic": "E*F*LJ----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "121307",
@@ -11641,7 +11641,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Railhead/Railroad Station"
 	},
 	{
-		"basic": "E*F*LK----H****",
+		"basic": "E*F*LK----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "121308",
@@ -11679,7 +11679,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Ship Yard"
 	},
 	{
-		"basic": "E*F*LM----H****",
+		"basic": "E*F*LM----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "121311",
@@ -11691,7 +11691,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Toll Facility"
 	},
 	{
-		"basic": "E*F*LO----H****",
+		"basic": "E*F*LO----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "121312",
@@ -11703,7 +11703,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Traffic Inspection Facility"
 	},
 	{
-		"basic": "E*F*LP----H****",
+		"basic": "E*F*LP----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "121313",
@@ -11727,7 +11727,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Control Valve"
 	},
 	{
-		"basic": "E*F*MB----H****",
+		"basic": "E*F*MB----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "121402",
@@ -11751,7 +11751,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Discharge Outfall"
 	},
 	{
-		"basic": "E*F*MD----H****",
+		"basic": "E*F*MD----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "121404",
@@ -11763,7 +11763,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Ground Water Well"
 	},
 	{
-		"basic": "E*F*ME----H****",
+		"basic": "E*F*ME----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "121405",
@@ -11775,7 +11775,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Pumping Station"
 	},
 	{
-		"basic": "E*F*MF----H****",
+		"basic": "E*F*MF----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "121406",
@@ -11787,7 +11787,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Reservoir"
 	},
 	{
-		"basic": "E*F*MG----H****",
+		"basic": "E*F*MG----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "121407",
@@ -11799,7 +11799,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Storage Tower"
 	},
 	{
-		"basic": "E*F*MH----H****",
+		"basic": "E*F*MH----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "121408",
@@ -11811,7 +11811,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Surface Water Intake"
 	},
 	{
-		"basic": "E*F*MI----H****",
+		"basic": "E*F*MI----*****",
 		"ver": "11",
 		"ss": "20",
 		"ec": "121409",
@@ -18792,7 +18792,7 @@ var c2d_default = { c2d: { "symbols": [
 		"c2": "2525C codes approved after release of 2525C"
 	},
 	{
-		"basic": "O*L*E-----H****",
+		"basic": "O*L*E-----*****",
 		"ver": "11",
 		"ss": "40",
 		"ec": "110502",
@@ -19094,7 +19094,7 @@ var c2d_default = { c2d: { "symbols": [
 		"c2": "2525C codes approved after release of 2525C"
 	},
 	{
-		"basic": "O*L*F-----H****",
+		"basic": "O*L*F-----*****",
 		"ver": "11",
 		"ss": "40",
 		"ec": "131001",
@@ -19159,7 +19159,7 @@ var c2d_default = { c2d: { "symbols": [
 		"c2": "Symbol is displayed differently between versions"
 	},
 	{
-		"basic": "E*O*BE----H****",
+		"basic": "E*O*BE----*****",
 		"ver": "11",
 		"ss": "40",
 		"ec": "131203",
@@ -19171,7 +19171,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Emergency Incident Command Center"
 	},
 	{
-		"basic": "E*O*BF----H****",
+		"basic": "E*O*BF----*****",
 		"ver": "11",
 		"ss": "40",
 		"ec": "131204",
@@ -19183,7 +19183,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Emergency Operations Center"
 	},
 	{
-		"basic": "E*O*BG----H****",
+		"basic": "E*O*BG----*****",
 		"ver": "11",
 		"ss": "40",
 		"ec": "131205",
@@ -19195,7 +19195,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Emergency Public Information Center"
 	},
 	{
-		"basic": "E*O*BH----H****",
+		"basic": "E*O*BH----*****",
 		"ver": "11",
 		"ss": "40",
 		"ec": "131206",
@@ -19207,7 +19207,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Emergency Shelter"
 	},
 	{
-		"basic": "E*O*BI----H****",
+		"basic": "E*O*BI----*****",
 		"ver": "11",
 		"ss": "40",
 		"ec": "131207",
@@ -19219,7 +19219,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Emergency Staging Area"
 	},
 	{
-		"basic": "E*O*BJ----H****",
+		"basic": "E*O*BJ----*****",
 		"ver": "15",
 		"ss": "40",
 		"ec": "131200",
@@ -19231,7 +19231,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Emergency Team"
 	},
 	{
-		"basic": "E*O*BK----H****",
+		"basic": "E*O*BK----*****",
 		"ver": "11",
 		"ss": "40",
 		"ec": "131208",
@@ -19254,7 +19254,7 @@ var c2d_default = { c2d: { "symbols": [
 		"et": "Emergency Medical Operation"
 	},
 	{
-		"basic": "E*O*AD----H****",
+		"basic": "E*O*AD----*****",
 		"ver": "11",
 		"ss": "40",
 		"ec": "131301",
@@ -19268,7 +19268,7 @@ var c2d_default = { c2d: { "symbols": [
 		"c2": "Symbol is displayed differently between versions"
 	},
 	{
-		"basic": "E*O*AG----H****",
+		"basic": "E*O*AG----*****",
 		"ver": "11",
 		"ss": "40",
 		"ec": "131302",
@@ -19280,7 +19280,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Health Department Facility"
 	},
 	{
-		"basic": "E*O*AJ----H****",
+		"basic": "E*O*AJ----*****",
 		"ver": "11",
 		"ss": "40",
 		"ec": "131303",
@@ -19292,7 +19292,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Medical Facilities Outpatient"
 	},
 	{
-		"basic": "E*O*AK----H****",
+		"basic": "E*O*AK----*****",
 		"ver": "11",
 		"ss": "40",
 		"ec": "131304",
@@ -19304,7 +19304,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Morgue"
 	},
 	{
-		"basic": "E*O*AL----H****",
+		"basic": "E*O*AL----*****",
 		"ver": "11",
 		"ss": "40",
 		"ec": "131305",
@@ -19316,7 +19316,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Pharmacy"
 	},
 	{
-		"basic": "E*O*AM----H****",
+		"basic": "E*O*AM----*****",
 		"ver": "11",
 		"ss": "40",
 		"ec": "131306",
@@ -19340,19 +19340,7 @@ var c2d_default = { c2d: { "symbols": [
 		"est": "Fire Hydrant"
 	},
 	{
-		"basic": "E*O*CE----*****",
-		"ver": "11",
-		"ss": "40",
-		"ec": "131402",
-		"em": "",
-		"s1": "00",
-		"s2": "00",
-		"e": "",
-		"et": "",
-		"est": "Fire Station"
-	},
-	{
-		"basic": "E*O*CD----H****",
+		"basic": "E*O*CD----*****",
 		"ver": "11",
 		"ss": "40",
 		"ec": "131403",
@@ -19459,18 +19447,6 @@ var c2d_default = { c2d: { "symbols": [
 		"e": "",
 		"et": "",
 		"est": "Police"
-	},
-	{
-		"basic": "E*O*DK----H****",
-		"ver": "11",
-		"ss": "40",
-		"ec": "131508",
-		"em": "",
-		"s1": "00",
-		"s2": "00",
-		"e": "",
-		"et": "",
-		"est": "Prison"
 	},
 	{
 		"basic": "E*O*DL----*****",
@@ -20078,7 +20054,7 @@ var c2d_default = { c2d: { "symbols": [
 		"c2": "Listed as unframed in 2525C and Full Octagon in 2525D"
 	},
 	{
-		"basic": "O*L*N-----H****",
+		"basic": "O*L*N-----*****",
 		"ver": "11",
 		"ss": "40",
 		"ec": "170108",
@@ -128962,7 +128938,7 @@ var mse_default = { mse: { "SYMBOL": [
 		"code": "220100",
 		"versions": "15,16",
 		"geometry": "Line",
-		"drawRules": "Line1",
+		"drawRules": "Line5",
 		"modifiers": "H",
 		"aux1": ""
 	},
@@ -128974,7 +128950,7 @@ var mse_default = { mse: { "SYMBOL": [
 		"code": "220101",
 		"versions": "15,16",
 		"geometry": "Line",
-		"drawRules": "Line1",
+		"drawRules": "Line5",
 		"modifiers": "H",
 		"aux1": ""
 	},
@@ -128986,7 +128962,7 @@ var mse_default = { mse: { "SYMBOL": [
 		"code": "220102",
 		"versions": "15,16",
 		"geometry": "Line",
-		"drawRules": "Line1",
+		"drawRules": "Line5",
 		"modifiers": "H",
 		"aux1": ""
 	},
@@ -128998,7 +128974,7 @@ var mse_default = { mse: { "SYMBOL": [
 		"code": "220103",
 		"versions": "15,16",
 		"geometry": "Line",
-		"drawRules": "Line1",
+		"drawRules": "Line5",
 		"modifiers": "H",
 		"aux1": ""
 	},
@@ -129010,7 +128986,7 @@ var mse_default = { mse: { "SYMBOL": [
 		"code": "220104",
 		"versions": "15,16",
 		"geometry": "Line",
-		"drawRules": "Line1",
+		"drawRules": "Line5",
 		"modifiers": "H",
 		"aux1": ""
 	},
@@ -129022,7 +128998,7 @@ var mse_default = { mse: { "SYMBOL": [
 		"code": "220105",
 		"versions": "15,16",
 		"geometry": "Line",
-		"drawRules": "Line1",
+		"drawRules": "Line5",
 		"modifiers": "H",
 		"aux1": ""
 	},
@@ -129034,7 +129010,7 @@ var mse_default = { mse: { "SYMBOL": [
 		"code": "220106",
 		"versions": "15,16",
 		"geometry": "Line",
-		"drawRules": "Line1",
+		"drawRules": "Line5",
 		"modifiers": "H",
 		"aux1": ""
 	},
@@ -129046,7 +129022,7 @@ var mse_default = { mse: { "SYMBOL": [
 		"code": "220107",
 		"versions": "15,16",
 		"geometry": "Line",
-		"drawRules": "Line1",
+		"drawRules": "Line5",
 		"modifiers": "H",
 		"aux1": ""
 	},
@@ -129058,7 +129034,7 @@ var mse_default = { mse: { "SYMBOL": [
 		"code": "220108",
 		"versions": "15,16",
 		"geometry": "Line",
-		"drawRules": "Line1",
+		"drawRules": "Line5",
 		"modifiers": "H",
 		"aux1": ""
 	},
@@ -129066,11 +129042,11 @@ var mse_default = { mse: { "SYMBOL": [
 		"ss": "",
 		"e": "",
 		"et": "",
-		"est": "Navigationl Rhumb Line",
+		"est": "Navigational Rhumb Line",
 		"code": "220109",
 		"versions": "16",
 		"geometry": "Line",
-		"drawRules": "Line1",
+		"drawRules": "Line5",
 		"modifiers": "T,AN",
 		"aux1": ""
 	},
@@ -143285,7 +143261,9 @@ var SymbolUtilities = class SymbolUtilities {
 				res += strSymbolID.charAt(2);
 				res += "*";
 				res += strSymbolID.substring(4, 10);
-				res += "*****";
+				if (res.startsWith("S*G*I")) res += "H****";
+				else if (res.startsWith("I")) res += "--***";
+				else res += "*****";
 			} else return strSymbolID;
 			return res;
 		}
@@ -143447,6 +143425,28 @@ var SymbolUtilities = class SymbolUtilities {
 			else throw e;
 		}
 		return SymbolUtilities.getLineColorOfAffiliation(symbolID);
+	}
+	/**
+	* METOCs and several Control measures have colors that should not change
+	* @param symbolID 20-30 character id string for symbol
+	* @return true if color should not change
+	*/
+	static hasStaticLineColor(symbolID) {
+		let ss = SymbolID.getSymbolSet(symbolID);
+		let version = SymbolID.getVersion(symbolID);
+		if (ss == SymbolID.SymbolSet_ControlMeasure) {
+			switch (SymbolID.getEntityCode(symbolID)) {
+				case 200600:
+				case 200700:
+				case 200101: return true;
+				case 132100:
+				case 282001:
+				case 282002:
+				case 282003: return version >= SymbolID.Version_2525E;
+				default: break;
+			}
+			return SymbolUtilities.isGreenProtectionGraphic(symbolID);
+		} else return ss == SymbolID.SymbolSet_Atmospheric || ss == SymbolID.SymbolSet_Oceanographic || ss == SymbolID.SymbolSet_MeteorologicalSpace;
 	}
 	/**
 	* Checks if a symbol should be filled by default
@@ -144273,7 +144273,7 @@ var C2DLookup = class C2DLookup {
 		if (C2DLookup._C2DLookup && C2DLookup._C2DLookup.size > 0) C2DLookup._isReady = true;
 	}
 	/**
-	* Take a complete 15 character 2525C symbol code and converts it to 2525D if there is a match.
+	* Take a complete 15 character 2525C symbol code and converts it to a 2525D/E if there is a match.
 	* Returns null if no match.
 	* @param symbolID 15 character 2525C symbol code.
 	* @param includeCountryCode default true, Update the country code as well.
@@ -144385,8 +144385,18 @@ var C2DLookup = class C2DLookup {
 					newCode = SymbolID.setHQTFD(newCode, SymbolID.HQTFD_FeintDummy_TaskForce);
 					break;
 			}
-		} else if (modifier === "HB") SymbolID.setHQTFD(newCode, SymbolID.HQTFD_FeintDummy);
-		else if (modifier.charAt(0) == "M") switch (modifier.charAt(1)) {
+		} else if (modifier.charAt(0) == "H") {
+			if (SymbolID.getSymbolSet(newCode) != SymbolID.SymbolSet_LandInstallation) {
+				let cs = symbolID.charAt(0);
+				if (cs == "S" || cs == "O" || cs == "E") {
+					let temp = newCode;
+					temp = SymbolID.setVersion(temp, SymbolID.Version_2525Ech1);
+					temp = SymbolID.setFrameShape(temp, SymbolID.FrameShape_LandInstallation);
+					if (MSLookup.getInstance().getMSLInfo(temp) != null) newCode = temp;
+				}
+			}
+			if (modifier === "HB") newCode = SymbolID.setHQTFD(newCode, SymbolID.HQTFD_FeintDummy);
+		} else if (modifier.charAt(0) == "M") switch (modifier.charAt(1)) {
 			case "O":
 				newCode = SymbolID.setAmplifierDescriptor(newCode, SymbolID.Mobility_WheeledLimitedCrossCountry);
 				break;
@@ -144544,6 +144554,10 @@ var MilStdAttributes = class MilStdAttributes {
 	* For internal use
 	*/
 	static PatternFillType = "PATTERNFILLTYPE";
+	/**
+	* Experimental feature only for use with MilStdSymbol Rendering at this time
+	*/
+	static UseLinePattern = "USELINEPATTERN";
 	/**
 	* The conversion factor and the label that you want all distances to display in. The conversion factor
 	* is converting from meters. The default unit is meters.<br><br>
@@ -154364,6 +154378,7 @@ var ShapeInfo = class ShapeInfo {
 	*/
 	_shader = null;
 	_patternFillInfo = null;
+	_linePattern = null;
 	_justify = ShapeInfo.justify_left;
 	_Polylines = null;
 	constructor(...args) {
@@ -154625,6 +154640,13 @@ var ShapeInfo = class ShapeInfo {
 		if (this._patternFillInfo) return this._patternFillInfo.getSVGDataURI();
 		else return null;
 	}
+	setLinePattern(lp) {
+		this._linePattern = lp;
+	}
+	getLinePattern() {
+		if (this._linePattern) return this._linePattern;
+		else return null;
+	}
 	getPatternFillImageInfo() {
 		return this._patternFillInfo;
 	}
@@ -154633,6 +154655,526 @@ var ShapeInfo = class ShapeInfo {
 	}
 	setTextJustify(value) {
 		this._justify = value;
+	}
+};
+
+//#endregion
+//#region src/main/ts/armyc2/c5isr/JavaLineArray/LinePattern.ts
+var LinePattern = class LinePattern {
+	svg = null;
+	vOffset = 0;
+	constructor(svgPattern, verticalOffset) {
+		this.svg = svgPattern;
+		this.vOffset = verticalOffset;
+	}
+	getLinePatternSVG() {
+		return this.svg;
+	}
+	getLinePatternVerticalOffset() {
+		return this.vOffset;
+	}
+	static supportsLinePattern(symbolCode) {
+		const ec = SymbolID.getEntityCode(symbolCode);
+		if (SymbolID.getSymbolSet(symbolCode) === SymbolID.SymbolSet_ControlMeasure) switch (ec) {
+			case 140100:
+			case 140200:
+			case 151203:
+			case 151800:
+			case 270100:
+			case 270200:
+			case 290100:
+			case 270300:
+			case 270400:
+			case 290204:
+			case 290201:
+			case 290202:
+			case 290203:
+			case 290301:
+			case 290302:
+			case 290303:
+			case 290304:
+			case 290305:
+			case 290306:
+			case 290307:
+			case 290308:
+			case 290309:
+			case 290900:
+			case 151e3: return true;
+			default: return false;
+		}
+		else return false;
+	}
+	static getLinePattern(symbolCode, lineColor, fillColor, lineWidth) {
+		let lp = null;
+		let svgPath = null;
+		let svgEllipse = null;
+		let svgBounds = null;
+		let vOffset = 0;
+		if (symbolCode != null && symbolCode.length >= 20) {
+			SymbolID.getSymbolSet(symbolCode);
+			const ec = SymbolID.getEntityCode(symbolCode);
+			const dpi = RendererSettings.getInstance().getDeviceDPI();
+			lineWidth / 2;
+			const multiplier = dpi > 96 ? dpi / 96 : 1;
+			if (ec === 140100) {
+				fillColor = null;
+				const lwOffset = lineWidth / 2;
+				let y = 0;
+				const eRadH = (10 + lineWidth) * multiplier;
+				const eRadW = eRadH;
+				eRadH + lineWidth;
+				const patternWidth = lwOffset + eRadW * 2 + lineWidth + lwOffset;
+				let path = "<path d=\"";
+				y += eRadH + lineWidth;
+				path += "M " + lwOffset + " " + y + " ";
+				path += "a " + (eRadW + lwOffset) + "," + (eRadW + lwOffset) + " 0 0,1 " + (eRadW * 2 + lineWidth) + ",0\" ";
+				const left = 0;
+				const width = patternWidth;
+				const top = 0;
+				const bottom = y;
+				vOffset = lwOffset + eRadH;
+				svgBounds = new Rectangle2D(left, top, width, bottom - top);
+				svgPath = path;
+			}
+			if (ec === 140200) {
+				fillColor = null;
+				const lwOffset = lineWidth / 2;
+				let y = 0;
+				const eRadH = (10 + lineWidth) * multiplier;
+				const eRadW = eRadH;
+				const patternHeight = (eRadH + lineWidth) * 2;
+				const patternWidth = lwOffset + eRadW * 2 + lineWidth + lwOffset;
+				let path = "<path d=\"";
+				y += patternHeight;
+				path += "M " + lwOffset + " " + y + " ";
+				path += "a " + (eRadW + lwOffset) + "," + (eRadW + lwOffset) + " 0 0,1 " + (eRadW * 2 + lineWidth) + ",0\" ";
+				path += "style=\"fill:none;stroke:red;";
+				if (lineColor.getAlpha() < 255) path += "stroke-opacity:" + lineColor.getAlpha() / 255 + ";";
+				path += "stroke-width:" + lineWidth + "\" />";
+				path += "<path d=\"";
+				path += "M " + lwOffset + " 0 ";
+				path += "a " + (eRadW + lwOffset) + "," + (eRadW + lwOffset) + " 0 0,0 " + (eRadW * 2 + lineWidth) + ",0\" ";
+				const left = 0;
+				const width = patternWidth;
+				const top = 0;
+				const bottom = y;
+				vOffset = patternHeight;
+				svgBounds = new Rectangle2D(left, top, width, bottom - top);
+				svgPath = path;
+			} else if (ec === 151203) {
+				fillColor = null;
+				const lwOffset = lineWidth / 2;
+				let y = 0;
+				const eRadH = (10 + lineWidth) * multiplier;
+				const eRadW = eRadH * .5;
+				eRadH + lineWidth;
+				const patternWidth = eRadW * 2 + lineWidth;
+				let path = "<path d=\"";
+				y += eRadH + lwOffset;
+				path += "M 0 " + y + " ";
+				path += "l " + patternWidth / 2 + " 0 ";
+				path += "l 0 " + (-eRadH - lineWidth) + " ";
+				path += "m 0 " + (eRadH + lineWidth) + " ";
+				path += "l " + patternWidth / 2 + " 0\" ";
+				const left = 0;
+				const width = patternWidth;
+				const top = 0;
+				const bottom = y + lwOffset;
+				vOffset = lwOffset + eRadH;
+				svgBounds = new Rectangle2D(left, top, width, bottom - top);
+				svgPath = path;
+			} else if (ec === 151800) {
+				const lwOffset = lineWidth / 2;
+				let y = lwOffset;
+				const eRadH = (10 + lineWidth) * multiplier;
+				const eRadW = eRadH * .6;
+				const patternWidth = eRadW * 3 + lineWidth;
+				let path = "<path d=\"";
+				y += lineWidth + eRadH + lwOffset;
+				path += "M 0 " + y + " ";
+				path += "l " + (eRadW / 2 + lwOffset) + " 0 ";
+				path += "l " + eRadW + " " + (-eRadH - lineWidth) + " ";
+				path += "l " + eRadW + " " + (eRadH + lineWidth) + " ";
+				path += "l " + (eRadW / 2 + lwOffset) + " 0 Z\" ";
+				const left = 0;
+				const width = patternWidth;
+				const top = 0;
+				const bottom = y + lwOffset;
+				vOffset = y;
+				svgBounds = new Rectangle2D(left, top, width, bottom - top);
+				svgPath = path;
+			} else if (ec === 270100 || ec === 270200 || ec === 290100) {
+				fillColor = null;
+				const lwOffset = lineWidth / 2;
+				let y = lwOffset;
+				const eRadH = (10 + lineWidth) * multiplier;
+				const eRadW = eRadH * .6;
+				const patternWidth = eRadW * 3 + lineWidth;
+				let path = "<path d=\"";
+				y += lwOffset + eRadH + lwOffset;
+				path += "M 0 " + y + " ";
+				path += "l " + (eRadW / 2 + lwOffset) + " 0 ";
+				path += "l " + eRadW + " " + -eRadH + " ";
+				path += "l " + eRadW + " " + eRadH + " ";
+				path += "l " + (eRadW / 2 + lwOffset) + " 0\" ";
+				const left = 0;
+				const width = patternWidth;
+				const top = 0;
+				const bottom = y + lwOffset;
+				vOffset = y;
+				svgBounds = new Rectangle2D(left, top, width, bottom - top);
+				svgPath = path;
+			} else if (ec === 270300 || ec === 270400 || ec === 290204) {
+				fillColor = null;
+				const lwOffset = lineWidth / 2;
+				let y = lwOffset;
+				const eRadH = (10 + lineWidth) * multiplier;
+				const eRadW = eRadH * .6;
+				const patternWidth = eRadW * 3 + lineWidth;
+				let path = "<path d=\"";
+				y += lwOffset + eRadH + lwOffset;
+				path += "M 0 " + lwOffset + " ";
+				path += "l " + (eRadW / 2 + lwOffset) + " 0 ";
+				path += "l " + eRadW + " " + eRadH + " ";
+				path += "l " + eRadW + " " + -eRadH + " ";
+				path += "l " + (eRadW / 2 + lwOffset) + " 0\" ";
+				const left = 0;
+				const width = patternWidth;
+				const top = 0;
+				const bottom = y + lwOffset;
+				vOffset = lwOffset;
+				svgBounds = new Rectangle2D(left, top, width, bottom - top);
+				svgPath = path;
+			} else if (ec === 290201 || ec === 290202) {
+				fillColor = null;
+				const lwOffset = lineWidth / 2;
+				let y = lwOffset;
+				const eRadH = (10 + lineWidth) * multiplier;
+				const eRadW = eRadH * .6;
+				const patternWidth = eRadW * 2 + lineWidth;
+				let path = "<path d=\"";
+				y += lwOffset + eRadH + lwOffset;
+				path += "M " + lwOffset + " " + y + " ";
+				path += "l " + eRadW + " " + -eRadH + " ";
+				path += "l " + eRadW + " " + eRadH + " Z\" ";
+				if (ec === 290202) fillColor = SymbolUtilities.getLineColorOfAffiliation(symbolCode);
+				const left = 0;
+				const width = patternWidth;
+				const top = 0;
+				const bottom = y + lwOffset;
+				vOffset = y;
+				svgBounds = new Rectangle2D(left, top, width, bottom - top);
+				svgPath = path;
+			} else if (ec === 290203) {
+				fillColor = SymbolUtilities.getLineColorOfAffiliation(symbolCode);
+				const lwOffset = lineWidth / 2;
+				let y = lwOffset;
+				const eRadH = (10 + lineWidth) * multiplier;
+				const eRadW = eRadH * .6;
+				const patternWidth = eRadW * 3 + lineWidth * 2 + eRadW * .6;
+				let path = "<path d=\"";
+				let ellipse = "<circle ";
+				y += lwOffset + eRadH + lwOffset;
+				path += "M " + lwOffset + " " + lwOffset + " ";
+				path += "l " + (eRadW / 2 + lwOffset) + " 0 ";
+				path += "l " + eRadW + " " + eRadH + " ";
+				path += "l " + eRadW + " " + -eRadH + " Z ";
+				path += "M 0 " + lwOffset + " ";
+				path += "l " + patternWidth + " 0\" ";
+				ellipse += "r=\"" + (eRadW * .6 - lwOffset) + "\" cx=\"" + (lineWidth + eRadW * 3 + lineWidth) + "\" cy=\"" + (y + lwOffset) * .6 + "\" ";
+				const left = 0;
+				const width = patternWidth;
+				const top = 0;
+				const bottom = y + lwOffset;
+				vOffset = lwOffset;
+				svgBounds = new Rectangle2D(left, top, width, bottom - top);
+				svgPath = path;
+				svgEllipse = ellipse;
+			} else if (ec === 290301) {
+				fillColor = null;
+				const lwOffset = lineWidth / 2;
+				let y = lwOffset;
+				const eRadH = (6 + lineWidth) * multiplier;
+				const eRadW = eRadH;
+				const patternWidth = (eRadH + lineWidth) * 2.5;
+				let path = "<path d=\"";
+				const eCenterX = lwOffset + patternWidth / 2;
+				const eCenterY = lwOffset + eRadH;
+				path += "M " + (eCenterX - eRadW) + " " + (eCenterY - eRadH) + " ";
+				path += "l " + eRadW * 2 + " " + eRadH * 2 + " ";
+				path += "M " + (eCenterX - eRadW) + " " + (eCenterY + eRadH) + " ";
+				path += "l " + eRadW * 2 + " " + -(eRadH * 2) + " \" ";
+				y += eRadH * 2 + lwOffset;
+				const left = 0;
+				const width = patternWidth + lineWidth;
+				const top = 0;
+				const bottom = eRadH * 2 + lineWidth;
+				vOffset = lwOffset;
+				svgBounds = new Rectangle2D(left, top, width, bottom - top);
+				svgPath = path;
+			} else if (ec === 290302) {
+				fillColor = null;
+				const lwOffset = lineWidth / 2;
+				let x = 0;
+				let y = lwOffset;
+				const eRadH = (6 + lineWidth) * multiplier;
+				const eRadW = eRadH;
+				const patternWidth = (eRadH + lineWidth) * 3.5;
+				let path = "<path d=\"";
+				let eCenterX = lwOffset + patternWidth / 2;
+				let eCenterY = lwOffset + eRadH;
+				path += "M " + (eCenterX - eRadW) + " " + (eCenterY - eRadH) + " ";
+				path += "l " + eRadW * 2 + " " + eRadH * 2 + " ";
+				path += "M " + (eCenterX - eRadW) + " " + (eCenterY + eRadH) + " ";
+				path += "l " + eRadW * 2 + " " + -(eRadH * 2) + " ";
+				y += lineWidth + eRadH * 2 + lineWidth;
+				path += "M " + x + " " + eCenterY + " ";
+				path += "l " + (patternWidth + lineWidth) + " 0\" ";
+				y += eRadH * 2 + lwOffset;
+				const left = 0;
+				const width = patternWidth + lineWidth;
+				const top = 0;
+				const bottom = eRadH * 2 + lineWidth;
+				vOffset = eCenterY;
+				svgBounds = new Rectangle2D(left, top, width, bottom - top);
+				svgPath = path;
+			} else if (ec === 290303) {
+				fillColor = null;
+				const lwOffset = lineWidth / 2;
+				let x = 0;
+				let y = lwOffset;
+				const eRadH = (6 + lineWidth) * multiplier;
+				const eRadW = eRadH;
+				const patternWidth = (eRadH + lineWidth) * 5.5;
+				let path = "<path d=\"";
+				let eCenterX = patternWidth / 2 - eRadW - lwOffset;
+				let eCenterY = lwOffset + eRadH;
+				path += "M " + (eCenterX - eRadW) + " " + (eCenterY - eRadH) + " ";
+				path += "l " + eRadW * 2 + " " + eRadH * 2 + " ";
+				path += "M " + (eCenterX - eRadW) + " " + (eCenterY + eRadH) + " ";
+				path += "l " + eRadW * 2 + " " + -(eRadH * 2) + " ";
+				eCenterX = patternWidth / 2 + eRadW + lwOffset;
+				path += "M " + (eCenterX - eRadW) + " " + (eCenterY - eRadH) + " ";
+				path += "l " + eRadW * 2 + " " + eRadH * 2 + " ";
+				path += "M " + (eCenterX - eRadW) + " " + (eCenterY + eRadH) + " ";
+				path += "l " + eRadW * 2 + " " + -(eRadH * 2) + " ";
+				y += lineWidth + eRadH * 2 + lineWidth;
+				path += "M " + x + " " + eCenterY + " ";
+				path += "l " + (patternWidth + lineWidth) + " 0\" ";
+				y += eRadH * 2 + lwOffset;
+				const left = 0;
+				const width = patternWidth + lineWidth;
+				const top = 0;
+				const bottom = eRadH * 2 + lineWidth;
+				vOffset = eCenterY;
+				svgBounds = new Rectangle2D(left, top, width, bottom - top);
+				svgPath = path;
+			} else if (ec === 290304) {
+				fillColor = null;
+				const lwOffset = lineWidth / 2;
+				let x = 0;
+				let y = lwOffset;
+				const eRadH = (6 + lineWidth) * multiplier;
+				const eRadW = eRadH;
+				const patternWidth = (eRadH + lineWidth) * 2.5;
+				let path = "<path d=\"";
+				const eCenterX = lwOffset + patternWidth / 2;
+				const eCenterY = lwOffset + eRadH;
+				path += "M " + (eCenterX - eRadW) + " " + (eCenterY - eRadH) + " ";
+				path += "l " + eRadW * 2 + " " + eRadH * 2 + " ";
+				path += "M " + (eCenterX - eRadW) + " " + (eCenterY + eRadH) + " ";
+				path += "l " + eRadW * 2 + " " + -(eRadH * 2) + " ";
+				y += lineWidth + eRadH * 2 + lineWidth;
+				path += "M " + x + " " + eCenterY + " ";
+				path += "l " + (patternWidth + lineWidth) + " 0\" ";
+				y += eRadH * 2 + lwOffset;
+				const left = 0;
+				const width = patternWidth + lineWidth;
+				const top = 0;
+				const bottom = eRadH * 2 + lineWidth;
+				vOffset = eCenterY;
+				svgBounds = new Rectangle2D(left, top, width, bottom - top);
+				svgPath = path;
+			} else if (ec === 290305) {
+				fillColor = null;
+				const lwOffset = lineWidth / 2;
+				let x = 0;
+				let y = lwOffset;
+				const eRadH = (6 + lineWidth) * multiplier;
+				const eRadW = eRadH;
+				const patternWidth = (eRadH + lineWidth) * 2.5;
+				let path = "<path d=\"";
+				const eCenterX = lwOffset + patternWidth / 2;
+				const eCenterY = lwOffset + eRadH;
+				path += "M " + (eCenterX - eRadW) + " " + (eCenterY - eRadH) + " ";
+				path += "l " + eRadW * 2 + " " + eRadH * 2 + " ";
+				path += "M " + (eCenterX - eRadW) + " " + (eCenterY + eRadH) + " ";
+				path += "l " + eRadW * 2 + " " + -(eRadH * 2) + " ";
+				path += "M " + x + " " + lwOffset + " ";
+				path += "l " + (patternWidth + lineWidth) + " 0\" ";
+				y += eRadH * 2 + lwOffset;
+				const left = 0;
+				const width = patternWidth + lineWidth;
+				const top = 0;
+				const bottom = eRadH * 2 + lineWidth;
+				vOffset = lwOffset;
+				svgBounds = new Rectangle2D(left, top, width, bottom - top);
+				svgPath = path;
+			} else if (ec === 290306) {
+				fillColor = null;
+				const lwOffset = lineWidth / 2;
+				let x = 0;
+				let y = lwOffset;
+				const eRadH = (6 + lineWidth) * multiplier;
+				const eRadW = eRadH;
+				const patternWidth = (eRadH + lineWidth) * 2.5;
+				let path = "<path d=\"";
+				const eCenterX = lwOffset + patternWidth / 2;
+				const eCenterY = lwOffset + eRadH;
+				path += "M " + (eCenterX - eRadW) + " " + (eCenterY - eRadH) + " ";
+				path += "l " + eRadW * 2 + " " + eRadH * 2 + " ";
+				path += "M " + (eCenterX - eRadW) + " " + (eCenterY + eRadH) + " ";
+				path += "l " + eRadW * 2 + " " + -(eRadH * 2) + " ";
+				path += "M " + x + " " + lwOffset + " ";
+				path += "l " + (patternWidth + lineWidth) + " 0";
+				y += eRadH * 2 + lwOffset;
+				const left = 0;
+				const width = patternWidth + lineWidth;
+				const top = 0;
+				const bottom = eRadH * 2 + lineWidth;
+				path += "M " + x + " " + (bottom - lwOffset) + " ";
+				path += "l " + (patternWidth + lineWidth) + " 0\" ";
+				vOffset = lwOffset;
+				svgBounds = new Rectangle2D(left, top, width, bottom - top);
+				svgPath = path;
+			} else if (ec === 290307) {
+				fillColor = null;
+				const lwOffset = lineWidth / 2;
+				let x = 0;
+				let y = lwOffset;
+				const eRadH = (5 + lineWidth) * multiplier;
+				const eRadW = eRadH * .6;
+				const patternWidth = eRadH * 2.5;
+				let ellipse = "<ellipse ";
+				const eCenterX = lwOffset + patternWidth / 2;
+				const eCenterY = lineWidth + lwOffset + eRadH;
+				ellipse += "cx=\"" + eCenterX + "\" cy=\"" + eCenterY + "\" ";
+				ellipse += "rx=\"" + eRadW + "\" ry=\"" + eRadH + "\" ";
+				let path = "<path d=\"";
+				path += "M " + x + " " + lwOffset + " ";
+				path += "l " + (patternWidth + lineWidth) + " 0\" ";
+				y += lineWidth + eRadH * 2 + lineWidth;
+				const left = 0;
+				const width = patternWidth + lineWidth;
+				const top = 0;
+				const bottom = y + lwOffset;
+				vOffset = lwOffset;
+				svgBounds = new Rectangle2D(left, top, width, bottom - top);
+				svgPath = path;
+				svgEllipse = ellipse;
+			} else if (ec === 290308) {
+				fillColor = null;
+				const lwOffset = lineWidth / 2;
+				let x = 0;
+				let y = lwOffset;
+				const eRadH = (5 + lineWidth) * multiplier;
+				const eRadW = eRadH * .6;
+				const patternWidth = eRadH * 2.5;
+				let ellipse = "<ellipse ";
+				const eCenterX = lwOffset + patternWidth / 2;
+				const eCenterY = lineWidth + lwOffset + eRadH;
+				ellipse += "cx=\"" + eCenterX + "\" cy=\"" + eCenterY + "\" ";
+				ellipse += "rx=\"" + eRadW + "\" ry=\"" + eRadH + "\" ";
+				let path = "<path d=\"";
+				path += "M " + x + " " + eCenterY + " ";
+				path += "l " + (patternWidth + lineWidth) + " 0 ";
+				path += "M " + x + " " + lwOffset + " ";
+				path += "l " + (patternWidth + lineWidth) + " 0\" ";
+				y += lineWidth + eRadH * 2 + lineWidth;
+				const left = 0;
+				const width = patternWidth + lineWidth;
+				const top = 0;
+				const bottom = y + lwOffset;
+				vOffset = lwOffset;
+				svgBounds = new Rectangle2D(left, top, width, bottom - top);
+				svgPath = path;
+				svgEllipse = ellipse;
+			} else if (ec === 290309) {
+				fillColor = null;
+				const lwOffset = lineWidth / 2;
+				let x = 0;
+				let y = lwOffset;
+				const eRadH = (5 + lineWidth) * multiplier;
+				const eRadW = eRadH * .6;
+				const patternWidth = eRadH * 2.5;
+				let ellipse = "<ellipse ";
+				const eCenterX = lwOffset + patternWidth / 2;
+				const eCenterY = lineWidth + lwOffset + eRadH;
+				ellipse += "cx=\"" + eCenterX + "\" cy=\"" + eCenterY + "\" ";
+				ellipse += "rx=\"" + eRadW + "\" ry=\"" + eRadH + "\" ";
+				let path = "<path d=\"";
+				path += "M " + x + " " + y + " ";
+				path += "l " + (patternWidth + lineWidth) + " 0 ";
+				y += lineWidth + eRadH * 2 + lineWidth;
+				path += "M " + x + " " + y + " ";
+				path += "l " + (patternWidth + lineWidth) + " 0\" ";
+				const left = 0;
+				const width = patternWidth + lineWidth;
+				const top = 0;
+				const bottom = y + lwOffset;
+				vOffset = lwOffset;
+				svgBounds = new Rectangle2D(left, top, width, bottom - top);
+				svgPath = path;
+				svgEllipse = ellipse;
+			} else if (ec === 290900 || ec === 151e3) {
+				fillColor = null;
+				const lwOffset = lineWidth / 2;
+				let y = 0;
+				const eRadH = (10 + lineWidth) * multiplier;
+				const eRadW = eRadH;
+				const patternWidth = eRadW * 2 + lineWidth * 2;
+				let path = "<path d=\"";
+				y += lwOffset + eRadH + lwOffset;
+				path += "M 0 " + y + " ";
+				path += "l " + (eRadW / 2 + lwOffset) + " 0 ";
+				path += "l 0 " + (-eRadH - lwOffset) + " ";
+				path += "l " + (eRadW + lineWidth) + " 0 ";
+				path += "l 0 " + (eRadH + lwOffset) + " ";
+				path += "l " + (eRadW / 2 + lwOffset) + " 0\" ";
+				const left = 0;
+				const width = patternWidth;
+				const top = 0;
+				const bottom = y + lwOffset;
+				vOffset = y;
+				svgBounds = new Rectangle2D(left, top, width, bottom - top);
+				svgPath = path;
+			}
+			if (svgPath != null && svgBounds != null) {
+				let sbStyle = "style=\"";
+				if (fillColor != null) {
+					sbStyle += "fill:" + RendererUtilities.colorToHexString(fillColor, false) + ";";
+					if (fillColor.getAlpha() < 255) sbStyle += "fill-opacity:" + fillColor.getAlpha() / 255 + ";";
+				} else sbStyle += "fill:none;";
+				sbStyle += "stroke:" + RendererUtilities.colorToHexString(lineColor, false) + ";";
+				if (lineColor.getAlpha() < 255) sbStyle += "stroke-opacity:" + lineColor.getAlpha() / 255 + ";";
+				sbStyle += "stroke-width:" + lineWidth + "\"";
+				svgPath += sbStyle;
+				svgPath += " />";
+				if (svgEllipse != null) {
+					svgEllipse += sbStyle;
+					svgEllipse += " />";
+				}
+				let sbSVG = "<svg xmlns=\"http://www.w3.org/2000/svg\" ";
+				sbSVG += "width=\"" + svgBounds.getWidth() + "\" height=\"" + svgBounds.getHeight() + "\" ";
+				sbSVG += "viewBox=\"" + svgBounds.getX() + " " + svgBounds.getY() + " " + svgBounds.getWidth() + " " + svgBounds.getHeight() + "\" ";
+				sbSVG += "fill=\"none\">";
+				sbSVG += svgPath;
+				if (svgEllipse != null) sbSVG += svgEllipse;
+				sbSVG += "</svg>";
+				lp = new LinePattern(sbSVG, vOffset);
+			}
+		}
+		return lp;
 	}
 };
 
@@ -154680,6 +155222,7 @@ var MilStdSymbol = class MilStdSymbol {
 	static _AltitudeUnit;
 	static _DistanceUnit;
 	static _useDashArray = true;
+	static _useLinePattern = false;
 	static _hideOptionalLabels = false;
 	static _DrawAffiliationModifierAsLabel = true;
 	static _UseLineInterpolation = false;
@@ -154732,7 +155275,7 @@ var MilStdSymbol = class MilStdSymbol {
 		this._UUID = uniqueID;
 		this.setCoordinates(Coordinates);
 		this.setSymbolID(symbolID);
-		this.setLineColor(SymbolUtilities.getDefaultLineColor(this._symbolID));
+		this._LineColor = SymbolUtilities.getDefaultLineColor(this._symbolID);
 		this.setTextColor(SymbolUtilities.getLineColorOfAffiliation(symbolID));
 		if (SymbolUtilities.hasDefaultFill(this._symbolID)) this.setFillColor(SymbolUtilities.getFillColorOfAffiliation(this._symbolID));
 		MilStdSymbol._DrawAffiliationModifierAsLabel = RendererSettings.getInstance().getDrawAffiliationModifierAsLabel();
@@ -154791,6 +155334,12 @@ var MilStdSymbol = class MilStdSymbol {
 	}
 	setUseDashArray(value) {
 		MilStdSymbol._useDashArray = value;
+	}
+	getUseLinePattern() {
+		return MilStdSymbol._useLinePattern;
+	}
+	setUseLinePattern(value) {
+		MilStdSymbol._useLinePattern = value;
 	}
 	getHideOptionalLabels() {
 		return MilStdSymbol._hideOptionalLabels;
@@ -155002,8 +155551,7 @@ var MilStdSymbol = class MilStdSymbol {
 	* @param value {@link Color}
 	*/
 	setLineColor(value) {
-		if (SymbolUtilities.isGreenProtectionGraphic(this.getSymbolID())) this._LineColor = AffiliationColors.ObstacleGreen;
-		else if (value != null) this._LineColor = value;
+		if (!SymbolUtilities.hasStaticLineColor(this._symbolID) && value != null) this._LineColor = value;
 	}
 	/**
 	*
@@ -155417,7 +155965,8 @@ var MilStdSymbol = class MilStdSymbol {
 			case 341100:
 			case 341500:
 			case 342600:
-			case 342700: return 2;
+			case 342700: if (this.getUseLinePattern() && LinePattern.supportsLinePattern(this._symbolID)) return 0;
+			else return 2;
 			case 151100:
 			case 172e3:
 			case 152400:
@@ -162864,6 +163413,13 @@ var TGLight = class TGLight {
 	}
 	set_UseHatchFill(value) {
 		this._useHatchFill = value;
+	}
+	_useLinePattern = false;
+	get_UseLinePattern() {
+		return this._useLinePattern;
+	}
+	set_UseLinePattern(value) {
+		this._useLinePattern = value;
 	}
 	_wasClipped = false;
 	set_WasClipped(value) {
@@ -172035,6 +172591,16 @@ var Modifier2 = class Modifier2 {
 					}
 					modifiersGrouped = true;
 					break;
+				case TacticalLines.AC:
+				case TacticalLines.LLTR:
+				case TacticalLines.MRR:
+				case TacticalLines.SL:
+				case TacticalLines.TC:
+				case TacticalLines.SAAFR:
+				case TacticalLines.SC:
+					Modifier2.AddIntegralModifier(tg, Modifier2.buildAreaGroupString(tg, label), Modifier2.aboveMiddle, 0, middleSegment, middleSegment + 1, false);
+					modifiersGrouped = true;
+					break;
 			}
 			if (!modifiersGrouped) switch (linetype) {
 				case TacticalLines.PL:
@@ -173049,18 +173615,34 @@ var Modifier2 = class Modifier2 {
 					locAZModifier.push(ptLeft);
 					locAZModifier.push(ptRight);
 				}
-				if (altitudes != null) for (let k = 0; k < altitudes.length; k++) {
-					if (k >= locModifier.length) break;
+				if (!RendererSettings.getInstance().getGroupModifiers()) {
+					if (altitudes != null) for (let k = 0; k < altitudes.length; k++) {
+						if (k >= locModifier.length) break;
+						pt0 = locModifier[k];
+						if (altitudes[k] != "") Modifier2.AddAreaModifier(tg, "ALT " + altitudes[k], Modifier2.area, 0, pt0, pt0);
+						else Modifier2.AddAreaModifier(tg, "ALT GL", Modifier2.area, 0, pt0, pt0);
+					}
+					if (!tg.get_HideOptionalLabels()) for (let k = 0; k < numSectors; k++) {
+						pt0 = locModifier[k];
+						Modifier2.AddAreaModifier(tg, "RG " + Modifier2.removeDecimal(AM[k + 1]), Modifier2.area, -1, pt0, pt0);
+						ptLeft = locAZModifier[2 * k];
+						ptRight = locAZModifier[2 * k + 1];
+						Modifier2.AddAreaModifier(tg, Modifier2.removeDecimal(an[2 * k]), Modifier2.area, 0, ptLeft, ptLeft);
+						Modifier2.AddAreaModifier(tg, Modifier2.removeDecimal(an[2 * k + 1]), Modifier2.area, 0, ptRight, ptRight);
+					}
+				} else if (!tg.get_HideOptionalLabels()) for (let k = 0; k < numSectors; k++) {
+					let label = "";
+					if (!tg.get_HideOptionalLabels()) label = "RG " + Modifier2.removeDecimal(AM[k + 1]) + "\n";
+					if (altitudes != null) label += "ALT " + altitudes[k];
+					else label += "ALT GL";
 					pt0 = locModifier[k];
-					Modifier2.AddAreaModifier(tg, "ALT " + altitudes[k], Modifier2.area, 0, pt0, pt0);
-				}
-				if (!tg.get_HideOptionalLabels()) for (let k = 0; k < numSectors; k++) {
-					pt0 = locModifier[k];
-					Modifier2.AddAreaModifier(tg, "RG " + Modifier2.removeDecimal(AM[k + 1]), Modifier2.area, -1, pt0, pt0);
-					ptLeft = locAZModifier[2 * k];
-					ptRight = locAZModifier[2 * k + 1];
-					Modifier2.AddAreaModifier(tg, Modifier2.removeDecimal(an[2 * k]), Modifier2.area, 0, ptLeft, ptLeft);
-					Modifier2.AddAreaModifier(tg, Modifier2.removeDecimal(an[2 * k + 1]), Modifier2.area, 0, ptRight, ptRight);
+					Modifier2.AddAreaModifier(tg, label, Modifier2.area, 0, pt0, pt0);
+					if (!tg.get_HideOptionalLabels()) {
+						ptLeft = locAZModifier[2 * k];
+						ptRight = locAZModifier[2 * k + 1];
+						Modifier2.AddAreaModifier(tg, Modifier2.removeDecimal(an[2 * k]), Modifier2.area, 0, ptLeft, ptLeft);
+						Modifier2.AddAreaModifier(tg, Modifier2.removeDecimal(an[2 * k + 1]), Modifier2.area, 0, ptRight, ptRight);
+					}
 				}
 			} else if (tg.get_LineType() === TacticalLines.RADAR_SEARCH) {
 				let sector = tg.get_LRMM().split(",");
@@ -173617,19 +174199,46 @@ var Modifier2 = class Modifier2 {
 					}
 					break;
 				case TacticalLines.RANGE_FAN:
-					if (tg.get_X() != null) {
-						X = tg.get_X().split(",");
-						for (j = 0; j < X.length; j++) if (tg.Pixels.length > j * 102 + 25) {
-							pt0 = tg.Pixels[j * 102 + 25];
-							Modifier2.AddAreaModifier(tg, "ALT " + X[j], Modifier2.area, 0, pt0, pt0);
+					if (!RendererSettings.getInstance().getGroupModifiers()) {
+						if (tg.get_X() != null) {
+							X = tg.get_X().split(",");
+							for (j = 0; j < X.length; j++) {
+								let altLabel = "ALT GL";
+								if (tg.Pixels.length > j * 102 + 25) {
+									pt0 = tg.Pixels[j * 102 + 25];
+									if (X[j] != "") altLabel = "ALT " + X[j];
+									Modifier2.AddAreaModifier(tg, altLabel, Modifier2.area, 1, pt0, pt0);
+								}
+							}
 						}
-					}
-					if (!tg.get_HideOptionalLabels()) {
+						if (!tg.get_HideOptionalLabels()) {
+							let am = tg.get_AM().split(",");
+							for (j = 0; j < am.length; j++) if (tg.Pixels.length > j * 102 + 25) {
+								pt0 = tg.Pixels[j * 102 + 25];
+								if (j === 0) Modifier2.AddAreaModifier(tg, "MIN RG " + Modifier2.removeDecimal(am[j]), 3, 0, pt0, pt0);
+								else Modifier2.AddAreaModifier(tg, "MAX RG (" + j.toString() + ") " + Modifier2.removeDecimal(am[j]), 3, 0, pt0, pt0);
+							}
+						}
+					} else {
 						let am = tg.get_AM().split(",");
-						for (j = 0; j < am.length; j++) if (tg.Pixels.length > j * 102 + 25) {
-							pt0 = tg.Pixels[j * 102 + 25];
-							if (j === 0) Modifier2.AddAreaModifier(tg, "MIN RG " + Modifier2.removeDecimal(am[j]), 3, -1, pt0, pt0);
-							else Modifier2.AddAreaModifier(tg, "MAX RG (" + j.toString() + ") " + Modifier2.removeDecimal(am[j]), 3, -1, pt0, pt0);
+						let crfLabel;
+						for (j = 0; j < am.length; j++) {
+							crfLabel = "";
+							if (!tg.get_HideOptionalLabels()) {
+								if (tg.Pixels.length > j * 102 + 25) {
+									pt0 = tg.Pixels[j * 102 + 25];
+									if (j == 0) crfLabel = "MIN RG " + Modifier2.removeDecimal(am[j]) + "\n";
+									else crfLabel = "MAX RG (" + j + ") " + Modifier2.removeDecimal(am[j]) + "\n";
+								}
+							}
+							if (tg.get_X() != null && tg.get_X() != "") {
+								X = tg.get_X().split(",");
+								if (tg.Pixels.length > j * 102 + 25) {
+									pt0 = tg.Pixels[j * 102 + 25];
+									if (X[j] != null && X[j] != "") crfLabel += "ALT " + X[j];
+								}
+							} else crfLabel += "ALT GL";
+							Modifier2.AddAreaModifier(tg, crfLabel, 3, 1, pt0, pt0);
 						}
 					}
 					break;
@@ -173777,6 +174386,21 @@ var Modifier2 = class Modifier2 {
 				modifier += "\nTIME FROM: " + tg.get_DTG();
 				modifier += "\nTIME TO: " + tg.get_DTG1();
 				break;
+			case TacticalLines.AC:
+			case TacticalLines.LLTR:
+			case TacticalLines.MRR:
+			case TacticalLines.SL:
+			case TacticalLines.TC:
+			case TacticalLines.SAAFR:
+			case TacticalLines.SC:
+				modifier = "NAME: " + tg.get_Name();
+				modifier += "\nWIDTH: " + tg.get_AM();
+				modifier += "\nMIN ALT: " + tg.get_X();
+				modifier += "\nMAX ALT: " + tg.get_X1();
+				modifier += "\nDTG Start: " + tg.get_DTG();
+				modifier += "\nDTG End: " + tg.get_DTG1();
+				modifier += "\n\n" + label + " " + tg.get_Name();
+				modifier += "\n\n\n\n\n\n\n";
 		}
 		return modifier;
 	}
@@ -178435,8 +179059,10 @@ var clsRenderer2 = class clsRenderer2 {
 					if (lineType != TacticalLines.BS_CROSS) return null;
 				}
 				if (CELineArray.CIsChannel(lineType) === 0) if (lineType === TacticalLines.ASR || lineType === TacticalLines.MSR || lineType === TacticalLines.TRAFFIC_ROUTE) clsRenderer2.getMSRShapes(tg, shapes);
-				else tg.Pixels = arraysupport.GetLineArray2(tg, tg.Pixels, shapes, clipBounds2, converter);
-				else clsChannelUtility.DrawChannel(tg.Pixels, lineType, tg, shapes, null, clipBounds2, converter);
+				else if (!(tg.get_UseLinePattern() && LinePattern.supportsLinePattern(tg.get_SymbolId()))) tg.Pixels = arraysupport.GetLineArray2(tg, tg.Pixels, shapes, clipBounds2, converter);
+				else clsChannelUtility.DrawChannelPatterns(tg.get_Pixels(), tg, shapes);
+				else if (!(tg.get_UseLinePattern() && LinePattern.supportsLinePattern(tg.get_SymbolId()))) clsChannelUtility.DrawChannel(tg.Pixels, lineType, tg, shapes, null, clipBounds2, converter);
+				else clsChannelUtility.DrawChannelPatterns(tg.get_Pixels(), tg, shapes);
 			}
 			if (bolMeTOC <= 0) {
 				if (lineType !== TacticalLines.ASR && lineType !== TacticalLines.MSR && lineType !== TacticalLines.TRAFFIC_ROUTE) clsUtility.SetShapeProperties(tg, shapes);
@@ -178756,6 +179382,57 @@ var clsChannelUtility = class clsChannelUtility {
 			else throw exc;
 		}
 		return pixels2;
+	}
+	/**
+	* Draws channel patterns, wiring LinePattern into the Shape2.
+	* Mirrors the Java DrawChannelPatterns method.
+	*/
+	static DrawChannelPatterns(pixels, tg, shapes) {
+		pixels = this.getLCPixels(tg, pixels);
+		const shape = new Shape2(Shape2.SHAPE_TYPE_POLYLINE);
+		let i = 0;
+		if (clsUtility.isClosedPolygon(tg.get_LineType())) {
+			if (!this.isClockwise(tg)) tg.Pixels.reverse();
+		}
+		switch (SymbolID.getEntityCode(tg.get_SymbolId())) {
+			case 290100:
+			case 290301:
+			case 290305:
+			case 290306:
+			case 290308:
+			case 290309:
+				tg.Pixels.reverse();
+				break;
+		}
+		for (const p of pixels) {
+			if (i > 0) shape.lineTo(new POINT2(p.x, p.y));
+			else shape.moveTo(new POINT2(p.x, p.y));
+			i++;
+		}
+		const lp = LinePattern.getLinePattern(tg.get_SymbolId(), tg.get_LineColor(), tg.get_FillColor(), tg.get_LineThickness());
+		shape.setLineColor(tg.get_LineColor());
+		shape.setFillColor(tg.get_FillColor());
+		shape.setLinePattern(lp);
+		shapes.push(shape);
+	}
+	/**
+	* Determines whether the polygon in tg.Pixels is clockwise.
+	* Port of the Java isClockwise(TGLight tg) method.
+	*/
+	static isClockwise(tg) {
+		const points = tg.get_Pixels();
+		if (!points || points.length < 3) return false;
+		let sum = 0;
+		let numPoints = points.length;
+		if (numPoints > 1 && points[0].x === points[numPoints - 1].x && points[0].y === points[numPoints - 1].y) numPoints--;
+		for (let i = 0; i < numPoints; i++) {
+			const current = points[i];
+			const next = points[(i + 1) % numPoints];
+			const dx = next.x - current.x;
+			const sumY = next.y + current.y;
+			sum += dx * sumY;
+		}
+		return sum < 0;
 	}
 	/**
 	* The main interface to clsChannelUtility calls DrawChannel2 after stuffing
@@ -181279,7 +181956,6 @@ var clsUtility = class clsUtility {
 				case TacticalLines.PLD:
 				case TacticalLines.PLANNED:
 				case TacticalLines.CFL:
-				case TacticalLines.FORDSITE:
 				case TacticalLines.ACOUSTIC_AMB:
 					if (shape.getShapeType() === Shape2.SHAPE_TYPE_POLYLINE) {
 						shape.set_Style(1);
@@ -181296,11 +181972,24 @@ var clsUtility = class clsUtility {
 					break;
 				case TacticalLines.FOLLA:
 				case TacticalLines.ESR1:
-				case TacticalLines.FORDIF:
 					if (shape.getShapeType() === Shape2.SHAPE_TYPE_POLYLINE) {
 						shape.setLineColor(tg.get_LineColor());
 						if (shapeStyle !== lineStyle) {
 							if (shapeStyle !== 1) shape.set_Style(lineStyle);
+						}
+					}
+					break;
+				case TacticalLines.FORDSITE:
+					if (shape.getShapeType() == Shape2.SHAPE_TYPE_POLYLINE) {
+						if (tg.get_Status() !== "A") shape.set_Style(5);
+						shape.setLineColor(tg.get_LineColor());
+					}
+					break;
+				case TacticalLines.FORDIF:
+					if (shape.getShapeType() == Shape2.SHAPE_TYPE_POLYLINE) {
+						shape.setLineColor(tg.get_LineColor());
+						if (shapeStyle != lineStyle) {
+							if (shapeStyle == 1 || tg.get_Status() === "A") shape.set_Style(5);
 						}
 					}
 					break;
@@ -181548,7 +182237,7 @@ var clsUtility = class clsUtility {
 	* Customer requested routine for setting the stroke dash pattern
 	* Scales dash length with line width and DPI
 	* @param width
-	* @param style
+	* @param style 0 solid, 1 dashed, 2 dotted, 3 dash dot, 4 dash dot dot, 5 long dash
 	* @param cap
 	* @param join
 	* @return
@@ -181586,6 +182275,9 @@ var clsUtility = class clsUtility {
 						dotLength,
 						dotSpace
 					], 0);
+					break;
+				case 5:
+					stroke = new BasicStroke(width, cap, join, 4, [dashLength * 2, dashLength], 0);
 					break;
 				default:
 					stroke = new BasicStroke(width, cap, join);
@@ -192567,7 +193259,7 @@ var clsRenderer = class clsRenderer {
 	* @param converter geographic to pixels to converter
 	* @return MilstdSymbol object
 	*/
-	static createMilStdSymboFromTGLight(tg, converter) {
+	static createMilStdSymbolFromTGLight(tg, converter) {
 		let milStd;
 		try {
 			let symbolId = tg.get_SymbolId();
@@ -192625,6 +193317,7 @@ var clsRenderer = class clsRenderer {
 					tg.set_LineThickness(milStd.getLineWidth());
 					tg.set_TexturePaint(milStd.getFillStyle());
 					tg.set_patternScale(milStd.getPatternScale());
+					tg.set_UseLinePattern(milStd.getUseLinePattern());
 					tg.setIconSize(milStd.getUnitSize());
 					tg.set_KeepUnitRatio(milStd.getKeepUnitRatio());
 					tg.set_FontBackColor(Color.WHITE);
@@ -195664,6 +196357,7 @@ var MultiPointHandler = class MultiPointHandler {
 		let lineWidth = 0;
 		let altMode = "";
 		let useDashArray = symbol.getUseDashArray();
+		let UseLinePattern = symbol.getUseLinePattern();
 		let usePatternFill = symbol.getUseFillPattern();
 		let hideOptionalLabels = false;
 		let distanceUnit;
@@ -195713,6 +196407,7 @@ var MultiPointHandler = class MultiPointHandler {
 				if (saAttributes.has(MilStdAttributes.TextBackgroundColor)) textBackgroundColor = String(saAttributes.get(MilStdAttributes.TextBackgroundColor));
 				if (saAttributes.has(MilStdAttributes.AltitudeMode)) altMode = saAttributes.get(MilStdAttributes.AltitudeMode);
 				if (saAttributes.has(MilStdAttributes.UseDashArray)) useDashArray = saAttributes.get(MilStdAttributes.UseDashArray).toLowerCase() === "true";
+				if (saAttributes.has(MilStdAttributes.UseLinePattern)) UseLinePattern = saAttributes.get(MilStdAttributes.UseLinePattern).toLowerCase() === "true";
 				if (saAttributes.has(MilStdAttributes.UsePatternFill)) usePatternFill = saAttributes.get(MilStdAttributes.UsePatternFill).toLowerCase() === "true";
 				if (saAttributes.has(MilStdAttributes.PatternFillType)) parseInt(saAttributes.get(MilStdAttributes.PatternFillType));
 				if (saAttributes.has(MilStdAttributes.HideOptionalLabels)) hideOptionalLabels = saAttributes.get(MilStdAttributes.HideOptionalLabels).toLowerCase() === "true";
@@ -195740,6 +196435,7 @@ var MultiPointHandler = class MultiPointHandler {
 			if (textBackgroundColor != null && textBackgroundColor !== "") symbol.setTextBackgroundColor(RendererUtilities.getColorFromHexString(textBackgroundColor));
 			if (altMode != null) symbol.setAltitudeMode(altMode);
 			symbol.setUseDashArray(useDashArray);
+			symbol.setUseLinePattern(UseLinePattern);
 			symbol.setUseFillPattern(usePatternFill);
 			symbol.setHideOptionalLabels(hideOptionalLabels);
 			symbol.setAltitudeUnit(altitudeUnit);
@@ -198495,5 +199191,5 @@ function isReady() {
 }
 
 //#endregion
-export { AffiliationColors, Basic3DShapes, BasicShapes, C2DLookup, Color, DistanceUnit, DrawRules, ErrorLogger, Font, GENCLookup, LogLevel, MODrawRules, MSInfo, MSLookup, MilStdAttributes, MilStdIconRenderer, MilStdSymbol, Modifiers, Point, Point2D, PointConverter3D, Rectangle2D, RendererSettings, RendererUtilities, SVGInfo, SVGLookup, SVGSymbolInfo, SectorModUtils, ShapeInfo, SymbolID, SymbolUtilities, WebRenderer, clsRenderer, init, initialize, isReady };
+export { AffiliationColors, Basic3DShapes, BasicShapes, C2DLookup, Color, DistanceUnit, DrawRules, ErrorLogger, Font, GENCLookup, LinePattern, LogLevel, MODrawRules, MSInfo, MSLookup, MilStdAttributes, MilStdIconRenderer, MilStdSymbol, Modifiers, Point, Point2D, PointConverter3D, Rectangle2D, RendererSettings, RendererUtilities, SVGInfo, SVGLookup, SVGSymbolInfo, SectorModUtils, ShapeInfo, SymbolID, SymbolUtilities, WebRenderer, clsRenderer, init, initialize, isReady };
 //# sourceMappingURL=C5Ren.mjs.map

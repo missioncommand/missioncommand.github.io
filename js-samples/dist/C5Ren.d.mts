@@ -1322,6 +1322,10 @@ declare class MilStdAttributes {
    */
   static readonly PatternFillType: string;
   /**
+   * Experimental feature only for use with MilStdSymbol Rendering at this time
+   */
+  static readonly UseLinePattern: string;
+  /**
    * The conversion factor and the label that you want all distances to display in. The conversion factor
    * is converting from meters. The default unit is meters.<br><br>
    *
@@ -3622,7 +3626,7 @@ declare class C2DLookup {
   isReady(): boolean;
   private init;
   /**
-   * Take a complete 15 character 2525C symbol code and converts it to 2525D if there is a match.
+   * Take a complete 15 character 2525C symbol code and converts it to a 2525D/E if there is a match.
    * Returns null if no match.
    * @param symbolID 15 character 2525C symbol code.
    * @param includeCountryCode default true, Update the country code as well.
@@ -3999,6 +4003,12 @@ declare class SymbolUtilities {
    * @return
    */
   static getDefaultLineColor(symbolID: string): Color | null;
+  /**
+  * METOCs and several Control measures have colors that should not change
+  * @param symbolID 20-30 character id string for symbol
+  * @return true if color should not change
+  */
+  static hasStaticLineColor(symbolID: string): boolean;
   /**
    * Checks if a symbol should be filled by default
    *
@@ -5279,6 +5289,17 @@ declare class SymbolID {
   static getFrameShape(symbolID: string): string;
 }
 //#endregion
+//#region src/main/ts/armyc2/c5isr/JavaLineArray/LinePattern.d.ts
+declare class LinePattern {
+  private svg;
+  private vOffset;
+  constructor(svgPattern: string | null, verticalOffset: number);
+  getLinePatternSVG(): string | null;
+  getLinePatternVerticalOffset(): number;
+  static supportsLinePattern(symbolCode: string): boolean;
+  static getLinePattern(symbolCode: string, lineColor: Color, fillColor: Color | null, lineWidth: number): LinePattern | null;
+}
+//#endregion
 //#region src/main/ts/armyc2/c5isr/graphics2d/AffineTransform.d.ts
 declare class AffineTransform {
   constructor();
@@ -5695,6 +5716,7 @@ declare class ShapeInfo {
    */
   private _shader;
   private _patternFillInfo;
+  private _linePattern;
   private _justify;
   private _Polylines;
   constructor();
@@ -5830,6 +5852,8 @@ declare class ShapeInfo {
   getShader(): ImageBitmap;
   setPatternFillImage(img: SVGSymbolInfo): void;
   getPatternFillImage(): string;
+  setLinePattern(lp: LinePattern): void;
+  getLinePattern(): LinePattern;
   getPatternFillImageInfo(): SVGSymbolInfo;
   getTextJustify(): int;
   setTextJustify(value: int): void;
@@ -5878,6 +5902,7 @@ declare class MilStdSymbol {
   private static _AltitudeUnit;
   private static _DistanceUnit;
   private static _useDashArray;
+  private static _useLinePattern;
   private static _hideOptionalLabels;
   private static _DrawAffiliationModifierAsLabel;
   private static _UseLineInterpolation;
@@ -5950,6 +5975,8 @@ declare class MilStdSymbol {
   setDistanceUnit(unit: DistanceUnit): void;
   getUseDashArray(): boolean;
   setUseDashArray(value: boolean): void;
+  getUseLinePattern(): boolean;
+  setUseLinePattern(value: boolean): void;
   getHideOptionalLabels(): boolean;
   setHideOptionalLabels(value: boolean): void;
   setUseLineInterpolation(value: boolean): void;
@@ -6932,6 +6959,9 @@ declare class TGLight {
   protected _useHatchFill: boolean;
   get_UseHatchFill(): boolean;
   set_UseHatchFill(value: boolean): void;
+  protected _useLinePattern: boolean;
+  get_UseLinePattern(): boolean;
+  set_UseLinePattern(value: boolean): void;
   private _wasClipped;
   set_WasClipped(value: boolean): void;
   get_WasClipped(): boolean;
@@ -6979,7 +7009,7 @@ declare class clsRenderer {
    * @param converter geographic to pixels to converter
    * @return MilstdSymbol object
    */
-  static createMilStdSymboFromTGLight(tg: TGLight, converter: IPointConversion): MilStdSymbol;
+  static createMilStdSymbolFromTGLight(tg: TGLight, converter: IPointConversion): MilStdSymbol;
   /**
    * Build a tactical graphic object from the client MilStdSymbol
    *
@@ -7674,5 +7704,5 @@ declare function init(location?: string): Promise<void>;
  */
 declare function isReady(): boolean;
 //#endregion
-export { AffiliationColors, Basic3DShapes, BasicShapes, C2DLookup, Color, DistanceUnit, DrawRules, ErrorLogger, Font, GENCLookup, type IPointConversion, LogLevel, MODrawRules, MSInfo, MSLookup, MilStdAttributes, MilStdIconRenderer, MilStdSymbol, Modifiers, Point, Point2D, PointConverter3D, Rectangle2D, RendererSettings, RendererUtilities, SVGInfo, SVGLookup, SVGSymbolInfo, SectorModUtils, ShapeInfo, SymbolID, SymbolUtilities, WebRenderer, clsRenderer, init, initialize, isReady };
+export { AffiliationColors, Basic3DShapes, BasicShapes, C2DLookup, Color, DistanceUnit, DrawRules, ErrorLogger, Font, GENCLookup, type IPointConversion, LinePattern, LogLevel, MODrawRules, MSInfo, MSLookup, MilStdAttributes, MilStdIconRenderer, MilStdSymbol, Modifiers, Point, Point2D, PointConverter3D, Rectangle2D, RendererSettings, RendererUtilities, SVGInfo, SVGLookup, SVGSymbolInfo, SectorModUtils, ShapeInfo, SymbolID, SymbolUtilities, WebRenderer, clsRenderer, init, initialize, isReady };
 //# sourceMappingURL=C5Ren.d.mts.map
