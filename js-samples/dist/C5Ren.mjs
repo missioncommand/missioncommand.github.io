@@ -29812,7 +29812,7 @@ var RendererUtilities = class RendererUtilities {
 		return 0;
 	}
 	static calculateOutlineWidth() {
-		return RendererSettings.getInstance().getDeviceDPI() > 100 ? RendererSettings.getInstance().getDeviceDPI() / 96 * 3 : 3;
+		return RendererSettings.getInstance().getDeviceDPI() > 240 ? RendererSettings.getInstance().getDeviceDPI() / 240 * 2 + 1 : 3;
 	}
 	static scaleIcon(symbolID, icon) {
 		let retVal = icon;
@@ -97922,7 +97922,7 @@ var SVGLookup = class SVGLookup {
 //#region src/main/ts/armyc2/c5isr/renderer/utilities/SymbolID.ts
 /**
 * Utility class for helping to parse out parts of the symbol ID.
-*
+* Integer interactions based interactions vs SymbolID2 which focuses more on String and Char based interactions
 */
 var SymbolID = class SymbolID {
 	static Version_APP6D = 10;
@@ -97936,12 +97936,12 @@ var SymbolID = class SymbolID {
 	* @deprecated withdrawn from standard
 	*/
 	static Version_APP6Dch2 = 12;
-	/**
+	/**E
 	* @deprecated use 2525Ech1
 	*/
 	static Version_2525E = 13;
 	/**
-	* @deprecated use APP6EEch2
+	* @deprecated use APP6Ech2
 	*/
 	static Version_APP6Ech1 = 14;
 	static Version_2525Ech1 = 15;
@@ -98023,7 +98023,12 @@ var SymbolID = class SymbolID {
 	static HQTFD_FeintDummy_TaskForce = 5;
 	static HQTFD_TaskForce_Headquarters = 6;
 	static HQTFD_FeintDummy_TaskForce_Headquarters = 7;
-	static HQTFD_VersionExtensionFlag = 9;
+	static HQTFD_Unmanned_Marker = 8;
+	static HQTFD_Unmanned_Marker_Autonomous = 9;
+	static HQTFD_Unmanned_Marker_Remotely_Piloted = 10;
+	static HQTFD_Unmanned_Marker_FeintDummy = 11;
+	static HQTFD_Unmanned_Marker_Autonomous_FeintDummy = 12;
+	static HQTFD_Unmanned_Marker_Remotely_Piloted_FeintDummy = 13;
 	static Echelon_Unknown = 0;
 	static Echelon_Team_Crew = 11;
 	static Echelon_Squad = 12;
@@ -98102,7 +98107,7 @@ var SymbolID = class SymbolID {
 		} else return symbolID;
 	}
 	/**
-	* Gets the version number from the Symbol ID at positions 3-4.
+	* Gets the Standard Identity from the Symbol ID at positions 3-4.
 	* Restricted and No-Strike values are NATO only.
 	* @param symbolID 30 character string
 	* @return number, number will not be padded if it starts with a '0'
@@ -98112,7 +98117,7 @@ var SymbolID = class SymbolID {
 		else return 0;
 	}
 	/**
-	* Sets the version number of the Symbol ID at positions 3-4
+	* Sets the Standard Identity of the Symbol ID at positions 3-4
 	* @param symbolID 30 character string
 	* @param si number If number is a single digit, will pad with a '0' before inserting into symbol ID
 	* @return updated 30 character string symbol ID
@@ -98186,7 +98191,7 @@ var SymbolID = class SymbolID {
 		else return symbolID;
 	}
 	/**
-	* Get Symbol Set from position 7
+	* Get Status from position 7
 	* @param symbolID 30 Character string
 	* @return number like {@link SymbolID.Status_Present}
 	*/
@@ -98195,7 +98200,7 @@ var SymbolID = class SymbolID {
 		else return 0;
 	}
 	/**
-	* Set Symbol Set at position 7
+	* Set Status at position 7
 	* @param symbolID 30 Character string
 	* @param status like {@link SymbolID.Status_Present}
 	* @return string updated Symbol ID.
@@ -98206,24 +98211,32 @@ var SymbolID = class SymbolID {
 		else return symbolID;
 	}
 	/**
-	* Get Symbol Set from position 8
+	* Get HQTFD from position 8
 	* @param symbolID 30 Character string
 	* @return number like {@link SymbolID.HQTFD_Headquarters}
 	*/
 	static getHQTFD(symbolID) {
-		if (symbolID != null && symbolID.length >= 20) return parseInt(symbolID.substring(7, 8));
-		else return 0;
+		if (symbolID !== null && symbolID !== void 0 && symbolID.length >= 20) {
+			const hqtfd = symbolID.charAt(7);
+			const value = parseInt(hqtfd, 16);
+			return isNaN(value) ? 0 : value;
+		}
+		return 0;
 	}
 	/**
-	* Set Symbol Set at position 8
+	* Set HQTFD at position 8
 	* @param symbolID 30 Character string
 	* @param HQTFD like {@link SymbolID.HQTFD_Headquarters}
 	* @return string updated Symbol ID.
 	*/
 	static setHQTFD(symbolID, HQTFD) {
-		let strHQTFD = HQTFD.toString();
-		if (symbolID != null && symbolID.length >= 20 && strHQTFD.length === 1) return symbolID.substring(0, 7) + strHQTFD + symbolID.substring(8);
-		else return symbolID;
+		if (symbolID !== null && symbolID !== void 0 && symbolID.length >= 20) {
+			if (HQTFD >= 0 && HQTFD <= 15) {
+				const hexChar = HQTFD.toString(16).toUpperCase();
+				return symbolID.substring(0, 7) + hexChar + symbolID.substring(8);
+			}
+		}
+		return symbolID;
 	}
 	/**
 	* Get Amplifier Descriptor which can describe things like
@@ -98355,10 +98368,9 @@ var SymbolID = class SymbolID {
 	* @return string
 	*/
 	static setCommonModifier1(symbolID, mod1I) {
-		let newID = symbolID.toString();
 		let mod = mod1I.toString();
-		if (symbolID != null && symbolID.length === 30) newID = newID.substring(0, 20) + mod + newID.substring(21);
-		return newID;
+		if (symbolID != null && symbolID.length === 30) return symbolID.substring(0, 20) + mod + symbolID.substring(21);
+		else return symbolID;
 	}
 	/**
 	* Get Sector 2 Modifier from positions 17-18.
@@ -98417,10 +98429,9 @@ var SymbolID = class SymbolID {
 	* @return string
 	*/
 	static setCommonModifier2(symbolID, mod1I) {
-		let newID = symbolID.toString();
 		let mod = mod1I.toString();
-		if (symbolID != null && symbolID.length === 30) newID = newID.substring(0, 21) + mod + newID.substring(22);
-		return newID;
+		if (symbolID != null && symbolID.length === 30) return symbolID.substring(0, 21) + mod + symbolID.substring(22);
+		else return symbolID;
 	}
 	/**
 	* Returns true is symbol is of the Meteorological variety.
@@ -153576,6 +153587,464 @@ var SVGSymbolInfo = class {
 };
 
 //#endregion
+//#region src/main/ts/armyc2/c5isr/renderer/utilities/SymbolID2.ts
+/**
+* Utility class for helping to parse out parts of the symbol ID.
+* String and Char based interactions vs SymbolID which focuses more on Integer interactions
+*/
+var SymbolID2 = class {
+	static Version_APP6D = "10";
+	/**
+	* @deprecated 2525D(10) will be treated like APP6D(also 10)
+	* For 2525D use 2525Dch1(11)
+	*/
+	static Version_2525D = "10";
+	static Version_2525Dch1 = "11";
+	/**
+	* @deprecated withdrawn from standard
+	*/
+	static Version_APP6Dch2 = "12";
+	/**
+	* @deprecated use 2525Ech1
+	*/
+	static Version_2525E = "13";
+	/**
+	* @deprecated use APP6Ech2
+	*/
+	static Version_APP6Ech1 = "14";
+	static Version_2525Ech1 = "15";
+	static Version_APP6Ech2 = "16";
+	static StandardIdentity_Context_Reality = "0";
+	static StandardIdentity_Context_Exercise = "1";
+	static StandardIdentity_Context_Simulation = "2";
+	static StandardIdentity_Context_Restricted_Target_Reality = "3";
+	static StandardIdentity_Context_No_Strike_Entity_Reality = "4";
+	static StandardIdentity_Affiliation_Pending = "0";
+	static StandardIdentity_Affiliation_Unknown = "1";
+	static StandardIdentity_Affiliation_AssumedFriend = "2";
+	static StandardIdentity_Affiliation_Friend = "3";
+	static StandardIdentity_Affiliation_Neutral = "4";
+	static StandardIdentity_Affiliation_Suspect_Joker = "5";
+	static StandardIdentity_Affiliation_Hostile_Faker = "6";
+	static SymbolSet_Unknown = "00";
+	static SymbolSet_Air = "01";
+	static SymbolSet_AirMissile = "02";
+	static SymbolSet_Space = "05";
+	static SymbolSet_SpaceMissile = "06";
+	static SymbolSet_LandUnit = "10";
+	static SymbolSet_LandCivilianUnit_Organization = "11";
+	static SymbolSet_LandEquipment = "15";
+	static SymbolSet_LandInstallation = "20";
+	static SymbolSet_ControlMeasure = "25";
+	static SymbolSet_DismountedIndividuals = "27";
+	static SymbolSet_SeaSurface = "30";
+	static SymbolSet_SeaSubsurface = "35";
+	static SymbolSet_MineWarfare = "36";
+	static SymbolSet_Activities = "40";
+	static SymbolSet_Atmospheric = "45";
+	static SymbolSet_Oceanographic = "46";
+	static SymbolSet_MeteorologicalSpace = "47";
+	static SymbolSet_SignalsIntelligence = "50";
+	static SymbolSet_CyberSpace = "60";
+	/**
+	* APP6Ev2 only
+	*/
+	static SymbolSet_CyberSpace_Equipment = "64";
+	static SymbolSet_InvalidSymbol = "98";
+	static Status_Present = "0";
+	static Status_Planned_Anticipated_Suspect = "1";
+	static Status_Present_FullyCapable = "2";
+	static Status_Present_Damaged = "3";
+	static Status_Present_Destroyed = "4";
+	static Status_Present_FullToCapacity = "5";
+	static HQTFDU_Unknown = "0";
+	static HQTFDU_FeintDummy = "1";
+	static HQTFDU_Headquarters = "2";
+	static HQTFDU_FeintDummy_Headquarters = "3";
+	static HQTFDU_TaskForce = "4";
+	static HQTFDU_FeintDummy_TaskForce = "5";
+	static HQTFDU_TaskForce_Headquarters = "6";
+	static HQTFDU_FeintDummy_TaskForce_Headquarters = "7";
+	static HQTFDU_Unmanned_Marker = "8";
+	static HQTFDU_Unmanned_Marker_Autonomous = "9";
+	static HQTFDU_Unmanned_Marker_Remotely_Piloted = "A";
+	static HQTFDU_Unmanned_Marker_FeintDummy = "B";
+	static HQTFDU_Unmanned_Marker_Autonomous_FeintDummy = "C";
+	static HQTFDU_Unmanned_Marker_Remotely_Piloted_FeintDummy = "D";
+	static Echelon_Unknown = "00";
+	static Echelon_Team_Crew = "11";
+	static Echelon_Squad = "12";
+	static Echelon_Section = "13";
+	static Echelon_Platoon_Detachment = "14";
+	static Echelon_Company_Battery_Troop = "15";
+	static Echelon_Battalion_Squadron = "16";
+	static Echelon_Regiment_Group = "17";
+	static Echelon_Brigade = "18";
+	static Echelon_VersionExtensionFlag = "19";
+	static Echelon_Division = "21";
+	static Echelon_Corps_MEF = "22";
+	static Echelon_Army = "23";
+	static Echelon_ArmyGroup_Front = "24";
+	static Echelon_Region_Theater = "25";
+	static Echelon_Region_Command = "26";
+	static Echelon_VersionExtensionFlag2 = "29";
+	static Mobility_Unknown = "00";
+	static Mobility_WheeledLimitedCrossCountry = "31";
+	static Mobility_WheeledCrossCountry = "32";
+	static Mobility_Tracked = "33";
+	static Mobility_Wheeled_Tracked = "34";
+	static Mobility_Towed = "35";
+	static Mobility_Rail = "36";
+	static Mobility_PackAnimals = "37";
+	static Mobility_OverSnow = "41";
+	static Mobility_Sled = "42";
+	static Mobility_Barge = "51";
+	static Mobility_Amphibious = "52";
+	static Mobility_ShortTowedArray = "61";
+	static Mobility_LongTowedArray = "62";
+	static Leadership_Individual = "71";
+	static FrameShape_Unknown = "0";
+	static FrameShape_Space = "1";
+	static FrameShape_Air = "2";
+	static FrameShape_LandUnit = "3";
+	static FrameShape_LandEquipment = "4";
+	static FrameShape_LandInstallation = "5";
+	static FrameShape_DismountedIndividuals = "6";
+	static FrameShape_SeaSubsurface = "7";
+	static FrameShape_Activity_Event = "8";
+	static FrameShape_Cyberspace = "9";
+	static FrameShape_SeaSurface = "A";
+	/**
+	* Attempts to resolve a bad symbol ID into a value that can be found in {@link MSLookup}.
+	* If it fails, it will return the symbol code for an invalid symbol which is displayed as
+	* an inverted question mark (110098000010000000000000000000)
+	* @param symbolID 30 character {@link String}
+	* @return 30 character {@link String} representing the resolved symbol ID.
+	* @deprecated See {@link SymbolUtilities#reconcileSymbolID(string)}
+	*/
+	static reconcileSymbolID(symbolID) {
+		return SymbolUtilities.reconcileSymbolID(symbolID);
+	}
+	/**
+	* Gets the version number from the Symbol ID at positions 1-2
+	* @param symbolID 30 character {@link String}
+	* @return {@link String} like {@link SymbolID2#Version_2525Dch1} (11)
+	*/
+	static getVersion(symbolID) {
+		return symbolID.substring(0, 2);
+	}
+	/**
+	* Sets the version number of the Symbol ID at positions 1-2
+	* @param symbolID 30 character {@link String}
+	* @param ver {@link String} like {@link SymbolID2#Version_2525Dch1} (11)
+	* @return updated 30 character {@link String} symbol ID
+	*/
+	static setVersion(symbolID, ver) {
+		if (symbolID !== null && symbolID.length >= 20 && ver !== null && ver.length === 2) return ver + symbolID.substring(2);
+		else return symbolID;
+	}
+	/**
+	* Get Context (Reality (0), Exercise (1), Simulation (2)) at position 3
+	* Higher values are NATO only
+	* @param symbolID 30 Character {@link String}
+	* @return {@link String} (represented as a string in TS since there is no char type)
+	*/
+	static getContext(symbolID) {
+		if (symbolID !== null && symbolID.length >= 20) return symbolID.charAt(2);
+		else return "0";
+	}
+	/**
+	* Set Context (Reality (0), Exercise (1), Simulation (2)) at position 3
+	* @param symbolID 30 Character {@link String}
+	* @param context {@link String}
+	* @return {@link String} updated Symbol ID.
+	*/
+	static setContext(symbolID, context) {
+		if (symbolID !== null && symbolID.length >= 20) return symbolID.substring(0, 2) + context + symbolID.substring(3);
+		else return symbolID;
+	}
+	/**
+	* Get Affiliation from position 4
+	* @param symbolID 30 Character {@link String}
+	* @return {@link String} like {@link SymbolID2#StandardIdentity_Affiliation_Friend}
+	*/
+	static getAffiliation(symbolID) {
+		if (symbolID !== null && symbolID.length >= 20) return symbolID.charAt(3);
+		else return "0";
+	}
+	/**
+	* Set Affiliation at position 4
+	* @param symbolID 30 Character {@link String}
+	* @param affiliation like {@link SymbolID2#StandardIdentity_Affiliation_Friend}
+	* @return {@link String} updated Symbol ID.
+	*/
+	static setAffiliation(symbolID, affiliation) {
+		if (symbolID !== null && symbolID.length >= 20) return symbolID.substring(0, 3) + affiliation + symbolID.substring(4);
+		else return symbolID;
+	}
+	/**
+	* Get Symbol Set from positions 5-6
+	* @param symbolID 30 Character {@link String}
+	* @return {@link String} like {@link SymbolID2#SymbolSet_LandCivilianUnit_Organization}
+	*/
+	static getSymbolSet(symbolID) {
+		if (symbolID !== null && symbolID.length >= 20) return symbolID.substring(4, 6);
+		else return "00";
+	}
+	/**
+	* Set Symbol Set at positions 5-6
+	* @param symbolID 30 Character {@link String}
+	* @param ss like {@link SymbolID2#SymbolSet_LandCivilianUnit_Organization}
+	* @return {@link String} updated Symbol ID.
+	*/
+	static setSymbolSet(symbolID, ss) {
+		if (symbolID !== null && symbolID.length >= 20 && ss !== null && ss.length === 2) return symbolID.substring(0, 4) + ss + symbolID.substring(6);
+		else return symbolID;
+	}
+	/**
+	* Get Status from position 7
+	* @param symbolID 30 Character {@link String}
+	* @return {@link String} like {@link SymbolID2#Status_Present}
+	*/
+	static getStatus(symbolID) {
+		if (symbolID !== null && symbolID.length >= 20) return symbolID.charAt(6);
+		else return "0";
+	}
+	/**
+	* Set Status at position 7
+	* @param symbolID 30 Character {@link String}
+	* @param status like {@link SymbolID2#Status_Present}
+	* @return {@link String} updated Symbol ID.
+	*/
+	static setStatus(symbolID, status) {
+		return symbolID.substring(0, 6) + status + symbolID.substring(7);
+	}
+	/**
+	* Get HQTFDU from position 8
+	* @param symbolID 30 Character {@link String}
+	* @return {@link String} like {@link SymbolID2#HQTFDU_Headquarters}
+	*/
+	static getHQTFDU(symbolID) {
+		if (symbolID !== null && symbolID.length >= 20) return symbolID.charAt(7);
+		else return "0";
+	}
+	/**
+	* Set HQTFDU at position 8
+	* @param symbolID 30 Character {@link String}
+	* @param hqtfdu like {@link SymbolID2#HQTFDU_Headquarters}
+	* @return {@link String} updated Symbol ID.
+	*/
+	static setHQTFDU(symbolID, hqtfdu) {
+		if (symbolID !== null && symbolID.length >= 20) return symbolID.substring(0, 7) + hqtfdu + symbolID.substring(8);
+		else return symbolID;
+	}
+	/**
+	* Get Amplifier Descriptor which can describe things like
+	* Echelon / Mobility / Towed Array / Leadership Indicator from positions 9-10
+	* @param symbolID 30 Character {@link String}
+	* @return {@link String}
+	*/
+	static getAmplifierDescriptor(symbolID) {
+		if (symbolID !== null && symbolID.length >= 20) return symbolID.substring(8, 10);
+		else return "00";
+	}
+	/**
+	* Set Amplifier Descriptor which can describe things like
+	* Echelon / Mobility / Towed Array / Leadership Indicator at positions 9-10
+	* @param symbolID 30 Character {@link String}
+	* @param ad {@link String}
+	* @return {@link String}
+	*/
+	static setAmplifierDescriptor(symbolID, ad) {
+		if (symbolID !== null && symbolID.length >= 20 && ad !== null && ad.length === 2) return symbolID.substring(0, 8) + ad + symbolID.substring(10);
+		else return symbolID;
+	}
+	/**
+	* Get Entity Code from positions 11-16.
+	* These six digits identify a unique symbol within a symbol set.
+	* @param symbolID 30 Character {@link String}
+	* @return {@link String}
+	*/
+	static getEntityCode(symbolID) {
+		if (symbolID !== null && symbolID.length >= 20) return symbolID.substring(10, 16);
+		else return "000000";
+	}
+	/**
+	* Set Entity Code at positions 11-16.
+	* These six digits identify a unique symbol within a symbol set.
+	* @param symbolID 30 Character {@link String}
+	* @param entityCode {@link String}
+	* @return {@link String}
+	*/
+	static setEntityCode(symbolID, entityCode) {
+		if (symbolID !== null && symbolID.length >= 20 && entityCode !== null && entityCode.length === 6) return symbolID.substring(0, 10) + entityCode + symbolID.substring(16);
+		else return symbolID;
+	}
+	/**
+	* Get Entity from positions 11-12.
+	* @param symbolID 30 Character {@link String}
+	* @return {@link String}
+	*/
+	static getEntity(symbolID) {
+		if (symbolID !== null && symbolID.length >= 20) return symbolID.substring(10, 12);
+		else return "00";
+	}
+	/**
+	* Get Entity Type from positions 13-14.
+	* @param symbolID 30 Character {@link String}
+	* @return {@link String}
+	*/
+	static getEntityType(symbolID) {
+		if (symbolID !== null && symbolID.length >= 20) return symbolID.substring(12, 14);
+		else return "00";
+	}
+	/**
+	* Get Entity Subtype from positions 15-16.
+	* @param symbolID 30 Character {@link String}
+	* @return {@link String}
+	*/
+	static getEntitySubtype(symbolID) {
+		if (symbolID !== null && symbolID.length >= 20) return symbolID.substring(14, 16);
+		else return "00";
+	}
+	/**
+	* Get Sector 1 Modifier from positions 17-18.
+	* @param symbolID 30 Character {@link String}
+	* @return {@link String}
+	*/
+	static getModifier1(String$1) {
+		if (String$1 !== null && String$1.length >= 20) return String$1.substring(16, 18);
+		else return "00";
+	}
+	/**
+	* Get Sector 1 Modifier to positions 17-18.
+	* @param symbolID 30 Character {@link String}
+	* @param mod1 {@link String} hex string from "00" to "FF"
+	* @return {@link String}
+	*/
+	static setModifier1(symbolID, mod1) {
+		let newID = symbolID;
+		let mod = mod1;
+		if (mod === null || mod1 === "" || mod.length > 2) mod = "00";
+		else if (mod.length === 1) mod = "0" + mod;
+		if (symbolID !== null && symbolID.length >= 20) newID = newID.substring(0, 16) + mod + newID.substring(18);
+		return newID;
+	}
+	/**
+	* Get Common Sector 1 Modifier from position 21.
+	* @param symbolID 30 Character {@link String}
+	* @return {@link String}
+	*/
+	static getCommonModifier1(symbolID) {
+		if (symbolID !== null && symbolID.length === 30) return symbolID.charAt(20);
+		else return "0";
+	}
+	/**
+	* Set Common Sector 1 Modifier at position 21.
+	* @param symbolID 30 Character {@link String}
+	* @param mod1I {@link String}
+	* @return {@link String}
+	*/
+	static setCommonModifier1(symbolID, mod1I) {
+		if (symbolID !== null && symbolID.length === 30) return symbolID.substring(0, 20) + mod1I + symbolID.substring(21);
+		else return symbolID;
+	}
+	/**
+	* Get Sector 2 Modifier from positions 17-18.
+	* @param symbolID 30 Character {@link String}
+	* @return {@link String}
+	*/
+	static getModifier2(symbolID) {
+		if (symbolID !== null && symbolID.length >= 20) return symbolID.substring(18, 20);
+		else return "00";
+	}
+	/**
+	* Set Sector 2 Modifier to positions 17-18.
+	* @param symbolID 30 Character {@link String}
+	* @param mod2 {@link String} hex string from "00" to "FF"
+	* @return {@link String}
+	*/
+	static setModifier2(symbolID, mod2) {
+		let newID = symbolID;
+		let mod = mod2;
+		if (mod === null || mod2 === "" || mod.length > 2) mod = "00";
+		else if (mod.length === 1) mod = "0" + mod;
+		if (symbolID !== null && symbolID.length >= 20) newID = newID.substring(0, 18) + mod + newID.substring(20);
+		return newID;
+	}
+	/**
+	* Get Common Sector 2 Modifier from position 22.
+	* @param symbolID 30 Character {@link String}
+	* @return {@link String}
+	*/
+	static getCommonModifier2(symbolID) {
+		if (symbolID !== null && symbolID.length === 30) return symbolID.charAt(21);
+		else return "0";
+	}
+	/**
+	* Set Common Sector 2 Modifier at position 22.
+	* @param symbolID 30 Character {@link String}
+	* @param mod2I {@link String}
+	* @return {@link String}
+	*/
+	static setCommonModifier2(symbolID, mod2I) {
+		if (symbolID !== null && symbolID.length === 30) return symbolID.substring(0, 21) + mod2I + symbolID.substring(22);
+		else return symbolID;
+	}
+	/**
+	* In 2525E, position 23 of the symbol code has the Frame Shape modifier.
+	* This lets a user force a different frame shape than what a symbol would normally have.
+	* This function returns the frame shape value for what the default frame would be for a specific symbol set.
+	* @param symbolID 30 Character {@link String}
+	* @return {@link String}
+	*/
+	static getDefaultFrameShape(symbolID) {
+		return SymbolID.getDefaultFrameShape(symbolID);
+	}
+	/**
+	* @param symbolID 30 character symbol ID
+	* @param frameShape like SymbolID.FrameShape_LandEquipment
+	* @return updated 30 character symbolID
+	*/
+	static setFrameShape(symbolID, frameShape) {
+		if (symbolID !== null && symbolID.length >= 23) return symbolID.substring(0, 22) + frameShape + symbolID.substring(23);
+		else return symbolID;
+	}
+	/**
+	* Gets the Frame Shape override from position 23.
+	* @param symbolID 30 Character {@link String}
+	* @return {@link String}
+	*/
+	static getFrameShape(symbolID) {
+		if (symbolID !== null && symbolID.length >= 23) return symbolID.charAt(22);
+		else return "0";
+	}
+	/**
+	* Gets the 3 digit country code from positions 28-30
+	* @param symbolID 30 Character {@link String}
+	* @return {@link String}
+	*/
+	static getCountryCode(symbolID) {
+		if (symbolID !== null && symbolID.length === 30) return symbolID.substring(27, 30);
+		else return "000";
+	}
+	/**
+	* Sets the country code on the symbol code
+	* @param symbolID 30 Character string
+	* @param countryCode country code like "840" for USA or "076" for Brazil
+	* @return updated 30 character symbolID
+	*/
+	static setCountryCode(symbolID, countryCode) {
+		let code = countryCode;
+		if (symbolID !== null && symbolID.length >= 20) {
+			if (code.length > 3) code = code.substring(0, 3);
+			while (code.length < 3) code = "0" + code;
+			return symbolID.substring(0, 27) + code;
+		} else return symbolID;
+	}
+};
+
+//#endregion
 //#region src/main/ts/armyc2/c5isr/graphics2d/IPathIterator.ts
 let IPathIterator;
 (function(_IPathIterator) {
@@ -165912,7 +166381,7 @@ var ModifierRenderer = class ModifierRenderer {
 		}
 		let tfBounds;
 		let tfRectangle;
-		SymbolID.getHQTFD(symbolID);
+		let hqtfd = SymbolID.getHQTFD(symbolID);
 		if (SymbolUtilities.isTaskForce(symbolID) && SymbolUtilities.hasModifier(symbolID, Modifiers.D_TASK_FORCE_INDICATOR)) {
 			let height = Math.round(symbolBounds.getHeight() / 4);
 			let width = Math.round(symbolBounds.getWidth() / 3);
@@ -166136,6 +166605,46 @@ var ModifierRenderer = class ModifierRenderer {
 			nsBounds.grow(Math.ceil(nsStrokeWidth / 2));
 			imageBounds = imageBounds.createUnion(nsBounds);
 		}
+		let umBounds = null;
+		let umSVG = null;
+		let umStrokeWidth = 2;
+		if (pixelSize <= 50) umStrokeWidth = 1;
+		if (hqtfd == SymbolID.HQTFD_Unmanned_Marker || hqtfd == SymbolID.HQTFD_Unmanned_Marker_Autonomous || hqtfd == SymbolID.HQTFD_Unmanned_Marker_Remotely_Piloted || hqtfd == SymbolID.HQTFD_Unmanned_Marker_FeintDummy || hqtfd == SymbolID.HQTFD_Unmanned_Marker_Autonomous_FeintDummy || hqtfd == SymbolID.HQTFD_Unmanned_Marker_Remotely_Piloted_FeintDummy) {
+			umBounds = new Rectangle2D(174, 280, 63, 61);
+			let umStroke = "#000000";
+			let umFill = "#FFFFFF";
+			if (hqtfd == SymbolID.HQTFD_Unmanned_Marker_Autonomous || hqtfd == SymbolID.HQTFD_Unmanned_Marker_Autonomous_FeintDummy) {
+				umStroke = "#FFFFFF";
+				umFill = "#000000";
+			}
+			let xOffset = 0;
+			let yOffset = 0;
+			let fs = SymbolID.getFrameShape(symbolID);
+			if (fs == "0") fs = SymbolID.getDefaultFrameShape(symbolID);
+			RectUtilities.roundRect(new Rectangle2D(182.08058166503906, 272.0794677734375, 245.8407440185547, 244.85235595703125)).getWidth() / 2;
+			let affiliation = SymbolID.getAffiliation(symbolID);
+			if (fs == SymbolID.FrameShape_SeaSubsurface || affiliation == SymbolID.StandardIdentity_Affiliation_Neutral || affiliation == SymbolID.StandardIdentity_Affiliation_Friend && (ss == SymbolID.SymbolSet_LandUnit || ss == SymbolID.SymbolSet_LandInstallation || ss == SymbolID.SymbolSet_Activities || ss == SymbolID.SymbolSet_CyberSpace)) {
+				let frameID = SVGLookup.getFrameID(symbolID);
+				xOffset = (205 - SVGLookup.getInstance().getSVGLInfo(frameID, SymbolID.getVersion(symbolID)).getBbox().getX() - 9) * -1;
+			} else if (affiliation == SymbolID.StandardIdentity_Affiliation_Unknown && ss == SymbolID.SymbolSet_SeaSubsurface) {
+				let frameID = SVGLookup.getFrameID(symbolID);
+				let siFrame = SVGLookup.getInstance().getSVGLInfo(frameID, SymbolID.getVersion(symbolID));
+				xOffset = -65;
+				xOffset = (205 - siFrame.getBbox().getX()) * .75 * -1;
+			} else yOffset = -20;
+			let starStart = new Point2D(205, 343.841);
+			let circlePoint = new Point2D(205, 310);
+			starStart.x = starStart.x + xOffset;
+			starStart.y = starStart.y + yOffset;
+			circlePoint.x = circlePoint.x + xOffset;
+			circlePoint.y = circlePoint.y + yOffset;
+			RectUtilities.shift(umBounds, xOffset, yOffset);
+			umSVG = "<g id=\"UM\">\n	";
+			umSVG += "<path stroke=\"" + umStroke + "\" fill=\"" + umFill + "\" stroke-width=\"" + umStrokeWidth + "\" d=\"M" + starStart.x + "," + starStart.y + "c-3.207,-5.299,-5.694,-10.540,-9.796,-15.138c-1.306,-1.614,-2.681,-3.184,-4.121,-4.691c-5.808,-5.497,-12.601,-11.068,-20.332,-13.823c7.731,-2.755,14.524,-8.326,20.332,-13.823c1.440,-1.508,2.816,-3.077,4.121,-4.691c4.102,-4.598,6.590,-9.840,9.796,-15.138c3.207,5.299,5.694,10.540,9.796,15.138c1.306,1.614,2.681,3.184,4.121,4.691c5.808,5.497,12.601,11.068,20.332,13.823c-7.731,2.755,-14.524,8.326,-20.332,13.823c-1.440,1.508,-2.816,3.077,-4.121,4.691c-4.102,4.598,-6.590,9.840,-9.796,15.138z\"/>";
+			if (hqtfd == SymbolID.HQTFD_Unmanned_Marker || hqtfd == SymbolID.HQTFD_Unmanned_Marker_FeintDummy) umSVG += "\n	<circle r=\"7\" cx=\"" + circlePoint.x + "\" cy=\"" + circlePoint.y + "\" fill=\"black\" />";
+			umSVG += "\n</g>";
+			imageBounds = imageBounds.createUnion(umBounds);
+		}
 		if (sdi instanceof SVGSymbolInfo) {
 			let sbSVG = "";
 			let svgStroke = RendererUtilities.colorToHexString(lineColor, false);
@@ -166249,6 +166758,7 @@ var ModifierRenderer = class ModifierRenderer {
 				noStrikeGroup += "</g>";
 				sbSVG += noStrikeGroup;
 			}
+			if (umBounds != null) sbSVG += sbSVG.substring(0, sbSVG.length - 4) + umSVG + "</g>";
 			newsdi = new SVGSymbolInfo(sbSVG.toString().valueOf(), new Point2D(centerPoint.x, centerPoint.y), symbolBounds, imageBounds);
 		}
 		if (newsdi != null) return newsdi;
@@ -199191,5 +199701,5 @@ function isReady() {
 }
 
 //#endregion
-export { AffiliationColors, Basic3DShapes, BasicShapes, C2DLookup, Color, DistanceUnit, DrawRules, ErrorLogger, Font, GENCLookup, LinePattern, LogLevel, MODrawRules, MSInfo, MSLookup, MilStdAttributes, MilStdIconRenderer, MilStdSymbol, Modifiers, Point, Point2D, PointConverter3D, Rectangle2D, RendererSettings, RendererUtilities, SVGInfo, SVGLookup, SVGSymbolInfo, SectorModUtils, ShapeInfo, SymbolID, SymbolUtilities, WebRenderer, clsRenderer, init, initialize, isReady };
+export { AffiliationColors, Basic3DShapes, BasicShapes, C2DLookup, Color, DistanceUnit, DrawRules, ErrorLogger, Font, GENCLookup, LinePattern, LogLevel, MODrawRules, MSInfo, MSLookup, MilStdAttributes, MilStdIconRenderer, MilStdSymbol, Modifiers, Point, Point2D, PointConverter3D, Rectangle2D, RendererSettings, RendererUtilities, SVGInfo, SVGLookup, SVGSymbolInfo, SectorModUtils, ShapeInfo, SymbolID, SymbolID2, SymbolUtilities, WebRenderer, clsRenderer, init, initialize, isReady };
 //# sourceMappingURL=C5Ren.mjs.map

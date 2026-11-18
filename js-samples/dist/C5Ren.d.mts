@@ -4876,7 +4876,7 @@ declare class RendererSettings {
 //#region src/main/ts/armyc2/c5isr/renderer/utilities/SymbolID.d.ts
 /**
  * Utility class for helping to parse out parts of the symbol ID.
- *
+ * Integer interactions based interactions vs SymbolID2 which focuses more on String and Char based interactions
  */
 declare class SymbolID {
   static readonly Version_APP6D = 10;
@@ -4890,12 +4890,12 @@ declare class SymbolID {
    * @deprecated withdrawn from standard
    */
   static readonly Version_APP6Dch2: number;
-  /**
+  /**E
    * @deprecated use 2525Ech1
    */
   static readonly Version_2525E: number;
   /**
-   * @deprecated use APP6EEch2
+   * @deprecated use APP6Ech2
    */
   static readonly Version_APP6Ech1: number;
   static readonly Version_2525Ech1: number;
@@ -4977,7 +4977,12 @@ declare class SymbolID {
   static readonly HQTFD_FeintDummy_TaskForce: number;
   static readonly HQTFD_TaskForce_Headquarters: number;
   static readonly HQTFD_FeintDummy_TaskForce_Headquarters: number;
-  static readonly HQTFD_VersionExtensionFlag: number;
+  static readonly HQTFD_Unmanned_Marker: number;
+  static readonly HQTFD_Unmanned_Marker_Autonomous: number;
+  static readonly HQTFD_Unmanned_Marker_Remotely_Piloted: number;
+  static readonly HQTFD_Unmanned_Marker_FeintDummy: number;
+  static readonly HQTFD_Unmanned_Marker_Autonomous_FeintDummy: number;
+  static readonly HQTFD_Unmanned_Marker_Remotely_Piloted_FeintDummy: number;
   static readonly Echelon_Unknown: number;
   static readonly Echelon_Team_Crew: number;
   static readonly Echelon_Squad: number;
@@ -5044,14 +5049,14 @@ declare class SymbolID {
    */
   static setVersion(symbolID: string, ver: number): string;
   /**
-   * Gets the version number from the Symbol ID at positions 3-4.
+   * Gets the Standard Identity from the Symbol ID at positions 3-4.
    * Restricted and No-Strike values are NATO only.
    * @param symbolID 30 character string
    * @return number, number will not be padded if it starts with a '0'
    */
   static getStandardIdentity(symbolID: string): number;
   /**
-   * Sets the version number of the Symbol ID at positions 3-4
+   * Sets the Standard Identity of the Symbol ID at positions 3-4
    * @param symbolID 30 character string
    * @param si number If number is a single digit, will pad with a '0' before inserting into symbol ID
    * @return updated 30 character string symbol ID
@@ -5098,26 +5103,26 @@ declare class SymbolID {
    */
   static setSymbolSet(symbolID: string, ss: number): string;
   /**
-   * Get Symbol Set from position 7
+   * Get Status from position 7
    * @param symbolID 30 Character string
    * @return number like {@link SymbolID.Status_Present}
    */
   static getStatus(symbolID: string): number;
   /**
-   * Set Symbol Set at position 7
+   * Set Status at position 7
    * @param symbolID 30 Character string
    * @param status like {@link SymbolID.Status_Present}
    * @return string updated Symbol ID.
    */
   static setStatus(symbolID: string, status: number): string;
   /**
-   * Get Symbol Set from position 8
+   * Get HQTFD from position 8
    * @param symbolID 30 Character string
    * @return number like {@link SymbolID.HQTFD_Headquarters}
    */
   static getHQTFD(symbolID: string): number;
   /**
-   * Set Symbol Set at position 8
+   * Set HQTFD at position 8
    * @param symbolID 30 Character string
    * @param HQTFD like {@link SymbolID.HQTFD_Headquarters}
    * @return string updated Symbol ID.
@@ -5287,6 +5292,356 @@ declare class SymbolID {
    * @return string (1 character)
    */
   static getFrameShape(symbolID: string): string;
+}
+//#endregion
+//#region src/main/ts/armyc2/c5isr/renderer/utilities/SymbolID2.d.ts
+/**
+ * Utility class for helping to parse out parts of the symbol ID.
+ * String and Char based interactions vs SymbolID which focuses more on Integer interactions
+ */
+declare class SymbolID2 {
+  static readonly Version_APP6D: string;
+  /**
+   * @deprecated 2525D(10) will be treated like APP6D(also 10)
+   * For 2525D use 2525Dch1(11)
+   */
+  static readonly Version_2525D: string;
+  static readonly Version_2525Dch1: string;
+  /**
+   * @deprecated withdrawn from standard
+   */
+  static readonly Version_APP6Dch2: string;
+  /**
+   * @deprecated use 2525Ech1
+   */
+  static readonly Version_2525E: string;
+  /**
+   * @deprecated use APP6Ech2
+   */
+  static readonly Version_APP6Ech1: string;
+  static readonly Version_2525Ech1: string;
+  static readonly Version_APP6Ech2: string;
+  static readonly StandardIdentity_Context_Reality: string;
+  static readonly StandardIdentity_Context_Exercise: string;
+  static readonly StandardIdentity_Context_Simulation: string;
+  static readonly StandardIdentity_Context_Restricted_Target_Reality: string;
+  static readonly StandardIdentity_Context_No_Strike_Entity_Reality: string;
+  static readonly StandardIdentity_Affiliation_Pending: string;
+  static readonly StandardIdentity_Affiliation_Unknown: string;
+  static readonly StandardIdentity_Affiliation_AssumedFriend: string;
+  static readonly StandardIdentity_Affiliation_Friend: string;
+  static readonly StandardIdentity_Affiliation_Neutral: string;
+  static readonly StandardIdentity_Affiliation_Suspect_Joker: string;
+  static readonly StandardIdentity_Affiliation_Hostile_Faker: string;
+  static readonly SymbolSet_Unknown: string;
+  static readonly SymbolSet_Air: string;
+  static readonly SymbolSet_AirMissile: string;
+  static readonly SymbolSet_Space: string;
+  static readonly SymbolSet_SpaceMissile: string;
+  static readonly SymbolSet_LandUnit: string;
+  static readonly SymbolSet_LandCivilianUnit_Organization: string;
+  static readonly SymbolSet_LandEquipment: string;
+  static readonly SymbolSet_LandInstallation: string;
+  static readonly SymbolSet_ControlMeasure: string;
+  static readonly SymbolSet_DismountedIndividuals: string;
+  static readonly SymbolSet_SeaSurface: string;
+  static readonly SymbolSet_SeaSubsurface: string;
+  static readonly SymbolSet_MineWarfare: string;
+  static readonly SymbolSet_Activities: string;
+  static readonly SymbolSet_Atmospheric: string;
+  static readonly SymbolSet_Oceanographic: string;
+  static readonly SymbolSet_MeteorologicalSpace: string;
+  static readonly SymbolSet_SignalsIntelligence: string;
+  static readonly SymbolSet_CyberSpace: string;
+  /**
+   * APP6Ev2 only
+   */
+  static readonly SymbolSet_CyberSpace_Equipment: string;
+  static readonly SymbolSet_InvalidSymbol: string;
+  static readonly Status_Present: string;
+  static readonly Status_Planned_Anticipated_Suspect: string;
+  static readonly Status_Present_FullyCapable: string;
+  static readonly Status_Present_Damaged: string;
+  static readonly Status_Present_Destroyed: string;
+  static readonly Status_Present_FullToCapacity: string;
+  static readonly HQTFDU_Unknown: string;
+  static readonly HQTFDU_FeintDummy: string;
+  static readonly HQTFDU_Headquarters: string;
+  static readonly HQTFDU_FeintDummy_Headquarters: string;
+  static readonly HQTFDU_TaskForce: string;
+  static readonly HQTFDU_FeintDummy_TaskForce: string;
+  static readonly HQTFDU_TaskForce_Headquarters: string;
+  static readonly HQTFDU_FeintDummy_TaskForce_Headquarters: string;
+  static readonly HQTFDU_Unmanned_Marker: string;
+  static readonly HQTFDU_Unmanned_Marker_Autonomous: string;
+  static readonly HQTFDU_Unmanned_Marker_Remotely_Piloted: string;
+  static readonly HQTFDU_Unmanned_Marker_FeintDummy: string;
+  static readonly HQTFDU_Unmanned_Marker_Autonomous_FeintDummy: string;
+  static readonly HQTFDU_Unmanned_Marker_Remotely_Piloted_FeintDummy: string;
+  static readonly Echelon_Unknown: string;
+  static readonly Echelon_Team_Crew: string;
+  static readonly Echelon_Squad: string;
+  static readonly Echelon_Section: string;
+  static readonly Echelon_Platoon_Detachment: string;
+  static readonly Echelon_Company_Battery_Troop: string;
+  static readonly Echelon_Battalion_Squadron: string;
+  static readonly Echelon_Regiment_Group: string;
+  static readonly Echelon_Brigade: string;
+  static readonly Echelon_VersionExtensionFlag: string;
+  static readonly Echelon_Division: string;
+  static readonly Echelon_Corps_MEF: string;
+  static readonly Echelon_Army: string;
+  static readonly Echelon_ArmyGroup_Front: string;
+  static readonly Echelon_Region_Theater: string;
+  static readonly Echelon_Region_Command: string;
+  static readonly Echelon_VersionExtensionFlag2: string;
+  static readonly Mobility_Unknown: string;
+  static readonly Mobility_WheeledLimitedCrossCountry: string;
+  static readonly Mobility_WheeledCrossCountry: string;
+  static readonly Mobility_Tracked: string;
+  static readonly Mobility_Wheeled_Tracked: string;
+  static readonly Mobility_Towed: string;
+  static readonly Mobility_Rail: string;
+  static readonly Mobility_PackAnimals: string;
+  static readonly Mobility_OverSnow: string;
+  static readonly Mobility_Sled: string;
+  static readonly Mobility_Barge: string;
+  static readonly Mobility_Amphibious: string;
+  static readonly Mobility_ShortTowedArray: string;
+  static readonly Mobility_LongTowedArray: string;
+  static readonly Leadership_Individual: string;
+  static readonly FrameShape_Unknown: string;
+  static readonly FrameShape_Space: string;
+  static readonly FrameShape_Air: string;
+  static readonly FrameShape_LandUnit: string;
+  static readonly FrameShape_LandEquipment: string;
+  static readonly FrameShape_LandInstallation: string;
+  static readonly FrameShape_DismountedIndividuals: string;
+  static readonly FrameShape_SeaSubsurface: string;
+  static readonly FrameShape_Activity_Event: string;
+  static readonly FrameShape_Cyberspace: string;
+  static readonly FrameShape_SeaSurface: string;
+  /**
+   * Attempts to resolve a bad symbol ID into a value that can be found in {@link MSLookup}.
+   * If it fails, it will return the symbol code for an invalid symbol which is displayed as
+   * an inverted question mark (110098000010000000000000000000)
+   * @param symbolID 30 character {@link String}
+   * @return 30 character {@link String} representing the resolved symbol ID.
+   * @deprecated See {@link SymbolUtilities#reconcileSymbolID(string)}
+   */
+  static reconcileSymbolID(symbolID: string): string;
+  /**
+   * Gets the version number from the Symbol ID at positions 1-2
+   * @param symbolID 30 character {@link String}
+   * @return {@link String} like {@link SymbolID2#Version_2525Dch1} (11)
+   */
+  static getVersion(symbolID: string): string;
+  /**
+   * Sets the version number of the Symbol ID at positions 1-2
+   * @param symbolID 30 character {@link String}
+   * @param ver {@link String} like {@link SymbolID2#Version_2525Dch1} (11)
+   * @return updated 30 character {@link String} symbol ID
+   */
+  static setVersion(symbolID: string, ver: string): string;
+  /**
+   * Get Context (Reality (0), Exercise (1), Simulation (2)) at position 3
+   * Higher values are NATO only
+   * @param symbolID 30 Character {@link String}
+   * @return {@link String} (represented as a string in TS since there is no char type)
+   */
+  static getContext(symbolID: string): string;
+  /**
+   * Set Context (Reality (0), Exercise (1), Simulation (2)) at position 3
+   * @param symbolID 30 Character {@link String}
+   * @param context {@link String}
+   * @return {@link String} updated Symbol ID.
+   */
+  static setContext(symbolID: string, context: string): string;
+  /**
+   * Get Affiliation from position 4
+   * @param symbolID 30 Character {@link String}
+   * @return {@link String} like {@link SymbolID2#StandardIdentity_Affiliation_Friend}
+   */
+  static getAffiliation(symbolID: string): string;
+  /**
+   * Set Affiliation at position 4
+   * @param symbolID 30 Character {@link String}
+   * @param affiliation like {@link SymbolID2#StandardIdentity_Affiliation_Friend}
+   * @return {@link String} updated Symbol ID.
+   */
+  static setAffiliation(symbolID: string, affiliation: string): string;
+  /**
+   * Get Symbol Set from positions 5-6
+   * @param symbolID 30 Character {@link String}
+   * @return {@link String} like {@link SymbolID2#SymbolSet_LandCivilianUnit_Organization}
+   */
+  static getSymbolSet(symbolID: string): string;
+  /**
+   * Set Symbol Set at positions 5-6
+   * @param symbolID 30 Character {@link String}
+   * @param ss like {@link SymbolID2#SymbolSet_LandCivilianUnit_Organization}
+   * @return {@link String} updated Symbol ID.
+   */
+  static setSymbolSet(symbolID: string, ss: string): string;
+  /**
+   * Get Status from position 7
+   * @param symbolID 30 Character {@link String}
+   * @return {@link String} like {@link SymbolID2#Status_Present}
+   */
+  static getStatus(symbolID: string): string;
+  /**
+   * Set Status at position 7
+   * @param symbolID 30 Character {@link String}
+   * @param status like {@link SymbolID2#Status_Present}
+   * @return {@link String} updated Symbol ID.
+   */
+  static setStatus(symbolID: string, status: string): string;
+  /**
+   * Get HQTFDU from position 8
+   * @param symbolID 30 Character {@link String}
+   * @return {@link String} like {@link SymbolID2#HQTFDU_Headquarters}
+   */
+  static getHQTFDU(symbolID: string): string;
+  /**
+   * Set HQTFDU at position 8
+   * @param symbolID 30 Character {@link String}
+   * @param hqtfdu like {@link SymbolID2#HQTFDU_Headquarters}
+   * @return {@link String} updated Symbol ID.
+   */
+  static setHQTFDU(symbolID: string, hqtfdu: string): string;
+  /**
+   * Get Amplifier Descriptor which can describe things like
+   * Echelon / Mobility / Towed Array / Leadership Indicator from positions 9-10
+   * @param symbolID 30 Character {@link String}
+   * @return {@link String}
+   */
+  static getAmplifierDescriptor(symbolID: string): string;
+  /**
+   * Set Amplifier Descriptor which can describe things like
+   * Echelon / Mobility / Towed Array / Leadership Indicator at positions 9-10
+   * @param symbolID 30 Character {@link String}
+   * @param ad {@link String}
+   * @return {@link String}
+   */
+  static setAmplifierDescriptor(symbolID: string, ad: string): string;
+  /**
+   * Get Entity Code from positions 11-16.
+   * These six digits identify a unique symbol within a symbol set.
+   * @param symbolID 30 Character {@link String}
+   * @return {@link String}
+   */
+  static getEntityCode(symbolID: string): string;
+  /**
+   * Set Entity Code at positions 11-16.
+   * These six digits identify a unique symbol within a symbol set.
+   * @param symbolID 30 Character {@link String}
+   * @param entityCode {@link String}
+   * @return {@link String}
+   */
+  static setEntityCode(symbolID: string, entityCode: string): string;
+  /**
+   * Get Entity from positions 11-12.
+   * @param symbolID 30 Character {@link String}
+   * @return {@link String}
+   */
+  static getEntity(symbolID: string): string;
+  /**
+   * Get Entity Type from positions 13-14.
+   * @param symbolID 30 Character {@link String}
+   * @return {@link String}
+   */
+  static getEntityType(symbolID: string): string;
+  /**
+   * Get Entity Subtype from positions 15-16.
+   * @param symbolID 30 Character {@link String}
+   * @return {@link String}
+   */
+  static getEntitySubtype(symbolID: string): string;
+  /**
+   * Get Sector 1 Modifier from positions 17-18.
+   * @param symbolID 30 Character {@link String}
+   * @return {@link String}
+   */
+  static getModifier1(String: string): string;
+  /**
+   * Get Sector 1 Modifier to positions 17-18.
+   * @param symbolID 30 Character {@link String}
+   * @param mod1 {@link String} hex string from "00" to "FF"
+   * @return {@link String}
+   */
+  static setModifier1(symbolID: string, mod1: string): string;
+  /**
+   * Get Common Sector 1 Modifier from position 21.
+   * @param symbolID 30 Character {@link String}
+   * @return {@link String}
+   */
+  static getCommonModifier1(symbolID: string): string;
+  /**
+   * Set Common Sector 1 Modifier at position 21.
+   * @param symbolID 30 Character {@link String}
+   * @param mod1I {@link String}
+   * @return {@link String}
+   */
+  static setCommonModifier1(symbolID: string, mod1I: string): string;
+  /**
+   * Get Sector 2 Modifier from positions 17-18.
+   * @param symbolID 30 Character {@link String}
+   * @return {@link String}
+   */
+  static getModifier2(symbolID: string): string;
+  /**
+   * Set Sector 2 Modifier to positions 17-18.
+   * @param symbolID 30 Character {@link String}
+   * @param mod2 {@link String} hex string from "00" to "FF"
+   * @return {@link String}
+   */
+  static setModifier2(symbolID: string, mod2: string): string;
+  /**
+   * Get Common Sector 2 Modifier from position 22.
+   * @param symbolID 30 Character {@link String}
+   * @return {@link String}
+   */
+  static getCommonModifier2(symbolID: string): string;
+  /**
+   * Set Common Sector 2 Modifier at position 22.
+   * @param symbolID 30 Character {@link String}
+   * @param mod2I {@link String}
+   * @return {@link String}
+   */
+  static setCommonModifier2(symbolID: string, mod2I: string): string;
+  /**
+   * In 2525E, position 23 of the symbol code has the Frame Shape modifier.
+   * This lets a user force a different frame shape than what a symbol would normally have.
+   * This function returns the frame shape value for what the default frame would be for a specific symbol set.
+   * @param symbolID 30 Character {@link String}
+   * @return {@link String}
+   */
+  static getDefaultFrameShape(symbolID: string): string;
+  /**
+   * @param symbolID 30 character symbol ID
+   * @param frameShape like SymbolID.FrameShape_LandEquipment
+   * @return updated 30 character symbolID
+   */
+  static setFrameShape(symbolID: string, frameShape: string): string;
+  /**
+   * Gets the Frame Shape override from position 23.
+   * @param symbolID 30 Character {@link String}
+   * @return {@link String}
+   */
+  static getFrameShape(symbolID: string): string;
+  /**
+   * Gets the 3 digit country code from positions 28-30
+   * @param symbolID 30 Character {@link String}
+   * @return {@link String}
+   */
+  static getCountryCode(symbolID: string): string;
+  /**
+   * Sets the country code on the symbol code
+   * @param symbolID 30 Character string
+   * @param countryCode country code like "840" for USA or "076" for Brazil
+   * @return updated 30 character symbolID
+   */
+  static setCountryCode(symbolID: string, countryCode: string): string;
 }
 //#endregion
 //#region src/main/ts/armyc2/c5isr/JavaLineArray/LinePattern.d.ts
@@ -7704,5 +8059,5 @@ declare function init(location?: string): Promise<void>;
  */
 declare function isReady(): boolean;
 //#endregion
-export { AffiliationColors, Basic3DShapes, BasicShapes, C2DLookup, Color, DistanceUnit, DrawRules, ErrorLogger, Font, GENCLookup, type IPointConversion, LinePattern, LogLevel, MODrawRules, MSInfo, MSLookup, MilStdAttributes, MilStdIconRenderer, MilStdSymbol, Modifiers, Point, Point2D, PointConverter3D, Rectangle2D, RendererSettings, RendererUtilities, SVGInfo, SVGLookup, SVGSymbolInfo, SectorModUtils, ShapeInfo, SymbolID, SymbolUtilities, WebRenderer, clsRenderer, init, initialize, isReady };
+export { AffiliationColors, Basic3DShapes, BasicShapes, C2DLookup, Color, DistanceUnit, DrawRules, ErrorLogger, Font, GENCLookup, type IPointConversion, LinePattern, LogLevel, MODrawRules, MSInfo, MSLookup, MilStdAttributes, MilStdIconRenderer, MilStdSymbol, Modifiers, Point, Point2D, PointConverter3D, Rectangle2D, RendererSettings, RendererUtilities, SVGInfo, SVGLookup, SVGSymbolInfo, SectorModUtils, ShapeInfo, SymbolID, SymbolID2, SymbolUtilities, WebRenderer, clsRenderer, init, initialize, isReady };
 //# sourceMappingURL=C5Ren.d.mts.map
