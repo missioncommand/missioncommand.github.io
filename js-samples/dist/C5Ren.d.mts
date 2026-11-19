@@ -5425,196 +5425,196 @@ declare class SymbolID2 {
    * Attempts to resolve a bad symbol ID into a value that can be found in {@link MSLookup}.
    * If it fails, it will return the symbol code for an invalid symbol which is displayed as
    * an inverted question mark (110098000010000000000000000000)
-   * @param symbolID 30 character {@link String}
-   * @return 30 character {@link String} representing the resolved symbol ID.
+   * @param symbolID 30 character string
+   * @return 30 character string representing the resolved symbol ID.
    * @deprecated See {@link SymbolUtilities#reconcileSymbolID(string)}
    */
   static reconcileSymbolID(symbolID: string): string;
   /**
    * Gets the version number from the Symbol ID at positions 1-2
-   * @param symbolID 30 character {@link String}
-   * @return {@link String} like {@link SymbolID2#Version_2525Dch1} (11)
+   * @param symbolID 30 character string
+   * @return string like {@link SymbolID2#Version_2525Dch1} (11)
    */
   static getVersion(symbolID: string): string;
   /**
    * Sets the version number of the Symbol ID at positions 1-2
-   * @param symbolID 30 character {@link String}
-   * @param ver {@link String} like {@link SymbolID2#Version_2525Dch1} (11)
-   * @return updated 30 character {@link String} symbol ID
+   * @param symbolID 30 character string
+   * @param ver string like {@link SymbolID2#Version_2525Dch1} (11)
+   * @return updated 30 character string symbol ID
    */
   static setVersion(symbolID: string, ver: string): string;
   /**
    * Get Context (Reality (0), Exercise (1), Simulation (2)) at position 3
    * Higher values are NATO only
-   * @param symbolID 30 Character {@link String}
-   * @return {@link String} (represented as a string in TS since there is no char type)
+   * @param symbolID 30 Character string
+   * @return string (represented as a string in TS since there is no char type)
    */
   static getContext(symbolID: string): string;
   /**
    * Set Context (Reality (0), Exercise (1), Simulation (2)) at position 3
-   * @param symbolID 30 Character {@link String}
-   * @param context {@link String}
-   * @return {@link String} updated Symbol ID.
+   * @param symbolID 30 Character string
+   * @param context string
+   * @return string updated Symbol ID.
    */
   static setContext(symbolID: string, context: string): string;
   /**
    * Get Affiliation from position 4
-   * @param symbolID 30 Character {@link String}
-   * @return {@link String} like {@link SymbolID2#StandardIdentity_Affiliation_Friend}
+   * @param symbolID 30 Character string
+   * @return string like {@link SymbolID2#StandardIdentity_Affiliation_Friend}
    */
   static getAffiliation(symbolID: string): string;
   /**
    * Set Affiliation at position 4
-   * @param symbolID 30 Character {@link String}
+   * @param symbolID 30 Character string
    * @param affiliation like {@link SymbolID2#StandardIdentity_Affiliation_Friend}
-   * @return {@link String} updated Symbol ID.
+   * @return string updated Symbol ID.
    */
   static setAffiliation(symbolID: string, affiliation: string): string;
   /**
    * Get Symbol Set from positions 5-6
-   * @param symbolID 30 Character {@link String}
-   * @return {@link String} like {@link SymbolID2#SymbolSet_LandCivilianUnit_Organization}
+   * @param symbolID 30 Character string
+   * @return string like {@link SymbolID2#SymbolSet_LandCivilianUnit_Organization}
    */
   static getSymbolSet(symbolID: string): string;
   /**
    * Set Symbol Set at positions 5-6
-   * @param symbolID 30 Character {@link String}
+   * @param symbolID 30 Character string
    * @param ss like {@link SymbolID2#SymbolSet_LandCivilianUnit_Organization}
-   * @return {@link String} updated Symbol ID.
+   * @return string updated Symbol ID.
    */
   static setSymbolSet(symbolID: string, ss: string): string;
   /**
    * Get Status from position 7
-   * @param symbolID 30 Character {@link String}
-   * @return {@link String} like {@link SymbolID2#Status_Present}
+   * @param symbolID 30 Character string
+   * @return string like {@link SymbolID2#Status_Present}
    */
   static getStatus(symbolID: string): string;
   /**
    * Set Status at position 7
-   * @param symbolID 30 Character {@link String}
+   * @param symbolID 30 Character string
    * @param status like {@link SymbolID2#Status_Present}
-   * @return {@link String} updated Symbol ID.
+   * @return string updated Symbol ID.
    */
   static setStatus(symbolID: string, status: string): string;
   /**
    * Get HQTFDU from position 8
-   * @param symbolID 30 Character {@link String}
-   * @return {@link String} like {@link SymbolID2#HQTFDU_Headquarters}
+   * @param symbolID 30 Character string
+   * @return string like {@link SymbolID2#HQTFDU_Headquarters}
    */
   static getHQTFDU(symbolID: string): string;
   /**
    * Set HQTFDU at position 8
-   * @param symbolID 30 Character {@link String}
+   * @param symbolID 30 Character string
    * @param hqtfdu like {@link SymbolID2#HQTFDU_Headquarters}
-   * @return {@link String} updated Symbol ID.
+   * @return string updated Symbol ID.
    */
   static setHQTFDU(symbolID: string, hqtfdu: string): string;
   /**
    * Get Amplifier Descriptor which can describe things like
    * Echelon / Mobility / Towed Array / Leadership Indicator from positions 9-10
-   * @param symbolID 30 Character {@link String}
-   * @return {@link String}
+   * @param symbolID 30 Character string
+   * @return string
    */
   static getAmplifierDescriptor(symbolID: string): string;
   /**
    * Set Amplifier Descriptor which can describe things like
    * Echelon / Mobility / Towed Array / Leadership Indicator at positions 9-10
-   * @param symbolID 30 Character {@link String}
-   * @param ad {@link String}
-   * @return {@link String}
+   * @param symbolID 30 Character string
+   * @param ad string
+   * @return string
    */
   static setAmplifierDescriptor(symbolID: string, ad: string): string;
   /**
    * Get Entity Code from positions 11-16.
    * These six digits identify a unique symbol within a symbol set.
-   * @param symbolID 30 Character {@link String}
-   * @return {@link String}
+   * @param symbolID 30 Character string
+   * @return string
    */
   static getEntityCode(symbolID: string): string;
   /**
    * Set Entity Code at positions 11-16.
    * These six digits identify a unique symbol within a symbol set.
-   * @param symbolID 30 Character {@link String}
-   * @param entityCode {@link String}
-   * @return {@link String}
+   * @param symbolID 30 Character string
+   * @param entityCode string
+   * @return string
    */
   static setEntityCode(symbolID: string, entityCode: string): string;
   /**
    * Get Entity from positions 11-12.
-   * @param symbolID 30 Character {@link String}
-   * @return {@link String}
+   * @param symbolID 30 Character string
+   * @return string
    */
   static getEntity(symbolID: string): string;
   /**
    * Get Entity Type from positions 13-14.
-   * @param symbolID 30 Character {@link String}
-   * @return {@link String}
+   * @param symbolID 30 Character string
+   * @return string
    */
   static getEntityType(symbolID: string): string;
   /**
    * Get Entity Subtype from positions 15-16.
-   * @param symbolID 30 Character {@link String}
-   * @return {@link String}
+   * @param symbolID 30 Character string
+   * @return string
    */
   static getEntitySubtype(symbolID: string): string;
   /**
    * Get Sector 1 Modifier from positions 17-18.
-   * @param symbolID 30 Character {@link String}
-   * @return {@link String}
+   * @param symbolID 30 Character string
+   * @return string
    */
   static getModifier1(String: string): string;
   /**
    * Get Sector 1 Modifier to positions 17-18.
-   * @param symbolID 30 Character {@link String}
-   * @param mod1 {@link String} hex string from "00" to "FF"
-   * @return {@link String}
+   * @param symbolID 30 Character string
+   * @param mod1 string hex string from "00" to "FF"
+   * @return string
    */
   static setModifier1(symbolID: string, mod1: string): string;
   /**
    * Get Common Sector 1 Modifier from position 21.
-   * @param symbolID 30 Character {@link String}
-   * @return {@link String}
+   * @param symbolID 30 Character string
+   * @return string
    */
   static getCommonModifier1(symbolID: string): string;
   /**
    * Set Common Sector 1 Modifier at position 21.
-   * @param symbolID 30 Character {@link String}
-   * @param mod1I {@link String}
-   * @return {@link String}
+   * @param symbolID 30 Character string
+   * @param mod1I string
+   * @return string
    */
   static setCommonModifier1(symbolID: string, mod1I: string): string;
   /**
    * Get Sector 2 Modifier from positions 17-18.
-   * @param symbolID 30 Character {@link String}
-   * @return {@link String}
+   * @param symbolID 30 Character string
+   * @return string
    */
   static getModifier2(symbolID: string): string;
   /**
    * Set Sector 2 Modifier to positions 17-18.
-   * @param symbolID 30 Character {@link String}
-   * @param mod2 {@link String} hex string from "00" to "FF"
-   * @return {@link String}
+   * @param symbolID 30 Character string
+   * @param mod2 string hex string from "00" to "FF"
+   * @return string
    */
   static setModifier2(symbolID: string, mod2: string): string;
   /**
    * Get Common Sector 2 Modifier from position 22.
-   * @param symbolID 30 Character {@link String}
-   * @return {@link String}
+   * @param symbolID 30 Character string
+   * @return string
    */
   static getCommonModifier2(symbolID: string): string;
   /**
    * Set Common Sector 2 Modifier at position 22.
-   * @param symbolID 30 Character {@link String}
-   * @param mod2I {@link String}
-   * @return {@link String}
+   * @param symbolID 30 Character string
+   * @param mod2I string
+   * @return string
    */
   static setCommonModifier2(symbolID: string, mod2I: string): string;
   /**
    * In 2525E, position 23 of the symbol code has the Frame Shape modifier.
    * This lets a user force a different frame shape than what a symbol would normally have.
    * This function returns the frame shape value for what the default frame would be for a specific symbol set.
-   * @param symbolID 30 Character {@link String}
-   * @return {@link String}
+   * @param symbolID 30 Character string
+   * @return string
    */
   static getDefaultFrameShape(symbolID: string): string;
   /**
@@ -5625,14 +5625,14 @@ declare class SymbolID2 {
   static setFrameShape(symbolID: string, frameShape: string): string;
   /**
    * Gets the Frame Shape override from position 23.
-   * @param symbolID 30 Character {@link String}
-   * @return {@link String}
+   * @param symbolID 30 Character string
+   * @return string
    */
   static getFrameShape(symbolID: string): string;
   /**
    * Gets the 3 digit country code from positions 28-30
-   * @param symbolID 30 Character {@link String}
-   * @return {@link String}
+   * @param symbolID 30 Character string
+   * @return string
    */
   static getCountryCode(symbolID: string): string;
   /**

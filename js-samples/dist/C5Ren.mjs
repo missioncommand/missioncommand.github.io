@@ -143631,7 +143631,7 @@ var SymbolUtilities = class SymbolUtilities {
 	*/
 	static hasFDI(symbolID) {
 		let hqtfd = SymbolID.getHQTFD(symbolID);
-		if (hqtfd === SymbolID.HQTFD_FeintDummy || hqtfd === SymbolID.HQTFD_FeintDummy_TaskForce || hqtfd === SymbolID.HQTFD_FeintDummy_Headquarters || hqtfd === SymbolID.HQTFD_FeintDummy_TaskForce_Headquarters) return true;
+		if (hqtfd === SymbolID.HQTFD_FeintDummy || hqtfd === SymbolID.HQTFD_FeintDummy_TaskForce || hqtfd === SymbolID.HQTFD_FeintDummy_Headquarters || hqtfd === SymbolID.HQTFD_FeintDummy_TaskForce_Headquarters || hqtfd === SymbolID.HQTFD_Unmanned_Marker_FeintDummy || hqtfd === SymbolID.HQTFD_Unmanned_Marker_Autonomous_FeintDummy || hqtfd === SymbolID.HQTFD_Unmanned_Marker_Remotely_Piloted_FeintDummy) return true;
 		else return false;
 	}
 	static isGreenProtectionGraphic(...args) {
@@ -153718,8 +153718,8 @@ var SymbolID2 = class {
 	* Attempts to resolve a bad symbol ID into a value that can be found in {@link MSLookup}.
 	* If it fails, it will return the symbol code for an invalid symbol which is displayed as
 	* an inverted question mark (110098000010000000000000000000)
-	* @param symbolID 30 character {@link String}
-	* @return 30 character {@link String} representing the resolved symbol ID.
+	* @param symbolID 30 character string
+	* @return 30 character string representing the resolved symbol ID.
 	* @deprecated See {@link SymbolUtilities#reconcileSymbolID(string)}
 	*/
 	static reconcileSymbolID(symbolID) {
@@ -153727,17 +153727,17 @@ var SymbolID2 = class {
 	}
 	/**
 	* Gets the version number from the Symbol ID at positions 1-2
-	* @param symbolID 30 character {@link String}
-	* @return {@link String} like {@link SymbolID2#Version_2525Dch1} (11)
+	* @param symbolID 30 character string
+	* @return string like {@link SymbolID2#Version_2525Dch1} (11)
 	*/
 	static getVersion(symbolID) {
 		return symbolID.substring(0, 2);
 	}
 	/**
 	* Sets the version number of the Symbol ID at positions 1-2
-	* @param symbolID 30 character {@link String}
-	* @param ver {@link String} like {@link SymbolID2#Version_2525Dch1} (11)
-	* @return updated 30 character {@link String} symbol ID
+	* @param symbolID 30 character string
+	* @param ver string like {@link SymbolID2#Version_2525Dch1} (11)
+	* @return updated 30 character string symbol ID
 	*/
 	static setVersion(symbolID, ver) {
 		if (symbolID !== null && symbolID.length >= 20 && ver !== null && ver.length === 2) return ver + symbolID.substring(2);
@@ -153746,8 +153746,8 @@ var SymbolID2 = class {
 	/**
 	* Get Context (Reality (0), Exercise (1), Simulation (2)) at position 3
 	* Higher values are NATO only
-	* @param symbolID 30 Character {@link String}
-	* @return {@link String} (represented as a string in TS since there is no char type)
+	* @param symbolID 30 Character string
+	* @return string (represented as a string in TS since there is no char type)
 	*/
 	static getContext(symbolID) {
 		if (symbolID !== null && symbolID.length >= 20) return symbolID.charAt(2);
@@ -153755,9 +153755,9 @@ var SymbolID2 = class {
 	}
 	/**
 	* Set Context (Reality (0), Exercise (1), Simulation (2)) at position 3
-	* @param symbolID 30 Character {@link String}
-	* @param context {@link String}
-	* @return {@link String} updated Symbol ID.
+	* @param symbolID 30 Character string
+	* @param context string
+	* @return string updated Symbol ID.
 	*/
 	static setContext(symbolID, context) {
 		if (symbolID !== null && symbolID.length >= 20) return symbolID.substring(0, 2) + context + symbolID.substring(3);
@@ -153765,8 +153765,8 @@ var SymbolID2 = class {
 	}
 	/**
 	* Get Affiliation from position 4
-	* @param symbolID 30 Character {@link String}
-	* @return {@link String} like {@link SymbolID2#StandardIdentity_Affiliation_Friend}
+	* @param symbolID 30 Character string
+	* @return string like {@link SymbolID2#StandardIdentity_Affiliation_Friend}
 	*/
 	static getAffiliation(symbolID) {
 		if (symbolID !== null && symbolID.length >= 20) return symbolID.charAt(3);
@@ -153774,9 +153774,9 @@ var SymbolID2 = class {
 	}
 	/**
 	* Set Affiliation at position 4
-	* @param symbolID 30 Character {@link String}
+	* @param symbolID 30 Character string
 	* @param affiliation like {@link SymbolID2#StandardIdentity_Affiliation_Friend}
-	* @return {@link String} updated Symbol ID.
+	* @return string updated Symbol ID.
 	*/
 	static setAffiliation(symbolID, affiliation) {
 		if (symbolID !== null && symbolID.length >= 20) return symbolID.substring(0, 3) + affiliation + symbolID.substring(4);
@@ -153784,8 +153784,8 @@ var SymbolID2 = class {
 	}
 	/**
 	* Get Symbol Set from positions 5-6
-	* @param symbolID 30 Character {@link String}
-	* @return {@link String} like {@link SymbolID2#SymbolSet_LandCivilianUnit_Organization}
+	* @param symbolID 30 Character string
+	* @return string like {@link SymbolID2#SymbolSet_LandCivilianUnit_Organization}
 	*/
 	static getSymbolSet(symbolID) {
 		if (symbolID !== null && symbolID.length >= 20) return symbolID.substring(4, 6);
@@ -153793,9 +153793,9 @@ var SymbolID2 = class {
 	}
 	/**
 	* Set Symbol Set at positions 5-6
-	* @param symbolID 30 Character {@link String}
+	* @param symbolID 30 Character string
 	* @param ss like {@link SymbolID2#SymbolSet_LandCivilianUnit_Organization}
-	* @return {@link String} updated Symbol ID.
+	* @return string updated Symbol ID.
 	*/
 	static setSymbolSet(symbolID, ss) {
 		if (symbolID !== null && symbolID.length >= 20 && ss !== null && ss.length === 2) return symbolID.substring(0, 4) + ss + symbolID.substring(6);
@@ -153803,8 +153803,8 @@ var SymbolID2 = class {
 	}
 	/**
 	* Get Status from position 7
-	* @param symbolID 30 Character {@link String}
-	* @return {@link String} like {@link SymbolID2#Status_Present}
+	* @param symbolID 30 Character string
+	* @return string like {@link SymbolID2#Status_Present}
 	*/
 	static getStatus(symbolID) {
 		if (symbolID !== null && symbolID.length >= 20) return symbolID.charAt(6);
@@ -153812,17 +153812,17 @@ var SymbolID2 = class {
 	}
 	/**
 	* Set Status at position 7
-	* @param symbolID 30 Character {@link String}
+	* @param symbolID 30 Character string
 	* @param status like {@link SymbolID2#Status_Present}
-	* @return {@link String} updated Symbol ID.
+	* @return string updated Symbol ID.
 	*/
 	static setStatus(symbolID, status) {
 		return symbolID.substring(0, 6) + status + symbolID.substring(7);
 	}
 	/**
 	* Get HQTFDU from position 8
-	* @param symbolID 30 Character {@link String}
-	* @return {@link String} like {@link SymbolID2#HQTFDU_Headquarters}
+	* @param symbolID 30 Character string
+	* @return string like {@link SymbolID2#HQTFDU_Headquarters}
 	*/
 	static getHQTFDU(symbolID) {
 		if (symbolID !== null && symbolID.length >= 20) return symbolID.charAt(7);
@@ -153830,9 +153830,9 @@ var SymbolID2 = class {
 	}
 	/**
 	* Set HQTFDU at position 8
-	* @param symbolID 30 Character {@link String}
+	* @param symbolID 30 Character string
 	* @param hqtfdu like {@link SymbolID2#HQTFDU_Headquarters}
-	* @return {@link String} updated Symbol ID.
+	* @return string updated Symbol ID.
 	*/
 	static setHQTFDU(symbolID, hqtfdu) {
 		if (symbolID !== null && symbolID.length >= 20) return symbolID.substring(0, 7) + hqtfdu + symbolID.substring(8);
@@ -153841,8 +153841,8 @@ var SymbolID2 = class {
 	/**
 	* Get Amplifier Descriptor which can describe things like
 	* Echelon / Mobility / Towed Array / Leadership Indicator from positions 9-10
-	* @param symbolID 30 Character {@link String}
-	* @return {@link String}
+	* @param symbolID 30 Character string
+	* @return string
 	*/
 	static getAmplifierDescriptor(symbolID) {
 		if (symbolID !== null && symbolID.length >= 20) return symbolID.substring(8, 10);
@@ -153851,9 +153851,9 @@ var SymbolID2 = class {
 	/**
 	* Set Amplifier Descriptor which can describe things like
 	* Echelon / Mobility / Towed Array / Leadership Indicator at positions 9-10
-	* @param symbolID 30 Character {@link String}
-	* @param ad {@link String}
-	* @return {@link String}
+	* @param symbolID 30 Character string
+	* @param ad string
+	* @return string
 	*/
 	static setAmplifierDescriptor(symbolID, ad) {
 		if (symbolID !== null && symbolID.length >= 20 && ad !== null && ad.length === 2) return symbolID.substring(0, 8) + ad + symbolID.substring(10);
@@ -153862,8 +153862,8 @@ var SymbolID2 = class {
 	/**
 	* Get Entity Code from positions 11-16.
 	* These six digits identify a unique symbol within a symbol set.
-	* @param symbolID 30 Character {@link String}
-	* @return {@link String}
+	* @param symbolID 30 Character string
+	* @return string
 	*/
 	static getEntityCode(symbolID) {
 		if (symbolID !== null && symbolID.length >= 20) return symbolID.substring(10, 16);
@@ -153872,9 +153872,9 @@ var SymbolID2 = class {
 	/**
 	* Set Entity Code at positions 11-16.
 	* These six digits identify a unique symbol within a symbol set.
-	* @param symbolID 30 Character {@link String}
-	* @param entityCode {@link String}
-	* @return {@link String}
+	* @param symbolID 30 Character string
+	* @param entityCode string
+	* @return string
 	*/
 	static setEntityCode(symbolID, entityCode) {
 		if (symbolID !== null && symbolID.length >= 20 && entityCode !== null && entityCode.length === 6) return symbolID.substring(0, 10) + entityCode + symbolID.substring(16);
@@ -153882,8 +153882,8 @@ var SymbolID2 = class {
 	}
 	/**
 	* Get Entity from positions 11-12.
-	* @param symbolID 30 Character {@link String}
-	* @return {@link String}
+	* @param symbolID 30 Character string
+	* @return string
 	*/
 	static getEntity(symbolID) {
 		if (symbolID !== null && symbolID.length >= 20) return symbolID.substring(10, 12);
@@ -153891,8 +153891,8 @@ var SymbolID2 = class {
 	}
 	/**
 	* Get Entity Type from positions 13-14.
-	* @param symbolID 30 Character {@link String}
-	* @return {@link String}
+	* @param symbolID 30 Character string
+	* @return string
 	*/
 	static getEntityType(symbolID) {
 		if (symbolID !== null && symbolID.length >= 20) return symbolID.substring(12, 14);
@@ -153900,8 +153900,8 @@ var SymbolID2 = class {
 	}
 	/**
 	* Get Entity Subtype from positions 15-16.
-	* @param symbolID 30 Character {@link String}
-	* @return {@link String}
+	* @param symbolID 30 Character string
+	* @return string
 	*/
 	static getEntitySubtype(symbolID) {
 		if (symbolID !== null && symbolID.length >= 20) return symbolID.substring(14, 16);
@@ -153909,8 +153909,8 @@ var SymbolID2 = class {
 	}
 	/**
 	* Get Sector 1 Modifier from positions 17-18.
-	* @param symbolID 30 Character {@link String}
-	* @return {@link String}
+	* @param symbolID 30 Character string
+	* @return string
 	*/
 	static getModifier1(String$1) {
 		if (String$1 !== null && String$1.length >= 20) return String$1.substring(16, 18);
@@ -153918,9 +153918,9 @@ var SymbolID2 = class {
 	}
 	/**
 	* Get Sector 1 Modifier to positions 17-18.
-	* @param symbolID 30 Character {@link String}
-	* @param mod1 {@link String} hex string from "00" to "FF"
-	* @return {@link String}
+	* @param symbolID 30 Character string
+	* @param mod1 string hex string from "00" to "FF"
+	* @return string
 	*/
 	static setModifier1(symbolID, mod1) {
 		let newID = symbolID;
@@ -153932,8 +153932,8 @@ var SymbolID2 = class {
 	}
 	/**
 	* Get Common Sector 1 Modifier from position 21.
-	* @param symbolID 30 Character {@link String}
-	* @return {@link String}
+	* @param symbolID 30 Character string
+	* @return string
 	*/
 	static getCommonModifier1(symbolID) {
 		if (symbolID !== null && symbolID.length === 30) return symbolID.charAt(20);
@@ -153941,9 +153941,9 @@ var SymbolID2 = class {
 	}
 	/**
 	* Set Common Sector 1 Modifier at position 21.
-	* @param symbolID 30 Character {@link String}
-	* @param mod1I {@link String}
-	* @return {@link String}
+	* @param symbolID 30 Character string
+	* @param mod1I string
+	* @return string
 	*/
 	static setCommonModifier1(symbolID, mod1I) {
 		if (symbolID !== null && symbolID.length === 30) return symbolID.substring(0, 20) + mod1I + symbolID.substring(21);
@@ -153951,8 +153951,8 @@ var SymbolID2 = class {
 	}
 	/**
 	* Get Sector 2 Modifier from positions 17-18.
-	* @param symbolID 30 Character {@link String}
-	* @return {@link String}
+	* @param symbolID 30 Character string
+	* @return string
 	*/
 	static getModifier2(symbolID) {
 		if (symbolID !== null && symbolID.length >= 20) return symbolID.substring(18, 20);
@@ -153960,9 +153960,9 @@ var SymbolID2 = class {
 	}
 	/**
 	* Set Sector 2 Modifier to positions 17-18.
-	* @param symbolID 30 Character {@link String}
-	* @param mod2 {@link String} hex string from "00" to "FF"
-	* @return {@link String}
+	* @param symbolID 30 Character string
+	* @param mod2 string hex string from "00" to "FF"
+	* @return string
 	*/
 	static setModifier2(symbolID, mod2) {
 		let newID = symbolID;
@@ -153974,8 +153974,8 @@ var SymbolID2 = class {
 	}
 	/**
 	* Get Common Sector 2 Modifier from position 22.
-	* @param symbolID 30 Character {@link String}
-	* @return {@link String}
+	* @param symbolID 30 Character string
+	* @return string
 	*/
 	static getCommonModifier2(symbolID) {
 		if (symbolID !== null && symbolID.length === 30) return symbolID.charAt(21);
@@ -153983,9 +153983,9 @@ var SymbolID2 = class {
 	}
 	/**
 	* Set Common Sector 2 Modifier at position 22.
-	* @param symbolID 30 Character {@link String}
-	* @param mod2I {@link String}
-	* @return {@link String}
+	* @param symbolID 30 Character string
+	* @param mod2I string
+	* @return string
 	*/
 	static setCommonModifier2(symbolID, mod2I) {
 		if (symbolID !== null && symbolID.length === 30) return symbolID.substring(0, 21) + mod2I + symbolID.substring(22);
@@ -153995,8 +153995,8 @@ var SymbolID2 = class {
 	* In 2525E, position 23 of the symbol code has the Frame Shape modifier.
 	* This lets a user force a different frame shape than what a symbol would normally have.
 	* This function returns the frame shape value for what the default frame would be for a specific symbol set.
-	* @param symbolID 30 Character {@link String}
-	* @return {@link String}
+	* @param symbolID 30 Character string
+	* @return string
 	*/
 	static getDefaultFrameShape(symbolID) {
 		return SymbolID.getDefaultFrameShape(symbolID);
@@ -154012,8 +154012,8 @@ var SymbolID2 = class {
 	}
 	/**
 	* Gets the Frame Shape override from position 23.
-	* @param symbolID 30 Character {@link String}
-	* @return {@link String}
+	* @param symbolID 30 Character string
+	* @return string
 	*/
 	static getFrameShape(symbolID) {
 		if (symbolID !== null && symbolID.length >= 23) return symbolID.charAt(22);
@@ -154021,8 +154021,8 @@ var SymbolID2 = class {
 	}
 	/**
 	* Gets the 3 digit country code from positions 28-30
-	* @param symbolID 30 Character {@link String}
-	* @return {@link String}
+	* @param symbolID 30 Character string
+	* @return string
 	*/
 	static getCountryCode(symbolID) {
 		if (symbolID !== null && symbolID.length === 30) return symbolID.substring(27, 30);
@@ -166610,6 +166610,19 @@ var ModifierRenderer = class ModifierRenderer {
 		let umStrokeWidth = 2;
 		if (pixelSize <= 50) umStrokeWidth = 1;
 		if (hqtfd == SymbolID.HQTFD_Unmanned_Marker || hqtfd == SymbolID.HQTFD_Unmanned_Marker_Autonomous || hqtfd == SymbolID.HQTFD_Unmanned_Marker_Remotely_Piloted || hqtfd == SymbolID.HQTFD_Unmanned_Marker_FeintDummy || hqtfd == SymbolID.HQTFD_Unmanned_Marker_Autonomous_FeintDummy || hqtfd == SymbolID.HQTFD_Unmanned_Marker_Remotely_Piloted_FeintDummy) {
+			let nsTx = 0;
+			let nsTy = 0;
+			let ratio = 1;
+			let si = SVGLookup.getInstance().getSVGLInfo(SVGLookup.getFrameID(symbolID), SymbolID.getVersion(symbolID));
+			if (symbolBounds.getHeight() > symbolBounds.getWidth()) {
+				let sHeight = si.getBbox().getHeight();
+				ratio = symbolBounds.getHeight() / sHeight;
+			} else {
+				let sWidth = si.getBbox().getWidth();
+				ratio = symbolBounds.getWidth() / sWidth;
+			}
+			nsTx = si.getBbox().getX() * ratio * -1;
+			nsTy = si.getBbox().getY() * ratio * -1;
 			umBounds = new Rectangle2D(174, 280, 63, 61);
 			let umStroke = "#000000";
 			let umFill = "#FFFFFF";
@@ -166639,6 +166652,8 @@ var ModifierRenderer = class ModifierRenderer {
 			circlePoint.x = circlePoint.x + xOffset;
 			circlePoint.y = circlePoint.y + yOffset;
 			RectUtilities.shift(umBounds, xOffset, yOffset);
+			umBounds = new Rectangle2D(umBounds.getX() * ratio, umBounds.getY() * ratio, umBounds.getWidth() * ratio, umBounds.getHeight() * ratio);
+			RectUtilities.shift(umBounds, nsTx, nsTy);
 			umSVG = "<g id=\"UM\">\n	";
 			umSVG += "<path stroke=\"" + umStroke + "\" fill=\"" + umFill + "\" stroke-width=\"" + umStrokeWidth + "\" d=\"M" + starStart.x + "," + starStart.y + "c-3.207,-5.299,-5.694,-10.540,-9.796,-15.138c-1.306,-1.614,-2.681,-3.184,-4.121,-4.691c-5.808,-5.497,-12.601,-11.068,-20.332,-13.823c7.731,-2.755,14.524,-8.326,20.332,-13.823c1.440,-1.508,2.816,-3.077,4.121,-4.691c4.102,-4.598,6.590,-9.840,9.796,-15.138c3.207,5.299,5.694,10.540,9.796,15.138c1.306,1.614,2.681,3.184,4.121,4.691c5.808,5.497,12.601,11.068,20.332,13.823c-7.731,2.755,-14.524,8.326,-20.332,13.823c-1.440,1.508,-2.816,3.077,-4.121,4.691c-4.102,4.598,-6.590,9.840,-9.796,15.138z\"/>";
 			if (hqtfd == SymbolID.HQTFD_Unmanned_Marker || hqtfd == SymbolID.HQTFD_Unmanned_Marker_FeintDummy) umSVG += "\n	<circle r=\"7\" cx=\"" + circlePoint.x + "\" cy=\"" + circlePoint.y + "\" fill=\"black\" />";
