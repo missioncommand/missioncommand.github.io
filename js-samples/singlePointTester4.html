@@ -352,7 +352,17 @@
     var svgPreviewDOM = document.getElementById("SVGPreview");
     if(svgPreviewDOM)
     {
-      svgPreviewDOM.innerHTML = si.getSVG();
+		var w = Math.ceil(si.getImageBounds().getWidth());
+        var h = Math.ceil(si.getImageBounds().getHeight());
+        svgPreviewDOM.style.width = w + "px";
+        svgPreviewDOM.style.height = h + "px";
+        svgPreviewDOM.setAttribute('width',w);
+        svgPreviewDOM.setAttribute('height',h);
+		
+		// Also add a responsive viewBox to allow flexible browser-scaling if container is small
+        svgPreviewDOM.setAttribute('viewBox', "0 0 " + w + " " + h);
+		
+		svgPreviewDOM.innerHTML = si.getSVG();
     }
     // If you want the raw SVG markup, re‑enable this:
     
@@ -1212,6 +1222,47 @@
         alert("Selected symbol is not multi-point.");
       }
     }
+	
+	    /**
+     * Parses the raw SVG string using simple string positioning to find
+     * the precise <width> and <height> metadata values.
+     */
+    function parseMetadataDimensions(svgString)
+    {
+      // Find <width> and </width> tags
+      const widthStartTag = "<width>";
+      const widthEndTag = "</width>";
+
+      const wStartIdx = svgString.indexOf(widthStartTag);
+      const wEndIdx = svgString.indexOf(widthEndTag);
+
+      // Find <height> and </height> tags
+      const heightStartTag = "<height>";
+      const heightEndTag = "</height>";
+
+      const hStartIdx = svgString.indexOf(heightStartTag);
+      const hEndIdx = svgString.indexOf(heightEndTag);
+
+      // Extract and parse width (if both tags are found)
+      let widthValue = 0;
+      if (wStartIdx !== -1 && wEndIdx !== -1 && wEndIdx > wStartIdx) {
+        const widthStr = svgString.substring(wStartIdx + widthStartTag.length, wEndIdx);
+        widthValue = parseFloat(widthStr.trim());
+      }
+
+      // Extract and parse height (if both tags are found)
+      let heightValue = 0;
+      if (hStartIdx !== -1 && hEndIdx !== -1 && hEndIdx > hStartIdx) {
+        const heightStr = svgString.substring(hStartIdx + heightStartTag.length, hEndIdx);
+        heightValue = parseFloat(heightStr.trim());
+      }
+
+      return {
+        width: widthValue,
+        height: heightValue
+      };
+    }
+
 
     function renderMP(symbolID, controlPoints) {
       var id = "id";
@@ -1247,7 +1298,18 @@
         var svgPreviewDOM = document.getElementById("SVGPreview");
         if(svgPreviewDOM)
         {
-          svgPreviewDOM.innerHTML = geoSVG;
+			var size = parseMetadataDimensions(geoSVG);
+			var w = Math.ceil(size.width);
+			var h = Math.ceil(size.height);
+			svgPreviewDOM.style.width = w + "px";
+			svgPreviewDOM.style.height = h + "px";
+			svgPreviewDOM.setAttribute('width',w);
+			svgPreviewDOM.setAttribute('height',h);
+			
+			// Also add a responsive viewBox to allow flexible browser-scaling if container is small
+			svgPreviewDOM.setAttribute('viewBox', "0 0 " + w + " " + h);
+		
+			svgPreviewDOM.innerHTML = geoSVG;
         }
 
         if (typeof geoSVG === 'string') {
