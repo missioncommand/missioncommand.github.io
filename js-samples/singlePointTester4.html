@@ -414,10 +414,16 @@
       var svgPreviewDOM = document.getElementById("SVGPreview");
       if(svgPreviewDOM)
       {
-        svgPreviewDOM.style.width = si.getImageBounds().getWidth();
-        svgPreviewDOM.style.height = si.getImageBounds().getHeight();
-        svgPreviewDOM.setAttribute('width',si.getImageBounds().getWidth());
-        svgPreviewDOM.setAttribute('height',si.getImageBounds().getHeight());
+        var w = si.getImageBounds().getWidth();
+        var h = si.getImageBounds().getHeight();
+        svgPreviewDOM.style.width = w + "px";
+        svgPreviewDOM.style.height = h + "px";
+        svgPreviewDOM.setAttribute('width',w + "px");
+        svgPreviewDOM.setAttribute('height',h + "px");
+
+        // Also add a responsive viewBox to allow flexible browser-scaling if container is small
+        svgPreviewDOM.setAttribute('viewBox', "0 0 " + w + " " + h);
+
         svgPreviewDOM.innerHTML = si.getSVG();
       }
 
