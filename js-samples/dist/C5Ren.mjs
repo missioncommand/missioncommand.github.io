@@ -168538,7 +168538,7 @@ var ModifierRenderer = class ModifierRenderer {
 		let sep = " ";
 		if (ver == SymbolID.Version_2525Dch1) {
 			if (ss == SymbolID.SymbolSet_LandUnit || ss == SymbolID.SymbolSet_LandCivilianUnit_Organization) {
-				if (modifiers.has(Modifiers.AA_SPECIAL_C2_HQ)) {
+				if (modifiers.has(Modifiers.AA_SPECIAL_C2_HQ) && SymbolUtilities.hasModifier(symbolID, Modifiers.AA_SPECIAL_C2_HQ)) {
 					temp = modifiers.get(Modifiers.AA_SPECIAL_C2_HQ);
 					if (temp != null && temp !== "") mods.push(new Modifier("AA", temp, 0, 0, true));
 				}
@@ -169012,7 +169012,7 @@ var ModifierRenderer = class ModifierRenderer {
 		} else if (ver == SymbolID.Version_2525E || ver == SymbolID.Version_2525Ech1) {
 			let fs = SymbolID.getFrameShape(symbolID);
 			if (ss == SymbolID.SymbolSet_LandUnit || ss == SymbolID.SymbolSet_LandCivilianUnit_Organization || ss == SymbolID.SymbolSet_SignalsIntelligence && fs == SymbolID.FrameShape_LandUnit) {
-				if (modifiers.has(Modifiers.AA_SPECIAL_C2_HQ)) {
+				if (modifiers.has(Modifiers.AA_SPECIAL_C2_HQ) && SymbolUtilities.hasModifier(symbolID, Modifiers.AA_SPECIAL_C2_HQ)) {
 					temp = modifiers.get(Modifiers.AA_SPECIAL_C2_HQ);
 					if (temp != null && temp !== "") mods.push(new Modifier("AA", temp, 0, 0, true));
 				}
@@ -169630,7 +169630,7 @@ var ModifierRenderer = class ModifierRenderer {
 		} else if (ver == SymbolID.Version_APP6D || ver == SymbolID.Version_APP6Ech2) {
 			SymbolID.getFrameShape(symbolID);
 			if (ss == SymbolID.SymbolSet_LandUnit || ss == SymbolID.SymbolSet_LandCivilianUnit_Organization) {
-				if (modifiers.has(Modifiers.AA_SPECIAL_C2_HQ)) {
+				if (modifiers.has(Modifiers.AA_SPECIAL_C2_HQ) && SymbolUtilities.hasModifier(symbolID, Modifiers.AA_SPECIAL_C2_HQ)) {
 					temp = modifiers.get(Modifiers.AA_SPECIAL_C2_HQ);
 					if (temp != null && temp !== "") mods.push(new Modifier("AA", temp, 0, 0, true));
 				}
@@ -182002,7 +182002,6 @@ var clsUtility = class clsUtility {
 			case TacticalLines.DEMONSTRATE:
 			case TacticalLines.GAP:
 			case TacticalLines.ASLTXING:
-			case TacticalLines.MSDZ:
 				result = 4;
 				break;
 			case TacticalLines.BYPASS:
@@ -182051,6 +182050,7 @@ var clsUtility = class clsUtility {
 			case TacticalLines.BYIMP:
 			case TacticalLines.FORDSITE:
 			case TacticalLines.FORDIF:
+			case TacticalLines.MSDZ:
 			case TacticalLines.IFR:
 			case TacticalLines.MVFR:
 			case TacticalLines.TURBULENCE:
@@ -188803,7 +188803,7 @@ var countsupport = class countsupport {
 					count = 20;
 					break;
 				case TacticalLines.MSDZ:
-					count = 300;
+					count = 200;
 					break;
 				case TacticalLines.CONVOY:
 				case TacticalLines.HCONVOY:
@@ -191621,7 +191621,6 @@ var arraysupport = class arraysupport {
 					break;
 				case TacticalLines.MSDZ:
 					lineutility.InitializePOINT2Array(circlePoints);
-					pt3 = new POINT2(pLinePoints[3]);
 					if (converter == null) {
 						dRadius = lineutility.CalcDistanceDouble(pt0, pt1);
 						lineutility.CalcCircleDouble(pt0, dRadius, 100, circlePoints, 0);
@@ -191634,13 +191633,6 @@ var arraysupport = class arraysupport {
 					} else lineutility.CalcCircleDouble2(pt0, pt2, 100, circlePoints, converter);
 					for (j = 0; j < 100; j++) pLinePoints[100 + j] = new POINT2(circlePoints[j]);
 					pLinePoints[199].style = 5;
-					if (vblSaveCounter == 4) {
-						if (converter == null) {
-							dRadius = lineutility.CalcDistanceDouble(pt0, pt3);
-							lineutility.CalcCircleDouble(pt0, dRadius, 100, circlePoints, 0);
-						} else lineutility.CalcCircleDouble2(pt0, pt3, 100, circlePoints, converter);
-						for (j = 0; j < 100; j++) pLinePoints[200 + j] = new POINT2(circlePoints[j]);
-					}
 					acCounter = vblCounter;
 					break;
 				case TacticalLines.CONVOY:
