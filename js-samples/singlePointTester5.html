@@ -8,6 +8,8 @@
 
   <!-- WebPack bundle -->
   <script src="dist/C5Ren.umd.js" type="text/javascript"></script>
+  
+
 
   <style>
     /* Global layout and typography */
@@ -263,8 +265,8 @@
 		"AO": "A:BBB-CC",
 		"J": "A1",
 		"K": "FO",
-		"AM": "500,1000,1500",
-		"AN": "325,45"
+    "AM": "500,1000,1500",
+    "AN": "325,45"
 	};
 
 	// Global map to hold currently typed manual modifier values
@@ -431,6 +433,10 @@
         svgPreviewDOM.style.height = h + "px";
         svgPreviewDOM.setAttribute('width',w);
         svgPreviewDOM.setAttribute('height',h);
+
+        // Also add a responsive viewBox to allow flexible browser-scaling if container is small
+        svgPreviewDOM.setAttribute('viewBox', "0 0 " + w + " " + h);
+
         svgPreviewDOM.innerHTML = si.getSVG();
     }
   }
@@ -1365,10 +1371,10 @@
           svgPreviewDOM.style.height = h + "px";
           svgPreviewDOM.setAttribute('width',w);
           svgPreviewDOM.setAttribute('height',h);
-		  
+
           // Also add a responsive viewBox to allow flexible browser-scaling if container is small
           svgPreviewDOM.setAttribute('viewBox', "0 0 " + w + " " + h);
-		  
+
           svgPreviewDOM.innerHTML = geoSVG;
         }
 
